@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{A100CA11-6BB5-EFB5-EA04-EEA1C551A024}</ProjectGuid>
+    <ProjectGuid>{9F292D0E-B73F-0D88-FC08-F3AAB38D93C4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -46,15 +46,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Let&apos;s Try Shooter\Scripts\CompletedScripts\RayCastShootComplete.cs" />
-     <Compile Include="Assets\Let&apos;s Try Shooter\Scripts\CompletedScripts\RayViewerComplete.cs" />
-     <Compile Include="Assets\Let&apos;s Try Shooter\Scripts\CompletedScripts\ShootableBox.cs" />
-     <Compile Include="Assets\Let&apos;s Try Shooter\Scripts\PlayerController.cs" />
-     <Compile Include="Assets\Let&apos;s Try Shooter\Scripts\PlayerControllerFinalLevel.cs" />
-     <Compile Include="Assets\Let&apos;s Try Shooter\Scripts\PositionRecorder.cs" />
-     <Compile Include="Assets\Let&apos;s Try Shooter\Scripts\RayCastShoot.cs" />
-     <Compile Include="Assets\Let&apos;s Try Shooter\Scripts\RayViewer.cs" />
-     <Compile Include="Assets\Let&apos;s Try Shooter\Scripts\Rotator.cs" />
+     <Compile Include="Assets\Morris Maze\Scripts\CompletedScripts\RayCastShootComplete.cs" />
+     <Compile Include="Assets\Morris Maze\Scripts\CompletedScripts\RayViewerComplete.cs" />
+     <Compile Include="Assets\Morris Maze\Scripts\CompletedScripts\ShootableBox.cs" />
+     <Compile Include="Assets\Morris Maze\Scripts\PlayerController.cs" />
+     <Compile Include="Assets\Morris Maze\Scripts\PlayerControllerFinalLevel.cs" />
+     <Compile Include="Assets\Morris Maze\Scripts\PositionRecorder.cs" />
+     <Compile Include="Assets\Morris Maze\Scripts\RayCastShoot.cs" />
+     <Compile Include="Assets\Morris Maze\Scripts\RayViewer.cs" />
+     <Compile Include="Assets\Morris Maze\Scripts\Rotator.cs" />
      <Compile Include="Assets\Particle\Scrpit\ParticleEffectController.cs" />
      <None Include="Assets\Standard Assets\Effects\CinematicEffects(ALPHA)\AntiAliasing\FXAA\Resources\FXAA3.cginc" />
      <None Include="Assets\Standard Assets\Effects\CinematicEffects(BETA)\ScreenSpaceReflection\Resources\ScreenSpaceReflection.shader" />
@@ -81,6 +81,7 @@
      <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Advanced.shader" />
      <None Include="Assets\Standard Assets\Effects\CinematicEffects(BETA)\LensAberrations\Resources\LensAberrations.shader" />
      <None Include="Assets\Standard Assets\Effects\CinematicEffects(BETA)\TonemappingColorGrading\Resources\HistogramCompute.compute" />
+     <None Include="Assets\Fonts\Lecompte\Lecompte.fnt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
@@ -102,7 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{21654CD4-F142-779A-B2D7-D5222375EB7B}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
+      <Project>{81A43681-6488-E0C7-D8B6-6AB2F5DA7543}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
