@@ -226,7 +226,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FPSC: {fileID: 340225705}
   countText: {fileID: 223646462}
-  totalPickUpCounts: 4
+  totalPickUpCounts: 2
   foundTextShowTime: 2
   objectiveList:
   - {fileID: 291877590}
@@ -4982,6 +4982,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4961571897240868, guid: e2010b37b4664444ea2b7c6cf4deff3b, type: 2}
       propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 65118837348699344, guid: e2010b37b4664444ea2b7c6cf4deff3b,
+        type: 2}
+      propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:

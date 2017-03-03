@@ -64,11 +64,7 @@ public class PlayerController : MonoBehaviour {
 			if (Time.time > foundTextOutTime) {
 				foundTextObj.gameObject.SetActive (false);
 				FPSC.transform.position = initPos;
-				//Quaternion target = Quaternion.Euler(0, 180 - Random.value * 360, 0);
-				//FPSC.transform.Rotate (0, 180 - Random.value * 360, 0);
 				FPSC_Script.RandomizeViewAngle();
-
-				Debug.Log (FPSC.transform.eulerAngles);
 			}
 		}
 			
@@ -80,15 +76,9 @@ public class PlayerController : MonoBehaviour {
 
 		if (nextObjective.IsActive ()) {
 			if (Time.time > nextObjectiveFinishedTime) {
-				// FPSC.transform.eulerAngles = new Vector3 (0, Random.value * 360, 0);
-				// FPSC.transform.position = new Vector3 (0, FPSC.transform.position.y, 0);
 				FPSC.transform.position = initPos;
-				Debug.Log (FPSC.transform.position);
-				// Quaternion target = Quaternion.Euler(0, 180 - Random.value * 360, 0);
-        		// FPSC.transform.rotation = Quaternion.Slerp(transform.rotation, target, 20.0f);
-				Debug.Log (FPSC.transform.eulerAngles);
+				objectiveType = objectiveList [objectIndex++];
 				nextObjective.gameObject.SetActive (false);
-				Start ();
 			}
 		}
 
@@ -152,7 +142,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void GoToNextObjective () {
-
+		objectiveType = objectiveList [objectIndex];
 		nextObjective.GetComponentInChildren<Text> ().text = "Next objective: " + objectTag;
 		nextObjective.gameObject.SetActive (true);
 		nextObjectiveFinishedTime = Time.time + nextObjectiveInterval;
