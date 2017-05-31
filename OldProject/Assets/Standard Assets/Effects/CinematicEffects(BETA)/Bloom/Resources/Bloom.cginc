@@ -1,3 +1,5 @@
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
 #include "UnityCG.cginc"
 
 // Mobile: use RGBM instead of float/half RGB
@@ -134,7 +136,7 @@ struct v2f_multitex
 v2f_multitex vert_multitex(appdata_full v)
 {
     v2f_multitex o;
-    o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+    o.pos = UnityObjectToClipPos(v.vertex);
     o.uvMain = v.texcoord.xy;
     o.uvBase = v.texcoord.xy;
 #if UNITY_UV_STARTS_AT_TOP
