@@ -36,14 +36,11 @@ public class GenerateWall : MonoBehaviour {
         GameObject obj = GameObject.Find("WallCreator");
         data = obj.GetComponent<GenerateGenerateWall>().globalData;
 
-        Debug.Log(data.EndColour);
 
         Color start = GetColour(data.StartColour);
         
         Color end = GetColour(data.EndColour);
 
-        Debug.Log(start);
-        Debug.Log(end);
 
 
         float redShift = (end.r - start.r) / (maxNumWalls -  minNumWalls);
@@ -58,7 +55,6 @@ public class GenerateWall : MonoBehaviour {
             g = start.g + greenShift * (data.Sides - minNumWalls),
             b = start.b + blueShift * (data.Sides - minNumWalls)
         };
-        Debug.Log(data.Sides);
 
         wall.GetComponent<Renderer>().sharedMaterial.color = color;
 

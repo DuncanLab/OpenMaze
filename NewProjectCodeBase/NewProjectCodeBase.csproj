@@ -96,9 +96,11 @@
     <Compile Include="Assets\Scripts\GenerateGenerateWall.cs" />
     <Compile Include="Assets\Scripts\GenerateWall.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\RotateBlock.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\InputFiles\requirements.txt" />
+    <None Include="Assets\OutputFiles\out.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
