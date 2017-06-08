@@ -6,13 +6,13 @@ using UnityEngine;
 public class GenerateGenerateWall : MonoBehaviour {
     public GameObject create;
     public GenerateWall.Data globalData;
-    private GameObject currCreate;
-    public float delay = 0.01f; 
+    public GameObject currCreate;
+    public float delay = 0.01f;
+    public Vector3 GeneratorPos;
 
     private float timestamp;
     private GenerateWall.Data GetData()
     {
-
         string file = System.IO.File.ReadAllText("Assets/InputFiles/input.json");
         GenerateWall.Data data = JsonUtility.FromJson<GenerateWall.Data>(file);
         return data;
@@ -21,6 +21,7 @@ public class GenerateGenerateWall : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        create.transform.position = GeneratorPos;
         timestamp = 0;
         globalData = GetData();
         currCreate = Instantiate(create);

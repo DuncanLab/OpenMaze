@@ -12,6 +12,9 @@ public class PlayerController : MonoBehaviour {
     }
     private State state;
 
+    private string goal;
+
+
     string path ;
 
     public static float waitTime = 3f;
@@ -42,7 +45,11 @@ public class PlayerController : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("PickUp"))
+        GenerateGenerateWall gen = GameObject.Find("WallCreator").GetComponent<GenerateGenerateWall>();
+        Destroy(gen.currCreate);
+        gen.currCreate = Instantiate(gen.create);
+
+        if (other.gameObject.tag.Contains("Pickup"))
         {
             LogData(true);
 

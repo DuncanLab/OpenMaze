@@ -14,6 +14,7 @@ public class GenerateWall : MonoBehaviour {
     public GameObject parent;
     public float yScale = 10f;
     public List<GameObject> created;
+    public GameObject generator;
 
     //This is an inner data class
     //The reason this inner class exists is for easy serialization from an input file
@@ -32,8 +33,13 @@ public class GenerateWall : MonoBehaviour {
     
 	// Use this for initialization
 	void Start () {
-        created = new List<GameObject>();
-        GameObject obj = GameObject.Find("WallCreator");
+
+        GameObject obj = Instantiate(generator, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
+        created = new List<GameObject>
+        {
+            obj
+        };
+        obj = GameObject.Find("WallCreator");
         data = obj.GetComponent<GenerateGenerateWall>().globalData;
 
 
@@ -147,7 +153,7 @@ public class GenerateWall : MonoBehaviour {
         return Mathf.Cos(degrees * Mathf.PI / 180);
     }
 
-    private static float Sin(float degrees)
+    public static float Sin(float degrees)
     {
         return Mathf.Sin(degrees*Mathf.PI/180);
     }
