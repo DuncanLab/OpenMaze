@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//This class is for when the food is visible.
 public class RotateBlock : MonoBehaviour {
-    
 
-    void Start()
-    {
-        
-    }
+    public string type;
 
     // Update is called once per frame
     void Update () {

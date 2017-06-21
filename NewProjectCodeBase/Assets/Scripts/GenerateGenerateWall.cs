@@ -1,70 +1,115 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-
+//This script is the Generate (GenerateWall) script
+//It generates the GenerateWall object.
 public class GenerateGenerateWall : MonoBehaviour {
-    public GameObject create;
-    public GenerateWall.Data globalData;
-    public GameObject currCreate;
-    public float delay = 0.01f;
-    public Vector3 GeneratorPos;
+    public GameObject create; //This create is prefab of the create object.
+    private GameObject currCreate; //current generate wall object that exists.
 
+    private AudioClip audioClip;
+
+    public void SetWaveSrc(string file)
+    {
+       
+        string wavSrc = "Audio\\" + file;
+
+        audioClip = Resources.Load(wavSrc) as AudioClip;
+    }
+
+    public AudioClip GetWaveSrc()
+    {
+        return audioClip;
+    }
+
+    public Text timer;
+    
+
+    public void ResetCreate()
+    {
+        Destroy(currCreate);
+        currCreate = Instantiate(create);
+    }
+
+    public Data globalData; //Here is the data object. This object stores the current state of the data.
+
+    //This is the delay value between key presses of changing number of walls in seconds.
+    private const float delay = 0.1f;
+    
+
+
+    //This is the current running timestamp that is outputted to console.
     private float timestamp;
-    private GenerateWall.Data GetData()
+
+    //Here is the file that reads data from a json file.
+    private Data GetData()
     {
         string file = System.IO.File.ReadAllText("Assets/InputFiles/input.json");
-        GenerateWall.Data data = JsonUtility.FromJson<GenerateWall.Data>(file);
+        Data data = JsonUtility.FromJson<Data>(file);
         return data;
     }
 
 
     // Use this for initialization
     void Start () {
-        create.transform.position = GeneratorPos;
+        create.transform.position = Vector3.zero;
         timestamp = 0;
         globalData = GetData();
         currCreate = Instantiate(create);
     }
 	
+
 	// Update is called once per frame
 	void Update () {
-        if (Time.time >= timestamp)
+        if (Time.time - timestamp >=  delay) //Checking to see if the current time is > than timestamp
         {
+            //This is the input key for decreasing walls. This is button 1
             if (Input.GetKey(KeyCode.Alpha1))
             {
-                if (globalData.Sides > GenerateWall.minNumWalls)
+                if (globalData.WallData.Sides > globalData.WallData.MinNumWalls)
                 {
-                    globalData.Sides--;
-                    Destroy(currCreate);
-                    currCreate = Instantiate(create);
+                    globalData.WallData.Sides -= globalData.WallData.WallStep;
+                    ResetCreate();
                 }
             }
 
+            //This is the input key for increasing walls. This is button 2
             else if (Input.GetKey(KeyCode.Alpha2))
             {
-                if (globalData.Sides < GenerateWall.maxNumWalls)
+                if (globalData.WallData.Sides < globalData.WallData.MaxNumWalls)
                 {
-                    globalData.Sides++;
-                    Destroy(currCreate);
-                    currCreate = Instantiate(create);
+                    globalData.WallData.Sides+= globalData.WallData.WallStep;
+                    ResetCreate();
+
                 }
             }
 
+            //This is the input key for increasing walls. This is button 3
             else if (Input.GetKey(KeyCode.Alpha3))
             {
-                int diff = GenerateWall.maxNumWalls - GenerateWall.minNumWalls + 1;
-                int val = (int)(Random.value * diff) + GenerateWall.minNumWalls;
-                globalData.Sides = val;
-                Destroy(currCreate);
-                currCreate = Instantiate(create);
+                NewZoneRandom();
+
             }
+
+            //This is the input key for increasing walls. This is space key
             else if (Input.GetKey(KeyCode.Space))
             {
-                Destroy(currCreate);
-                currCreate = Instantiate(create);
+                ResetCreate();
+
             }
-            timestamp = Time.time + delay;
+
+            //Increment the timestamp
+            timestamp = Time.time;
         }
+    }
+    public void NewZoneRandom()
+    {
+        System.Random r = new System.Random();
+        int diff = globalData.WallData.MaxNumWalls - globalData.WallData.MinNumWalls + 1;
+        int val = r.Next(diff) + globalData.WallData.MinNumWalls;
+        globalData.WallData.Sides = val;
+        ResetCreate();
     }
 }

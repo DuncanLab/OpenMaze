@@ -1,7 +1,74 @@
 {
-    "Sides" : 35,
-    "StartColour" : "ffaaaa",
-    "EndColour" :  "ff0000",
-    "Radius" : 10,
-    "InitialAngle" : 0
+    "WallData": {
+        "Sides": 35,
+        "StartColour": "ffaaaa",
+        "EndColour": "ff0000",
+        "Radius": 10,
+        "InitialAngle": 0,
+        "MinNumWalls": 4,
+        "WallStep": 1,
+        "MaxNumWalls": 40,
+        "WallHeight": 2
+    },
+    "CharacterData": {
+        "MovementSpeed": 10,
+        "RotationSpeed": 100,
+        "Delay": 3,
+        "OutputFile": "out.txt",
+        "CharacterStartPos": {
+            "x": 0,
+            "y": 0
+        }
+    },
+
+    "PickupItems": [
+        {
+            "Count": 1,
+            "Tag": "Food",
+            "Color": "ff0000",
+            "Visible": 1,
+            "SoundLocation": "eat",
+            "GeneratorPos": {
+                "x": 5,
+                "y": 5
+            },
+            "Distribution": {
+                "Type": "Normal",
+                "parameters": [ 0, 1 ]
+            }
+        },
+        {
+            "Count": 1,
+            "Tag": "Water",
+            "Color": "0000ff",
+            "Visible": 1,
+            "SoundLocation": "drink",
+            "GeneratorPos": {
+                "x": -5,
+                "y": 5
+            },
+            "Distribution": {
+                "Type": "Normal",
+                "parameters": [ 0, 1 ]
+            }
+
+        },
+        {
+            "Count": 1,
+            "Tag": "Money",
+            "Color": "00ff00",
+            "Visible": 1,
+            "SoundLocation": "money",
+            "GeneratorPos": {
+                "x": 5,
+                "y": -5
+            },
+            "Distribution": {
+                "Type": "Normal",
+                "parameters": [ 0, 1 ]
+            }
+        }
+    ]
+
+
 }

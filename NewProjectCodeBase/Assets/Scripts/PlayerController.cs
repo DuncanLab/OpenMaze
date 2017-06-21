@@ -5,96 +5,143 @@ using UnityEngine.UI;
 using System.IO;
 
 public class PlayerController : MonoBehaviour {
+    
+    //This is essentially an enumeration to choose between two possible states.
     public enum State
     {
         WAITING,
         MOVING
     }
+
+    //This is the current state
     private State state;
 
-    private string goal;
+    private GenerateGenerateWall gen;
+    
 
-
-    string path ;
-
-    public static float waitTime = 3f;
+    //This is the current running time of the game
     private float runningTime;
+
+    //And this counter keeps track of how long he delay has until it's over
     private float currDelay;
+    
+    //The stream writer that writes data out to an output file.
     private StreamWriter writer;
-    public float speed = 10.0F;
-    public float rotationSpeed = 1000.0F;
-    CharacterController controller;
+
+
+
+    //This is the character controller system used for collision
+    private CharacterController controller;
+
+    //The initial move direction is static.
     private Vector3 moveDirection = Vector3.zero;
     void Start()
     {
+        runningTime = 0;
         controller = GetComponent<CharacterController>();
-        state = State.MOVING;
-        path = "Assets/OutputFiles/out.txt";
-        writer = new StreamWriter(path, false);
-        writer.WriteLine("time (seconds), x, y, target");
+        state = State.WAITING;
+        gen = GameObject.Find("WallCreator").GetComponent<GenerateGenerateWall>();
+        writer = new StreamWriter("Assets\\OutputFiles\\" + gen.globalData.CharacterData.OutputFile, false);
+        writer.WriteLine("time (seconds), x, y, target, angle");
     }
 
     private void LogData(bool collided)
     {
-        if (state == State.MOVING)
-        {
-            string line = runningTime + ", " + transform.position.x + ", " + transform.position.z + ", " + collided;
-            writer.WriteLine(line);
-        }
+      
+        string line = runningTime + ", " + transform.position.x + ", " + transform.position.z + ", " + collided + ", " + transform.rotation.eulerAngles.y;
+        if (writer != null)
+        writer.WriteLine(line);
+        
     }
 
-    private void OnTriggerEnter(Collider other)
+    //This is the collision system.
+    void OnTriggerEnter(Collider other)
     {
-        GenerateGenerateWall gen = GameObject.Find("WallCreator").GetComponent<GenerateGenerateWall>();
-        Destroy(gen.currCreate);
-        gen.currCreate = Instantiate(gen.create);
-
-        if (other.gameObject.tag.Contains("Pickup"))
+        //Here this finds the given pickup
+        if (other.gameObject.CompareTag("Pickup") && this.state == State.MOVING)
         {
+            //We log the data out to the console
             LogData(true);
 
-            Destroy(other.gameObject);
-            transform.position = new Vector3(0, 0.2f, 0);
 
-            transform.rotation = Quaternion.identity;
+            //And then we begin the waiting game.
             state = State.WAITING;
             currDelay = 0;
+            GetComponent<AudioSource>().PlayOneShot(gen.GetWaveSrc(), 1);
+            Destroy(other.gameObject);
         }
-
 
     }
 
     void Update()
     {
+        int waitTime = gen.globalData.CharacterData.Delay;
+        //In each update loop, we have we begin by checking if they have indeed been
+        //by the appropriate amount of time.
+        if (currDelay > waitTime)
+        {
+            if (state != State.MOVING)
+            {
+                gen.NewZoneRandom();
 
-        if (currDelay > waitTime) state = State.MOVING;
+                //We reset the position
+                transform.position = new Vector3(0, 0.2f, 0);
+
+                //As well as the rotation
+                transform.rotation = Quaternion.identity;
+
+
+                state = State.MOVING;
+                gen.timer.text = "";
+            }
+        } else
+        {
+            //This section modifies the colors of the text value
+            float val = (waitTime - currDelay);
+            int actValue = (int)(waitTime - currDelay);
+            float diff = val - actValue;
+            gen.timer.text = (actValue + 1) + "";
+            gen.timer.color = new Color(0, 0, 0, diff);
+            
+        }
+
+        //This calculates the current amount of rotation frame rate independent
+        float rotation = Input.GetAxis("Horizontal") * gen.globalData.CharacterData.RotationSpeed * Time.deltaTime;
 
         
-
+        //This calculates the forward speed frame rate independent
         moveDirection = new Vector3(0, 0, Input.GetAxis("Vertical"));
         moveDirection = transform.TransformDirection(moveDirection);
-        moveDirection *= speed;
-        if (state == State.MOVING)
-            controller.Move(moveDirection * Time.deltaTime);
+        moveDirection *= gen.globalData.CharacterData.MovementSpeed;
 
-        
-        float rotation = Input.GetAxis("Horizontal") * rotationSpeed * Time.deltaTime;
-
+        //Here is the movement system
         if (state == State.MOVING)
+        {
+            //we move iff rotation is 0
+            if (Mathf.Abs(rotation) == 0)
+                controller.Move(moveDirection * Time.deltaTime);
+
             transform.Rotate(0, rotation, 0);
+        }
 
+        //And we increment both delay systems
         runningTime += Time.deltaTime;
         currDelay += Time.deltaTime;
-
-       
+        print(runningTime);
+        //And we log the current data.
         LogData(false);
 
 
     }
 
+    //Here we flush the stream writer and close it.
     void OnDestroy()
     {
-        writer.Close();
+        if (writer != null)
+        {
+            writer.Flush();
+            writer.Close();
+        }
     }
 
 }
