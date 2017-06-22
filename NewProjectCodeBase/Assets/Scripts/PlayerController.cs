@@ -42,6 +42,10 @@ public class PlayerController : MonoBehaviour {
         state = State.WAITING;
         gen = GameObject.Find("WallCreator").GetComponent<GenerateGenerateWall>();
         writer = new StreamWriter("Assets\\OutputFiles\\" + gen.globalData.CharacterData.OutputFile, false);
+
+		Data data = gen.globalData;
+
+		writer.WriteLine (data.EnvironmentType + ", ", data.WallData.EndColour + ", " + data.WallData.Sides);
         writer.WriteLine("time (seconds), x, y, target, angle");
     }
 
@@ -63,6 +67,14 @@ public class PlayerController : MonoBehaviour {
             //We log the data out to the console
             LogData(true);
 
+			gen.NewZoneRandom();
+
+			//We reset the position
+			transform.position = new Vector3(0, 0.2f, 0);
+
+			//As well as the rotation
+			transform.rotation = Quaternion.identity ;
+			transform.Rotate(new Vector3(0, 90, 0));
 
             //And then we begin the waiting game.
             state = State.WAITING;
@@ -82,13 +94,7 @@ public class PlayerController : MonoBehaviour {
         {
             if (state != State.MOVING)
             {
-                gen.NewZoneRandom();
-
-                //We reset the position
-                transform.position = new Vector3(0, 0.2f, 0);
-
-                //As well as the rotation
-                transform.rotation = Quaternion.identity;
+                
 
 
                 state = State.MOVING;
@@ -127,7 +133,6 @@ public class PlayerController : MonoBehaviour {
         //And we increment both delay systems
         runningTime += Time.deltaTime;
         currDelay += Time.deltaTime;
-        print(runningTime);
         //And we log the current data.
         LogData(false);
 

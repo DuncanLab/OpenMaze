@@ -1,6 +1,9 @@
 {
-    "WallData": {
-        "Sides": 35,
+    "EnvironmentType" : "Default",
+	"OutputFolderName": "Test",
+	"OnCorner" : false,
+	"WallData": {
+        "Sides": 4,
         "StartColour": "ffaaaa",
         "EndColour": "ff0000",
         "Radius": 10,
@@ -11,6 +14,7 @@
         "WallHeight": 2
     },
     "CharacterData": {
+		"Height": 0.5,
         "MovementSpeed": 10,
         "RotationSpeed": 100,
         "Delay": 3,
@@ -26,47 +30,37 @@
             "Count": 1,
             "Tag": "Food",
             "Color": "ff0000",
-            "Visible": 1,
+            "Visible": true,
             "SoundLocation": "eat",
             "GeneratorPos": {
                 "x": 5,
                 "y": 5
             },
-            "Distribution": {
-                "Type": "Normal",
-                "parameters": [ 0, 1 ]
-            }
+            "PythonFile" : "test.py"
+            
         },
         {
             "Count": 1,
             "Tag": "Water",
             "Color": "0000ff",
-            "Visible": 1,
+            "Visible": true,
             "SoundLocation": "drink",
-            "GeneratorPos": {
-                "x": -5,
-                "y": 5
-            },
-            "Distribution": {
-                "Type": "Normal",
-                "parameters": [ 0, 1 ]
-            }
+
+            "PythonFile" : "test.py"
+            
 
         },
         {
             "Count": 1,
             "Tag": "Money",
             "Color": "00ff00",
-            "Visible": 1,
+            "Visible": true,
             "SoundLocation": "money",
             "GeneratorPos": {
                 "x": 5,
                 "y": -5
             },
-            "Distribution": {
-                "Type": "Normal",
-                "parameters": [ 0, 1 ]
-            }
+            "PythonFile" : "test.py"
         }
     ]
 

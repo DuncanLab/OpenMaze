@@ -5,6 +5,10 @@ using UnityEngine;
 [System.Serializable]
 public class Data
 {
+	public string EnvironmentType;
+	public string OutputFolderName;
+	public bool OnCorner;
+
     [System.Serializable]
     public class Wall
     {
@@ -28,6 +32,11 @@ public class Data
         {
             return new Vector3(x, 0.2f, y);
         }
+
+		public string ToString(){
+			return "(" + x + ", " + y + ")";
+		}
+
     }
 
     [System.Serializable]
@@ -37,22 +46,17 @@ public class Data
         public string Tag;
         public string Color;
         public string SoundLocation;
-        public float Visible;
+        public bool Visible;
         public Point GeneratorPos;
-        public DistributionData Distribution;
+        public string PythonFile;
 
     }
 
-    [System.Serializable]
-    public class DistributionData
-    {
-        public string Type;
-        public List<float> parameters;
-    }
 
     [System.Serializable]
     public class Character
     {
+		public float Height;
         public float MovementSpeed;
         public float RotationSpeed;
         public int Delay;
@@ -70,7 +74,7 @@ public class Data
     {
         float[] l = { 0, 0, 0 };
         for (int i = 0; i < 6; i += 2)
-        {
+		{
             float decValue = int.Parse(hex.Substring(i, 2), System.Globalization.NumberStyles.HexNumber);
             l[i / 2] = decValue / 255;
         }

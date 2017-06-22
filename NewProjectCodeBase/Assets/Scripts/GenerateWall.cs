@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 
@@ -24,6 +25,10 @@ public class GenerateWall : MonoBehaviour {
     private List<GameObject> created;
 
     
+
+
+
+
 	// Use this for initialization
 	void Start () {
         //Here we create the generator at the given location
@@ -102,48 +107,53 @@ public class GenerateWall : MonoBehaviour {
 
     }
 
+
+
     private void GenerateWalls()
     {
-        //This computes the current interior angle of the given side.
-        float InteriorAngle = 360f / data.WallData.Sides; //This is, of course, given as 360 / num sides
+		//This computes the current interior angle of the given side.
+		float InteriorAngle = 360f / data.WallData.Sides; //This is, of course, given as 360 / num sides
 
-        //This sets the initial angle to the one given in the preset
-        float CurrentAngle = data.WallData.InitialAngle;
-        
-        //Here we interate through all the sides
-        for (int i = 0; i < data.WallData.Sides; i++)
-        {
-            //We compute the sin and cos of the current angle (essentially plotting points on a circle
-            float x = Cos(CurrentAngle) * data.WallData.Radius;
-            float y = Sin(CurrentAngle) * data.WallData.Radius;
+		//This sets the initial angle to the one given in the preset
+		float CurrentAngle = data.WallData.InitialAngle;
+		if (data.OnCorner)
+			CurrentAngle += InteriorAngle / 2 + 2;
 
 
-            //Here we create the wall
-            GameObject obj = Instantiate(wall,
-                new Vector3(x, data.WallData.WallHeight/2, y),
-                Quaternion.identity
-            );
-
-            //This is theoreticially the perfect length of the wall. However, this causes a multitude of problems
-            //Such as:
-            //Gaps appearing in large wall numbers
-            //Desealing some stuff. so, bad.
-            float length = 2 * data.WallData.Radius * Tan(180 / data.WallData.Sides);
-            
+		//Here we interate through all the sides
+		for (int i = 0; i < data.WallData.Sides; i++)
+		{
+			//We compute the sin and cos of the current angle (essentially plotting points on a circle
+			float x = Cos(CurrentAngle) * data.WallData.Radius;
+			float y = Sin(CurrentAngle) * data.WallData.Radius;
 
 
-            //So we add 10 because the end user won't be able to notice it anyways
-            obj.transform.localScale = new Vector3(length + 10, data.WallData.WallHeight, 0.5f);
+			//Here we create the wall
+			GameObject obj = Instantiate(wall,
+				new Vector3(x, data.WallData.WallHeight/2, y),
+				Quaternion.identity
+			);
 
-            //This rotates the walls by the current angle + 90
-            obj.transform.Rotate(Quaternion.Euler(0, - CurrentAngle - 90, 0).eulerAngles);
+			//This is theoreticially the perfect length of the wall. However, this causes a multitude of problems
+			//Such as:
+			//Gaps appearing in large wall numbers
+			//Desealing some stuff. so, bad.
+			float length = 2 * data.WallData.Radius * Tan(180 / data.WallData.Sides);
 
-            //And we add the wall to the created list as to remove it later
-            created.Add(obj);
 
-            //And of course we increment the interior angle.
-            CurrentAngle += InteriorAngle;
-        }
+
+			//So we add 10 because the end user won't be able to notice it anyways
+			obj.transform.localScale = new Vector3(length + 10, data.WallData.WallHeight, 0.5f);
+
+			//This rotates the walls by the current angle + 90
+			obj.transform.Rotate(Quaternion.Euler(0, - CurrentAngle - 90, 0).eulerAngles);
+
+			//And we add the wall to the created list as to remove it later
+			created.Add(obj);
+
+			//And of course we increment the interior angle.
+			CurrentAngle += InteriorAngle;
+		}
     }
 
 

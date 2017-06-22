@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Diagnostics;
 
 public class PickupGenerator : MonoBehaviour {
     List<GameObject> destroy;
@@ -12,25 +13,32 @@ public class PickupGenerator : MonoBehaviour {
     //This function supposedly generates a random normal number with given mu sd
     //This is done using the Marsaglia Polar Method
     //https://en.wikipedia.org/wiki/Marsaglia_polar_method
-    private static float RandomNormalValue(float mu, float sd)
-    {
-        float v1, v2, s;
-        do
-        {
-            v1 = 2.0f * Random.Range(0f, 1f) - 1.0f;
-            v2 = 2.0f * Random.Range(0f, 1f) - 1.0f;
-            s = v1 * v1 + v2 * v2;
-        } while (s >= 1.0f || s == 0f);
+    
 
-        s = Mathf.Sqrt((-2.0f * Mathf.Log(s)) / s);
+	List<Data.Point> ReadFromExternal(string InputFile, int numValues){
+		Process p = new Process();
+		p.StartInfo = new ProcessStartInfo ("python", "Assets/InputFiles/" + InputFile + " " + numValues);
+		p.StartInfo.RedirectStandardOutput = true; 
+		p.StartInfo.UseShellExecute = false;
+		p.StartInfo.CreateNoWindow = true;
+		p.Start ();
+		p.WaitForExit ();
+		List<Data.Point> outputs = new List<Data.Point> ();
+		while (!p.StandardOutput.EndOfStream) {
+			string line = p.StandardOutput.ReadLine();
+			Data.Point point = new Data.Point();
+			string[] arr = line.Split (new char[]{','});
+			point.x = float.Parse (arr [0]);
+			point.y = float.Parse (arr [1]);
+			outputs.Add (point);
+		}
 
-        return v1 * s * sd + mu;
-    }
-
-
+		return outputs;
+	}
 
 	// Use this for initialization
-	void Start () {
+	void Start () {	
+
         GenerateGenerateWall gen = GameObject.Find("WallCreator").GetComponent<GenerateGenerateWall>();
         data = gen.globalData;
 
@@ -48,27 +56,21 @@ public class PickupGenerator : MonoBehaviour {
         //And this section sets the text.
         goalText.text = pickup.Tag;
 
+		List<Data.Point> p = ReadFromExternal (pickup.PythonFile, pickup.Count);
 
-
-        //And we spawn 50 targets. (ADD THIS AS A DYNAMIC FIELD).
         for (int i = 0; i < pickup.Count; i++)
         {
-            GameObject obj = Instantiate(this.pickup);
+			if (pickup.Visible) {
+				GameObject obj = Instantiate (this.pickup);
             
-            //This is the random value with mu centred at x, z
-            float x = RandomNormalValue(
-                pickup.Distribution.parameters[0],
-                pickup.Distribution.parameters[1]) + pickup.GeneratorPos.x;
-            float y = RandomNormalValue(
-                pickup.Distribution.parameters[0],
-                pickup.Distribution.parameters[1]) + pickup.GeneratorPos.y;
+				obj.transform.position = new Vector3 (p[i].x, 0.5f, p[i].y);
+				obj.transform.localScale = new Vector3 (0.1f, 0.1f, 0.1f);
+				Color color = Data.GetColour (pickup.Color);
+				obj.GetComponent<Renderer> ().material.color = color;
 
 
-            obj.transform.position = new Vector3(x, 0.5f, y);
-            obj.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-            
-            obj.GetComponent<Renderer>().material.color = Data.GetColour(pickup.Color);
-            destroy.Add(obj);
+				destroy.Add (obj);
+			}
         }
     }
 

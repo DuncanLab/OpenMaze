@@ -7,7 +7,9 @@ using UnityEngine.UI;
 //It generates the GenerateWall object.
 public class GenerateGenerateWall : MonoBehaviour {
     public GameObject create; //This create is prefab of the create object.
-    private GameObject currCreate; //current generate wall object that exists.
+	public Camera cam;	
+
+	private GameObject currCreate; //current generate wall object that exists.
 
     private AudioClip audioClip;
 
@@ -29,6 +31,10 @@ public class GenerateGenerateWall : MonoBehaviour {
 
     public void ResetCreate()
     {
+		Vector3 vec = cam.transform.position;
+
+		vec.y = globalData.CharacterData.Height;
+		cam.transform.position = vec;
         Destroy(currCreate);
         currCreate = Instantiate(create);
     }
@@ -60,13 +66,39 @@ public class GenerateGenerateWall : MonoBehaviour {
         currCreate = Instantiate(create);
     }
 	
-
+	private bool begin = false;
 	// Update is called once per frame
 	void Update () {
         if (Time.time - timestamp >=  delay) //Checking to see if the current time is > than timestamp
         {
+
+			if (globalData.WallData.Sides <= globalData.WallData.MaxNumWalls && begin) {
+				
+
+				Application.CaptureScreenshot ("Assets/OutputFiles/" + globalData.OutputFolderName + "/Wall" + globalData.WallData.Sides + ".png");
+
+
+
+				globalData.WallData.Sides += globalData.WallData.WallStep;
+
+
+				ResetCreate ();
+
+			} else {
+				begin = false;
+			}
+
+
+			if (Input.GetKey (KeyCode.H)) {
+				System.IO.Directory.CreateDirectory ("Assets/OutputFiles/" + globalData.OutputFolderName);
+
+				globalData.WallData.Sides = 4;
+				begin = true;
+			}
+
+
             //This is the input key for decreasing walls. This is button 1
-            if (Input.GetKey(KeyCode.Alpha1))
+            else if (Input.GetKey(KeyCode.Alpha1))
             {
                 if (globalData.WallData.Sides > globalData.WallData.MinNumWalls)
                 {
@@ -99,6 +131,13 @@ public class GenerateGenerateWall : MonoBehaviour {
                 ResetCreate();
 
             }
+
+            //This is the input key for screenshots. For now, I'm going to set it to be the G key
+            else if (Input.GetKey(KeyCode.G))
+            {
+                Application.CaptureScreenshot("Assets/OutputFiles/Screenshot/Screenshot.png");
+            }
+
 
             //Increment the timestamp
             timestamp = Time.time;
