@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
-
+using DS = DataSingleton;
 public class PlayerController : MonoBehaviour {
     
     //This is essentially an enumeration to choose between two possible states.
@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     //This is the current state
+	//This essentially contrals the c
     private State state;
 
     private GenerateGenerateWall gen;
@@ -41,11 +42,10 @@ public class PlayerController : MonoBehaviour {
         controller = GetComponent<CharacterController>();
         state = State.WAITING;
         gen = GameObject.Find("WallCreator").GetComponent<GenerateGenerateWall>();
-        writer = new StreamWriter("Assets\\OutputFiles\\" + gen.globalData.CharacterData.OutputFile, false);
+		writer = new StreamWriter("Assets\\OutputFiles\\" + DS.GetData().CharacterData.OutputFile, false);
 
-		Data data = gen.globalData;
 
-		writer.WriteLine (data.EnvironmentType + ", ", data.WallData.EndColour + ", " + data.WallData.Sides);
+		writer.WriteLine (DS.GetData().EnvironmentType + ", ", DS.GetData().WallData.EndColour + ", " + DS.GetData().WallData.Sides);
         writer.WriteLine("time (seconds), x, y, target, angle");
     }
 
@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour {
 
     void Update()
     {
-        int waitTime = gen.globalData.CharacterData.Delay;
+        int waitTime = DS.GetData().CharacterData.Delay;
         //In each update loop, we have we begin by checking if they have indeed been
         //by the appropriate amount of time.
         if (currDelay > waitTime)
@@ -112,13 +112,13 @@ public class PlayerController : MonoBehaviour {
         }
 
         //This calculates the current amount of rotation frame rate independent
-        float rotation = Input.GetAxis("Horizontal") * gen.globalData.CharacterData.RotationSpeed * Time.deltaTime;
+        float rotation = Input.GetAxis("Horizontal") * DS.GetData().CharacterData.RotationSpeed * Time.deltaTime;
 
         
         //This calculates the forward speed frame rate independent
         moveDirection = new Vector3(0, 0, Input.GetAxis("Vertical"));
         moveDirection = transform.TransformDirection(moveDirection);
-        moveDirection *= gen.globalData.CharacterData.MovementSpeed;
+        moveDirection *= DS.GetData().CharacterData.MovementSpeed;
 
         //Here is the movement system
         if (state == State.MOVING)

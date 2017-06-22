@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DS = DataSingleton;
+
 
 //This script is the Generate (GenerateWall) script
 //It generates the GenerateWall object.
@@ -33,13 +35,12 @@ public class GenerateGenerateWall : MonoBehaviour {
     {
 		Vector3 vec = cam.transform.position;
 
-		vec.y = globalData.CharacterData.Height;
+		vec.y = DS.GetData().CharacterData.Height;
 		cam.transform.position = vec;
         Destroy(currCreate);
         currCreate = Instantiate(create);
     }
 
-    public Data globalData; //Here is the data object. This object stores the current state of the data.
 
     //This is the delay value between key presses of changing number of walls in seconds.
     private const float delay = 0.1f;
@@ -49,20 +50,13 @@ public class GenerateGenerateWall : MonoBehaviour {
     //This is the current running timestamp that is outputted to console.
     private float timestamp;
 
-    //Here is the file that reads data from a json file.
-    private Data GetData()
-    {
-        string file = System.IO.File.ReadAllText("Assets/InputFiles/input.json");
-        Data data = JsonUtility.FromJson<Data>(file);
-        return data;
-    }
-
+    
 
     // Use this for initialization
     void Start () {
+		DS.Load ();
         create.transform.position = Vector3.zero;
         timestamp = 0;
-        globalData = GetData();
         currCreate = Instantiate(create);
     }
 	
@@ -72,14 +66,14 @@ public class GenerateGenerateWall : MonoBehaviour {
         if (Time.time - timestamp >=  delay) //Checking to see if the current time is > than timestamp
         {
 
-			if (globalData.WallData.Sides <= globalData.WallData.MaxNumWalls && begin) {
+			if (DS.GetData().WallData.Sides <= DS.GetData().WallData.MaxNumWalls && begin) {
 				
 
-				Application.CaptureScreenshot ("Assets/OutputFiles/" + globalData.OutputFolderName + "/Wall" + globalData.WallData.Sides + ".png");
+				Application.CaptureScreenshot ("Assets/OutputFiles/" + DS.GetData().OutputFolderName + "/Wall" + DS.GetData().WallData.Sides + ".png");
 
 
 
-				globalData.WallData.Sides += globalData.WallData.WallStep;
+				DS.GetData().WallData.Sides += DS.GetData().WallData.WallStep;
 
 
 				ResetCreate ();
@@ -90,9 +84,9 @@ public class GenerateGenerateWall : MonoBehaviour {
 
 
 			if (Input.GetKey (KeyCode.H)) {
-				System.IO.Directory.CreateDirectory ("Assets/OutputFiles/" + globalData.OutputFolderName);
+				System.IO.Directory.CreateDirectory ("Assets/OutputFiles/" + DS.GetData().OutputFolderName);
 
-				globalData.WallData.Sides = 4;
+				DS.GetData().WallData.Sides = 4;
 				begin = true;
 			}
 
@@ -100,9 +94,9 @@ public class GenerateGenerateWall : MonoBehaviour {
             //This is the input key for decreasing walls. This is button 1
             else if (Input.GetKey(KeyCode.Alpha1))
             {
-                if (globalData.WallData.Sides > globalData.WallData.MinNumWalls)
+                if (DS.GetData().WallData.Sides > DS.GetData().WallData.MinNumWalls)
                 {
-                    globalData.WallData.Sides -= globalData.WallData.WallStep;
+                    DS.GetData().WallData.Sides -= DS.GetData().WallData.WallStep;
                     ResetCreate();
                 }
             }
@@ -110,9 +104,9 @@ public class GenerateGenerateWall : MonoBehaviour {
             //This is the input key for increasing walls. This is button 2
             else if (Input.GetKey(KeyCode.Alpha2))
             {
-                if (globalData.WallData.Sides < globalData.WallData.MaxNumWalls)
+                if (DS.GetData().WallData.Sides < DS.GetData().WallData.MaxNumWalls)
                 {
-                    globalData.WallData.Sides+= globalData.WallData.WallStep;
+                    DS.GetData().WallData.Sides+= DS.GetData().WallData.WallStep;
                     ResetCreate();
 
                 }
@@ -146,9 +140,9 @@ public class GenerateGenerateWall : MonoBehaviour {
     public void NewZoneRandom()
     {
         System.Random r = new System.Random();
-        int diff = globalData.WallData.MaxNumWalls - globalData.WallData.MinNumWalls + 1;
-        int val = r.Next(diff) + globalData.WallData.MinNumWalls;
-        globalData.WallData.Sides = val;
+        int diff = DS.GetData().WallData.MaxNumWalls - DS.GetData().WallData.MinNumWalls + 1;
+        int val = r.Next(diff) + DS.GetData().WallData.MinNumWalls;
+        DS.GetData().WallData.Sides = val;
         ResetCreate();
     }
 }

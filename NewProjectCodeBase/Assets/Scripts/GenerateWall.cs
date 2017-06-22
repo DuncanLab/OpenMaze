@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
-
+using DS = DataSingleton;
 
 
 //This is a wall spawner object that will
 //generate the walls of the game at the start.
 public class GenerateWall : MonoBehaviour {
 
-    //This is the serialized version of the data object
-    private Data data;
 
     
 
@@ -42,13 +40,12 @@ public class GenerateWall : MonoBehaviour {
         obj = GameObject.Find("WallCreator");
 
         //Here is the data object inside the script.
-        data = obj.GetComponent<GenerateGenerateWall>().globalData;
 
-        Color start = Data.GetColour(data.WallData.StartColour);
+        Color start = Data.GetColour(DS.GetData().WallData.StartColour);
 
-        Color end = Data.GetColour(data.WallData.EndColour);
-        int maxNumWalls = data.WallData.MaxNumWalls;
-        int minNumWalls = data.WallData.MinNumWalls;
+        Color end = Data.GetColour(DS.GetData().WallData.EndColour);
+        int maxNumWalls = DS.GetData().WallData.MaxNumWalls;
+        int minNumWalls = DS.GetData().WallData.MinNumWalls;
 
         //Here we calculate how much of r g b we shift by
         float redShift = (end.r - start.r) / (maxNumWalls -  minNumWalls);
@@ -59,9 +56,9 @@ public class GenerateWall : MonoBehaviour {
         //And we instantiate the color to the appropriate color on the continuom 
         Color color = new Color()
         {
-            r = start.r + redShift * (data.WallData.Sides - minNumWalls),
-            g = start.g + greenShift * (data.WallData.Sides - minNumWalls),
-            b = start.b + blueShift * (data.WallData.Sides - minNumWalls)
+            r = start.r + redShift * (DS.GetData().WallData.Sides - minNumWalls),
+            g = start.g + greenShift * (DS.GetData().WallData.Sides - minNumWalls),
+            b = start.b + blueShift * (DS.GetData().WallData.Sides - minNumWalls)
         };
 
         //And here we set the color of the wall prefab to the appropriate color
@@ -112,25 +109,25 @@ public class GenerateWall : MonoBehaviour {
     private void GenerateWalls()
     {
 		//This computes the current interior angle of the given side.
-		float InteriorAngle = 360f / data.WallData.Sides; //This is, of course, given as 360 / num sides
+		float InteriorAngle = 360f / DS.GetData().WallData.Sides; //This is, of course, given as 360 / num sides
 
 		//This sets the initial angle to the one given in the preset
-		float CurrentAngle = data.WallData.InitialAngle;
-		if (data.OnCorner)
+		float CurrentAngle = DS.GetData().WallData.InitialAngle;
+		if (DS.GetData().OnCorner)
 			CurrentAngle += InteriorAngle / 2 + 2;
 
 
 		//Here we interate through all the sides
-		for (int i = 0; i < data.WallData.Sides; i++)
+		for (int i = 0; i < DS.GetData().WallData.Sides; i++)
 		{
 			//We compute the sin and cos of the current angle (essentially plotting points on a circle
-			float x = Cos(CurrentAngle) * data.WallData.Radius;
-			float y = Sin(CurrentAngle) * data.WallData.Radius;
+			float x = Cos(CurrentAngle) * DS.GetData().WallData.Radius;
+			float y = Sin(CurrentAngle) * DS.GetData().WallData.Radius;
 
 
 			//Here we create the wall
 			GameObject obj = Instantiate(wall,
-				new Vector3(x, data.WallData.WallHeight/2, y),
+				new Vector3(x, DS.GetData().WallData.WallHeight/2, y),
 				Quaternion.identity
 			);
 
@@ -138,12 +135,12 @@ public class GenerateWall : MonoBehaviour {
 			//Such as:
 			//Gaps appearing in large wall numbers
 			//Desealing some stuff. so, bad.
-			float length = 2 * data.WallData.Radius * Tan(180 / data.WallData.Sides);
+			float length = 2 * DS.GetData().WallData.Radius * Tan(180 / DS.GetData().WallData.Sides);
 
 
 
 			//So we add 10 because the end user won't be able to notice it anyways
-			obj.transform.localScale = new Vector3(length + 10, data.WallData.WallHeight, 0.5f);
+			obj.transform.localScale = new Vector3(length + 10, DS.GetData().WallData.WallHeight, 0.5f);
 
 			//This rotates the walls by the current angle + 90
 			obj.transform.Rotate(Quaternion.Euler(0, - CurrentAngle - 90, 0).eulerAngles);
