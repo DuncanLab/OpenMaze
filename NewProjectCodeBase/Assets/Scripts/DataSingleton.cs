@@ -3,7 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DataSingleton{
+	 
 	private static Data data;
+
+	public static void ResetData(Data data){
+		DataSingleton.data = data;
+	}
 
 	public static Data GetData(){
 		return data;

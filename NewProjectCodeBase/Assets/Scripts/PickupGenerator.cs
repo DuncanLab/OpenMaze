@@ -56,6 +56,8 @@ public class PickupGenerator : MonoBehaviour {
         //And this section sets the text.
         goalText.text = pickup.Tag;
 
+		goalText.color = Data.GetColour (pickup.Color);
+
 		List<Data.Point> p = ReadFromExternal (pickup.PythonFile, pickup.Count);
 
 		if (p.Count == 0) {

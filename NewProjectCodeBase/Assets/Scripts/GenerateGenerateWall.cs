@@ -10,7 +10,7 @@ using DS = DataSingleton;
 public class GenerateGenerateWall : MonoBehaviour {
     public GameObject create; //This create is prefab of the create object.
 	public Camera cam;	
-
+	private DataManager dataManager;
 	private GameObject currCreate; //current generate wall object that exists.
 
     private AudioClip audioClip;
@@ -33,10 +33,7 @@ public class GenerateGenerateWall : MonoBehaviour {
 
     public void ResetCreate()
     {
-		Vector3 vec = cam.transform.position;
-
-		vec.y = DS.GetData().CharacterData.Height;
-		cam.transform.position = vec;
+		DataSingleton.ResetData (dataManager.data);
         Destroy(currCreate);
         currCreate = Instantiate(create);
     }
@@ -47,7 +44,7 @@ public class GenerateGenerateWall : MonoBehaviour {
     
 
 
-    //This is the current running timestamp that is outputted to console.
+    //This is the current running timestamp that is outputted to console.	
     private float timestamp;
 
     
@@ -58,6 +55,7 @@ public class GenerateGenerateWall : MonoBehaviour {
         create.transform.position = Vector3.zero;
         timestamp = 0;
         currCreate = Instantiate(create);
+		dataManager = GameObject.Find ("Data").GetComponent<DataManager> ();
     }
 	
 	private bool begin = false;
