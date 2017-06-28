@@ -3,20 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DataSingleton{
-	 
 	private static Data data;
-
-	public static void ResetData(Data data){
-		DataSingleton.data = data;
-	}
 
 	public static Data GetData(){
 		return data;
 	}
 
+	public static void SetData(Data data){
+		DataSingleton.data = data;
+	}
+
 	public static void Load(){
 		string file = System.IO.File.ReadAllText("Assets/InputFiles/input.json");
 		data = JsonUtility.FromJson<Data>(file);
+	}
+
+	public static void Save(){
+		string data = JsonUtility.ToJson (DataSingleton.data);
+		System.IO.File.WriteAllText ("Assets/InputFiles/input.json", data);
 	}
 }
 
