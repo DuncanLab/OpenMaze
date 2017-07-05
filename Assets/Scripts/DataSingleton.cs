@@ -58,7 +58,7 @@ public class Data
             return new Vector3(x, 0.2f, y);
         }
 
-		public string ToString(){
+		public override string ToString(){
 			return "(" + x + ", " + y + ")";
 		}
 
