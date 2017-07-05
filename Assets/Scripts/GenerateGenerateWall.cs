@@ -58,7 +58,7 @@ public class GenerateGenerateWall : MonoBehaviour {
 		dataManager = GameObject.Find ("Data").GetComponent<DataManager> ();
 	}
 
-
+	//This code is copy and pasted from https://www.assetstore.unity3d.com/en/#!/content/24122
 	void TakeScreenshot(string fileName){
 		int resWidthN = 1920;
 		int resHeightN = 1080;
@@ -84,7 +84,7 @@ public class GenerateGenerateWall : MonoBehaviour {
 	private bool begin = false;
 	// Update is called once per frame
 	void Update () {
-		if (Time.time - timestamp >=  delay) //Checking to see if the current time is > than timestamp
+		if (Time.time - timestamp >=  delay && DS.GetData().DeveloperMode) //Checking to see if the current time is > than timestamp
 		{
 
 			if (DS.GetData().WallData.Sides <= DS.GetData().WallData.MaxNumWalls && begin) {

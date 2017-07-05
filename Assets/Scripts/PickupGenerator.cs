@@ -14,9 +14,9 @@ public class PickupGenerator : MonoBehaviour {
     //https://en.wikipedia.org/wiki/Marsaglia_polar_method
     
 
-	List<Data.Point> ReadFromExternal(string InputFile, int numValues){
+	List<Data.Point> ReadFromExternal(string InputFile, int val){
 		Process p = new Process();
-		p.StartInfo = new ProcessStartInfo ("python", "Assets/InputFiles/" + InputFile + " " + numValues);
+		p.StartInfo = new ProcessStartInfo ("python", "Assets/InputFiles/" + InputFile + " " + val);
 		p.StartInfo.RedirectStandardOutput = true; 
 		p.StartInfo.UseShellExecute = false;
 		p.StartInfo.CreateNoWindow = true;

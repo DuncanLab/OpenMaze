@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using DS = DataSingleton;
+
+//This class is the primary player script.
+//This allows us to move around essentially.
 public class PlayerController : MonoBehaviour {
     
     //This is essentially an enumeration to choose between two possible states.
@@ -34,11 +37,14 @@ public class PlayerController : MonoBehaviour {
     //This is the character controller system used for collision
     private CharacterController controller;
 
-    //The initial move direction is static.
+    //The initial move direction is static zero.
     private Vector3 moveDirection = Vector3.zero;
+
+
     void Start()
     {
-        runningTime = 0;
+    
+		runningTime = 0;
         controller = GetComponent<CharacterController>();
         state = State.WAITING;
         gen = GameObject.Find("WallCreator").GetComponent<GenerateGenerateWall>();

@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using DS = DataSingleton;
 
+//This class is pretty simple
+//We use this to generate the scene and then load it properly at the very beginning
+//A dummy scene was made for this.
 public class Loader : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
