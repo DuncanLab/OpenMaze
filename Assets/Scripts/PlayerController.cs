@@ -48,6 +48,8 @@ public class PlayerController : MonoBehaviour {
         controller = GetComponent<CharacterController>();
         state = State.WAITING;
         gen = GameObject.Find("WallCreator").GetComponent<GenerateGenerateWall>();
+		System.IO.Directory.CreateDirectory ("Assets\\OutputFiles~");
+
 		writer = new StreamWriter("Assets\\OutputFiles~\\" + DS.GetData().CharacterData.OutputFile, false);
 
 

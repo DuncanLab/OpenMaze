@@ -13,8 +13,4 @@ public class DataManager : MonoBehaviour {
 		data = DataSingleton.GetData ();
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

@@ -42,7 +42,6 @@ public class GenerateGenerateWall : MonoBehaviour {
 	//This is the delay value between key presses of changing number of walls in seconds.
 	private const float delay = 0.1f;
 
-	private static bool loaded = false;
 
 
 

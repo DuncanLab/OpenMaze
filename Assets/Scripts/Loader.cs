@@ -4,10 +4,18 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using DS = DataSingleton;
 
-//This class is pretty simple
-//We use this to generate the scene and then load it properly at the very beginning
-//A dummy scene was made for this.
+//This class ex
+public class LevelConfigData{
+
+}
+
+
+//We will convert the initial loader into what is known as the level controller. In order to properly set this up, there must exist a level config.
+//We must also construct a level config builder.
 public class Loader : MonoBehaviour {
+
+
+
 	// Use this for initialization
 	void Start () {
 		DontDestroyOnLoad (this);
