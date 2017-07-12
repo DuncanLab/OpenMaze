@@ -38,6 +38,7 @@ public class DataSingleton{
 public class Data
 {
 	public bool DeveloperMode;
+	public string ExperimentFile;
 	public string OutputFolderName;
 	public bool OnCorner;
 

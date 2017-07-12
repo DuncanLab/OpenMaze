@@ -46,9 +46,10 @@ public class Loader : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		DS.Load ();
 			
 		experiment = new List<List<int>> ();
-		using(var reader = new StreamReader("Assets/InputFiles~/Experiment.csv"))
+		using(var reader = new StreamReader("Assets/InputFiles~/" +DS.GetData().ExperimentFile))
 		{
 			
 			while (!reader.EndOfStream)
@@ -66,7 +67,6 @@ public class Loader : MonoBehaviour {
 
 
 		DontDestroyOnLoad (this);
-		DS.Load ();
 		SceneManager.LoadScene (2);
 		runningTime = 0;
 		experimentIndex = 0;
