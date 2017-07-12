@@ -17,14 +17,21 @@ public class Loader : MonoBehaviour {
 		InExperiment
 	}
 
-	public Text transitionText;
+	public enum ExperimentEndSrc
+	{
+		Never,
+		External,
+		Internal
+	}
 
+	public static ExperimentEndSrc experimentEndSrc = ExperimentEndSrc.Never;
 
 	public static ExperimentProgression ep;
 
 	public static bool experimentMode = false;
 	public static List<List<int>> experiment;
 
+	public static bool src = false;
 
 	private static float runningTime;
 	public static int experimentIndex;
@@ -37,8 +44,9 @@ public class Loader : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+			
 		experiment = new List<List<int>> ();
-		using(var reader = new StreamReader("Assets/InputFiles/Experiment.csv"))
+		using(var reader = new StreamReader("Assets/InputFiles~/Experiment.csv"))
 		{
 			
 			while (!reader.EndOfStream)
@@ -94,9 +102,13 @@ public class Loader : MonoBehaviour {
 
 	void runExperiment (bool begin = false)
 	{
+
 		if (begin) {
 			experimentIndex = 0;
 			experimentMode = true;
+			using (var writer = new StreamWriter ("Assets\\OutputFiles~\\" + DS.GetData ().CharacterData.OutputFile, false)) {
+				writer.WriteLine ("Trial Number, time (seconds), x, y, target, angle");
+			}
 		}
 		runningTime = 0;
 
@@ -107,11 +119,17 @@ public class Loader : MonoBehaviour {
 
 	}
 
-	public static void progressExperiment(){
+	public static void progressExperiment(ExperimentEndSrc end = ExperimentEndSrc.External){
 		ep = ExperimentProgression.InWaiting;
 		SceneManager.LoadScene (2);
 
+		experimentEndSrc = end;
+
 		experimentIndex++;
+		if (experimentIndex >= experiment.Count) {
+			experimentMode = false;
+			return;
+		}
 		runningTime = 0;
 		DS.GetData ().WallData.Sides = experiment[experimentIndex][3];
 		DS.Save ();
@@ -120,10 +138,7 @@ public class Loader : MonoBehaviour {
 
 	void checkExperimentStatus ()
 	{
-		if (experimentIndex > experiment.Count) {
-			experimentMode = false;
-			return;
-		}
+
 		if (experimentMode) {
 			if (ep == ExperimentProgression.InWaiting) {
 
@@ -136,7 +151,7 @@ public class Loader : MonoBehaviour {
 		
 			} else {
 				if (runningTime > experiment [experimentIndex] [1] + DS.GetData().CharacterData.Delay) {
-					progressExperiment ();
+					progressExperiment (ExperimentEndSrc.Internal);
 
 				}
 

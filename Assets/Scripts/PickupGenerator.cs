@@ -9,15 +9,12 @@ public class PickupGenerator : MonoBehaviour {
     public GameObject pickup;
     public Text goalText;
 
-    //This function supposedly generates a random normal number with given mu sd
-    //This is done using the Marsaglia Polar Method
-    //https://en.wikipedia.org/wiki/Marsaglia_polar_method
-    
 
-	List<Data.Point> ReadFromExternal(string InputFile, int val){
+	List<Data.Point> ReadFromExternal(string InputFile, string pickupType){
 		Process p = new Process();
-		p.StartInfo = new ProcessStartInfo ("python", "Assets/InputFiles/" + InputFile + " " + val);
+		p.StartInfo = new ProcessStartInfo ("python", "Assets/InputFiles~/" + InputFile + " " + pickupType + " " + Loader.experimentIndex);
 		p.StartInfo.RedirectStandardOutput = true; 
+		p.StartInfo.RedirectStandardError = true;
 		p.StartInfo.UseShellExecute = false;
 		p.StartInfo.CreateNoWindow = true;
 		p.Start ();
@@ -31,6 +28,13 @@ public class PickupGenerator : MonoBehaviour {
 			point.y = float.Parse (arr [1]);
 			outputs.Add (point);
 		}
+
+		while (!p.StandardError.EndOfStream) {
+			string line = p.StandardError.ReadLine ();
+			print (line);
+
+		}
+
 
 		return outputs;
 	}
@@ -61,7 +65,9 @@ public class PickupGenerator : MonoBehaviour {
         //And this section sets the text.
         goalText.text = pickup.Tag;
 
-		List<Data.Point> p = ReadFromExternal (pickup.PythonFile, pickup.Count);
+		goalText.color = Data.GetColour(pickup.Color);
+
+		List<Data.Point> p = ReadFromExternal (pickup.PythonFile, pickup.Tag);
 
 		if (p.Count == 0) {
 			print ("INVALID PYTHON INPUT FILE " + pickup.PythonFile);
@@ -70,8 +76,6 @@ public class PickupGenerator : MonoBehaviour {
 		}
 
 
-		if (!pickup.Visible)
-			return;
 
 		//This for loop generates the pickup files.
         for (int i = 0; i < pickup.Count; i++)
@@ -79,10 +83,12 @@ public class PickupGenerator : MonoBehaviour {
 			GameObject obj = Instantiate (this.pickup);
         
 			obj.transform.position = new Vector3 (p[i].x, 0.5f, p[i].y);
-			obj.transform.localScale = new Vector3 (0.1f, 0.1f, 0.1f);
+			obj.transform.localScale = new Vector3 (1, 1, 1) * pickup.Size;
 			Color color = Data.GetColour (pickup.Color);
 			obj.GetComponent<Renderer> ().material.color = color;
-
+			if (!pickup.Visible)
+				obj.GetComponent<Renderer>().enabled = false;
+			
 
 			destroy.Add (obj);
         }

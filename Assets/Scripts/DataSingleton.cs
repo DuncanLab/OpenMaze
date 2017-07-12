@@ -21,14 +21,14 @@ public class DataSingleton{
 
 	//This function loads the file from a defacto loaction as shown below
 	public static void Load(){
-		string file = System.IO.File.ReadAllText("Assets/InputFiles/input.json");
+		string file = System.IO.File.ReadAllText("Assets/InputFiles~/input.json");
 		data = JsonUtility.FromJson<Data>(file);
 	}
 
 	//This function saves the current configuration into the text file.
 	public static void Save(){
 		string data = JsonUtility.ToJson (DataSingleton.data);
-		System.IO.File.WriteAllText ("Assets/InputFiles/input.json", data);
+		System.IO.File.WriteAllText ("Assets/InputFiles~/input.json", data);
 	}
 }
 
@@ -81,13 +81,15 @@ public class Data
         public string SoundLocation;
         public bool Visible;
         public string PythonFile;
+		public float Size;
 
     }
 
 
-    [System.Serializable]
+    [System.Serializable]	
     public class Character
     {
+		public float CamRotation;
 		public float Height;
         public float MovementSpeed;
         public float RotationSpeed;

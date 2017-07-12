@@ -4,11 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using DS = DataSingleton;
+using L = Loader;
 
 //This class is the primary player script.
 //This allows us to move around essentially.
 public class PlayerController : MonoBehaviour {
     
+	public Camera cam;
+
+
     //This is essentially an enumeration to choose between two possible states.
     public enum State
     {
@@ -30,7 +34,7 @@ public class PlayerController : MonoBehaviour {
     private float currDelay;
     
     //The stream writer that writes data out to an output file.
-    private StreamWriter writer;
+	private string outDir;
 
 
 
@@ -38,32 +42,39 @@ public class PlayerController : MonoBehaviour {
     private CharacterController controller;
 
     //The initial move direction is static zero.
-    private Vector3 moveDirection = Vector3.zero;
+	private Vector3 moveDirection = Vector3.zero;
 
-
+	private float iniRotation;
+	private float finalRotation;
+	private float currRotation;
     void Start()
     {
-    
 		runningTime = 0;
+		iniRotation = Random.Range (0, 360);
+		transform.Rotate (new Vector3 (0, iniRotation, 0));
+		finalRotation = iniRotation + 360;
+		currRotation = iniRotation;
         controller = GetComponent<CharacterController>();
         state = State.WAITING;
         gen = GameObject.Find("WallCreator").GetComponent<GenerateGenerateWall>();
 		System.IO.Directory.CreateDirectory ("Assets\\OutputFiles~");
-
-		writer = new StreamWriter("Assets\\OutputFiles~\\" + DS.GetData().CharacterData.OutputFile, false);
-
-
-		writer.WriteLine (DS.GetData().EnvironmentType + ", ", DS.GetData().WallData.EndColour + ", " + DS.GetData().WallData.Sides);
-        writer.WriteLine("time (seconds), x, y, target, angle");
+		cam.transform.Rotate (-DS.GetData().CharacterData.CamRotation, 0, 0);
     }
 
     private void LogData(bool collided)
     {
-      
-        string line = runningTime + ", " + transform.position.x + ", " + transform.position.z + ", " + collided + ", " + transform.rotation.eulerAngles.y;
-        if (writer != null)
-        writer.WriteLine(line);
-        
+		if (L.experimentMode) {
+			using (var writer = new StreamWriter ("Assets\\OutputFiles~\\" + DS.GetData ().CharacterData.OutputFile, true)) {
+				string line = (Loader.experimentIndex + 1) + ", "
+				              + runningTime + ", "
+				              + transform.position.x + ", "
+				              + transform.position.z + ", "
+				              + collided + ", "
+				              + transform.rotation.eulerAngles.y + "\n";
+				writer.Write (line);
+				writer.Flush ();
+			}
+		}
     }
 
     //This is the collision system.
@@ -73,10 +84,13 @@ public class PlayerController : MonoBehaviour {
         if (other.gameObject.CompareTag("Pickup") && this.state == State.MOVING)
         {
             //We log the data out to the console
-            LogData(true);
 
 			if (Loader.experimentMode) {
+				LogData(true);
+				GetComponent<AudioSource>().PlayOneShot(gen.GetWaveSrc(), 1);
 				Loader.progressExperiment ();
+				Destroy (this);
+
 			} else {
 				gen.NewZoneRandom ();
 				//We reset the position
@@ -88,16 +102,15 @@ public class PlayerController : MonoBehaviour {
 
 			}
 
-
-            //And then we begin the waiting game.
-            state = State.WAITING;
-            currDelay = 0;
-            GetComponent<AudioSource>().PlayOneShot(gen.GetWaveSrc(), 1);
-            Destroy(other.gameObject);
-
         }
 
     }
+
+	void LateUpdate(){
+		if (state != State.WAITING)
+			LogData(false);
+
+	}
 
     void Update()
     {
@@ -108,22 +121,31 @@ public class PlayerController : MonoBehaviour {
         {
             if (state != State.MOVING)
             {
-                
-
-
                 state = State.MOVING;
                 gen.timer.text = "";
+				cam.transform.Rotate (DS.GetData().CharacterData.CamRotation, 0, 0);
+
             }
         } else
         {
+			if (state != State.MOVING) {
+				float angle = 360f * currDelay / waitTime + iniRotation - transform.rotation.eulerAngles.y;
+
+
+				transform.Rotate (new Vector3 (0, angle, 0));
+				gen.timer.text = "";
+
+			}
             //This section modifies the colors of the text value
-            float val = (waitTime - currDelay);
-            int actValue = (int)(waitTime - currDelay);
-            float diff = val - actValue;
-            gen.timer.text = (actValue + 1) + "";
-            gen.timer.color = new Color(0, 0, 0, diff);
-            
-        }
+//            float val = (waitTime - currDelay);
+//            int actValue = (int)(waitTime - currDelay);
+//            float diff = val - actValue;
+//            gen.timer.text = (actValue + 1) + "";
+//            gen.timer.color = new Color(0, 0, 0, diff);
+//            
+        	
+		
+		}
 
         //This calculates the current amount of rotation frame rate independent
         float rotation = Input.GetAxis("Horizontal") * DS.GetData().CharacterData.RotationSpeed * Time.deltaTime;
@@ -148,19 +170,9 @@ public class PlayerController : MonoBehaviour {
         runningTime += Time.deltaTime;
         currDelay += Time.deltaTime;
         //And we log the current data.
-        LogData(false);
 
 
     }
 
-    //Here we flush the stream writer and close it.
-    void OnDestroy()
-    {
-        if (writer != null)
-        {
-            writer.Flush();
-            writer.Close();
-        }
-    }
 
 }

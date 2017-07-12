@@ -11,6 +11,7 @@ public class DataManager : MonoBehaviour {
 	void Start () {
 		DataSingleton.Load ();
 		data = DataSingleton.GetData ();
+		DontDestroyOnLoad (this);
 	}
 	
 }

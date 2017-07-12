@@ -11,9 +11,27 @@ public class ProgressionTextSetter : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		if (L.experimentMode) {
-			string text = DS.GetData ().PickupItems [L.experiment [L.experimentIndex] [2]].Tag;
+			Data.PickupItem p = DS.GetData ().PickupItems [L.experiment [L.experimentIndex] [2]];
 
-			this.GetComponent<Text> ().text = text;
+
+			Text gText = GetComponent<Text> ();
+
+			if (L.experimentEndSrc == L.ExperimentEndSrc.External) {
+				gText.text = "Nice job you found it!\n";
+			} else if (L.experimentEndSrc == L.ExperimentEndSrc.Internal) {
+				gText.text = "Sorry, you ran out of time\n";
+				
+			} else {
+				gText.text = "";
+			}
+
+
+			gText.text += "Looking for: " + p.Tag;
+
+			print (gText.text);
+
+			gText.color = Data.GetColour (p.Color);
+
 		}
 	}
 	
