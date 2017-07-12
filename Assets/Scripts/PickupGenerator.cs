@@ -45,10 +45,15 @@ public class PickupGenerator : MonoBehaviour {
         //SETUP SEED SYSTEM HERE (probably initialize this with number of walls).
 		Random.InitState(DS.GetData().WallData.Sides);
 
+		Data.PickupItem pickup;
+		if (!Loader.experimentMode) {
+			pickup = DS.GetData ().PickupItems [(int)Random.Range (0, DS.GetData ().PickupItems.Count)];
+			gen.SetWaveSrc (pickup.SoundLocation);
+		} else {
+			pickup = DS.GetData ().PickupItems [Loader.experiment [Loader.experimentIndex] [2]];
+			gen.SetWaveSrc (pickup.SoundLocation);
 
-
-		Data.PickupItem pickup = DS.GetData().PickupItems[(int)Random.Range(0, DS.GetData().PickupItems.Count)];
-        gen.SetWaveSrc(pickup.SoundLocation);
+		}
         
         //Here is the text to determine the type of food that exists here
         goalText = GameObject.Find("Goal").GetComponent<Text>();

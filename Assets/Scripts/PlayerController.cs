@@ -75,20 +75,26 @@ public class PlayerController : MonoBehaviour {
             //We log the data out to the console
             LogData(true);
 
-			gen.NewZoneRandom();
+			if (Loader.experimentMode) {
+				Loader.progressExperiment ();
+			} else {
+				gen.NewZoneRandom ();
+				//We reset the position
+				transform.position = new Vector3(0, 0.2f, 0);
 
-			//We reset the position
-			transform.position = new Vector3(0, 0.2f, 0);
+				//As well as the rotation
+				transform.rotation = Quaternion.identity ;
+				transform.Rotate(new Vector3(0, 90, 0));
 
-			//As well as the rotation
-			transform.rotation = Quaternion.identity ;
-			transform.Rotate(new Vector3(0, 90, 0));
+			}
+
 
             //And then we begin the waiting game.
             state = State.WAITING;
             currDelay = 0;
             GetComponent<AudioSource>().PlayOneShot(gen.GetWaveSrc(), 1);
             Destroy(other.gameObject);
+
         }
 
     }
