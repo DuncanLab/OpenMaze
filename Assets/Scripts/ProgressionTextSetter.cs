@@ -28,10 +28,20 @@ public class ProgressionTextSetter : MonoBehaviour {
 
 			gText.text += "Looking for: " + p.Tag;
 
-			print (gText.text);
 
 			gText.color = Data.GetColour (p.Color);
 
+		} else {
+			
+			if (L.ep == L.ExperimentProgression.Ended) {
+				GetComponent<Text> ().text = "Well done, the experiment has ended!"; 
+					
+			} else {
+				GetComponent<Text> ().text = 
+					"Welcome to the experiment participant\n" +
+					"Press <N> to begin";
+				
+			}
 		}
 	}
 	

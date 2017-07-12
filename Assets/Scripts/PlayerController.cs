@@ -85,6 +85,9 @@ public class PlayerController : MonoBehaviour {
         {
             //We log the data out to the console
 
+			GetComponent<AudioSource> ().PlayOneShot (gen.GetWaveSrc (), 1);
+			Destroy (other.gameObject);
+
 			if (Loader.experimentMode) {
 				LogData(true);
 				GetComponent<AudioSource>().PlayOneShot(gen.GetWaveSrc(), 1);
@@ -98,9 +101,12 @@ public class PlayerController : MonoBehaviour {
 
 				//As well as the rotation
 				transform.rotation = Quaternion.identity ;
-				transform.Rotate(new Vector3(0, 90, 0));
+				transform.Rotate(new Vector3(0, 90, 0));	
 
 			}
+			state = State.WAITING;
+			currDelay = 0;
+
 
         }
 

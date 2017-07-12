@@ -13,5 +13,13 @@ public class DataManager : MonoBehaviour {
 		data = DataSingleton.GetData ();
 		DontDestroyOnLoad (this);
 	}
+
+	void Update(){
+		if (Input.GetKey (KeyCode.Space)) {
+			DataSingleton.SetData (data);
+
+		}
+
+	}
 	
 }

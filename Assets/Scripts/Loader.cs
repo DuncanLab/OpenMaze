@@ -13,6 +13,8 @@ using System.IO;
 //We must also construct a level config builder.
 public class Loader : MonoBehaviour {
 	public enum ExperimentProgression{
+		Beginning,
+		Ended,
 		InWaiting,
 		InExperiment
 	}
@@ -69,6 +71,7 @@ public class Loader : MonoBehaviour {
 		runningTime = 0;
 		experimentIndex = 0;
 		experimentMode = false;
+		ep = ExperimentProgression.Beginning;
 	}
 	
 	// Update is called once per frame
@@ -76,13 +79,16 @@ public class Loader : MonoBehaviour {
 
 		checkExperimentStatus ();
 
-		if (Input.GetKey(KeyCode.N) && !experimentMode) {
+
+		if (Input.GetKey(KeyCode.N) && !experimentMode && ep == ExperimentProgression.Beginning) {
 			runExperiment (true);
 		}
 
-		if (Input.GetKey (KeyCode.Alpha0)) {
+		if (Input.GetKey (KeyCode.Alpha0) && DS.GetData().DeveloperMode) {
 			SceneManager.LoadScene (2);
 			experimentMode = false;
+			ep = ExperimentProgression.Beginning;
+			experimentIndex = 0;
 		}
 
 
@@ -127,6 +133,7 @@ public class Loader : MonoBehaviour {
 
 		experimentIndex++;
 		if (experimentIndex >= experiment.Count) {
+			ep = ExperimentProgression.Ended;
 			experimentMode = false;
 			return;
 		}
