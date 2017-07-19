@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class DataManager : MonoBehaviour {
 
 	public Data data;
@@ -17,9 +18,7 @@ public class DataManager : MonoBehaviour {
 	void Update(){
 		if (Input.GetKey (KeyCode.Space)) {
 			DataSingleton.SetData (data);
-
 		}
-
 	}
 	
 }
