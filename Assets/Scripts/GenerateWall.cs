@@ -9,77 +9,62 @@ using DS = DataSingleton;
 //generate the walls of the game at the start.
 public class GenerateWall : MonoBehaviour {
 
-
-    
-
     //This is the wall prefab that represents the walls
-    public GameObject wall;
+    public GameObject wall;  
 
-    //This is object that generates distributions.
-    public GameObject generator;
-    
-
-    //This is the list of objects that this thing created. This will be sacrificed quite frequently.
+    //This is the list of objects that GenerateWall has created
+	//We need to keep track of this in order to properly garbage collect
     private List<GameObject> created;
 
-    
-
-
-
-
-	// Use this for initialization
+   
+	// In start, we call the three initialize functions defined below.
 	void Start () {
-        //Here we create the generator at the given location
-        GameObject obj = Instantiate(generator, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
-        created = new List<GameObject>
-        {
-            obj
-        }; //The generator is immediately added to the list for destroed object
-
-        //This line attempts to find the WallCreator object in order to access the data package
-        obj = GameObject.Find("WallCreator");
-
-        //Here is the data object inside the script.
-
-        Color start = Data.GetColour(DS.GetData().WallData.StartColour);
-
-        Color end = Data.GetColour(DS.GetData().WallData.EndColour);
-        int maxNumWalls = DS.GetData().WallData.MaxNumWalls;
-        int minNumWalls = DS.GetData().WallData.MinNumWalls;
-
-        //Here we calculate how much of r g b we shift by
-        float redShift = (end.r - start.r) / (maxNumWalls -  minNumWalls);
-        float greenShift = (end.g - start.g) / (maxNumWalls - minNumWalls);
-        float blueShift = (end.b - start.b) / (maxNumWalls - minNumWalls);
-
-
-        //And we instantiate the color to the appropriate color on the continuom 
-        Color color = new Color()
-        {
-            r = start.r + redShift * (DS.GetData().WallData.Sides - minNumWalls),
-            g = start.g + greenShift * (DS.GetData().WallData.Sides - minNumWalls),
-            b = start.b + blueShift * (DS.GetData().WallData.Sides - minNumWalls)
-        };
-
-        //And here we set the color of the wall prefab to the appropriate color
-        wall.GetComponent<Renderer>().sharedMaterial.color = color;
-
-        //And these functions create the walls as well as the checkerboard
+		SetupColours ();
         GenerateWalls();
         GenerateCheckerBoard();
     }
 
-    //This is called when the object is destroyed by Generate Generate Wall. Here we destroy
-    //all objects that were created by this object. This is done so the game doesn't lag to hell
-    void OnDestroy()
-    {
-        foreach (var obj in created)
-        {
-            if (obj != null)
-            Destroy(obj);
-        }
-    }
-    
+	//This is called when the object is destroyed by Generate Generate Wall. Here we destroy
+	//all objects that were created by this object. This is done so the game doesn't lag to hell
+	void OnDestroy()
+	{
+		foreach (var obj in created)
+		{
+			Destroy(obj);
+		}
+	}
+
+
+
+	//Here we setup the colours. This is done as a gradient utilizing data given from input.json
+	private void SetupColours(){
+
+		Color start = Data.GetColour(DS.GetData().WallData.StartColour);
+
+		Color end = Data.GetColour(DS.GetData().WallData.EndColour);
+		int maxNumWalls = DS.GetData().WallData.MaxNumWalls;
+		int minNumWalls = DS.GetData().WallData.MinNumWalls;
+
+		//Here we calculate how much of r g b we shift by
+		float redShift = (end.r - start.r) / (maxNumWalls -  minNumWalls);
+		float greenShift = (end.g - start.g) / (maxNumWalls - minNumWalls);
+		float blueShift = (end.b - start.b) / (maxNumWalls - minNumWalls);
+
+
+		//And we instantiate the color to the appropriate color on the continuom 
+		Color color = new Color()
+		{
+			r = start.r + redShift * (DS.GetData().WallData.Sides - minNumWalls),
+			g = start.g + greenShift * (DS.GetData().WallData.Sides - minNumWalls),
+			b = start.b + blueShift * (DS.GetData().WallData.Sides - minNumWalls)
+		};
+
+		//And here we set the color of the wall prefab to the appropriate color
+		wall.GetComponent<Renderer>().sharedMaterial.color = color;
+			
+	}
+
+
     
 
     //This function generates the checkerboard. We can modify the size of this later.
@@ -94,18 +79,17 @@ public class GenerateWall : MonoBehaviour {
                     wall, 
                     new Vector3((0.5f + i + j % 2), 0.001f, (0.5f + j)), //With a one offset
                     Quaternion.identity
-                    );
+                );
 
                 tile.transform.localScale = new Vector3(1, 0.001f, 1);
                 created.Add(tile);
             }
         }
-        
 
     }
 
 
-
+	//This function creates the walls
     private void GenerateWalls()
     {
 		//This computes the current interior angle of the given side.
@@ -113,8 +97,8 @@ public class GenerateWall : MonoBehaviour {
 
 		//This sets the initial angle to the one given in the preset
 		float CurrentAngle = DS.GetData().WallData.InitialAngle;
-		if (DS.GetData().OnCorner)
-			CurrentAngle += InteriorAngle / 2 + 2;
+		if (DS.GetData().OnCorner) //This means that the system will be generated with a corner remaining fixed rather than a side
+			CurrentAngle += InteriorAngle / 2;
 
 
 		//Here we interate through all the sides

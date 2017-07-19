@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using DS = DataSingleton;
-using UnityEngine.UI;
-	
+using UnityEngine.UI;	
 using System.IO;
 
 
 
-//We will convert the initial loader into what is known as the level controller. In order to properly set this up, there must exist a level config.
+//We will convert the initial loader into what is known as the level controller. 
+//In order to properly set this up, there must exist a level config.
 //We must also construct a level config builder.
+//TODO: Create an experiment manager singleton in order to not make everything ew.
 public class Loader : MonoBehaviour {
+
+	//This enum represents the current state of experiment progression.
 	public enum ExperimentProgression{
 		Beginning,
 		Ended,
@@ -19,11 +22,12 @@ public class Loader : MonoBehaviour {
 		InExperiment
 	}
 
+	//This represents the source of the experiment ending
 	public enum ExperimentEndSrc
 	{
-		Never,
-		External,
-		Internal
+		Never, //This implies that the experiment hasn't started yet
+		External, //This implies that the experiment was ended OUTSIDE the class.
+		Internal //This implies the experiment was ended internally.
 	}
 
 	public static ExperimentEndSrc experimentEndSrc = ExperimentEndSrc.Never;

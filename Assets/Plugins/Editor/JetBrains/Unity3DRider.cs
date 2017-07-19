@@ -284,7 +284,8 @@ namespace Plugins.Editor.JetBrains
           Debug.LogWarning(text);
           break;
         default:
-            Debug.Log(text);
+
+          Debug.Log(text);
           break;
       }
     }
