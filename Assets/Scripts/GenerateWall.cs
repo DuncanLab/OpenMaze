@@ -10,15 +10,23 @@ using DS = DataSingleton;
 public class GenerateWall : MonoBehaviour {
 
     //This is the wall prefab that represents the walls
-    public GameObject wall;  
+    public GameObject Wall;  
+	//This is object that generates pickups.
+	public GameObject Generator;
 
     //This is the list of objects that GenerateWall has created
 	//We need to keep track of this in order to properly garbage collect
-    private List<GameObject> created;
+    private List<GameObject> _created;
 
    
 	// In start, we call the three initialize functions defined below.
-	void Start () {
+	private void Start () {
+		var obj = Instantiate(Generator, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
+		_created = new List<GameObject>
+		{
+			obj
+		}; //The generator is immediately added to the list for destroed object
+
 		SetupColours ();
         GenerateWalls();
         GenerateCheckerBoard();
@@ -26,9 +34,9 @@ public class GenerateWall : MonoBehaviour {
 
 	//This is called when the object is destroyed by Generate Generate Wall. Here we destroy
 	//all objects that were created by this object. This is done so the game doesn't lag to hell
-	void OnDestroy()
+	private void OnDestroy()
 	{
-		foreach (var obj in created)
+		foreach (var obj in _created)
 		{
 			Destroy(obj);
 		}
@@ -60,7 +68,7 @@ public class GenerateWall : MonoBehaviour {
 		};
 
 		//And here we set the color of the wall prefab to the appropriate color
-		wall.GetComponent<Renderer>().sharedMaterial.color = color;
+		Wall.GetComponent<Renderer>().sharedMaterial.color = color;
 			
 	}
 
@@ -76,13 +84,13 @@ public class GenerateWall : MonoBehaviour {
             for (int j = -20; j < 20; j += 1)
             {
                 GameObject tile = Instantiate(
-                    wall, 
+                    Wall, 
                     new Vector3((0.5f + i + j % 2), 0.001f, (0.5f + j)), //With a one offset
                     Quaternion.identity
                 );
 
                 tile.transform.localScale = new Vector3(1, 0.001f, 1);
-                created.Add(tile);
+                _created.Add(tile);
             }
         }
 
@@ -93,24 +101,24 @@ public class GenerateWall : MonoBehaviour {
     private void GenerateWalls()
     {
 		//This computes the current interior angle of the given side.
-		float InteriorAngle = 360f / DS.GetData().WallData.Sides; //This is, of course, given as 360 / num sides
+		var interiorAngle = 360f / DS.GetData().WallData.Sides; //This is, of course, given as 360 / num sides
 
 		//This sets the initial angle to the one given in the preset
-		float CurrentAngle = DS.GetData().WallData.InitialAngle;
+		float currentAngle = DS.GetData().WallData.InitialAngle;
 		if (DS.GetData().OnCorner) //This means that the system will be generated with a corner remaining fixed rather than a side
-			CurrentAngle += InteriorAngle / 2;
+			currentAngle += interiorAngle / 2;
 
 
 		//Here we interate through all the sides
 		for (int i = 0; i < DS.GetData().WallData.Sides; i++)
 		{
 			//We compute the sin and cos of the current angle (essentially plotting points on a circle
-			float x = Cos(CurrentAngle) * DS.GetData().WallData.Radius;
-			float y = Sin(CurrentAngle) * DS.GetData().WallData.Radius;
+			float x = Cos(currentAngle) * DS.GetData().WallData.Radius;
+			float y = Sin(currentAngle) * DS.GetData().WallData.Radius;
 
 
 			//Here we create the wall
-			GameObject obj = Instantiate(wall,
+			GameObject obj = Instantiate(Wall,
 				new Vector3(x, DS.GetData().WallData.WallHeight/2, y),
 				Quaternion.identity
 			);
@@ -127,13 +135,13 @@ public class GenerateWall : MonoBehaviour {
 			obj.transform.localScale = new Vector3(length + 10, DS.GetData().WallData.WallHeight, 0.5f);
 
 			//This rotates the walls by the current angle + 90
-			obj.transform.Rotate(Quaternion.Euler(0, - CurrentAngle - 90, 0).eulerAngles);
+			obj.transform.Rotate(Quaternion.Euler(0, - currentAngle - 90, 0).eulerAngles);
 
 			//And we add the wall to the created list as to remove it later
-			created.Add(obj);
+			_created.Add(obj);
 
 			//And of course we increment the interior angle.
-			CurrentAngle += InteriorAngle;
+			currentAngle += interiorAngle;
 		}
     }
 

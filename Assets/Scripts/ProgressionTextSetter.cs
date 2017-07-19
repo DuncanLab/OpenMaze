@@ -9,7 +9,7 @@ using L = Loader;
 public class ProgressionTextSetter : MonoBehaviour {
 
 	// Use this for initialization
-	void Start () {
+	private void Start () {
 		if (L.experimentMode) {
 			Data.PickupItem p = DS.GetData ().PickupItems [L.experiment [L.experimentIndex] [2]];
 

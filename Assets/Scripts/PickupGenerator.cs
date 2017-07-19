@@ -1,36 +1,45 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Diagnostics;
 using DS = DataSingleton;
+
 public class PickupGenerator : MonoBehaviour {
-    List<GameObject> destroy;
-    public GameObject pickup;
-    public Text goalText;
+    private List<GameObject> _destroy;
+    public GameObject Pickup;
+    private Text _goalText;
 
 
-	List<Data.Point> ReadFromExternal(string InputFile, string pickupType){
-		Process p = new Process();
-		p.StartInfo = new ProcessStartInfo ("python", "Assets/InputFiles~/" + InputFile + " " + pickupType + " " + Loader.experimentIndex);
-		p.StartInfo.RedirectStandardOutput = true; 
-		p.StartInfo.RedirectStandardError = true;
-		p.StartInfo.UseShellExecute = false;
-		p.StartInfo.CreateNoWindow = true;
+	private static List<Data.Point> ReadFromExternal(string inputFile, string pickupType){
+		var p = new Process
+		{
+			StartInfo = new ProcessStartInfo("python",
+				"Assets/InputFiles~/" + inputFile + " " + pickupType + " " + Loader.experimentIndex)
+			{
+				RedirectStandardOutput = true,
+				RedirectStandardError = true,
+				UseShellExecute = false,
+				CreateNoWindow = true
+			}
+		};
+
 		p.Start ();
 		p.WaitForExit ();
-		List<Data.Point> outputs = new List<Data.Point> ();
+		var outputs = new List<Data.Point> ();
 		while (!p.StandardOutput.EndOfStream) {
-			string line = p.StandardOutput.ReadLine();
-			Data.Point point = new Data.Point();
-			string[] arr = line.Split (new char[]{','});
-			point.x = float.Parse (arr [0]);
-			point.y = float.Parse (arr [1]);
+			var line = p.StandardOutput.ReadLine();
+			var point = new Data.Point();
+			if (line != null)
+			{
+				var arr = line.Split (',');
+				point.x = float.Parse (arr [0]);
+				point.y = float.Parse (arr [1]);
+			}
 			outputs.Add (point);
 		}
 
 		while (!p.StandardError.EndOfStream) {
-			string line = p.StandardError.ReadLine ();
+			var line = p.StandardError.ReadLine ();
 			print (line);
 
 		}
@@ -40,37 +49,37 @@ public class PickupGenerator : MonoBehaviour {
 	}
 
 	// Use this for initialization
-	void Start () {	
+	private void Start () {	
+		
+        var gen = GameObject.Find("WallCreator").GetComponent<GenerateGenerateWall>();
 
-        GenerateGenerateWall gen = GameObject.Find("WallCreator").GetComponent<GenerateGenerateWall>();
-
-        destroy = new List<GameObject>(); //This initializes the food object destroy list
+        _destroy = new List<GameObject>(); //This initializes the food object destroy list
 
         //SETUP SEED SYSTEM HERE (probably initialize this with number of walls).
 		Random.InitState(DS.GetData().WallData.Sides);
 
-		Data.PickupItem pickup;
+		Data.PickupItem item;
 		if (!Loader.experimentMode) {
-			pickup = DS.GetData ().PickupItems [(int)Random.Range (0, DS.GetData ().PickupItems.Count)];
-			gen.SetWaveSrc (pickup.SoundLocation);
+			item = DS.GetData ().PickupItems [Random.Range (0, DS.GetData ().PickupItems.Count)];
+			gen.SetWaveSrc (item.SoundLocation);
 		} else {
-			pickup = DS.GetData ().PickupItems [Loader.experiment [Loader.experimentIndex] [2]];
-			gen.SetWaveSrc (pickup.SoundLocation);
+			item = DS.GetData ().PickupItems [Loader.experiment [Loader.experimentIndex] [2]];
+			gen.SetWaveSrc (item.SoundLocation);
 
 		}
         
         //Here is the text to determine the type of food that exists here
-        goalText = GameObject.Find("Goal").GetComponent<Text>();
+        _goalText = GameObject.Find("Goal").GetComponent<Text>();
 
         //And this section sets the text.
-        goalText.text = pickup.Tag;
+        _goalText.text = item.Tag;
 
-		goalText.color = Data.GetColour(pickup.Color);
+		_goalText.color = Data.GetColour(item.Color);
 
-		List<Data.Point> p = ReadFromExternal (pickup.PythonFile, pickup.Tag);
+		var p = ReadFromExternal (item.PythonFile, item.Tag);
 
 		if (p.Count == 0) {
-			print ("INVALID PYTHON INPUT FILE " + pickup.PythonFile);
+			print ("INVALID PYTHON INPUT FILE " + item.PythonFile);
 			print ("PLEASE MAKE SURE THAT IT IS CONTAINED WITHIN THE INPUTFILES FOLDER AND IS SPELLED CORRECTLY");
 			return;
 		}
@@ -78,29 +87,29 @@ public class PickupGenerator : MonoBehaviour {
 
 
 		//This for loop generates the pickup files.
-        for (int i = 0; i < pickup.Count; i++)
+        for (var i = 0; i < item.Count; i++)
         {
-			GameObject obj = Instantiate (this.pickup);
+			var obj = Instantiate (Pickup);
         
 			obj.transform.position = new Vector3 (p[i].x, 0.5f, p[i].y);
-			obj.transform.localScale = new Vector3 (1, 1, 1) * pickup.Size;
-			Color color = Data.GetColour (pickup.Color);
+			obj.transform.localScale = new Vector3 (1, 1, 1) * item.Size;
+			var color = Data.GetColour (item.Color);
 			obj.GetComponent<Renderer> ().material.color = color;
-			if (!pickup.Visible)
+			if (!item.Visible)
 				obj.GetComponent<Renderer>().enabled = false;
 			
 
-			destroy.Add (obj);
+			_destroy.Add (obj);
         }
     }
 
     //And here we destroy all the food.
     private void OnDestroy()
     {
-        for (int i = 0; i < destroy.Count; i++)
-        {
-            if (destroy[i] != null) Destroy(destroy[i]);
-        }
+	    foreach (var t in _destroy)
+	    {
+		    if (t != null) Destroy(t);
+	    }
     }
     
 

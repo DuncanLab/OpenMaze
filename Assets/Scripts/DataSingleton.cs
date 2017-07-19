@@ -40,9 +40,7 @@ public class Data
 	[System.Serializable]
 	public class PickupItem
 	{
-		[System.Obsolete]
-		public int Count; //The number of Pickup Items 
-
+		public int Count; //The number of Pickup Items to generate
 
 		public string Tag; //The name of the pickup item
 		public string Color; //The colour in Hex without #

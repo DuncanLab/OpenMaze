@@ -5,19 +5,19 @@ using UnityEngine;
 
 public class DataManager : MonoBehaviour {
 
-	public Data data;
+	public Data Data;
 
 
 	// Use this for initialization
-	void Start () {
+	private void Start () {
 		DataSingleton.Load ();
-		data = DataSingleton.GetData ();
+		Data = DataSingleton.GetData ();
 		DontDestroyOnLoad (this);
 	}
 
-	void Update(){
+	private void Update(){
 		if (Input.GetKey (KeyCode.Space)) {
-			DataSingleton.SetData (data);
+			DataSingleton.SetData (Data);
 		}
 	}
 	

@@ -6,12 +6,11 @@ public class ExperimentSingleton
 {
 
 	//Classic singleton design pattern XD
-	private static ExperimentSingleton exp;
+	private static ExperimentSingleton _exp;
 
-	public static ExperimentSingleton getInstance(){
-		if (exp == null) exp = new ExperimentSingleton();
-
-		return exp;
+	public static ExperimentSingleton GetInstance()
+	{
+		return _exp ?? (_exp = new ExperimentSingleton());
 	}
 
 
