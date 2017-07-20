@@ -32,8 +32,8 @@ public class PickupGenerator : MonoBehaviour {
 			if (line != null)
 			{
 				var arr = line.Split (',');
-				point.x = float.Parse (arr [0]);
-				point.y = float.Parse (arr [1]);
+				point.X = float.Parse (arr [0]);
+				point.Y = float.Parse (arr [1]);
 			}
 			outputs.Add (point);
 		}
@@ -91,7 +91,7 @@ public class PickupGenerator : MonoBehaviour {
         {
 			var obj = Instantiate (Pickup);
         
-			obj.transform.position = new Vector3 (p[i].x, 0.5f, p[i].y);
+			obj.transform.position = new Vector3 (p[i].X, 0.5f, p[i].Y);
 			obj.transform.localScale = new Vector3 (1, 1, 1) * item.Size;
 			var color = Data.GetColour (item.Color);
 			obj.GetComponent<Renderer> ().material.color = color;
