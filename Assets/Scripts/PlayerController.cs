@@ -57,9 +57,9 @@ public class PlayerController : MonoBehaviour {
 
     private void LogData(bool collided)
     {
-	    if (!L.experimentMode) return;
+	    if (!L.ExperimentMode) return;
 	    using (var writer = new StreamWriter ("Assets\\OutputFiles~\\" + DS.GetData ().CharacterData.OutputFile, true)) {
-		    string line = (Loader.experimentIndex + 1) + ", "
+		    string line = (Loader.ExperimentIndex + 1) + ", "
 		                  + _runningTime + ", "
 		                  + transform.position.x + ", "
 		                  + transform.position.z + ", "
@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour {
 	    GetComponent<AudioSource> ().PlayOneShot (_gen.GetWaveSrc (), 1);
 	    Destroy (other.gameObject);
 
-	    if (Loader.experimentMode) {
+	    if (Loader.ExperimentMode) {
 		    LogData(true);
 		    GetComponent<AudioSource>().PlayOneShot(_gen.GetWaveSrc(), 1);
 		    Loader.ProgressExperiment ();

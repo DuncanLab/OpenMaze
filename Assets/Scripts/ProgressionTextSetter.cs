@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,51 +7,51 @@ using UnityEngine.UI;
 using DS = DataSingleton;
 using L = Loader;
 
-public class ProgressionTextSetter : MonoBehaviour {
 
+public class ProgressionTextSetter : MonoBehaviour {
+	
 	// Use this for initialization
-	private void Start () {
-		if (L.experimentMode) {
-			Data.PickupItem p = DS.GetData ().PickupItems [L.experiment [L.experimentIndex] [2]];
+	private void Start ()
+	{
+	
+		
+		
+		if (L.ExperimentMode) {
+			Data.PickupItem p = DS.GetData ().PickupItems [L.ExperimentCsv [L.ExperimentIndex] [2]];
 
 
 			Text gText = GetComponent<Text> ();
 
-			switch (L.experimentEndSrc)
+			switch (L.EndSrc)
 			{
 				case L.ExperimentEndSrc.External:
-					gText.text = "Nice job you found it!\n";
+					gText.text = L.InstructionData.WinMessage.Replace("%", p.Tag);
 					break;
 				case L.ExperimentEndSrc.Internal:
-					gText.text = "Sorry, you ran out of time\n";
+					gText.text = L.InstructionData.LoseMessage.Replace("%", p.Tag);
+					break;
+				case Loader.ExperimentEndSrc.Never:
+					gText.text = L.InstructionData.First.Replace("%", p.Tag);
 					break;
 				default:
-					gText.text = "";
-					break;
+					throw new ArgumentOutOfRangeException();
 			}
 
 
-			gText.text += "Looking for: " + p.Tag;
 
 
 			gText.color = Data.GetColour (p.Color);
 
 		} else {
 			
-			if (L.ep == L.ExperimentProgression.Ended) {
-				GetComponent<Text> ().text = "Well done, the experiment has ended!"; 
+			if (L.Ep == L.ExperimentProgression.Ended) {
+				GetComponent<Text> ().text = L.InstructionData.EndMessage; 
 					
-			} else {
-				GetComponent<Text> ().text = 
-					"Welcome to the experiment participant\n" +
-					"Press <N> to begin";
-				
+			} else
+			{
+				GetComponent<Text>().text = L.InstructionData.Instructions;
 			}
 		}
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

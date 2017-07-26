@@ -14,7 +14,7 @@ public class PickupGenerator : MonoBehaviour {
 		var p = new Process
 		{
 			StartInfo = new ProcessStartInfo("python",
-				"Assets/InputFiles~/" + inputFile + " " + pickupType + " " + Loader.experimentIndex)
+				"Assets/InputFiles~/" + inputFile + " " + pickupType + " " + Loader.ExperimentIndex)
 			{
 				RedirectStandardOutput = true,
 				RedirectStandardError = true,
@@ -59,11 +59,11 @@ public class PickupGenerator : MonoBehaviour {
 		Random.InitState(DS.GetData().WallData.Sides);
 
 		Data.PickupItem item;
-		if (!Loader.experimentMode) {
+		if (!Loader.ExperimentMode) {
 			item = DS.GetData ().PickupItems [Random.Range (0, DS.GetData ().PickupItems.Count)];
 			gen.SetWaveSrc (item.SoundLocation);
 		} else {
-			item = DS.GetData ().PickupItems [Loader.experiment [Loader.experimentIndex] [2]];
+			item = DS.GetData ().PickupItems [Loader.ExperimentCsv [Loader.ExperimentIndex] [2]];
 			gen.SetWaveSrc (item.SoundLocation);
 
 		}

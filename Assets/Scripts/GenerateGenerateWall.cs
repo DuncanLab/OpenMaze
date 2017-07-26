@@ -107,7 +107,7 @@ public class GenerateGenerateWall : MonoBehaviour {
 
 	// Update is called once per frame
 	private void Update () {
-		if (!(Time.time - _timestamp >= Delay) || !DS.GetData().DeveloperMode || Loader.experimentMode) return;
+		if (!(Time.time - _timestamp >= Delay) || !DS.GetData().DeveloperMode || Loader.ExperimentMode) return;
 		if (DS.GetData().WallData.Sides <= DS.GetData().WallData.MaxNumWalls && _begin) {
 
 
