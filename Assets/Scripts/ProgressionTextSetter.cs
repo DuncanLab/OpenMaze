@@ -16,13 +16,17 @@ public class ProgressionTextSetter : MonoBehaviour {
 
 			Text gText = GetComponent<Text> ();
 
-			if (L.experimentEndSrc == L.ExperimentEndSrc.External) {
-				gText.text = "Nice job you found it!\n";
-			} else if (L.experimentEndSrc == L.ExperimentEndSrc.Internal) {
-				gText.text = "Sorry, you ran out of time\n";
-				
-			} else {
-				gText.text = "";
+			switch (L.experimentEndSrc)
+			{
+				case L.ExperimentEndSrc.External:
+					gText.text = "Nice job you found it!\n";
+					break;
+				case L.ExperimentEndSrc.Internal:
+					gText.text = "Sorry, you ran out of time\n";
+					break;
+				default:
+					gText.text = "";
+					break;
 			}
 
 

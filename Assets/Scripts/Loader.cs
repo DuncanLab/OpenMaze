@@ -81,7 +81,7 @@ public class Loader : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		checkExperimentStatus ();
+		CheckExperimentStatus ();
 
 
 		if (Input.GetKey(KeyCode.N) && !experimentMode && ep == ExperimentProgression.Beginning) {
@@ -91,6 +91,7 @@ public class Loader : MonoBehaviour {
 		if (Input.GetKey (KeyCode.Alpha0) && DS.GetData().DeveloperMode) {
 			SceneManager.LoadScene (2);
 			experimentMode = false;
+			experimentEndSrc = ExperimentEndSrc.Never;
 			ep = ExperimentProgression.Beginning;
 			experimentIndex = 0;
 		}
@@ -129,7 +130,7 @@ public class Loader : MonoBehaviour {
 
 	}
 
-	public static void progressExperiment(ExperimentEndSrc end = ExperimentEndSrc.External){
+	public static void ProgressExperiment(ExperimentEndSrc end = ExperimentEndSrc.External){
 		ep = ExperimentProgression.InWaiting;
 		SceneManager.LoadScene (2);
 
@@ -147,7 +148,7 @@ public class Loader : MonoBehaviour {
 	}
 
 
-	void checkExperimentStatus ()
+	public static void CheckExperimentStatus ()
 	{
 
 		if (experimentMode) {
@@ -162,7 +163,7 @@ public class Loader : MonoBehaviour {
 		
 			} else {
 				if (runningTime > experiment [experimentIndex] [1] + DS.GetData().CharacterData.Delay) {
-					progressExperiment (ExperimentEndSrc.Internal);
+					ProgressExperiment (ExperimentEndSrc.Internal);
 
 				}
 

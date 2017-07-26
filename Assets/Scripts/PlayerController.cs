@@ -35,8 +35,6 @@ public class PlayerController : MonoBehaviour {
     //The stream writer that writes data out to an output file.
 	private string _outDir;
 
-
-
     //This is the character controller system used for collision
     private CharacterController _controller;
 
@@ -86,7 +84,7 @@ public class PlayerController : MonoBehaviour {
 	    if (Loader.experimentMode) {
 		    LogData(true);
 		    GetComponent<AudioSource>().PlayOneShot(_gen.GetWaveSrc(), 1);
-		    Loader.progressExperiment ();
+		    Loader.ProgressExperiment ();
 		    Destroy (this);
 
 	    } else {

@@ -6,24 +6,33 @@ using DS = DataSingleton;
 
 
 //This script is the Generate (GenerateWall) script
-//It generates the GenerateWall object.
+//This is essentially the god class, the backbone of the project.
 public class GenerateGenerateWall : MonoBehaviour {
-	public GameObject Create; //This create is prefab of the create object.
-	public Camera Cam;	
-	public Text Timer;
+	//-------------------------- Fields -------------------------------------
+	public GameObject Create; //This is the prefab of the GenerateWall object.
+	public Camera Cam;		  //This is the main camera of the player.
+	public Text Timer;		  //This exists as the timer text.
 	
+	//This field is used for the screenshot system. We should move that to another class (probably).
 	private bool _begin;
 	private DataManager _dataManager;
-	private GameObject _currCreate; //current generate wall object that exists.
+	
+	//current generate wall object that exists. This is intrinsically different from 
+	//the Create object as that is a prefab while this is the instance.
+	private GameObject _currCreate; 
 	
 	//This is the delay value between key presses of changing number of walls in seconds.
 	private const float Delay = 0.1f;
-
+	
+	//This is the current audioclip associated with the pickup item. This is retrived from the input.json file
 	private AudioClip _audioClip;
 	
-	//This is the current running timestamp that is outputted to console.	
+	//This is the current running timestamp that is outputted to the outputfile.
 	private float _timestamp;
-
+	
+	//------------------------------------------------------
+	//These two functions are getters and setters to the wave src file.	
+	
 	public void SetWaveSrc(string file)
 	{
 
@@ -37,27 +46,20 @@ public class GenerateGenerateWall : MonoBehaviour {
 		return _audioClip;
 	}
 
-
-
+	//-----------------------------This is the ResetCreate data structure----------------
 	public void ResetCreate()
 	{
+		
+		//This field loads the data from datamanager into the data singleton
 		DataSingleton.SetData (_dataManager.Data);
+		
+		//We destroy the current currcreate object
 		Destroy(_currCreate);
+		
+		//And then we reinstantiate it
 		_currCreate = Instantiate(Create);
 	}
 
-
-
-
-
-
-	// Use this for initialization
-	private void Start () {
-		Create.transform.position = Vector3.zero;
-		_timestamp = 0;
-		_currCreate = Instantiate(Create);
-		_dataManager = GameObject.Find ("Data").GetComponent<DataManager> ();
-	}
 
 	//This code is copy and pasted from https://www.assetstore.unity3d.com/en/#!/content/24122
 	public void TakeScreenshot(string fileName){
@@ -79,6 +81,28 @@ public class GenerateGenerateWall : MonoBehaviour {
 
 		System.IO.File.WriteAllBytes(fileName, bytes);
 	}
+	
+	//This function creates a new zone with random number of walls
+	public void NewZoneRandom()
+	{
+		var r = new System.Random();
+		var diff = DS.GetData().WallData.MaxNumWalls - DS.GetData().WallData.MinNumWalls + 1;
+		var val = r.Next(diff) + DS.GetData().WallData.MinNumWalls;
+		DS.GetData().WallData.Sides = val;
+		ResetCreate();
+	}
+
+	//------------------- This is the inbuilt unity functions
+
+	// Use this for initialization
+	private void Start () {
+		Create.transform.position = Vector3.zero;
+		_timestamp = 0;
+		_currCreate = Instantiate(Create);
+		_dataManager = GameObject.Find ("Data").GetComponent<DataManager> ();
+	}
+
+
 
 
 	// Update is called once per frame
@@ -148,12 +172,5 @@ public class GenerateGenerateWall : MonoBehaviour {
 		//Increment the timestamp
 		_timestamp = Time.time;
 	}
-	public void NewZoneRandom()
-	{
-		var r = new System.Random();
-		var diff = DS.GetData().WallData.MaxNumWalls - DS.GetData().WallData.MinNumWalls + 1;
-		var val = r.Next(diff) + DS.GetData().WallData.MinNumWalls;
-		DS.GetData().WallData.Sides = val;
-		ResetCreate();
-	}
+
 }
