@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Net.Configuration;
 using UnityEngine;
 using UnityEngine.UI;
 using DS = DataSingleton;
@@ -12,6 +14,7 @@ public class GenerateGenerateWall : MonoBehaviour {
 	public GameObject Create; //This is the prefab of the GenerateWall object.
 	public Camera Cam;		  //This is the main camera of the player.
 	public Text Timer;		  //This exists as the timer text.
+	public GameObject Player;
 	
 	//This field is used for the screenshot system. We should move that to another class (probably).
 	private bool _begin;
@@ -79,7 +82,7 @@ public class GenerateGenerateWall : MonoBehaviour {
 		RenderTexture.active = null; 
 		var bytes = screenShot.EncodeToPNG();
 
-		System.IO.File.WriteAllBytes(fileName, bytes);
+		File.WriteAllBytes(fileName, bytes);
 	}
 	
 	//This function creates a new zone with random number of walls
@@ -103,7 +106,23 @@ public class GenerateGenerateWall : MonoBehaviour {
 	}
 
 
+	private void TakeRotationalSceenshot()
+	{
+		//First we generate the wall and then get the value.
+		var fileOutputVal = Constants.OutputDirectory + "/" + DS.GetData().OutputFolderName + "/AllAngelsWall" + DS.GetData().WallData.Sides;
+		Directory.CreateDirectory(fileOutputVal);
 
+		for (var i = 0; i < 8; i ++)
+		{
+			
+			
+			var fileName = DS.GetData().WallData.Sides + "A" + (i+1)*45 + ".png";
+			Player.transform.Rotate(0, 45, 0);
+			TakeScreenshot(fileOutputVal + "/" + fileName);
+
+		}
+		
+	}
 
 	// Update is called once per frame
 	private void Update () {
@@ -112,7 +131,6 @@ public class GenerateGenerateWall : MonoBehaviour {
 
 
 			TakeScreenshot ("Assets/OutputFiles~/" + DS.GetData().OutputFolderName + "/Wall" + DS.GetData().WallData.Sides + ".png");
-
 
 
 			DS.GetData().WallData.Sides += DS.GetData().WallData.WallStep;
@@ -126,14 +144,14 @@ public class GenerateGenerateWall : MonoBehaviour {
 
 
 		if (Input.GetKey (KeyCode.H)) {
-			System.IO.Directory.CreateDirectory ("Assets/OutputFiles~/" + DS.GetData ().OutputFolderName);
+			Directory.CreateDirectory ("Assets/OutputFiles~/" + DS.GetData ().OutputFolderName);
 
 			DS.GetData ().WallData.Sides = 4;
 			_begin = true;
 		}
 
 
-		//This is the input key for decreasing walls. This is button 1
+		//This is the input key for decreasing walls. This is button 1		
 		else if (Input.GetKey (KeyCode.Alpha1)) {
 			if (DS.GetData ().WallData.Sides > DS.GetData ().WallData.MinNumWalls) {
 				DS.GetData ().WallData.Sides -= DS.GetData ().WallData.WallStep;
@@ -168,7 +186,13 @@ public class GenerateGenerateWall : MonoBehaviour {
 		else if (Input.GetKey (KeyCode.G)) {
 			TakeScreenshot ("Assets/OutputFiles~/Screenshot/Screenshot.png");
 		} 
-				
+		
+		else if (Input.GetKey(KeyCode.J))
+		{
+			TakeRotationalSceenshot();
+		}
+		
+		
 		//Increment the timestamp
 		_timestamp = Time.time;
 	}

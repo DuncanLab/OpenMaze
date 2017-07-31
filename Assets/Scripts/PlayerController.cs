@@ -109,7 +109,7 @@ public class PlayerController : MonoBehaviour {
 
 	private void Update()
     {
-        int waitTime = DS.GetData().CharacterData.Delay;
+        var waitTime = DS.GetData().CharacterData.Delay;
         //In each update loop, we have we begin by checking if they have indeed been
         //by the appropriate amount of time.
         if (_currDelay > waitTime)
