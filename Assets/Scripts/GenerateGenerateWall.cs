@@ -129,8 +129,8 @@ public class GenerateGenerateWall : MonoBehaviour {
 		if (!(Time.time - _timestamp >= Delay) || !DS.GetData().DeveloperMode || Loader.ExperimentMode) return;
 		if (DS.GetData().WallData.Sides <= DS.GetData().WallData.MaxNumWalls && _begin) {
 
-
-			TakeScreenshot ("Assets/OutputFiles~/" + DS.GetData().OutputFolderName + "/Wall" + DS.GetData().WallData.Sides + ".png");
+			TakeRotationalSceenshot();
+			//TakeScreenshot ("Assets/OutputFiles~/" + DS.GetData().OutputFolderName + "/Wall" + DS.GetData().WallData.Sides + ".png");
 
 
 			DS.GetData().WallData.Sides += DS.GetData().WallData.WallStep;
