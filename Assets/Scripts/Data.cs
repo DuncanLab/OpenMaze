@@ -13,7 +13,7 @@ public class Data
 	public string OutputFolderName; //This is the folder where screenshots will be sent to
 	public bool OnCorner; //This represents if the rotation of the walls is based "on corner" or "on side". 
 						  //Essentially only relevant for screen shots
-	
+	public bool ShowText;
 	//This is the object (defined below) which contains all data available for the main player
 	public Character CharacterData;
 	

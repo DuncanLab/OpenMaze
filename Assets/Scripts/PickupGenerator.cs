@@ -72,8 +72,9 @@ public class PickupGenerator : MonoBehaviour {
         _goalText = GameObject.Find("Goal").GetComponent<Text>();
 
         //And this section sets the text.
-        _goalText.text = item.Tag;
-
+		_goalText.text = DS.GetData().ShowText ? item.Tag : "";
+			
+		
 		_goalText.color = Data.GetColour(item.Color);
 
 		var p = ReadFromExternal (item.PythonFile, item.Tag);
