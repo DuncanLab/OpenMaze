@@ -110,15 +110,16 @@ public class GenerateGenerateWall : MonoBehaviour {
 	{
 		Debug.Log("Beginning screenshots for " + DS.GetData().WallData.Sides);
 		
+		
 		//First we generate the wall and then get the value.
 		var fileOutputVal = Constants.OutputDirectory + "/" + DS.GetData().OutputFolderName + "/AllAngelsWall" + DS.GetData().WallData.Sides;
 		Directory.CreateDirectory(fileOutputVal);
 
 		for (var i = 0; i < 8; i ++)
 		{
+			char tail = Loader.CurrScene == 0 ? 'a' : 'b';
 			
-			
-			var fileName = DS.GetData().WallData.Sides + "_" + (i+1) + ".png";
+			var fileName = DS.GetData().WallData.Sides + "_" + (i+1) + tail + ".png";
 			Player.transform.Rotate(0, 45, 0);
 			TakeScreenshot(fileOutputVal + "/" + fileName);
 

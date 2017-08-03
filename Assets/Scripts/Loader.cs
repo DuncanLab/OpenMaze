@@ -16,6 +16,8 @@ public class Loader : MonoBehaviour
 {
 	public static InstructionXml InstructionData;
 
+	public static int CurrScene = 0;
+	
 	//This enum represents the current state of experiment progression.
 	public enum ExperimentProgression
 	{
@@ -152,10 +154,14 @@ public class Loader : MonoBehaviour
 
 
 		if (DS.GetData ().DeveloperMode && !ExperimentMode) { //Make sure this is in developer mode and not experiment mode..
-			if (Input.GetKey (KeyCode.K)) {
+			if (Input.GetKey (KeyCode.K))
+			{
+				Loader.CurrScene = 0;
 				SceneManager.LoadScene (0);
 
 			} else if (Input.GetKey (KeyCode.L)) {
+				Loader.CurrScene = 1;
+
 				SceneManager.LoadScene (1);
 			}
 		}
