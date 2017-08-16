@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net.Configuration;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DS = DataSingleton;
 
@@ -15,6 +16,8 @@ public class GenerateGenerateWall : MonoBehaviour {
 	public Camera Cam;		  //This is the main camera of the player.
 	public Text Timer;		  //This exists as the timer text.
 	public GameObject Player;
+
+	
 	
 	//This field is used for the screenshot system. We should move that to another class (probably).
 	private bool _begin;
@@ -178,6 +181,12 @@ public class GenerateGenerateWall : MonoBehaviour {
 
 		}
 
+		else if (Input.GetKey(KeyCode.Alpha4))
+		{
+			SceneManager.LoadScene(Constants.TwoDSceneNum);
+		}
+		
+		
 		//This is the input key for increasing walls. This is space key
 		else if (Input.GetKey (KeyCode.Space)) {
 			ResetCreate ();

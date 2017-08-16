@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using DS = DataSingleton;
-
+using Point = Data.Point;
 
 //This is a wall spawner object that will
 //generate the walls of the game at the start.
@@ -60,7 +59,7 @@ public class GenerateWall : MonoBehaviour {
 
 
 		//And we instantiate the color to the appropriate color on the continuom 
-		Color color = new Color()
+		Color color = new Color
 		{
 			r = start.r + redShift * (DS.GetData().WallData.Sides - minNumWalls),
 			g = start.g + greenShift * (DS.GetData().WallData.Sides - minNumWalls),
@@ -107,7 +106,8 @@ public class GenerateWall : MonoBehaviour {
 		float currentAngle = DS.GetData().WallData.InitialAngle;
 		if (DS.GetData().OnCorner) //This means that the system will be generated with a corner remaining fixed rather than a side
 			currentAngle += interiorAngle / 2;
-
+		
+	    WallPointContainer.Reset();
 
 		//Here we interate through all the sides
 		for (int i = 0; i < DS.GetData().WallData.Sides; i++)
@@ -115,19 +115,30 @@ public class GenerateWall : MonoBehaviour {
 			//We compute the sin and cos of the current angle (essentially plotting points on a circle
 			float x = Cos(currentAngle) * DS.GetData().WallData.Radius;
 			float y = Sin(currentAngle) * DS.GetData().WallData.Radius;
-
-
-			//Here we create the wall
-			GameObject obj = Instantiate(Wall,
-				new Vector3(x, DS.GetData().WallData.WallHeight/2, y),
-				Quaternion.identity
-			);
-
+			
 			//This is theoreticially the perfect length of the wall. However, this causes a multitude of problems
 			//Such as:
 			//Gaps appearing in large wall numbers
 			//Desealing some stuff. so, bad.
-			float length = 2 * DS.GetData().WallData.Radius * Tan(180 / DS.GetData().WallData.Sides);
+			float length = 2 * DS.GetData().WallData.Radius * Tan(180f / DS.GetData().WallData.Sides);
+
+			float lengthToEdge = 
+				Mathf.Sqrt(Mathf.Pow(DS.GetData().WallData.Radius, 2) + Mathf.Pow(length/2, 2));
+
+			Point p = new Point
+			{
+				X = lengthToEdge * Cos(currentAngle - interiorAngle / 2),
+				Y = lengthToEdge * Sin(currentAngle - interiorAngle / 2)
+			};
+			
+			WallPointContainer.Add(p);
+			
+			//Here we create the wall
+			GameObject obj = Instantiate(Wall,
+				new Vector3(x, DS.GetData().WallData.WallHeight/2f, y),
+				Quaternion.identity
+			);
+
 
 
 
@@ -146,6 +157,9 @@ public class GenerateWall : MonoBehaviour {
     }
 
 
+	
+	
+	
     //Cosine in degrees, using the current cos in radians used by the unity math library
     private static float Cos(float degrees)
     {
@@ -164,5 +178,7 @@ public class GenerateWall : MonoBehaviour {
     {
         return Sin(degrees) / Cos(degrees);
     }
+	
+	
 
 }
