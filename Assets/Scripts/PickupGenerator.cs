@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Diagnostics;
 using DS = DataSingleton;
+using E = ExperimentManager;
 
 public class PickupGenerator : MonoBehaviour {
     private List<GameObject> _destroy;
@@ -10,42 +11,44 @@ public class PickupGenerator : MonoBehaviour {
     private Text _goalText;
 
 
-	private static List<Data.Point> ReadFromExternal(string inputFile, string pickupType){
+	private static Data.Point ReadFromExternal(string inputFile){
 		var p = new Process
 		{
 			StartInfo = new ProcessStartInfo("python",
-				"Assets/InputFiles~/" + inputFile + " " + pickupType + " " + Loader.ExperimentIndex)
+				"Assets/InputFiles~/" + inputFile)
 			{
 				RedirectStandardOutput = true,
 				RedirectStandardError = true,
+				RedirectStandardInput = true,
 				UseShellExecute = false,
 				CreateNoWindow = true
 			}
 		};
-
 		p.Start ();
+		p.StandardInput.Write(JsonUtility.ToJson(E.Get().CurrTrial));
+
 		p.WaitForExit ();
-		var outputs = new List<Data.Point> ();
-		while (!p.StandardOutput.EndOfStream) {
-			var line = p.StandardOutput.ReadLine();
-			var point = new Data.Point();
-			if (line != null)
-			{
-				var arr = line.Split (',');
-				point.X = float.Parse (arr [0]);
-				point.Y = float.Parse (arr [1]);
-			}
-			outputs.Add (point);
-		}
+		var line = p.StandardOutput.ReadLine();
 
 		while (!p.StandardError.EndOfStream) {
-			var line = p.StandardError.ReadLine ();
-			print (line);
+			line = p.StandardError.ReadLine ();
+			UnityEngine.Debug.Log (line);
 
 		}
 
+		if (line == null)
+		{
+			UnityEngine.Debug.Log("PYTHON FILE ERROR!");
+			return new Data.Point{X = 5, Y = 5};
+		}
+		
+		var arr = line.Split (',');
+		return new Data.Point
+		{
+			X = float.Parse(arr[0]),
+			Y = float.Parse(arr[1])
+		};
 
-		return outputs;
 	}
 
 	// Use this for initialization
@@ -56,52 +59,42 @@ public class PickupGenerator : MonoBehaviour {
         _destroy = new List<GameObject>(); //This initializes the food object destroy list
 
         //SETUP SEED SYSTEM HERE (probably initialize this with number of walls).
-		Random.InitState(DS.GetData().WallData.Sides);
+		Random.InitState(E.Get().CurrTrial.Sides);
 
 		Data.PickupItem item;
-		if (!Loader.ExperimentMode) {
+		int val;
+		if ((val = E.Get().CurrTrial.PickupType) < 0) {
 			item = DS.GetData ().PickupItems [Random.Range (0, DS.GetData ().PickupItems.Count)];
 			gen.SetWaveSrc (item.SoundLocation);
 		} else {
-			item = DS.GetData ().PickupItems [Loader.ExperimentCsv [Loader.ExperimentIndex] [2]];
+			item = DS.GetData ().PickupItems [val];
 			gen.SetWaveSrc (item.SoundLocation);
-
 		}
         
         //Here is the text to determine the type of food that exists here
         _goalText = GameObject.Find("Goal").GetComponent<Text>();
 
         //And this section sets the text.
-		_goalText.text = DS.GetData().ShowText ? item.Tag : "";
+		_goalText.text = item.Tag;
 			
 		
 		_goalText.color = Data.GetColour(item.Color);
+		
+		
+		var p = ReadFromExternal (item.PythonFile);
+		
+		var obj = Instantiate (Pickup);
+	
+		obj.transform.position = new Vector3 (p.X, 0.5f, p.Y);
+		obj.transform.localScale = new Vector3 (1, 1, 1) * item.Size;
+		var color = Data.GetColour (item.Color);
+		obj.GetComponent<Renderer> ().material.color = color;
+		if (!item.Visible)
+			obj.GetComponent<Renderer>().enabled = false;
+		
 
-		var p = ReadFromExternal (item.PythonFile, item.Tag);
-
-		if (p.Count == 0) {
-			print ("INVALID PYTHON INPUT FILE " + item.PythonFile);
-			print ("PLEASE MAKE SURE THAT IT IS CONTAINED WITHIN THE INPUTFILES FOLDER AND IS SPELLED CORRECTLY");
-			return;
-		}
-
-
-
-		//This for loop generates the pickup files.
-        for (var i = 0; i < item.Count; i++)
-        {
-			var obj = Instantiate (Pickup);
-        
-			obj.transform.position = new Vector3 (p[i].X, 0.5f, p[i].Y);
-			obj.transform.localScale = new Vector3 (1, 1, 1) * item.Size;
-			var color = Data.GetColour (item.Color);
-			obj.GetComponent<Renderer> ().material.color = color;
-			if (!item.Visible)
-				obj.GetComponent<Renderer>().enabled = false;
-			
-
-			_destroy.Add (obj);
-        }
+		_destroy.Add (obj);
+	
     }
 
     //And here we destroy all the food.
@@ -113,5 +106,4 @@ public class PickupGenerator : MonoBehaviour {
 	    }
     }
     
-
 }

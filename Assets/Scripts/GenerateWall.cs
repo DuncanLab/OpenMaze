@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using UnityEditor;
+using E = ExperimentManager;
 using UnityEngine;
 using DS = DataSingleton;
 using Point = Data.Point;
@@ -47,28 +47,10 @@ public class GenerateWall : MonoBehaviour {
 	//Here we setup the colours. This is done as a gradient utilizing data given from input.json
 	private void SetupColours(){
 
-		Color start = Data.GetColour(DS.GetData().WallData.StartColour);
-
-		Color end = Data.GetColour(DS.GetData().WallData.EndColour);
-		int maxNumWalls = DS.GetData().WallData.MaxNumWalls;
-		int minNumWalls = DS.GetData().WallData.MinNumWalls;
-
-		//Here we calculate how much of r g b we shift by
-		float redShift = (end.r - start.r) / (maxNumWalls -  minNumWalls);
-		float greenShift = (end.g - start.g) / (maxNumWalls - minNumWalls);
-		float blueShift = (end.b - start.b) / (maxNumWalls - minNumWalls);
-
-
-		//And we instantiate the color to the appropriate color on the continuom 
-		Color color = new Color
-		{
-			r = start.r + redShift * (DS.GetData().WallData.Sides - minNumWalls),
-			g = start.g + greenShift * (DS.GetData().WallData.Sides - minNumWalls),
-			b = start.b + blueShift * (DS.GetData().WallData.Sides - minNumWalls)
-		};
+		Color col = Data.GetColour(ExperimentManager.Get().CurrTrial.Color);
 
 		//And here we set the color of the wall prefab to the appropriate color
-		Wall.GetComponent<Renderer>().sharedMaterial.color = color;
+		Wall.GetComponent<Renderer>().sharedMaterial.color = col;
 			
 	}
 
@@ -115,30 +97,29 @@ public class GenerateWall : MonoBehaviour {
     private void GenerateWalls()
     {
 		//This computes the current interior angle of the given side.
-		var interiorAngle = 360f / DS.GetData().WallData.Sides; //This is, of course, given as 360 / num sides
+		var interiorAngle = 360f / E.Get().CurrTrial.Sides; //This is, of course, given as 360 / num sides
 
 		//This sets the initial angle to the one given in the preset
-		float currentAngle = DS.GetData().WallData.InitialAngle;
-		if (DS.GetData().OnCorner) //This means that the system will be generated with a corner remaining fixed rather than a side
-			currentAngle += interiorAngle / 2;
+		float currentAngle = 0;
 		
+	    //This object is for 2D
 	    WallPointContainer.Reset();
 
 		//Here we interate through all the sides
-		for (int i = 0; i < DS.GetData().WallData.Sides; i++)
+		for (int i = 0; i < E.Get().CurrTrial.Sides; i++)
 		{
 			//We compute the sin and cos of the current angle (essentially plotting points on a circle
-			float x = Cos(currentAngle) * DS.GetData().WallData.Radius;
-			float y = Sin(currentAngle) * DS.GetData().WallData.Radius;
+			float x = Cos(currentAngle) * E.Get().CurrTrial.Radius;
+			float y = Sin(currentAngle) * E.Get().CurrTrial.Radius;
 			
 			//This is theoreticially the perfect length of the wall. However, this causes a multitude of problems
 			//Such as:
 			//Gaps appearing in large wall numbers
 			//Desealing some stuff. so, bad.
-			float length = 2 * DS.GetData().WallData.Radius * Tan(180f / DS.GetData().WallData.Sides);
+			float length = 2 * E.Get().CurrTrial.Radius * Tan(180f / E.Get().CurrTrial.Sides);
 
 			float lengthToEdge = 
-				Mathf.Sqrt(Mathf.Pow(DS.GetData().WallData.Radius, 2) + Mathf.Pow(length/2, 2));
+				Mathf.Sqrt(Mathf.Pow(E.Get().CurrTrial.Radius, 2) + Mathf.Pow(length/2, 2));
 
 			Point p = new Point
 			{
@@ -150,15 +131,13 @@ public class GenerateWall : MonoBehaviour {
 			
 			//Here we create the wall
 			GameObject obj = Instantiate(Wall,
-				new Vector3(x, DS.GetData().WallData.WallHeight/2f, y),
+				new Vector3(x, 3f/2, y),
 				Quaternion.identity
 			);
 
 
-
-
 			//So we add 10 because the end user won't be able to notice it anyways
-			obj.transform.localScale = new Vector3(length + 10, DS.GetData().WallData.WallHeight, 0.5f);
+			obj.transform.localScale = new Vector3(length + 10, 3, 0.5f);
 
 			//This rotates the walls by the current angle + 90
 			obj.transform.Rotate(Quaternion.Euler(0, - currentAngle - 90, 0).eulerAngles);
@@ -172,10 +151,13 @@ public class GenerateWall : MonoBehaviour {
     }
 
 
-	
-	
-	
-    //Cosine in degrees, using the current cos in radians used by the unity math library
+	private void Update()
+	{
+		ExperimentManager.Get().Update(Time.deltaTime);
+	}
+
+
+	//Cosine in degrees, using the current cos in radians used by the unity math library
     public static float Cos(float degrees)
     {
         return Mathf.Cos(degrees * Mathf.PI / 180);

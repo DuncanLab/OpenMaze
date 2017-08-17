@@ -1,0 +1,84 @@
+{
+    "InstructionFile": "Instructions.xml",
+    "CharacterData": {
+        "CamRotation": 10.0,
+        "Height": 0.5,
+        "MovementSpeed": 10.0,
+        "RotationSpeed": 100.0,
+        "TimeToRotate": 1,
+        "OutputFile": "out.csv",
+        "CharacterStartPos": {
+            "X": 0.0,
+            "Y": 0.0
+        }
+    },
+    "TrialOrder": [
+        0, 1, 0, 1, 0
+    ],
+    "TrialData": [
+        {
+            "Index" : 1,
+        	"EnviornmentType": 0,
+        	"Sides": 4,
+        	"Color": "00ff00",
+        	"Radius": 10,
+        	"InitialAngle" : 0,
+        	"PickupType" : 0,
+        	"PrewaitTime" : 3,
+        	"TimeAllotted" : 10
+        },
+        {
+            "Index" : 2,
+            "EnviornmentType": 1,
+            "Sides": 5,
+            "Color": "ff0000",
+            "Radius": 10,
+            "InitialAngle" : 0,
+            "PickupType" : -1,
+            "PrewaitTime" : 3,
+            "TimeAllotted" : 10
+        }
+    ],
+    "PickupItems": [
+        {
+            "Tag": "Food",
+            "Color": "ff0000",
+            "SoundLocation": "eat",
+            "Visible": true,
+            "PythonFile": "Example.py",
+            "Size": 1.0
+        },
+        {
+            "Tag": "Water",
+            "Color": "0000ff",
+            "SoundLocation": "drink",
+            "Visible": true,
+            "PythonFile": "Example.py",
+            "Size": 1.0
+        },
+        {
+            "Tag": "Money",
+            "Color": "00ff00",
+            "SoundLocation": "money",
+            "Visible": true,
+            "PythonFile": "Example.py",
+            "Size": 1.0
+        }
+    ],
+    "Pillars": [
+        {
+            "X": 0.0,
+            "Y": 10.0,
+            "Radius": 1.0,
+            "Height": 2.0,
+            "Color": "00ffff "
+        },
+        {
+            "X": 0.0,
+            "Y": -10.0,
+            "Radius": 1.0,
+            "Height": 10.0,
+            "Color": "000000"
+        }
+    ]
+}

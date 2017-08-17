@@ -10,11 +10,6 @@ public class SpriteController : MonoBehaviour
 {
 
 
-
-	private void Start()
-	{
-		//DS.Load();
-	}
 	
 	// Update is called once per frame
 	private void Update () {
