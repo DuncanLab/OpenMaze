@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,6 +23,9 @@ public class Data
 	
 	//This is a LIST of the different types of pickup items that are defiend below
 	public List<PickupItem> PickupItems;
+	
+	//This is a list of the pillar objects
+	public List<Pillar> Pillars;
 	
 	//This represents most fields regarding to the Walls
 	//The colour of the walls will be a spectrum with the start colour being at MinNum and end colour being at MaxNum
@@ -91,6 +95,19 @@ public class Data
 
 	}
 
+	//This is essentially a pillar object.
+	//Fields are pretty obvious.
+	[System.Serializable]
+	public class Pillar
+	{
+		public float X;
+		public float Y;
+		public float Radius;
+		public float Height;
+		public string Color;
+
+	}
+	
 	//=========================== END OF JSON FIELDS ==========================================
 
 

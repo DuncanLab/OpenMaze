@@ -16,7 +16,7 @@ public class Loader : MonoBehaviour
 {
 	public static InstructionXml InstructionData;
 
-	public static int CurrScene = 0;
+	public static int CurrScene;
 	
 	//This enum represents the current state of experiment progression.
 	public enum ExperimentProgression

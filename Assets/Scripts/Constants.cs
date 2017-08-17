@@ -12,5 +12,6 @@ public class Constants
      
      //Here we initialize a private constructor to prevent initialization of this class
      private Constants(){}
-     
+
+     public static int TwoDSceneNum2 = 5;
 }

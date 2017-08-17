@@ -29,6 +29,7 @@ public class GenerateWall : MonoBehaviour {
 		SetupColours ();
         GenerateWalls();
         GenerateCheckerBoard();
+		GeneratePillars();
     }
 
 	//This is called when the object is destroyed by Generate Generate Wall. Here we destroy
@@ -72,6 +73,20 @@ public class GenerateWall : MonoBehaviour {
 	}
 
 
+	private void GeneratePillars()
+	{
+		foreach (var p in DS.GetData().Pillars)
+		{
+			var cylin = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+			
+			cylin.transform.position = new Vector3(p.X, 0, p.Y);
+			cylin.transform.localScale = new Vector3(p.Radius, p.Height, p.Radius);
+			cylin.GetComponent<Renderer>().material.color = Data.GetColour(p.Color);
+			
+			_created.Add(cylin);
+		}
+	}
+	
     
 
     //This function generates the checkerboard. We can modify the size of this later.
@@ -161,7 +176,7 @@ public class GenerateWall : MonoBehaviour {
 	
 	
     //Cosine in degrees, using the current cos in radians used by the unity math library
-    private static float Cos(float degrees)
+    public static float Cos(float degrees)
     {
         return Mathf.Cos(degrees * Mathf.PI / 180);
     }
@@ -174,7 +189,7 @@ public class GenerateWall : MonoBehaviour {
 
     //Tangent in degrees, using the tan identity.
 
-    private static float Tan(float degrees)
+    public static float Tan(float degrees)
     {
         return Sin(degrees) / Cos(degrees);
     }

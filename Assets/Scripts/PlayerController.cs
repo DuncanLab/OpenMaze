@@ -16,7 +16,8 @@ public class PlayerController : MonoBehaviour {
     public enum State
     {
         Waiting,
-        Moving
+        Moving,
+	    Exploding
     }
 
     //This is the current state
@@ -78,14 +79,14 @@ public class PlayerController : MonoBehaviour {
 	    if (!other.gameObject.CompareTag("Pickup") || _state != State.Moving) return;
 	    //We log the data out to the console
 
-	    GetComponent<AudioSource> ().PlayOneShot (_gen.GetWaveSrc (), 1);
-	    Destroy (other.gameObject);
+//	    GetComponent<AudioSource> ().PlayOneShot (_gen.GetWaveSrc (), 1);
+//	    Destroy (other.gameObject);
 
 	    if (Loader.ExperimentMode) {
 		    LogData(true);
 		    GetComponent<AudioSource>().PlayOneShot(_gen.GetWaveSrc(), 1);
-		    Loader.ProgressExperiment ();
-		    Destroy (this);
+		    _state = State.Exploding;
+		    return;
 
 	    } else {
 		    _gen.NewZoneRandom ();
@@ -109,6 +110,12 @@ public class PlayerController : MonoBehaviour {
 
 	private void Update()
     {
+	    if (_state == State.Exploding)
+	    {
+		    if (GetComponent<AudioSource>().isPlaying) return;	
+		    Loader.ProgressExperiment ();
+		    return;
+	    }
         var waitTime = DS.GetData().CharacterData.Delay;
         //In each update loop, we have we begin by checking if they have indeed been
         //by the appropriate amount of time.

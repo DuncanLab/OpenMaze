@@ -133,7 +133,7 @@ public class GenerateGenerateWall : MonoBehaviour {
 
 	// Update is called once per frame
 	private void Update () {
-		if (!(Time.time - _timestamp >= Delay) || !DS.GetData().DeveloperMode || Loader.ExperimentMode) return;
+ 		if (!(Time.time - _timestamp >= Delay) || !DS.GetData().DeveloperMode || Loader.ExperimentMode) return;
 		if (DS.GetData().WallData.Sides <= DS.GetData().WallData.MaxNumWalls && _begin) {
 
 			TakeRotationalSceenshot();
@@ -185,6 +185,12 @@ public class GenerateGenerateWall : MonoBehaviour {
 		{
 			SceneManager.LoadScene(Constants.TwoDSceneNum);
 		}
+		
+		else if (Input.GetKey(KeyCode.Alpha5))
+		{
+			SceneManager.LoadScene(Constants.TwoDSceneNum2);
+		}
+		
 		
 		
 		//This is the input key for increasing walls. This is space key
