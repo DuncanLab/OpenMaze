@@ -121,27 +121,18 @@ namespace wallSystem
 				//Gaps appearing in large wall numbers
 				//Desealing some stuff. so, bad.
 				float length = 2 * E.Get().CurrTrial.Value.Radius * Tan(180f / E.Get().CurrTrial.Value.Sides);
-
-				float lengthToEdge = 
-					Mathf.Sqrt(Mathf.Pow(E.Get().CurrTrial.Value.Radius, 2) + Mathf.Pow(length/2, 2));
-
-				Point p = new Point
-				{
-					X = lengthToEdge * Cos(currentAngle - interiorAngle / 2),
-					Y = lengthToEdge * Sin(currentAngle - interiorAngle / 2)
-				};
-			
-				WallPointContainer.Add(p);
+				WallPointContainer.Length = length;
+				WallPointContainer.Add(new Point{X = x, Y = y}, - currentAngle - 90);
 			
 				//Here we create the wall
 				GameObject obj = Instantiate(Wall,
-					new Vector3(x, 3f/2, y),
+					new Vector3(x, DS.GetData().WallHeight/2, y),
 					Quaternion.identity
 				);
 
 
 				//So we add 10 because the end user won't be able to notice it anyways
-				obj.transform.localScale = new Vector3(length + 10, 3, 0.5f);
+				obj.transform.localScale = new Vector3(length + 10, DS.GetData().WallHeight, 0.5f);
 
 				//This rotates the walls by the current angle + 90
 				obj.transform.Rotate(Quaternion.Euler(0, - currentAngle - 90, 0).eulerAngles);

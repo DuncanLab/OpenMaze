@@ -64,7 +64,6 @@ namespace main
 				else
 				{
 					
-					Debug.Log(typeof(Data.Trial).GetFields());
 					foreach (FieldInfo prop in typeof(Data.Trial).GetFields())
 					{
 						var s = prop.Name + ", " + prop.GetValue(CurrTrial.Value);

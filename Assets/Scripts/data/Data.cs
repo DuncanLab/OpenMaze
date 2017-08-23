@@ -28,7 +28,9 @@ namespace data
 
 		//This list contains all pre-defined trials.
 		public List<Trial> TrialData;
-	
+
+		public float WallHeight;
+		
 		/// <summary>
 		/// A sample trial.
 		/// </summary>
