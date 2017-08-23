@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using data;
-using UnityEditor;
 using UnityEngine;
 
 namespace twoDSystem
