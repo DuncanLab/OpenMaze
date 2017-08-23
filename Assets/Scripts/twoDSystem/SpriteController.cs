@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using states;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using DS = data.DataSingleton;
@@ -10,35 +9,18 @@ namespace twoDSystem
 {
 	public class SpriteController : MonoBehaviour
 	{
-		private bool _ran;
-
-		private void Start()
-		{
-			_ran = false;
-		}
 		
-		private void LogData()
-		{
-			using (var writer = new StreamWriter ("Assets\\OutputFiles~\\" + DS.GetData ().CharacterData.OutputFile, true))
-			{
-				string line = E.Get().CurrTrial.Index + ", "
-				              + transform.position.x + ", "
-				              + transform.position.z + ", ";
-				writer.Write (line);
-				writer.Flush ();
-				writer.Close();
-			}
-		}
-	
+		
+		
 		// Update is called once per frame
 		private void Update () {
 			
-			if (Input.GetKey(KeyCode.Space) && !_ran)
+			if (Input.GetKey(KeyCode.Space))
 			{
-				LogData();
-				E.Get().CurrentState = State.WaitFirst;
+				var str = "TwoD, x, " + transform.position.x + ", y, " + transform.position.z + ", time, " + E.Get().RunningTime;
+				E.LogData(str);
+				
 				E.Get().Progress();
-				_ran = true;
 			}
 			
 		

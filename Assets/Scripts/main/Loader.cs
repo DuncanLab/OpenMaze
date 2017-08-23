@@ -1,11 +1,10 @@
 ﻿using System.IO;
+using System.Reflection;
 using data;
-using states;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using DS = data.DataSingleton;
 using C = data.Constants;
-using Event = states.Event;
 
 namespace main
 {
@@ -21,90 +20,102 @@ namespace main
 		}
 		
 		
-		public Data.Trial CurrTrial;
+		public LinkedListNode CurrTrial;
 		public float RunningTime;
-		public Event CurrentEvent;
-		public State CurrentState;
-		
+
+		public class LinkedListNode
+		{
+			public Data.Trial Value;
+			public LinkedListNode Next;
+		}		
 		private void Start () {
 			DontDestroyOnLoad(this);
 			DS.Load ();
-			CurrTrial = DS.GetData().TrialData[0];
-
-			CatchEvent(new TransitionEvent(C.LoadingScreen, State.Start));
 			Directory.CreateDirectory(C.OutputDirectory);
-		}
 
+			CurrTrial = new LinkedListNode();
 
-		public void CatchEvent(Event e)
-		{
-
-			RunningTime = 0;
-
-			if (e.State != State.None) CurrentState = e.State;
-			
-			CurrentEvent = e;
-		}
-		
-		private void Update()
-		{
-			if (CurrentEvent != null) CurrentEvent.Act();
-		
-			HandleInput();
-			
-			RunningTime += Time.deltaTime;
-
-			if (CurrentState == State.Trial && RunningTime > CurrTrial.TimeAllotted)
+			var temp = CurrTrial;
+			int cnt = 0;
+			foreach (var i in DS.GetData().TrialOrder)
 			{
-				Progress();
+				temp.Value = DS.GetData().TrialData[i];
+				if (cnt++ != DS.GetData().TrialOrder.Count - 1)
+					temp.Next = new LinkedListNode();
+				temp = temp.Next;
+			}
+			LogData("", false);
+			SceneManager.LoadScene(C.LoadingScreen);
+		}
 
-				
-				if (CurrTrial.PickupType > 0)
+		public void Progress()
+		{
+			if (CurrTrial.Next != null)
+			{
+				RunningTime = 0;
+				CurrTrial = CurrTrial.Next;
+				if (CurrTrial.Value.FileLocation != null)
 				{
-					CurrentState = State.Lost;
-				}
-				else if (CurrTrial.PickupType == 0)
+					SceneManager.LoadScene(C.LoadingScreen);
+				} else if (CurrTrial.Value.TwoDimensional)
 				{
-					CurrentState = State.TwoDim;
+					SceneManager.LoadScene(CurrTrial.Value.EnvironmentType + 4);
 				}
 				else
 				{
-					CurrentState = State.Timeout;
+					
+					Debug.Log(typeof(Data.Trial).GetFields());
+					foreach (FieldInfo prop in typeof(Data.Trial).GetFields())
+					{
+						var s = prop.Name + ", " + prop.GetValue(CurrTrial.Value);
+						LogData(s);
+					}
+					SceneManager.LoadScene(CurrTrial.Value.EnvironmentType + 2);
 				}
-				
-				
-				SceneManager.LoadScene(C.LoadingScreen);
-			}
-			
-		}
 
+			}
+		}
+		
+		private void LateUpdate()
+		{
+			HandleInput();
+			if (CheckTimeOut())
+			{
+				if (CurrTrial.Value.TwoDimensional)
+				{
+					LogData("TwoD, x, NA, y, NA, time, NA");
+				}
+				Progress();
+			}
+			RunningTime += Time.deltaTime;
+		}
+		
+		
+		public bool CheckTimeOut()
+		{
+			return CurrTrial.Value.TimeAllotted > 0 
+			       && RunningTime > CurrTrial.Value.TimeAllotted;
+		}
+		
+		
 		private void HandleInput()
 		{
+			if (CurrTrial.Value.TimeAllotted > 0) return;
 			if (Input.GetKey(KeyCode.Space))
 			{
-				if (CurrentState == State.Start)
-				{
-					CatchEvent(new TransitionEvent(C.LoadingScreen, State.WaitFirst));
-				}
-			}
+				Progress();
+			}			
 		}
 
-		public void ResetEvent()
+		public static void LogData(string data, bool append = true)
 		{
-			CurrentEvent = null;
-		}
-
-		public bool Progress()
-		{
-			if (CurrTrial.Index == DS.GetData().TrialData.Count)
+			using (var writer = new StreamWriter ("Assets\\OutputFiles~\\" + DS.GetData ().CharacterData.OutputFile, append))
 			{
-				CurrentState = State.Final;
-				SceneManager.LoadScene(C.LoadingScreen);
-				return false;
-			}
-			
-			CurrTrial = DS.GetData().TrialData[CurrTrial.Index];
-			return true;
+				writer.Write (data + "\n");
+				writer.Flush ();
+				writer.Close();
+			}	
 		}
+		
 	}
 }

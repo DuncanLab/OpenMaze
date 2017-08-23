@@ -13,44 +13,57 @@
         }
     },
     "TrialOrder": [
-        0, 1, 0, 1, 0
+        0, 1, 0, 2, 0, 1
     ],
     "TrialData": [
         {
-            "Index" : 1,
-        	"EnviornmentType": 0,
-        	"Sides": 4,
+            "FileLocation": "Test.jpg",
+            "TimeAllotted": -1
+        },
+        {
+            "Index": 4,
+        	"EnvironmentType": 0,
+        	"Sides": 40,
         	"Color": "00ff00",
-        	"PillarColour" : "00ff00",
+        	"PillarColor" : "00ff00",
         	"Radius": 10,
         	"InitialAngle" : 0,
-        	"PickupType" : -1,
-        	"PrewaitTime" : 3,
-        	"TimeAllotted" : 10
+        	"PickupType" : 1,
+        	"TimeAllotted" : 10,
+        	"RandomLoc" : true
         },
         {
-            "Index" : 2,
-            "EnviornmentType": 1,
-            "Sides": 5,
-            "Color": "ff0000",
-        	"PillarColour" : "00ff00",
-            "Radius": 10,
-            "InitialAngle" : 0,
-            "PickupType" : 0,
-            "PrewaitTime" : 3,
-            "TimeAllotted" : 1
-        },
+            "TwoDimensional" : true,
+            "EnviornmentType" : 0,
+            "TimeAllotted" : 10
+        },       
         {
-            "Index" : 3,
-            "EnviornmentType": 1,
+            "Index": 2,
+            "EnviornmentType": 0,
             "Sides": 5,
             "Color": "ff0000",
-        	"PillarColour" : "00ff00",
+        	"PillarColor" : "00ff00",
             "Radius": 10,
             "InitialAngle" : 0,
             "PickupType" : 2,
-            "PrewaitTime" : 3,
-            "TimeAllotted" : 10
+            "TimeAllotted" : 10,
+            "RandomLoc" : false
+        },
+        {
+            "Index": 3,
+            "EnviornmentType": 1,
+            "Sides": 5,
+            "Color": "ff0000",
+        	"PillarColor" : "00ff00",
+            "Radius": 10,
+            "InitialAngle" : 0,
+            "PickupType" : 2,
+            "TimeAllotted" : 10,
+            "RandomLoc" : false
+        },
+        {
+            "FileLocation": "Test.jpg",
+            "TimeAllotted": 2
         }
     ],
     "PickupItems": [
@@ -84,15 +97,13 @@
             "X": 0.0,
             "Y": 10.0,
             "Radius": 1.0,
-            "Height": 2.0,
-            "Color": "00ffff "
+            "Height": 10.0
         },
         {
             "X": 0.0,
             "Y": -10.0,
             "Radius": 1.0,
-            "Height": 10.0,
-            "Color": "000000"
+            "Height": 10.0
         }
     ]
 }

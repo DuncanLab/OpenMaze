@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Xml;
 using UnityEngine;
+using UnityStandardAssets.ImageEffects;
 
 namespace data
 {
@@ -35,14 +36,17 @@ namespace data
 		public class Trial
 		{
 			public int Index;
+			public bool TwoDimensional;
+			public string FileLocation;
 			public int EnvironmentType;
 			public int Sides;
 			public string Color;
 			public int Radius;
-			public int InnitialAngle;
+			public int InitialAngle;
 			public int PickupType;
-			public int PrewaitTime;
 			public int TimeAllotted;
+			public string PillarColor;
+			public bool RandomLoc;
 		}
 
 
@@ -103,16 +107,14 @@ namespace data
 			public float Y;
 			public float Radius;
 			public float Height;
-			public string Color;
-
 		}
 	
 		//=========================== END OF JSON FIELDS ==========================================
 
-
+		[System.Obsolete]
 		public class InstructionXml
 		{
-
+			[System.Obsolete]
 			public object this[string propertyName]
 			{
 				get { return GetType().GetProperty(propertyName).GetValue(this, null); }
@@ -128,6 +130,8 @@ namespace data
 			public string TwoDMode { get; set; }
 		}
 
+		
+		[System.Obsolete]
 		public static InstructionXml ParseXml()
 		{
 		

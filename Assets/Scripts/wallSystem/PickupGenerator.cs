@@ -13,6 +13,7 @@ namespace wallSystem
 		public GameObject Pickup;
 		private Text _goalText;
 
+		public static Data.Point P;
 
 		private static Data.Point ReadFromExternal(string inputFile){
 			var p = new Process
@@ -28,14 +29,15 @@ namespace wallSystem
 				}
 			};
 			p.Start ();
-			p.StandardInput.Write(JsonUtility.ToJson(E.Get().CurrTrial));
+			p.StandardInput.Write(JsonUtility.ToJson(E.Get().CurrTrial.Value) +"\n");
 
 			p.WaitForExit ();
 			var line = p.StandardOutput.ReadLine();
 
+			
 			while (!p.StandardError.EndOfStream) {
-				line = p.StandardError.ReadLine ();
-				UnityEngine.Debug.Log (line);
+				var outputLine = p.StandardError.ReadLine ();
+				UnityEngine.Debug.Log (outputLine);
 
 			}
 
@@ -61,10 +63,13 @@ namespace wallSystem
 
 			_destroy = new List<GameObject>(); //This initializes the food object destroy list
 
+			_goalText = GameObject.Find("Goal").GetComponent<Text>();
 
-			int val = E.Get().CurrTrial.PickupType;
+			int val = E.Get().CurrTrial.Value.PickupType;
 			if (val == 0)
 			{
+				_goalText.text = "Explore";
+				_goalText.color = Color.white;
 				return;
 			} 
 			var item = DS.GetData ().PickupItems [Mathf.Abs(val) - 1];
@@ -72,7 +77,6 @@ namespace wallSystem
 			
         
 			//Here is the text to determine the type of food that exists here
-			_goalText = GameObject.Find("Goal").GetComponent<Text>();
 
 			//And this section sets the text.
 			_goalText.text = item.Tag;
@@ -83,11 +87,12 @@ namespace wallSystem
 			
 		
 		
-			var p = ReadFromExternal (item.PythonFile);
-		
+			P = ReadFromExternal (item.PythonFile);
+
 			var obj = Instantiate (Pickup);
 	
-			obj.transform.position = new Vector3 (p.X, 0.5f, p.Y);
+			obj.transform.position = new Vector3 (P.X, 0.5f, P.Y);
+			E.LogData("Target Location, " + P.X + ", " + P.Y);
 			obj.transform.localScale = new Vector3 (1, 1, 1) * item.Size;
 			var color = Data.GetColour (item.Color);
 			obj.GetComponent<Renderer> ().material.color = color;

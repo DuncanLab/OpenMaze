@@ -51,7 +51,7 @@ namespace wallSystem
 		//Here we setup the colours. This is done as a gradient utilizing data given from input.json
 		private void SetupColours(){
 
-			Color col = Data.GetColour(E.Get().CurrTrial.Color);
+			Color col = Data.GetColour(E.Get().CurrTrial.Value.Color);
 
 			//And here we set the color of the wall prefab to the appropriate color
 			Wall.GetComponent<Renderer>().sharedMaterial.color = col;
@@ -67,7 +67,7 @@ namespace wallSystem
 			
 				cylin.transform.position = new Vector3(p.X, 0, p.Y);
 				cylin.transform.localScale = new Vector3(p.Radius, p.Height, p.Radius);
-				cylin.GetComponent<Renderer>().material.color = Data.GetColour(p.Color);
+				cylin.GetComponent<Renderer>().material.color = Data.GetColour(E.Get().CurrTrial.Value.PillarColor);
 			
 				_created.Add(cylin);
 			}
@@ -101,7 +101,7 @@ namespace wallSystem
 		private void GenerateWalls()
 		{
 			//This computes the current interior angle of the given side.
-			var interiorAngle = 360f / E.Get().CurrTrial.Sides; //This is, of course, given as 360 / num sides
+			var interiorAngle = 360f / E.Get().CurrTrial.Value.Sides; //This is, of course, given as 360 / num sides
 
 			//This sets the initial angle to the one given in the preset
 			float currentAngle = 0;
@@ -110,20 +110,20 @@ namespace wallSystem
 			WallPointContainer.Reset();
 
 			//Here we interate through all the sides
-			for (int i = 0; i < E.Get().CurrTrial.Sides; i++)
+			for (int i = 0; i < E.Get().CurrTrial.Value.Sides; i++)
 			{
 				//We compute the sin and cos of the current angle (essentially plotting points on a circle
-				float x = Cos(currentAngle) * E.Get().CurrTrial.Radius;
-				float y = Sin(currentAngle) * E.Get().CurrTrial.Radius;
+				float x = Cos(currentAngle) * E.Get().CurrTrial.Value.Radius;
+				float y = Sin(currentAngle) * E.Get().CurrTrial.Value.Radius;
 			
 				//This is theoreticially the perfect length of the wall. However, this causes a multitude of problems
 				//Such as:
 				//Gaps appearing in large wall numbers
 				//Desealing some stuff. so, bad.
-				float length = 2 * E.Get().CurrTrial.Radius * Tan(180f / E.Get().CurrTrial.Sides);
+				float length = 2 * E.Get().CurrTrial.Value.Radius * Tan(180f / E.Get().CurrTrial.Value.Sides);
 
 				float lengthToEdge = 
-					Mathf.Sqrt(Mathf.Pow(E.Get().CurrTrial.Radius, 2) + Mathf.Pow(length/2, 2));
+					Mathf.Sqrt(Mathf.Pow(E.Get().CurrTrial.Value.Radius, 2) + Mathf.Pow(length/2, 2));
 
 				Point p = new Point
 				{

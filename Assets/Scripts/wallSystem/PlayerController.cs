@@ -1,7 +1,8 @@
 ﻿using System;
 using System.IO;
-using states;
+using data;
 using UnityEngine;
+using UnityEngine.UI;
 using DS = data.DataSingleton;
 using Random = UnityEngine.Random;
 using E = main.Loader;
@@ -31,9 +32,19 @@ namespace wallSystem
 		private float _iniRotation;
 
 		private float _waitTime;
+
+		private bool _playingSound;
 		
+		private bool _reset;
+
 		private void Start()
 		{
+			if (E.Get().CurrTrial.Value.RandomLoc)
+			{
+				Random.InitState(System.DateTime.Now.Millisecond);
+				Vector2 v = Random.insideUnitCircle * E.Get().CurrTrial.Value.Radius;
+				transform.position = new Vector3(v.x, transform.position.y, v.y);
+			}
 			_currDelay = 0;
 			_iniRotation = Random.Range (0, 360);
 			transform.Rotate (new Vector3 (0, _iniRotation, 0));
@@ -41,22 +52,27 @@ namespace wallSystem
 			_gen = GameObject.Find("WallCreator").GetComponent<GenerateGenerateWall>();
 			Cam.transform.Rotate (-DS.GetData().CharacterData.CamRotation, 0, 0);
 			_waitTime = DS.GetData().CharacterData.TimeToRotate;
-			ObjectsFound = 0;
+			_reset = false;
+			E.LogData("Trial Number, time (seconds), x, y, angle,  " +
+			          "EnvironmentType, Sides, targetFound, pickupType, targetX, targetY");
 		}
 
 		private void LogData(bool collided)
 		{
-			using (var writer = new StreamWriter ("Assets\\OutputFiles~\\" + DS.GetData ().CharacterData.OutputFile, true)) {
-				string line = E.Get().CurrTrial.Index + ", "
-				              + E.Get().RunningTime+ ", "
-				              + transform.position.x + ", "
-				              + transform.position.z + ", "
-				              + collided + ", "
-				              + transform.rotation.eulerAngles.y + "\n";
-				writer.Write (line);
-				writer.Flush ();
-				writer.Close();
-			}
+			var v = E.Get().CurrTrial.Value;
+			string line = E.Get().CurrTrial.Value.Index + ", "
+			              + E.Get().RunningTime + ", "
+			              + transform.position.x + ", "
+			              + transform.position.z + ", "
+			              + transform.rotation.eulerAngles.y + ", "
+			              + v.EnvironmentType + ", "
+			              + v.Sides + ", "
+			              + collided + ", "
+			              + v.PickupType + ", "
+			              + PickupGenerator.P.X + ", "
+			              + PickupGenerator.P.Y;
+			
+			E.LogData(line);
 		}
 
 		//This is the collision system.
@@ -64,11 +80,12 @@ namespace wallSystem
 		{
 			if (!other.gameObject.CompareTag("Pickup")) return;
 			ObjectsFound++;
+			Text text = GameObject.Find("CountDown").GetComponent<Text>();
+			text.text = "Found: " + ObjectsFound;
 			GetComponent<AudioSource> ().PlayOneShot (_gen.GetWaveSrc (), 1);
 			Destroy (other.gameObject);
 			LogData(true);
-			
-			E.Get().CatchEvent(new states.Event(State.PlayingSound));
+			_playingSound = true;
 
 		}
 
@@ -98,41 +115,30 @@ namespace wallSystem
 			transform.Rotate(0, rotation, 0);
 
 		}
-		
+
 		private void Update()
 		{
 
-			if (E.Get().CurrentState == State.PlayingSound)
+			if (_playingSound)
 			{
 				if (!GetComponent<AudioSource>().isPlaying)
 				{
-					if (E.Get().Progress())
-					{
-
-							
-						E.Get().CatchEvent(
-							new TransitionEvent(
-								C.LoadingScreen,
-								E.Get().CurrTrial.PickupType > 0 ? State.Won : State.TwoDim
-
-							));
-						
-					}
-					return;
+					E.Get().Progress();
 				}
-			}
+			} 
 			else if (_currDelay < _waitTime)
 			{
 				float angle = 360f * _currDelay / _waitTime + _iniRotation - transform.rotation.eulerAngles.y;
 				transform.Rotate(new Vector3(0, angle, 0));
-				if (_waitTime - _currDelay < 1 / 30f)
-				{
-					Cam.transform.Rotate(DS.GetData().CharacterData.CamRotation, 0, 0);
-					E.Get().RunningTime = 0;
-				}
-			}
+			} 
 			else
 			{
+				if (!_reset)
+				{
+					E.Get().RunningTime = 0;
+					Cam.transform.Rotate (DS.GetData().CharacterData.CamRotation, 0, 0);
+					_reset = true;
+				}
 				ComputeMovement();
 			}
 			_currDelay += Time.deltaTime;

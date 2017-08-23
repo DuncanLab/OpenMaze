@@ -11,13 +11,14 @@ namespace wallSystem
 		{
 			Text text = GameObject.Find("CountDown").GetComponent<Text>();
 			text.color = Color.white;
-			if (Loader.Get().CurrTrial.PickupType < 0)
+			if (Loader.Get().CurrTrial.Value.PickupType < 0)
 				text.text = "Endless Mode";
-			else if (Loader.Get().CurrTrial.PickupType > 0)
+			else if (Loader.Get().CurrTrial.Value.PickupType > 0)
 			{
 				text.text = "Found: " + PlayerController.ObjectsFound;
 			}
 		}
+		
 	
 	}
 }
