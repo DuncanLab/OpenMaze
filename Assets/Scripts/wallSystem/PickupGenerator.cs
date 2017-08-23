@@ -4,7 +4,7 @@ using data;
 using UnityEngine;
 using UnityEngine.UI;
 using DS = data.DataSingleton;
-using E = systems.ExperimentManager;
+using E = main.Loader;
 
 namespace wallSystem
 {
@@ -61,27 +61,26 @@ namespace wallSystem
 
 			_destroy = new List<GameObject>(); //This initializes the food object destroy list
 
-			//SETUP SEED SYSTEM HERE (probably initialize this with number of walls).
-			Random.InitState(E.Get().CurrTrial.Sides);
 
-			Data.PickupItem item;
-			int val;
-			if ((val = E.Get().CurrTrial.PickupType) < 0) {
-				item = DS.GetData ().PickupItems [Random.Range (0, DS.GetData ().PickupItems.Count)];
-				gen.SetWaveSrc (item.SoundLocation);
-			} else {
-				item = DS.GetData ().PickupItems [val];
-				gen.SetWaveSrc (item.SoundLocation);
-			}
+			int val = E.Get().CurrTrial.PickupType;
+			if (val == 0)
+			{
+				return;
+			} 
+			var item = DS.GetData ().PickupItems [Mathf.Abs(val) - 1];
+			gen.SetWaveSrc (item.SoundLocation);
+			
         
 			//Here is the text to determine the type of food that exists here
 			_goalText = GameObject.Find("Goal").GetComponent<Text>();
 
 			//And this section sets the text.
 			_goalText.text = item.Tag;
-			
-		
 			_goalText.color = Data.GetColour(item.Color);
+
+			if (val < 0)
+				return;
+			
 		
 		
 			var p = ReadFromExternal (item.PythonFile);

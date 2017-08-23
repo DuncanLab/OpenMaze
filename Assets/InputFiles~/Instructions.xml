@@ -3,7 +3,7 @@
 	<Instructions>
 		<![CDATA[
 			Welcome participant.
-			Press <N> to begin.
+			Press <Space> to begin.
 		]]>
 	</Instructions>
 
@@ -29,7 +29,13 @@
 			Looking for: %
 		]]>
 	</WinMessage>
-
+    
+    <EndlessMessage>
+        <![CDATA[
+			Endless Mode Over. Nice job!
+			Looking for: %
+		]]>
+    </EndlessMessage>
 
 	<!-- First message is necessary (and different from other messages)-->
 	<First>
@@ -37,6 +43,13 @@
 			Looking for: %
 		]]>
 	</First>
+
+    <TwoDMode>
+        <![CDATA[
+			Press space where you think you are.
+			Use arrow keys to move around.
+		]]>
+    </TwoDMode>
 
 	<LoseMessage>
 		<![CDATA[

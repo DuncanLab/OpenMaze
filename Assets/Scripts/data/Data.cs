@@ -124,6 +124,8 @@ namespace data
 			public string First { get; set; }
 			public string LoseMessage { get; set; }
 			public string EndMessage { get; set; }
+			public string EndlessMessage { get; set; }
+			public string TwoDMode { get; set; }
 		}
 
 		public static InstructionXml ParseXml()

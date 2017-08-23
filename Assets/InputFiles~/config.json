@@ -24,7 +24,7 @@
         	"PillarColour" : "00ff00",
         	"Radius": 10,
         	"InitialAngle" : 0,
-        	"PickupType" : 0,
+        	"PickupType" : -1,
         	"PrewaitTime" : 3,
         	"TimeAllotted" : 10
         },
@@ -36,7 +36,19 @@
         	"PillarColour" : "00ff00",
             "Radius": 10,
             "InitialAngle" : 0,
-            "PickupType" : -1,
+            "PickupType" : 0,
+            "PrewaitTime" : 3,
+            "TimeAllotted" : 1
+        },
+        {
+            "Index" : 3,
+            "EnviornmentType": 1,
+            "Sides": 5,
+            "Color": "ff0000",
+        	"PillarColour" : "00ff00",
+            "Radius": 10,
+            "InitialAngle" : 0,
+            "PickupType" : 2,
             "PrewaitTime" : 3,
             "TimeAllotted" : 10
         }

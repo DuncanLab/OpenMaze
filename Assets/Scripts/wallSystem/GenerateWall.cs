@@ -2,7 +2,7 @@
 using data;
 using twoDSystem;
 using UnityEngine;
-using E = systems.ExperimentManager;
+using E = main.Loader;
 using DS = data.DataSingleton;
 using Point = data.Data.Point;
 
@@ -154,11 +154,6 @@ namespace wallSystem
 			}
 		}
 
-
-		private void Update()
-		{
-			E.Get().Update(Time.deltaTime);
-		}
 
 
 		//Cosine in degrees, using the current cos in radians used by the unity math library

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.IO;
+using states;
 using UnityEngine;
 using DS = data.DataSingleton;
 using Random = UnityEngine.Random;
-using E = systems.ExperimentManager;
+using E = main.Loader;
+using C = data.Constants;
 //This class is the primary player script.
 //This allows us to move around essentially.
 namespace wallSystem
@@ -11,7 +13,7 @@ namespace wallSystem
 	public class PlayerController : MonoBehaviour {
    
 		public Camera Cam;
-	
+		public static int ObjectsFound;
 		private GenerateGenerateWall _gen;
     
     
@@ -28,15 +30,18 @@ namespace wallSystem
 	
 		private float _iniRotation;
 
+		private float _waitTime;
+		
 		private void Start()
 		{
 			_currDelay = 0;
-			E.Get().CatchEvent(E.State.Waiting);
 			_iniRotation = Random.Range (0, 360);
 			transform.Rotate (new Vector3 (0, _iniRotation, 0));
 			_controller = GetComponent<CharacterController>();
 			_gen = GameObject.Find("WallCreator").GetComponent<GenerateGenerateWall>();
 			Cam.transform.Rotate (-DS.GetData().CharacterData.CamRotation, 0, 0);
+			_waitTime = DS.GetData().CharacterData.TimeToRotate;
+			ObjectsFound = 0;
 		}
 
 		private void LogData(bool collided)
@@ -58,80 +63,82 @@ namespace wallSystem
 		private void OnTriggerEnter(Collider other)
 		{
 			if (!other.gameObject.CompareTag("Pickup")) return;
-
-//	    GetComponent<AudioSource> ().PlayOneShot (_gen.GetWaveSrc (), 1);
-//	    Destroy (other.gameObject);
-
+			ObjectsFound++;
+			GetComponent<AudioSource> ().PlayOneShot (_gen.GetWaveSrc (), 1);
+			Destroy (other.gameObject);
 			LogData(true);
-			GetComponent<AudioSource>().PlayOneShot(_gen.GetWaveSrc(), 1);
-			E.Get().CatchEvent(E.State.PlayingSound);
+			
+			E.Get().CatchEvent(new states.Event(State.PlayingSound));
 
 		}
 
 		private void LateUpdate(){
-			if (E.Get().St != E.State.Waiting)
-				LogData(false);
+			LogData(false);
 
 		}
 
+		private void ComputeMovement()
+		{
+			//This calculates the current amount of rotation frame rate independent
+			float rotation = Input.GetAxis("Horizontal") * DS.GetData().CharacterData.RotationSpeed * Time.deltaTime;
+
+
+			//This calculates the forward speed frame rate independent
+			_moveDirection = new Vector3(0, 0, Input.GetAxis("Vertical"));
+			_moveDirection = transform.TransformDirection(_moveDirection);
+			_moveDirection *= DS.GetData().CharacterData.MovementSpeed;
+
+			//Here is the movement system
+			const double tolerance = 0.0001;
+
+			//we move iff rotation is 0
+			if (Math.Abs(Mathf.Abs(rotation)) < tolerance)
+				_controller.Move(_moveDirection * Time.deltaTime);
+
+			transform.Rotate(0, rotation, 0);
+
+		}
+		
 		private void Update()
 		{
 
-			if (E.Get().St == E.State.PlayingSound)
+			if (E.Get().CurrentState == State.PlayingSound)
 			{
 				if (!GetComponent<AudioSource>().isPlaying)
 				{
-					E.Get().CatchEvent(E.State.DonePlaying);
-				}
+					if (E.Get().Progress())
+					{
 
+							
+						E.Get().CatchEvent(
+							new TransitionEvent(
+								C.LoadingScreen,
+								E.Get().CurrTrial.PickupType > 0 ? State.Won : State.TwoDim
+
+							));
+						
+					}
+					return;
+				}
 			}
-			else if (E.Get().St == E.State.Waiting)
+			else if (_currDelay < _waitTime)
 			{
-				var waitTime = DS.GetData().CharacterData.TimeToRotate;
-				//In each update loop, we have we begin by checking if they have indeed been
-				//by the appropriate amount of time.
-				if (_currDelay > waitTime)
+				float angle = 360f * _currDelay / _waitTime + _iniRotation - transform.rotation.eulerAngles.y;
+				transform.Rotate(new Vector3(0, angle, 0));
+				if (_waitTime - _currDelay < 1 / 30f)
 				{
-					if (E.Get().St == E.State.Moving) return;
-					E.Get().CatchEvent(E.State.Moving);
-					_gen.Timer.text = "";
 					Cam.transform.Rotate(DS.GetData().CharacterData.CamRotation, 0, 0);
-				}
-				else
-				{
-
-					float angle = 360f * _currDelay / waitTime + _iniRotation - transform.rotation.eulerAngles.y;
-
-					transform.Rotate(new Vector3(0, angle, 0));
-					_gen.Timer.text = "";
+					E.Get().RunningTime = 0;
 				}
 			}
-			else //E.State should be MOVING here.
+			else
 			{
-
-				//This calculates the current amount of rotation frame rate independent
-				float rotation = Input.GetAxis("Horizontal") * DS.GetData().CharacterData.RotationSpeed * Time.deltaTime;
-
-
-				//This calculates the forward speed frame rate independent
-				_moveDirection = new Vector3(0, 0, Input.GetAxis("Vertical"));
-				_moveDirection = transform.TransformDirection(_moveDirection);
-				_moveDirection *= DS.GetData().CharacterData.MovementSpeed;
-
-				//Here is the movement system
-				const double tolerance = 0.0001;
-
-				//we move iff rotation is 0
-				if (Math.Abs(Mathf.Abs(rotation)) < tolerance)
-					_controller.Move(_moveDirection * Time.deltaTime);
-
-				transform.Rotate(0, rotation, 0);
-
-				_currDelay += Time.deltaTime;
-
+				ComputeMovement();
 			}
-		}
+			_currDelay += Time.deltaTime;
 
+		}
+		
 
 	}
 }

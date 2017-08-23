@@ -18,9 +18,7 @@ namespace twoDSystem
     
         public static void Add(Data.Point p)
         {        
-        
-        
-        
+
             _points.Add(p.GetVector3());
         }
 
