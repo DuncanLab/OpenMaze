@@ -108,7 +108,7 @@ namespace main
 
 		public static void LogData(string data, bool append = true)
 		{
-			using (var writer = new StreamWriter ("Assets\\OutputFiles~\\" + DS.GetData ().CharacterData.OutputFile, append))
+			using (var writer = new StreamWriter ("Assets/OutputFiles~/" + DS.GetData ().CharacterData.OutputFile, append))
 			{
 				writer.Write (data + "\n");
 				writer.Flush ();
