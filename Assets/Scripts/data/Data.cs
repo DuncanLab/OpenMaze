@@ -38,7 +38,7 @@ namespace data
 		public class Trial
 		{
 			public int Index;
-			public bool TwoDimensional;
+			public int TwoDimensional;
 			public string FileLocation;
 			public int EnvironmentType;
 			public int Sides;
@@ -48,7 +48,8 @@ namespace data
 			public int PickupType;
 			public int TimeAllotted;
 			public string PillarColor;
-			public bool RandomLoc;
+			public int RandomLoc;
+			public int PickupVisible;
 		}
 
 
@@ -58,11 +59,9 @@ namespace data
 		{
 			public int Count; //The number of Pickup Items to generate
 			//In general this will always be one unless necessary to implement in the future.
-
 			public string Tag; //The name of the pickup item
 			public string Color; //The colour in Hex without #
 			public string SoundLocation; //The file path of the sound
-			public bool Visible; //Visibility
 			public string PythonFile; //The python file that will generate the position
 			public float Size; //The size of the object
 

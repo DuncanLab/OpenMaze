@@ -39,7 +39,7 @@ namespace wallSystem
 
 		private void Start()
 		{
-			if (E.Get().CurrTrial.Value.RandomLoc)
+			if (E.Get().CurrTrial.Value.RandomLoc == 1)
 			{
 				Random.InitState(System.DateTime.Now.Millisecond);
 				Vector2 v = Random.insideUnitCircle * E.Get().CurrTrial.Value.Radius;
@@ -67,7 +67,7 @@ namespace wallSystem
 			              + transform.rotation.eulerAngles.y + ", "
 			              + v.EnvironmentType + ", "
 			              + v.Sides + ", "
-			              + collided + ", "
+			              + (collided ? 1 : 0) + ", "
 			              + v.PickupType + ", "
 			              + PickupGenerator.P.X + ", "
 			              + PickupGenerator.P.Y;

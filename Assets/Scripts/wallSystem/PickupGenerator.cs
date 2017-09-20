@@ -96,8 +96,7 @@ namespace wallSystem
 			obj.transform.localScale = new Vector3 (1, 1, 1) * item.Size;
 			var color = Data.GetColour (item.Color);
 			obj.GetComponent<Renderer> ().material.color = color;
-			if (!item.Visible)
-				obj.GetComponent<Renderer>().enabled = false;
+			obj.GetComponent<Renderer>().enabled = E.Get().CurrTrial.Value.PickupVisible == 1;
 		
 
 			_destroy.Add (obj);

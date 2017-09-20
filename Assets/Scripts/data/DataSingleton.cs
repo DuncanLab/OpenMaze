@@ -9,22 +9,16 @@ namespace data
 
 		//Our singleton instance
 		private static Data _data;
-		private static Data.InstructionXml _instructions;
 
 		public static Data GetData(){
 			return _data;
 		}
 
-		public static Data.InstructionXml GetInstructions()
-		{
-			return _instructions;
-		}
 	
 		//This function loads the file from a defacto loaction as shown below
 		public static void Load(){
 			string file = System.IO.File.ReadAllText(C.InputFileSrcPath);
 			_data = JsonUtility.FromJson<Data>(file);
-			_instructions = Data.ParseXml();
 		}
 
 	}

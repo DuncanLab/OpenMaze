@@ -57,7 +57,7 @@ namespace main
 				if (CurrTrial.Value.FileLocation != null)
 				{
 					SceneManager.LoadScene(C.LoadingScreen);
-				} else if (CurrTrial.Value.TwoDimensional)
+				} else if (CurrTrial.Value.TwoDimensional == 1)
 				{
 					SceneManager.LoadScene(CurrTrial.Value.EnvironmentType + 4);
 				}
@@ -80,7 +80,7 @@ namespace main
 			HandleInput();
 			if (CheckTimeOut())
 			{
-				if (CurrTrial.Value.TwoDimensional)
+				if (CurrTrial.Value.TwoDimensional == 1)
 				{
 					LogData("TwoD, x, NA, y, NA, time, NA");
 				}

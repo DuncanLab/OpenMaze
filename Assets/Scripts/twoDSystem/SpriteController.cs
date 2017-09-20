@@ -10,16 +10,25 @@ namespace twoDSystem
 {
 	public class SpriteController : MonoBehaviour
 	{
-		
-		
-		
+
+		private void LogData()
+		{
+			var str = "TwoD, x, " + transform.position.x + ", y, " + transform.position.z + ", time, " + E.Get().RunningTime;
+			E.LogData(str);	
+		}
+
+		private void LateUpdate()
+		{
+			LogData();
+		}
+
+
 		// Update is called once per frame
 		private void Update () {
 			
 			if (Input.GetKey(KeyCode.Space))
 			{
-				var str = "TwoD, x, " + transform.position.x + ", y, " + transform.position.z + ", time, " + E.Get().RunningTime;
-				E.LogData(str);
+				
 				
 				E.Get().Progress();
 			}
@@ -49,7 +58,7 @@ namespace twoDSystem
 			
 			
 			transform.Rotate(0, 0, -rotation);
-	
+
 
 		}
 	}

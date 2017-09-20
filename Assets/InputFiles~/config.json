@@ -31,16 +31,17 @@
         	"InitialAngle" : 0,
         	"PickupType" : 1,
         	"TimeAllotted" : 10,
-        	"RandomLoc" : true
+            "PickupVisible" : 1,
+        	"RandomLoc" : 1
         },
         {
-            "TwoDimensional" : true,
-            "EnviornmentType" : 0,
+            "TwoDimensional" : 1,
+            "EnvironmentType" : 0,
             "TimeAllotted" : 10
         },       
         {
             "Index": 2,
-            "EnviornmentType": 0,
+            "EnvironmentType": 0,
             "Sides": 5,
             "Color": "ff0000",
         	"PillarColor" : "00ff00",
@@ -48,11 +49,13 @@
             "InitialAngle" : 0,
             "PickupType" : 2,
             "TimeAllotted" : 10,
-            "RandomLoc" : false
+            "PickupVisible" : 1,
+
+            "RandomLoc" : 0
         },
         {
             "Index": 3,
-            "EnviornmentType": 1,
+            "EnvironmentType": 1,
             "Sides": 5,
             "Color": "ff0000",
         	"PillarColor" : "00ff00",
@@ -60,7 +63,9 @@
             "InitialAngle" : 0,
             "PickupType" : 2,
             "TimeAllotted" : 10,
-            "RandomLoc" : false
+            "RandomLoc" : 0,
+            "PickupVisible" : 1,
+
         },
         {
             "FileLocation": "Test.jpg",
@@ -72,7 +77,6 @@
             "Tag": "Food",
             "Color": "ff0000",
             "SoundLocation": "eat",
-            "Visible": true,
             "PythonFile": "Example.py",
             "Size": 1.0
         },
@@ -80,7 +84,6 @@
             "Tag": "Water",
             "Color": "0000ff",
             "SoundLocation": "drink",
-            "Visible": true,
             "PythonFile": "Example.py",
             "Size": 1.0
         },
@@ -88,7 +91,6 @@
             "Tag": "Money",
             "Color": "00ff00",
             "SoundLocation": "money",
-            "Visible": true,
             "PythonFile": "Example.py",
             "Size": 1.0
         }
