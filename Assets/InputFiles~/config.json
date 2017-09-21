@@ -8,10 +8,9 @@
         "RotationSpeed": 100.0,
         "TimeToRotate": 1,
         "OutputFile": "out.csv",
-        "CharacterStartPos": {
-            "X": 0.0,
-            "Y": 0.0
-        }
+        "CharacterBound": 0.5,
+        "DistancePickup": 2,
+        "CharacterStartPos" : {"X" : 0, "Y" : 0}
     },
     "TrialOrder": [
         0, 1, 0, 2, 0, 1
@@ -32,7 +31,7 @@
         	"PickupType" : 1,
         	"TimeAllotted" : 10,
             "PickupVisible" : 1,
-        	"RandomLoc" : 1
+        	"RandomLoc" : 0
         },
         {
             "TwoDimensional" : 1,
@@ -50,7 +49,6 @@
             "PickupType" : 2,
             "TimeAllotted" : 10,
             "PickupVisible" : 1,
-
             "RandomLoc" : 0
         },
         {
@@ -64,8 +62,7 @@
             "PickupType" : 2,
             "TimeAllotted" : 10,
             "RandomLoc" : 0,
-            "PickupVisible" : 1,
-
+            "PickupVisible" : 1
         },
         {
             "FileLocation": "Test.jpg",

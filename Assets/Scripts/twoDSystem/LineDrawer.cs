@@ -15,6 +15,16 @@ namespace twoDSystem
 				cube.transform.localScale = new Vector3(WallPointContainer.Length, 1f, 1);
 			}
 
+			foreach (var i in WallPointContainer.Pillars)
+			{
+				GameObject cylinder = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+				cylinder.GetComponent<Renderer>().material.color = Color.red;
+				cylinder.transform.position = new Vector3(i.x, 0, i.z);
+				cylinder.transform.localScale = new Vector3(i.y, 1f, i.y);
+
+
+			}
+
 		}
 	}
 }

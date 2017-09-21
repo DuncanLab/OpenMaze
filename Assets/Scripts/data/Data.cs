@@ -78,7 +78,9 @@ namespace data
 			public int TimeToRotate; //How long the delay can last in the rotation
 			public string OutputFile; //The output file of the character's movements during an experiment
 			public Point CharacterStartPos; //The start position of the character (usually 0, 0)
-
+			public float CharacterBound;
+			
+			public float DistancePickup;
 		}
 
 
@@ -112,52 +114,7 @@ namespace data
 	
 		//=========================== END OF JSON FIELDS ==========================================
 
-		[System.Obsolete]
-		public class InstructionXml
-		{
-			[System.Obsolete]
-			public object this[string propertyName]
-			{
-				get { return GetType().GetProperty(propertyName).GetValue(this, null); }
-				set { GetType().GetProperty(propertyName).SetValue(this, value, null); }
-			}
 
-			public string Instructions { get; set; }
-			public string WinMessage { get; set; }
-			public string First { get; set; }
-			public string LoseMessage { get; set; }
-			public string EndMessage { get; set; }
-			public string EndlessMessage { get; set; }
-			public string TwoDMode { get; set; }
-		}
-
-		
-		[System.Obsolete]
-		public static InstructionXml ParseXml()
-		{
-		
-			InstructionXml data = new InstructionXml();
-
-			XmlReaderSettings readerSettings = new XmlReaderSettings {IgnoreComments = true};
-			using (XmlReader reader = XmlReader.Create(Constants.InputDirectory + "Instructions.xml", readerSettings))
-			{
-				XmlDocument xml = new XmlDocument();
-
-				xml.Load(reader);
-
-				for (XmlNode sibling = xml.DocumentElement.FirstChild; sibling != null; sibling = sibling.NextSibling)
-				{
-					var nodeData = (sibling.FirstChild as XmlCDataSection).Data.Trim().Replace("\t", "");
-				
-					data[sibling.Name.Trim()] = nodeData;
-				
-				
-				}
-
-			}
-			return data;
-		}
-	
 		//This function converts the hex value to Colour.
 		public static Color GetColour(string hex)
 		{

@@ -12,7 +12,7 @@ namespace wallSystem
 		private List<GameObject> _destroy;
 		public GameObject Pickup;
 		private Text _goalText;
-
+		
 		public static Data.Point P;
 
 		private static Data.Point ReadFromExternal(string inputFile){
@@ -88,7 +88,7 @@ namespace wallSystem
 		
 		
 			P = ReadFromExternal (item.PythonFile);
-
+			GameObject.Find("FirstPerson").GetComponent<PlayerController>().ExternalStart();
 			var obj = Instantiate (Pickup);
 	
 			obj.transform.position = new Vector3 (P.X, 0.5f, P.Y);

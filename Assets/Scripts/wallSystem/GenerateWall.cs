@@ -68,7 +68,7 @@ namespace wallSystem
 				cylin.transform.position = new Vector3(p.X, 0, p.Y);
 				cylin.transform.localScale = new Vector3(p.Radius, p.Height, p.Radius);
 				cylin.GetComponent<Renderer>().material.color = Data.GetColour(E.Get().CurrTrial.Value.PillarColor);
-			
+				WallPointContainer.AddPillar(p);
 				_created.Add(cylin);
 			}
 		}

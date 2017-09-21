@@ -3,6 +3,7 @@ using System.Reflection;
 using data;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using DS = data.DataSingleton;
 using C = data.Constants;
 
@@ -18,6 +19,9 @@ namespace main
 		{
 			return GameObject.Find("Loader").GetComponent<Loader>();
 		}
+
+		public InputField[] TextBoxes;
+		private bool _inputDone;
 		
 		
 		public LinkedListNode CurrTrial;
@@ -44,8 +48,7 @@ namespace main
 					temp.Next = new LinkedListNode();
 				temp = temp.Next;
 			}
-			LogData("", false);
-			SceneManager.LoadScene(C.LoadingScreen);
+			_inputDone = false;
 		}
 
 		public void Progress()
@@ -77,20 +80,35 @@ namespace main
 		
 		private void LateUpdate()
 		{
-			HandleInput();
-			if (CheckTimeOut())
+			if (_inputDone)
 			{
-				if (CurrTrial.Value.TwoDimensional == 1)
+				HandleInput();
+				if (CheckTimeOut())
 				{
-					LogData("TwoD, x, NA, y, NA, time, NA");
+
+					Progress();
 				}
-				Progress();
+				RunningTime += Time.deltaTime;
 			}
-			RunningTime += Time.deltaTime;
+			else
+			{
+				if (Input.GetKeyDown(KeyCode.Return))
+				{
+					LogData("", false);
+					foreach (var textBox in TextBoxes)
+					{
+						var arr = textBox.transform.GetComponentsInChildren<Text>();
+						LogData(arr[0].text + ": " + arr[1].text);
+						
+					}					
+					_inputDone = true;
+					SceneManager.LoadScene(1);
+				}
+			}
 		}
-		
-		
-		public bool CheckTimeOut()
+
+
+		private bool CheckTimeOut()
 		{
 			return CurrTrial.Value.TimeAllotted > 0 
 			       && RunningTime > CurrTrial.Value.TimeAllotted;
@@ -100,7 +118,8 @@ namespace main
 		private void HandleInput()
 		{
 			if (CurrTrial.Value.TimeAllotted > 0) return;
-			if (Input.GetKey(KeyCode.Space))
+
+			if (Input.GetKeyDown(KeyCode.Space) )
 			{
 				Progress();
 			}			

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using data;
 using UnityEngine;
 using UnityEngine.UI;
@@ -37,14 +36,12 @@ namespace wallSystem
 		
 		private bool _reset;
 
+		private bool _log;
+		
 		private void Start()
 		{
-			if (E.Get().CurrTrial.Value.RandomLoc == 1)
-			{
-				Random.InitState(System.DateTime.Now.Millisecond);
-				Vector2 v = Random.insideUnitCircle * E.Get().CurrTrial.Value.Radius;
-				transform.position = new Vector3(v.x, transform.position.y, v.y);
-			}
+			Random.InitState(DateTime.Now.Millisecond);
+
 			_currDelay = 0;
 			_iniRotation = Random.Range (0, 360);
 			transform.Rotate (new Vector3 (0, _iniRotation, 0));
@@ -53,10 +50,34 @@ namespace wallSystem
 			Cam.transform.Rotate (-DS.GetData().CharacterData.CamRotation, 0, 0);
 			_waitTime = DS.GetData().CharacterData.TimeToRotate;
 			_reset = false;
-			E.LogData("Trial Number, time (seconds), x, y, angle,  " +
-			          "EnvironmentType, Sides, targetFound, pickupType, targetX, targetY");
+			_log = false;
+
 		}
 
+
+		public void ExternalStart()
+		{
+			if (E.Get().CurrTrial.Value.RandomLoc == 1)
+			{
+				while (true)
+				{
+					Vector2 v = Random.insideUnitCircle * E.Get().CurrTrial.Value.Radius * DS.GetData().CharacterData.CharacterBound;
+					var mag = v - new Vector2(PickupGenerator.P.X, PickupGenerator.P.Y);
+					if (mag.magnitude > DS.GetData().CharacterData.DistancePickup)
+					{
+						transform.position = new Vector3(v.x, transform.position.y, v.y);
+						break;
+					}
+
+				}
+			}
+			else
+			{
+				Data.Point p = DS.GetData().CharacterData.CharacterStartPos;
+				transform.position = new Vector3(p.X, transform.position.y, p.Y);
+			}
+		}
+		
 		private void LogData(bool collided)
 		{
 			var v = E.Get().CurrTrial.Value;
@@ -71,8 +92,8 @@ namespace wallSystem
 			              + v.PickupType + ", "
 			              + PickupGenerator.P.X + ", "
 			              + PickupGenerator.P.Y;
-			
-			E.LogData(line);
+			if (_log)
+				E.LogData(line);
 		}
 
 		//This is the collision system.
@@ -86,6 +107,7 @@ namespace wallSystem
 			Destroy (other.gameObject);
 			LogData(true);
 			_playingSound = true;
+			_log = false;
 
 		}
 
@@ -138,6 +160,9 @@ namespace wallSystem
 					E.Get().RunningTime = 0;
 					Cam.transform.Rotate (DS.GetData().CharacterData.CamRotation, 0, 0);
 					_reset = true;
+					_log = true;
+					E.LogData("Trial Number, time (seconds), x, y, angle,  " +
+					          "EnvironmentType, Sides, targetFound, pickupType, targetX, targetY");
 				}
 				ComputeMovement();
 			}

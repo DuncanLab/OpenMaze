@@ -17,15 +17,12 @@ namespace twoDSystem
 			E.LogData(str);	
 		}
 
-		private void LateUpdate()
-		{
-			LogData();
-		}
 
 
 		// Update is called once per frame
 		private void Update () {
-			
+			LogData();
+
 			if (Input.GetKey(KeyCode.Space))
 			{
 				
