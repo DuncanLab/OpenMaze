@@ -31,6 +31,8 @@ namespace data
 
 		public float WallHeight;
 		
+		
+		
 		/// <summary>
 		/// A sample trial.
 		/// </summary>
@@ -119,7 +121,7 @@ namespace data
 		public static Color GetColour(string hex)
 		{
 			float[] l = { 0, 0, 0 };
-			for (int i = 0; i < 6; i += 2)
+			for (var i = 0; i < 6; i += 2)
 			{
 				float decValue = int.Parse(hex.Substring(i, 2), System.Globalization.NumberStyles.HexNumber);
 				l[i / 2] = decValue / 255;

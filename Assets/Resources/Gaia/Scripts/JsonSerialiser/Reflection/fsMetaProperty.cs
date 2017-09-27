@@ -86,15 +86,15 @@ namespace Gaia.FullSerializer.Internal
         /// instance as the context.
         /// </summary>
         public void Write(object context, object value) {
-            FieldInfo field = _memberInfo as FieldInfo;
-            PropertyInfo property = _memberInfo as PropertyInfo;
+            var field = _memberInfo as FieldInfo;
+            var property = _memberInfo as PropertyInfo;
 
             if (field != null) {
                 field.SetValue(context, value);
             }
 
             else if (property != null) {
-                MethodInfo setMethod = property.GetSetMethod(/*nonPublic:*/ true);
+                var setMethod = property.GetSetMethod(/*nonPublic:*/ true);
                 if (setMethod != null) {
                     setMethod.Invoke(context, new object[] { value });
                 }

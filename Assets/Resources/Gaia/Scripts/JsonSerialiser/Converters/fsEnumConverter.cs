@@ -31,13 +31,13 @@ namespace Gaia.FullSerializer.Internal
                 serialized = new fsData(Convert.ToInt64(instance));
             }
             else if (fsPortableReflection.GetAttribute<FlagsAttribute>(storageType) != null) {
-                long instanceValue = Convert.ToInt64(instance);
+                var instanceValue = Convert.ToInt64(instance);
                 var result = new StringBuilder();
 
-                bool first = true;
+                var first = true;
                 foreach (var value in Enum.GetValues(storageType)) {
-                    int integralValue = (int)value;
-                    bool isSet = (instanceValue & integralValue) != 0;
+                    var integralValue = (int)value;
+                    var isSet = (instanceValue & integralValue) != 0;
 
                     if (isSet) {
                         if (first == false) result.Append(",");
@@ -56,11 +56,11 @@ namespace Gaia.FullSerializer.Internal
 
         public override fsResult TryDeserialize(fsData data, ref object instance, Type storageType) {
             if (data.IsString) {
-                string[] enumValues = data.AsString.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                var enumValues = data.AsString.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
                 long instanceValue = 0;
-                for (int i = 0; i < enumValues.Length; ++i) {
-                    string enumValue = enumValues[i];
+                for (var i = 0; i < enumValues.Length; ++i) {
+                    var enumValue = enumValues[i];
 
                     // Verify that the enum name exists; Enum.TryParse is only available in .NET 4.0
                     // and above :(.
@@ -68,7 +68,7 @@ namespace Gaia.FullSerializer.Internal
                         return fsResult.Fail("Cannot find enum name " + enumValue + " on type " + storageType);
                     }
 
-                    long flagValue = (long)Convert.ChangeType(Enum.Parse(storageType, enumValue), typeof(long));
+                    var flagValue = (long)Convert.ChangeType(Enum.Parse(storageType, enumValue), typeof(long));
                     instanceValue |= flagValue;
                 }
 
@@ -77,7 +77,7 @@ namespace Gaia.FullSerializer.Internal
             }
 
             else if (data.IsInt64) {
-                int enumValue = (int)data.AsInt64;
+                var enumValue = (int)data.AsInt64;
 
                 // In .NET compact, Enum.ToObject(Type, Object) is defined but the overloads like
                 // Enum.ToObject(Type, int) are not -- so we get around this by boxing the value.
@@ -88,7 +88,7 @@ namespace Gaia.FullSerializer.Internal
 
             else if (data.IsUInt64)
             {
-                int enumValue = (int)data.AsUInt64;
+                var enumValue = (int)data.AsUInt64;
 
                 // In .NET compact, Enum.ToObject(Type, Object) is defined but the overloads like
                 // Enum.ToObject(Type, int) are not -- so we get around this by boxing the value.
@@ -105,7 +105,7 @@ namespace Gaia.FullSerializer.Internal
         /// </summary>
         private static bool ArrayContains<T>(T[] values, T value) {
             // note: We don't use LINQ because this function will *not* allocate
-            for (int i = 0; i < values.Length; ++i) {
+            for (var i = 0; i < values.Length; ++i) {
                 if (EqualityComparer<T>.Default.Equals(values[i], value)) {
                     return true;
                 }

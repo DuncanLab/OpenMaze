@@ -70,9 +70,9 @@ namespace Gaia
             m_statSumVals = 0;
             m_metaData = new byte[0];
 
-            for (int x = 0; x < m_widthX; x++)
+            for (var x = 0; x < m_widthX; x++)
             {
-                for (int z = 0; z < m_depthZ; z++)
+                for (var z = 0; z < m_depthZ; z++)
                 {
                     m_heights[x, z] = source[x, z];
                 }
@@ -97,9 +97,9 @@ namespace Gaia
             m_statSumVals = 0;
             m_metaData = new byte[0];
 
-            for (int x = 0; x < m_widthX; x++)
+            for (var x = 0; x < m_widthX; x++)
             {
-                for (int z = 0; z < m_depthZ; z++)
+                for (var z = 0; z < m_depthZ; z++)
                 {
                     m_heights[x, z] = source[x, z, slice];
                 }
@@ -125,9 +125,9 @@ namespace Gaia
             m_statSumVals = 0;
             m_metaData = new byte[0];
 
-            for (int x = 0; x < m_widthX; x++)
+            for (var x = 0; x < m_widthX; x++)
             {
-                for (int z = 0; z < m_depthZ; z++)
+                for (var z = 0; z < m_depthZ; z++)
                 {
                     m_heights[x, z] = (float)source[x, z];
                 }
@@ -151,14 +151,14 @@ namespace Gaia
             m_isPowerOf2 = source.m_isPowerOf2;
 
             m_metaData = new byte[source.m_metaData.Length];
-            for (int idx = 0; idx < source.m_metaData.Length; idx++)
+            for (var idx = 0; idx < source.m_metaData.Length; idx++)
             {
                 m_metaData[idx] = source.m_metaData[idx];
             }
 
-            for (int x = 0; x < m_widthX; x++)
+            for (var x = 0; x < m_widthX; x++)
             {
-                for (int z = 0; z < m_depthZ; z++)
+                for (var z = 0; z < m_depthZ; z++)
                 {
                     m_heights[x, z] = source.m_heights[x, z];
                 }
@@ -338,10 +338,10 @@ namespace Gaia
             //Convert to scale of the heightmap
             x *= ((float)m_widthX - 1f);
             z *= ((float)m_depthZ - 1f);
-            int x0 = (int)x;
-            int z0 = (int)z;
-            int x1 = x0 + 1;
-            int z1 = z0 + 1;
+            var x0 = (int)x;
+            var z0 = (int)z;
+            var x1 = x0 + 1;
+            var z1 = z0 + 1;
             if (x1 >= m_widthX)
             {
                 x1 = x0;
@@ -350,10 +350,10 @@ namespace Gaia
             {
                 z1 = z0;
             }
-            float dx = x - x0;
-            float dz = z - z0;
-            float omdx = 1f - dx;
-            float omdz = 1f - dz;
+            var dx = x - x0;
+            var dz = z - z0;
+            var omdx = 1f - dx;
+            var omdz = 1f - dz;
             return omdx * omdz * m_heights[x0, z0] +
                       omdx * dz * m_heights[x0, z1] +
                       dx * omdz * m_heights[x1, z0] +
@@ -408,10 +408,10 @@ namespace Gaia
         /// </summary>
         public void SetHeight(float height)
         {
-            float newLevel = Gaia.Utils.Math_Clamp(0f, 1f, height);
-            for (int hmX = 0; hmX < m_widthX; hmX++)
+            var newLevel = Gaia.Utils.Math_Clamp(0f, 1f, height);
+            for (var hmX = 0; hmX < m_widthX; hmX++)
             {
-                for (int hmZ = 0; hmZ < m_depthZ; hmZ++)
+                for (var hmZ = 0; hmZ < m_depthZ; hmZ++)
                 {
                     m_heights[hmX, hmZ] = newLevel;
                 }
@@ -429,9 +429,9 @@ namespace Gaia
             float currHeight;
             maxHeight = float.MinValue;
             minHeight = float.MaxValue;
-            for (int hmX = 0; hmX < m_widthX; hmX++)
+            for (var hmX = 0; hmX < m_widthX; hmX++)
             {
-                for (int hmZ = 0; hmZ < m_depthZ; hmZ++)
+                for (var hmZ = 0; hmZ < m_depthZ; hmZ++)
                 {
                     currHeight = m_heights[hmX, hmZ];
                     if (currHeight > maxHeight)
@@ -454,11 +454,11 @@ namespace Gaia
         /// <returns>Steepness at tha location</returns>
         public float GetSlope(int x, int z)
         {
-            float height = m_heights[x, z];
+            var height = m_heights[x, z];
 
             // Compute the differentials by stepping 1 in both directions.
-            float dx = m_heights[x + 1, z] - height;
-            float dy = m_heights[x, z + 1] - height;
+            var dx = m_heights[x + 1, z] - height;
+            var dy = m_heights[x, z + 1] - height;
 
             // The "steepness" is the magnitude of the gradient vector, 
             // For a faster but not as accurate computation, you can just use abs(dx) + abs(dy)
@@ -473,8 +473,8 @@ namespace Gaia
         /// <returns>Steepness</returns>
         public float GetSlope(float x, float z)
         {
-            float dX = (GetInterpolatedHeight(x + (m_widthInvX * 0.9f), z) - GetInterpolatedHeight(x - (m_widthInvX * 0.9f), z));
-            float dZ = (GetInterpolatedHeight(x, z + (m_depthInvZ * 0.9f)) - GetInterpolatedHeight(x, (z - m_depthInvZ * 0.9f)));
+            var dX = (GetInterpolatedHeight(x + (m_widthInvX * 0.9f), z) - GetInterpolatedHeight(x - (m_widthInvX * 0.9f), z));
+            var dZ = (GetInterpolatedHeight(x, z + (m_depthInvZ * 0.9f)) - GetInterpolatedHeight(x, (z - m_depthInvZ * 0.9f)));
             //float direction = (float)Math.Atan2(deltaZ, deltaX);
             return Gaia.Utils.Math_Clamp(0f, 90f, (float)(Math.Sqrt((dX * dX) + (dZ * dZ)) * 10000));
         }
@@ -487,11 +487,11 @@ namespace Gaia
         /// <returns>Steepness</returns>
         public float GetSlope_a(float x, float z)
         {
-            float center = GetInterpolatedHeight(x, z);
-            float dTop = Math.Abs(GetInterpolatedHeight(x - m_widthInvX, z) - center);
-            float dBot = Math.Abs(GetInterpolatedHeight(x + m_widthInvX, z) - center);
-            float dLeft = Math.Abs(GetInterpolatedHeight(x, z - m_depthInvZ) - center);
-            float dRight = Math.Abs(GetInterpolatedHeight(x, z + m_depthInvZ) - center);
+            var center = GetInterpolatedHeight(x, z);
+            var dTop = Math.Abs(GetInterpolatedHeight(x - m_widthInvX, z) - center);
+            var dBot = Math.Abs(GetInterpolatedHeight(x + m_widthInvX, z) - center);
+            var dLeft = Math.Abs(GetInterpolatedHeight(x, z - m_depthInvZ) - center);
+            var dRight = Math.Abs(GetInterpolatedHeight(x, z + m_depthInvZ) - center);
             return ((dTop + dBot + dLeft + dRight) / 4f) * 400f;
         }
 
@@ -501,9 +501,9 @@ namespace Gaia
         /// <returns>Base level</returns>
         public float GetBaseLevel()
         {
-            float baseLevel = 0f;
+            var baseLevel = 0f;
 
-            for (int x = 0; x < m_widthX; x++)
+            for (var x = 0; x < m_widthX; x++)
             {
                 if (m_heights[x, 0] > baseLevel)
                 {
@@ -515,7 +515,7 @@ namespace Gaia
                 }
             }
 
-            for (int z = 0; z < m_depthZ; z++)
+            for (var z = 0; z < m_depthZ; z++)
             {
                 if (m_heights[0, z] > baseLevel)
                 {
@@ -577,10 +577,10 @@ namespace Gaia
             m_statMinVal = 1f;
             m_statMaxVal = 0f;
             m_statSumVals = 0;
-            float height = 0f;
-            for (int hmX = 0; hmX < m_widthX; hmX++)
+            var height = 0f;
+            for (var hmX = 0; hmX < m_widthX; hmX++)
             {
-                for (int hmZ = 0; hmZ < m_depthZ; hmZ++)
+                for (var hmZ = 0; hmZ < m_depthZ; hmZ++)
                 {
                     height = m_heights[hmX, hmZ];
                     if (height < m_statMinVal)
@@ -602,11 +602,11 @@ namespace Gaia
         /// <param name="iterations">Number of iterations of smoothing to run</param>
         public void Smooth(int iterations)
         {
-            for (int i = 0; i < iterations; i++ )
+            for (var i = 0; i < iterations; i++ )
             {
-                for (int x = 0; x < m_widthX; x++)
+                for (var x = 0; x < m_widthX; x++)
                 {
-                    for (int z = 0; z < m_depthZ; z++)
+                    for (var z = 0; z < m_depthZ; z++)
                     {
                         m_heights[x, z] = Gaia.Utils.Math_Clamp(0f, 1f, (GetSafeHeight(x - 1, z) + GetSafeHeight(x + 1, z) + GetSafeHeight(x, z - 1) + GetSafeHeight(x, z + 1)) / 4f);
                     }
@@ -621,11 +621,11 @@ namespace Gaia
         /// <returns></returns>
         public HeightMap GetSlopeMap()
         {
-            HeightMap slopeMap = new HeightMap(this);
+            var slopeMap = new HeightMap(this);
 
-            for (int x = 0; x < m_widthX; x++)
+            for (var x = 0; x < m_widthX; x++)
             {
-                for (int z = 0; z < m_depthZ; z++)
+                for (var z = 0; z < m_depthZ; z++)
                 {
                     slopeMap[x, z] = GetSlope(x, z);
                 }
@@ -639,9 +639,9 @@ namespace Gaia
         /// </summary>
 		public void Invert()
 		{
-			for (int x = 0; x < m_widthX; x++)
+			for (var x = 0; x < m_widthX; x++)
 			{
-				for (int z = 0; z < m_depthZ; z++)
+				for (var z = 0; z < m_depthZ; z++)
 				{
 					m_heights[x, z] = 1f - m_heights[x, z];
 				}
@@ -654,10 +654,10 @@ namespace Gaia
         /// </summary>
         public void Flip()
         {
-            float[,] heights = new float[m_depthZ, m_widthX];
-            for (int x = 0; x < m_widthX; x++)
+            var heights = new float[m_depthZ, m_widthX];
+            for (var x = 0; x < m_widthX; x++)
             {
-                for (int z = 0; z < m_depthZ; z++)
+                for (var z = 0; z < m_depthZ; z++)
                 {
                     heights[z, x] = m_heights[x, z];
                 }
@@ -679,11 +679,11 @@ namespace Gaia
         public void Normalise()
         {
             float height;
-            float maxHeight = float.MinValue;
-            float minHeight = float.MaxValue;
-            for (int x = 0; x < m_widthX; x++)
+            var maxHeight = float.MinValue;
+            var minHeight = float.MaxValue;
+            for (var x = 0; x < m_widthX; x++)
             {
-                for (int z = 0; z < m_depthZ; z++)
+                for (var z = 0; z < m_depthZ; z++)
                 {
                     height = m_heights[x, z];
                     if (height > maxHeight)
@@ -696,12 +696,12 @@ namespace Gaia
                     }
                 }
             }
-            float heightRange = maxHeight - minHeight;
+            var heightRange = maxHeight - minHeight;
             if (heightRange > 0f)
             {
-                for (int x = 0; x < m_widthX; x++)
+                for (var x = 0; x < m_widthX; x++)
                 {
-                    for (int z = 0; z < m_depthZ; z++)
+                    for (var z = 0; z < m_depthZ; z++)
                     {
                         m_heights[x, z] = (m_heights[x, z] - minHeight) / heightRange;
                     }
@@ -721,7 +721,7 @@ namespace Gaia
         /// <param name="input"></param>
         public void SaveToBinaryFile(string fileName)
         {
-            BinaryFormatter formatter = new BinaryFormatter();
+            var formatter = new BinaryFormatter();
             Stream stream = new FileStream(fileName, FileMode.Create, FileAccess.Write, FileShare.None);
             formatter.Serialize(stream, m_widthX);
             formatter.Serialize(stream, m_depthZ);
@@ -744,7 +744,7 @@ namespace Gaia
             }
 
             Reset();
-            BinaryFormatter formatter = new BinaryFormatter();
+            var formatter = new BinaryFormatter();
             Stream stream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
             m_widthX = (int)formatter.Deserialize(stream);
             m_depthZ = (int)formatter.Deserialize(stream);
@@ -770,7 +770,7 @@ namespace Gaia
             }
 
             Reset();
-            BinaryFormatter formatter = new BinaryFormatter();
+            var formatter = new BinaryFormatter();
             Stream stream = new MemoryStream(source);
             m_widthX = (int)formatter.Deserialize(stream);
             m_depthZ = (int)formatter.Deserialize(stream);
@@ -798,15 +798,15 @@ namespace Gaia
             }
 
             Reset();
-            using (FileStream fileStream = File.OpenRead(fileName))
+            using (var fileStream = File.OpenRead(fileName))
             {
-                using (BinaryReader br = new BinaryReader(fileStream))
+                using (var br = new BinaryReader(fileStream))
                 {
                     m_widthX = m_depthZ = Mathf.CeilToInt(Mathf.Sqrt(fileStream.Length / 2));
                     m_heights = new float[m_widthX, m_depthZ];
-                    for (int x = 0; x < m_widthX; x++)
+                    for (var x = 0; x < m_widthX; x++)
                     {
-                        for (int z = 0; z < m_depthZ; z++)
+                        for (var z = 0; z < m_depthZ; z++)
                         {
                             m_heights[x, z] = (float)br.ReadUInt16() / 65535.0f; //Should consider doing the unity HM switch here
                         }

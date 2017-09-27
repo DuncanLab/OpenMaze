@@ -65,7 +65,7 @@ namespace wallSystem
 
 			_goalText = GameObject.Find("Goal").GetComponent<Text>();
 
-			int val = E.Get().CurrTrial.Value.PickupType;
+			var val = E.Get().CurrTrial.Value.PickupType;
 			if (val == 0)
 			{
 				_goalText.text = "Explore";

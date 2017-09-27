@@ -161,7 +161,7 @@ namespace Gaia
         public void OnAfterDeserialize()
         {
             m_resources = new Dictionary<string, ScriptableObjectWrapper>();
-            for (int i = 0; i != Math.Min(m_resourcesKeys.Count, m_resourcesValues.Count); i++)
+            for (var i = 0; i != Math.Min(m_resourcesKeys.Count, m_resourcesValues.Count); i++)
             {
                 m_resources.Add(m_resourcesKeys[i], m_resourcesValues[i]);
             }
@@ -187,7 +187,7 @@ namespace Gaia
                 return null;
             }
 
-            Texture2D image = new Texture2D(m_previewImageWidth, m_previewImageHeight, TextureFormat.ARGB32, false);
+            var image = new Texture2D(m_previewImageWidth, m_previewImageHeight, TextureFormat.ARGB32, false);
             image.LoadRawTextureData(m_previewImageBytes);
             image.Apply();
 
@@ -195,8 +195,8 @@ namespace Gaia
             #if UNITY_EDITOR
             if (PlayerSettings.colorSpace == ColorSpace.Linear)
             {
-                Color[] pixels = image.GetPixels();
-                for (int idx = 0; idx < pixels.GetLength(0); idx++)
+                var pixels = image.GetPixels();
+                for (var idx = 0; idx < pixels.GetLength(0); idx++)
                 {
                     pixels[idx] = pixels[idx].gamma;
                 }

@@ -49,11 +49,11 @@ namespace Gaia
         public string Build(string filePath)
         {
             // Parse the template into a StringBuilder and TemplateFrameVariable array
-            char[] text = Gaia.Utils.ReadAllText(filePath).ToCharArray();
+            var text = Gaia.Utils.ReadAllText(filePath).ToCharArray();
             string varName;
             int startIndex;
 
-            for (int i = 0; i < text.Length; i++)
+            for (var i = 0; i < text.Length; i++)
             {
                 if (text[i] == BeginChar && text[i + 1] == BeginChar)
                 {
@@ -81,15 +81,15 @@ namespace Gaia
         /// </summary>
         private char[] shiftCharArryLeft(char[] arry, int startIndex, int endIndex)
         {
-            char[] newArry = new char[arry.Length - (endIndex - startIndex + 1)];
+            var newArry = new char[arry.Length - (endIndex - startIndex + 1)];
 
-            for (int i = 0; i < startIndex; i++)
+            for (var i = 0; i < startIndex; i++)
             {
                 newArry[i] = arry[i];
             }
 
-            int j = 0;
-            for (int i = endIndex + 1; i < arry.Length; i++)
+            var j = 0;
+            for (var i = endIndex + 1; i < arry.Length; i++)
             {
                 newArry[startIndex + j] = arry[i];
                 j++;
@@ -114,7 +114,7 @@ namespace Gaia
 
             ret = new char[endIndex - startIndex];
 
-            for (int i = 0; i < ret.Length; i++)
+            for (var i = 0; i < ret.Length; i++)
             {
                 ret[i] = text[startIndex + i];
             }

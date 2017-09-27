@@ -122,7 +122,7 @@ namespace Gaia
             Bounds terrainBoundsWU;
             Bounds terrainBoundsTU;
 
-            string validWorld = IsValidWorld(terrains);
+            var validWorld = IsValidWorld(terrains);
             if (!string.IsNullOrEmpty(validWorld))
             {
                 Debug.LogError("GaiaWorldManager(terrains) ERROR" + validWorld);
@@ -130,7 +130,7 @@ namespace Gaia
             }
 
             //Calculate bounds
-            for (int idx = 0; idx < terrains.Length; idx++)
+            for (var idx = 0; idx < terrains.Length; idx++)
             {
                 terrain = terrains[idx];
 
@@ -185,7 +185,7 @@ namespace Gaia
             m_tileCount = (int)(m_worldBoundsNU.size.x * m_worldBoundsNU.size.z);
             m_physicalTerrainArray = new Terrain[(int)m_worldBoundsNU.size.x, (int)m_worldBoundsNU.size.z];
             m_heightMapTerrainArray = new UnityHeightMap[(int)m_worldBoundsNU.size.x, (int)m_worldBoundsNU.size.z];
-            for (int idx = 0; idx < terrains.Length; idx++)
+            for (var idx = 0; idx < terrains.Length; idx++)
             {
                 terrain = terrains[idx];
                 positionPTI = WUtoPTI(terrain.transform.position);
@@ -286,10 +286,10 @@ namespace Gaia
         {
             Terrain firstTerrain = null;
             Terrain terrain = null;
-            StringBuilder terrainCheck = new StringBuilder();
+            var terrainCheck = new StringBuilder();
 
             //Calculate bounds
-            for (int idx = 0; idx < terrains.Length; idx++)
+            for (var idx = 0; idx < terrains.Length; idx++)
             {
                 terrain = terrains[idx];
                 if (firstTerrain == null)
@@ -359,7 +359,7 @@ namespace Gaia
                 m_boundsCheckErrors++;
                 return null;
             }
-            Vector3 positionPTI = WUtoPTI(positionWU);
+            var positionPTI = WUtoPTI(positionWU);
             return m_physicalTerrainArray[(int)positionPTI.x, (int)positionPTI.z];
         }
 
@@ -375,7 +375,7 @@ namespace Gaia
                 m_boundsCheckErrors++;
                 return null;
             }
-            Vector3 positionPTI = TUtoPTI(positionTU);
+            var positionPTI = TUtoPTI(positionTU);
             return m_physicalTerrainArray[(int)positionPTI.x, (int)positionPTI.z];
         }
 
@@ -391,7 +391,7 @@ namespace Gaia
                 m_boundsCheckErrors++;
                 return null;
             }
-            Vector3 positionPTI = NUtoPTI(positionNU);
+            var positionPTI = NUtoPTI(positionNU);
             return m_physicalTerrainArray[(int)positionPTI.x, (int)positionPTI.z];
         }
 
@@ -407,11 +407,11 @@ namespace Gaia
                 m_boundsCheckErrors++;
                 return null;
             }
-            Vector3 positionPTI = WUtoPTI(positionWU);
-            UnityHeightMap hm = m_heightMapTerrainArray[(int)positionPTI.x, (int)positionPTI.z];
+            var positionPTI = WUtoPTI(positionWU);
+            var hm = m_heightMapTerrainArray[(int)positionPTI.x, (int)positionPTI.z];
             if (hm == null)
             {
-                Terrain t = GetTerrainWU(positionWU);
+                var t = GetTerrainWU(positionWU);
                 if (t != null)
                 {
                     //Create and store a new height map, and load the terrain into it
@@ -433,11 +433,11 @@ namespace Gaia
                 m_boundsCheckErrors++;
                 return null;
             }
-            Vector3 positionPTI = TUtoPTI(positionTU);
-            UnityHeightMap hm = m_heightMapTerrainArray[(int)positionPTI.x, (int)positionPTI.z];
+            var positionPTI = TUtoPTI(positionTU);
+            var hm = m_heightMapTerrainArray[(int)positionPTI.x, (int)positionPTI.z];
             if (hm == null)
             {
-                Terrain t = GetTerrainTU(positionTU);
+                var t = GetTerrainTU(positionTU);
                 if (t != null)
                 {
                     //Create and store a new height map, and load the terrain into it
@@ -459,11 +459,11 @@ namespace Gaia
                 m_boundsCheckErrors++;
                 return null;
             }
-            Vector3 positionPTI = NUtoPTI(positionNU);
-            UnityHeightMap hm = m_heightMapTerrainArray[(int)positionPTI.x, (int)positionPTI.z];
+            var positionPTI = NUtoPTI(positionNU);
+            var hm = m_heightMapTerrainArray[(int)positionPTI.x, (int)positionPTI.z];
             if (hm == null)
             {
-                Terrain t = GetTerrainNU(positionNU);
+                var t = GetTerrainNU(positionNU);
                 if (t != null)
                 {
                     //Create and store a new height map, and load the terrain into it
@@ -484,14 +484,14 @@ namespace Gaia
         public void LoadFromWorld()
         {
             UnityHeightMap hm;
-            for (int x = 0; x < m_heightMapTerrainArray.GetLength(0); x++)
+            for (var x = 0; x < m_heightMapTerrainArray.GetLength(0); x++)
             {
-                for (int z = 0; z < m_heightMapTerrainArray.GetLength(1); z++)
+                for (var z = 0; z < m_heightMapTerrainArray.GetLength(1); z++)
                 {
                     hm = m_heightMapTerrainArray[x, z];
                     if (hm == null)
                     {
-                        Terrain t = m_physicalTerrainArray[x, z];
+                        var t = m_physicalTerrainArray[x, z];
                         if (t != null)
                         {
                             m_heightMapTerrainArray[x, z] = new UnityHeightMap(t);
@@ -512,9 +512,9 @@ namespace Gaia
         public void SaveToWorld(bool forceWrite = false)
         {
             UnityHeightMap hm;
-            for (int x = 0; x < m_heightMapTerrainArray.GetLength(0); x++)
+            for (var x = 0; x < m_heightMapTerrainArray.GetLength(0); x++)
             {
-                for (int z = 0; z < m_heightMapTerrainArray.GetLength(1); z++)
+                for (var z = 0; z < m_heightMapTerrainArray.GetLength(1); z++)
                 {
                     hm = m_heightMapTerrainArray[x, z];
                     if (hm != null)
@@ -546,10 +546,10 @@ namespace Gaia
         /// <param name="heightWU"></param>
         public void SetHeightWU(float heightWU)
         {
-            float newHeight = Mathf.Clamp01(heightWU / m_worldBoundsWU.size.y);
-            for (int x = 0; x < m_heightMapTerrainArray.GetLength(0); x++)
+            var newHeight = Mathf.Clamp01(heightWU / m_worldBoundsWU.size.y);
+            for (var x = 0; x < m_heightMapTerrainArray.GetLength(0); x++)
             {
-                for (int z = 0; z < m_heightMapTerrainArray.GetLength(1); z++)
+                for (var z = 0; z < m_heightMapTerrainArray.GetLength(1); z++)
                 {
                     m_heightMapTerrainArray[x, z].SetHeight(newHeight);
                 }
@@ -563,7 +563,7 @@ namespace Gaia
         /// <param name="height">Height to set</param>
         public void SetHeightWU(Vector3 positionWU, float height)
         {
-            UnityHeightMap uhm = GetHeightMapWU(positionWU);
+            var uhm = GetHeightMapWU(positionWU);
             if (uhm != null)
             {
                 positionWU = WUtoPTO(positionWU);
@@ -581,7 +581,7 @@ namespace Gaia
         /// <param name="positionWU">Position in world Units</param>
         public float GetHeightWU(Vector3 positionWU)
         {
-            UnityHeightMap uhm = GetHeightMapWU(positionWU);
+            var uhm = GetHeightMapWU(positionWU);
             if (uhm != null)
             {
                 positionWU = WUtoPTO(positionWU);
@@ -599,7 +599,7 @@ namespace Gaia
         /// <param name="positionWU">Position in world Units</param>
         public float GetHeightInterpolatedWU(Vector3 positionWU)
         {
-            UnityHeightMap uhm = GetHeightMapWU(positionWU);
+            var uhm = GetHeightMapWU(positionWU);
             if (uhm != null)
             {
                 positionWU = WUtoPTO(positionWU);
@@ -618,7 +618,7 @@ namespace Gaia
         /// <param name="height">Height to set</param>
         public void SetHeightTU(Vector3 positionTU, float height)
         {
-            UnityHeightMap uhm = GetHeightMapTU(positionTU);
+            var uhm = GetHeightMapTU(positionTU);
             if (uhm != null)
             {
                 positionTU = TUtoPTO(positionTU);
@@ -637,7 +637,7 @@ namespace Gaia
         /// <returns>Height at that location or float.MinValue if out of bounds</returns>
         public float GetHeightTU(Vector3 positionTU)
         {
-            UnityHeightMap uhm = GetHeightMapTU(positionTU);
+            var uhm = GetHeightMapTU(positionTU);
             if (uhm != null)
             {
                 positionTU = TUtoPTO(positionTU);
@@ -656,7 +656,7 @@ namespace Gaia
         /// <returns>Height at that location or float.MinValue if out of bounds</returns>
         public float GetHeightInterpolatedTU(Vector3 positionTU)
         {
-            UnityHeightMap uhm = GetHeightMapTU(positionTU);
+            var uhm = GetHeightMapTU(positionTU);
             if (uhm != null)
             {
                 positionTU = TUtoPTO(positionTU);
@@ -678,14 +678,14 @@ namespace Gaia
         public void FlattenWorld()
         {
             UnityHeightMap hm;
-            for (int x = 0; x < m_heightMapTerrainArray.GetLength(0); x++)
+            for (var x = 0; x < m_heightMapTerrainArray.GetLength(0); x++)
             {
-                for (int z = 0; z < m_heightMapTerrainArray.GetLength(1); z++)
+                for (var z = 0; z < m_heightMapTerrainArray.GetLength(1); z++)
                 {
                     hm = m_heightMapTerrainArray[x, z];
                     if (hm == null)
                     {
-                        Terrain t = m_physicalTerrainArray[x, z];
+                        var t = m_physicalTerrainArray[x, z];
                         if (t != null)
                         {
                             hm = m_heightMapTerrainArray[x, z] = new UnityHeightMap(t);
@@ -706,14 +706,14 @@ namespace Gaia
         public void SmoothWorld()
         {
             UnityHeightMap hm;
-            for (int x = 0; x < m_heightMapTerrainArray.GetLength(0); x++)
+            for (var x = 0; x < m_heightMapTerrainArray.GetLength(0); x++)
             {
-                for (int z = 0; z < m_heightMapTerrainArray.GetLength(1); z++)
+                for (var z = 0; z < m_heightMapTerrainArray.GetLength(1); z++)
                 {
                     hm = m_heightMapTerrainArray[x, z];
                     if (hm == null)
                     {
-                        Terrain t = m_physicalTerrainArray[x, z];
+                        var t = m_physicalTerrainArray[x, z];
                         if (t != null)
                         {
                             hm = m_heightMapTerrainArray[x, z] = new UnityHeightMap(t);
@@ -735,8 +735,8 @@ namespace Gaia
         /// <param name="path">Path to save file as</param>
         public void ExportWorldAsPng(string path)
         {
-            Vector3 positionTU = m_worldBoundsTU.center;
-            HeightMap hm = new HeightMap((int)m_worldBoundsTU.size.z, (int)m_worldBoundsTU.size.x);
+            var positionTU = m_worldBoundsTU.center;
+            var hm = new HeightMap((int)m_worldBoundsTU.size.z, (int)m_worldBoundsTU.size.x);
 
             //Grab and flip the world (due to unity flipping terrains)
             for (int x = 0, srcX = (int)m_worldBoundsTU.min.x; srcX < (int)m_worldBoundsTU.max.x; x++, srcX++)
@@ -760,25 +760,25 @@ namespace Gaia
         /// <param name="textureIdx">The texture to save</param>
         public void ExportSplatmapAsPng(string path, int textureIdx)
         {
-            Terrain terrain = Terrain.activeTerrain;
+            var terrain = Terrain.activeTerrain;
             if (terrain == null)
             {
                 Debug.LogError("No active terrain, unable to export splatmaps");
                 return;
             }
-            int width = terrain.terrainData.alphamapWidth;
-            int height = terrain.terrainData.alphamapHeight;
-            int layers = terrain.terrainData.alphamapLayers;
+            var width = terrain.terrainData.alphamapWidth;
+            var height = terrain.terrainData.alphamapHeight;
+            var layers = terrain.terrainData.alphamapLayers;
 
             if (textureIdx < layers)
             {
-                HeightMap txtMap = new HeightMap(terrain.terrainData.GetAlphamaps(0, 0, width, height), textureIdx);
+                var txtMap = new HeightMap(terrain.terrainData.GetAlphamaps(0, 0, width, height), textureIdx);
                 txtMap.Flip();
                 Gaia.Utils.CompressToSingleChannelFileImage(txtMap.Heights(), path, TextureFormat.RGBA32, true, false);
             }
             else
             {
-                float[, ,] splatMaps = terrain.terrainData.GetAlphamaps(0, 0, width, height);
+                var splatMaps = terrain.terrainData.GetAlphamaps(0, 0, width, height);
                 /*
                 for (int sm = 0; sm < layers; sm++)
                 {
@@ -803,34 +803,34 @@ namespace Gaia
         /// <param name="detailIdx">The grass to save</param>
         public void ExportGrassmapAsPng(string path)
         {
-            Terrain terrain = Terrain.activeTerrain;
+            var terrain = Terrain.activeTerrain;
             if (terrain == null)
             {
                 Debug.LogError("No active terrain, unable to export grassmaps");
                 return;
             }
-            int width = terrain.terrainData.detailWidth;
-            int height = terrain.terrainData.detailHeight;
-            int layers = terrain.terrainData.detailPrototypes.Length;
+            var width = terrain.terrainData.detailWidth;
+            var height = terrain.terrainData.detailHeight;
+            var layers = terrain.terrainData.detailPrototypes.Length;
 
-            float [,,] detailMaps = new float[width, height, layers];
+            var detailMaps = new float[width, height, layers];
             int[,] detailMap;
 
-            for (int dtlIdx = 0; dtlIdx < terrain.terrainData.detailPrototypes.Length; dtlIdx++)
+            for (var dtlIdx = 0; dtlIdx < terrain.terrainData.detailPrototypes.Length; dtlIdx++)
             {
                 detailMap = terrain.terrainData.GetDetailLayer(0,0, terrain.terrainData.detailWidth, terrain.terrainData.detailHeight, dtlIdx);
                 //Copy the map
-                for (int x = 0; x < width; x++)
+                for (var x = 0; x < width; x++)
                 {
-                    for (int z = 0; z < height; z++)
+                    for (var z = 0; z < height; z++)
                     {
                         detailMaps[x, z, dtlIdx] = (float)detailMap[x, z] / 16f;
                     }
                 }
                 //Flip it
-                for (int x = 0; x < width; x++)
+                for (var x = 0; x < width; x++)
                 {
-                    for (int z = 0; z < height; z++)
+                    for (var z = 0; z < height; z++)
                     {
                         detailMaps[z, x, dtlIdx] = detailMaps[x, z, dtlIdx];
                     }
@@ -850,9 +850,9 @@ namespace Gaia
             float[,,] nrmMap = null;
             Vector3 normal;
 
-            for (int tileX = 0; tileX < m_physicalTerrainArray.GetLength(0); tileX++)
+            for (var tileX = 0; tileX < m_physicalTerrainArray.GetLength(0); tileX++)
             {
-                for (int tileZ = 0; tileZ < m_physicalTerrainArray.GetLength(1); tileZ++)
+                for (var tileZ = 0; tileZ < m_physicalTerrainArray.GetLength(1); tileZ++)
                 {
                     terrain = m_physicalTerrainArray[tileX,tileZ];
                     if (terrain != null)
@@ -861,9 +861,9 @@ namespace Gaia
                         height = terrain.terrainData.heightmapHeight;
                         nrmMap = new float[width, height, 4];
 
-                        for (int x = 0; x < width; x++ )
+                        for (var x = 0; x < width; x++ )
                         {
-                            for (int z = 0; z < height; z++)
+                            for (var z = 0; z < height; z++)
                             {
                                 normal = terrain.terrainData.GetInterpolatedNormal((float)x / (float)width, (float)z / (float)height);
                                 nrmMap[x, z, 0] = (normal.x * 0.5f) + 0.5f;
@@ -876,7 +876,7 @@ namespace Gaia
                         
                         #if UNITY_EDITOR
                         AssetDatabase.Refresh();
-                        Texture2D normalTex = Gaia.Utils.GetAsset(path + "_" + tileX + "_" + tileZ + "0.png", typeof(Texture2D)) as Texture2D;
+                        var normalTex = Gaia.Utils.GetAsset(path + "_" + tileX + "_" + tileZ + "0.png", typeof(Texture2D)) as Texture2D;
                         Gaia.Utils.MakeTextureNormal(normalTex);
                         #endif
                     }
@@ -891,10 +891,10 @@ namespace Gaia
         /// <param name="shoreHeightNU"></param>
         public void ExportShorelineMask(string path, float shoreHeightWU, float shoreWidthWU)
         {
-            Vector3 positionTU = m_worldBoundsTU.center;
-            float shoreHeightNU = shoreHeightWU / m_worldBoundsWU.size.y;
-            Vector3 shoreWidthTU = WUtoTU(new Vector3(shoreWidthWU, shoreWidthWU, shoreWidthWU));
-            HeightMap shoreMask = new HeightMap((int)m_worldBoundsTU.size.z, (int)m_worldBoundsTU.size.x);
+            var positionTU = m_worldBoundsTU.center;
+            var shoreHeightNU = shoreHeightWU / m_worldBoundsWU.size.y;
+            var shoreWidthTU = WUtoTU(new Vector3(shoreWidthWU, shoreWidthWU, shoreWidthWU));
+            var shoreMask = new HeightMap((int)m_worldBoundsTU.size.z, (int)m_worldBoundsTU.size.x);
 
             //Mask the world
             for (float x = 0, srcX = m_worldBoundsTU.min.x; srcX < m_worldBoundsTU.max.x; x += 1f, srcX += 1f)
@@ -926,18 +926,18 @@ namespace Gaia
         private void MakeMask(Vector3 positionTU, float shoreHeightNU, float maskSizeTU, HeightMap waterMask)
         {
             int   maskX, maskZ;
-            float minX = positionTU.x - maskSizeTU;
-            float maxX = positionTU.x + maskSizeTU;
-            float minZ = positionTU.z - maskSizeTU;
-            float maxZ = positionTU.z + maskSizeTU;
-            Vector3 checkPos = m_worldBoundsTU.center;
+            var minX = positionTU.x - maskSizeTU;
+            var maxX = positionTU.x + maskSizeTU;
+            var minZ = positionTU.z - maskSizeTU;
+            var maxZ = positionTU.z + maskSizeTU;
+            var checkPos = m_worldBoundsTU.center;
             float strength;
 
             //Make the mask if height is below sea level
-            for (float x = minX; x < maxX; x += 1f)
+            for (var x = minX; x < maxX; x += 1f)
             {
                 checkPos.x = x;
-                for (float z = minZ; z < maxZ; z += 1f)
+                for (var z = minZ; z < maxZ; z += 1f)
                 {
                     checkPos.z = z;
                     if (InBoundsTU(checkPos))
@@ -1185,7 +1185,7 @@ namespace Gaia
         public void Test()
         {
             Vector3 position;
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
             sb.Append("GaiaWorldManagerTest\n");
             sb.Append(string.Format("World Bounds WU : Min {0}, Centre {1}, Max {2}, Size {3}\n", m_worldBoundsWU.min, m_worldBoundsWU.center, m_worldBoundsWU.max, m_worldBoundsWU.size));
@@ -1269,13 +1269,13 @@ namespace Gaia
         /// <param name="positionWU"></param>
         public void TestBlobWU(Vector3 positionWU, int widthWU, float height)
         {
-            Vector3 widthTU = WUtoTU(new Vector3(widthWU, widthWU, widthWU));
-            Vector3 sourcePosTU = WUtoTU(positionWU);
+            var widthTU = WUtoTU(new Vector3(widthWU, widthWU, widthWU));
+            var sourcePosTU = WUtoTU(positionWU);
             Vector3 posTU;
 
-            for (int x = ((int)(sourcePosTU.x - widthTU.x)); x < (int)(sourcePosTU.x + widthTU.x); x++)
+            for (var x = ((int)(sourcePosTU.x - widthTU.x)); x < (int)(sourcePosTU.x + widthTU.x); x++)
             {
-                for (int z = (int)(sourcePosTU.z - widthTU.z); z < (int)(sourcePosTU.z + widthTU.z); z++)
+                for (var z = (int)(sourcePosTU.z - widthTU.z); z < (int)(sourcePosTU.z + widthTU.z); z++)
                 {
                     posTU = new Vector3(x, m_worldBoundsTU.center.y, z);
                     SetHeightTU(posTU, height);
@@ -1289,12 +1289,12 @@ namespace Gaia
         /// <param name="positionTU"></param>
         public void TestBlobTU(Vector3 positionTU, int widthWU, float height)
         {
-            Vector3 widthTU = WUtoTU(new Vector3(widthWU, widthWU, widthWU));
+            var widthTU = WUtoTU(new Vector3(widthWU, widthWU, widthWU));
             Vector3 posTU;
 
-            for (int x = (int)(positionTU.x - widthTU.x); x < (int)(positionTU.x + widthTU.x); x++)
+            for (var x = (int)(positionTU.x - widthTU.x); x < (int)(positionTU.x + widthTU.x); x++)
             {
-                for (int z = (int)(positionTU.z - widthTU.z); z < (int)(positionTU.z + widthTU.z); z++)
+                for (var z = (int)(positionTU.z - widthTU.z); z < (int)(positionTU.z + widthTU.z); z++)
                 {
                     posTU = new Vector3(x, m_worldBoundsTU.center.y, z);
                     SetHeightTU(posTU, height);

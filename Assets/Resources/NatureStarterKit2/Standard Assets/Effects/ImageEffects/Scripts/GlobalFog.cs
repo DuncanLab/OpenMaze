@@ -47,35 +47,35 @@ namespace UnityStandardAssets.ImageEffects
                 return;
             }
 
-			Camera cam = GetComponent<Camera>();
-			Transform camtr = cam.transform;
-			float camNear = cam.nearClipPlane;
-			float camFar = cam.farClipPlane;
-			float camFov = cam.fieldOfView;
-			float camAspect = cam.aspect;
+			var cam = GetComponent<Camera>();
+			var camtr = cam.transform;
+			var camNear = cam.nearClipPlane;
+			var camFar = cam.farClipPlane;
+			var camFov = cam.fieldOfView;
+			var camAspect = cam.aspect;
 
-            Matrix4x4 frustumCorners = Matrix4x4.identity;
+            var frustumCorners = Matrix4x4.identity;
 
-			float fovWHalf = camFov * 0.5f;
+			var fovWHalf = camFov * 0.5f;
 
-			Vector3 toRight = camtr.right * camNear * Mathf.Tan (fovWHalf * Mathf.Deg2Rad) * camAspect;
-			Vector3 toTop = camtr.up * camNear * Mathf.Tan (fovWHalf * Mathf.Deg2Rad);
+			var toRight = camtr.right * camNear * Mathf.Tan (fovWHalf * Mathf.Deg2Rad) * camAspect;
+			var toTop = camtr.up * camNear * Mathf.Tan (fovWHalf * Mathf.Deg2Rad);
 
-			Vector3 topLeft = (camtr.forward * camNear - toRight + toTop);
-			float camScale = topLeft.magnitude * camFar/camNear;
+			var topLeft = (camtr.forward * camNear - toRight + toTop);
+			var camScale = topLeft.magnitude * camFar/camNear;
 
             topLeft.Normalize();
 			topLeft *= camScale;
 
-			Vector3 topRight = (camtr.forward * camNear + toRight + toTop);
+			var topRight = (camtr.forward * camNear + toRight + toTop);
             topRight.Normalize();
 			topRight *= camScale;
 
-			Vector3 bottomRight = (camtr.forward * camNear + toRight - toTop);
+			var bottomRight = (camtr.forward * camNear + toRight - toTop);
             bottomRight.Normalize();
 			bottomRight *= camScale;
 
-			Vector3 bottomLeft = (camtr.forward * camNear - toRight - toTop);
+			var bottomLeft = (camtr.forward * camNear - toRight - toTop);
             bottomLeft.Normalize();
 			bottomLeft *= camScale;
 
@@ -85,9 +85,9 @@ namespace UnityStandardAssets.ImageEffects
             frustumCorners.SetRow (3, bottomLeft);
 
 			var camPos= camtr.position;
-            float FdotC = camPos.y-height;
-            float paramK = (FdotC <= 0.0f ? 1.0f : 0.0f);
-            float excludeDepth = (excludeFarPixels ? 1.0f : 2.0f);
+            var FdotC = camPos.y-height;
+            var paramK = (FdotC <= 0.0f ? 1.0f : 0.0f);
+            var excludeDepth = (excludeFarPixels ? 1.0f : 2.0f);
             fogMaterial.SetMatrix ("_FrustumCornersWS", frustumCorners);
             fogMaterial.SetVector ("_CameraWS", camPos);
             fogMaterial.SetVector ("_HeightParams", new Vector4 (height, FdotC, paramK, heightDensity*0.5f));
@@ -98,9 +98,9 @@ namespace UnityStandardAssets.ImageEffects
             var sceneStart= RenderSettings.fogStartDistance;
             var sceneEnd= RenderSettings.fogEndDistance;
             Vector4 sceneParams;
-            bool  linear = (sceneMode == FogMode.Linear);
-            float diff = linear ? sceneEnd - sceneStart : 0.0f;
-            float invDiff = Mathf.Abs(diff) > 0.0001f ? 1.0f / diff : 0.0f;
+            var  linear = (sceneMode == FogMode.Linear);
+            var diff = linear ? sceneEnd - sceneStart : 0.0f;
+            var invDiff = Mathf.Abs(diff) > 0.0001f ? 1.0f / diff : 0.0f;
             sceneParams.x = sceneDensity * 1.2011224087f; // density / sqrt(ln(2)), used by Exp2 fog mode
             sceneParams.y = sceneDensity * 1.4426950408f; // density / ln(2), used by Exp fog mode
             sceneParams.z = linear ? -invDiff : 0.0f;
@@ -108,7 +108,7 @@ namespace UnityStandardAssets.ImageEffects
             fogMaterial.SetVector ("_SceneFogParams", sceneParams);
 			fogMaterial.SetVector ("_SceneFogMode", new Vector4((int)sceneMode, useRadialDistance ? 1 : 0, 0, 0));
 
-            int pass = 0;
+            var pass = 0;
             if (distanceFog && heightFog)
                 pass = 0; // distance + height
             else if (distanceFog)

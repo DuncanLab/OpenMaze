@@ -33,7 +33,7 @@ namespace Gaia.FullSerializer
         private fsMetaType(Type reflectedType) {
             ReflectedType = reflectedType;
 
-            List<fsMetaProperty> properties = new List<fsMetaProperty>();
+            var properties = new List<fsMetaProperty>();
             CollectProperties(properties, reflectedType);
             Properties = properties.ToArray();
         }
@@ -42,24 +42,24 @@ namespace Gaia.FullSerializer
 
         private static void CollectProperties(List<fsMetaProperty> properties, Type reflectedType) {
             // do we require a [SerializeField] or [fsProperty] attribute?
-            bool requireOptIn = fsConfig.DefaultMemberSerialization == fsMemberSerialization.OptIn;
-            bool requireOptOut = fsConfig.DefaultMemberSerialization == fsMemberSerialization.OptOut;
+            var requireOptIn = fsConfig.DefaultMemberSerialization == fsMemberSerialization.OptIn;
+            var requireOptOut = fsConfig.DefaultMemberSerialization == fsMemberSerialization.OptOut;
 
-            fsObjectAttribute attr = fsPortableReflection.GetAttribute<fsObjectAttribute>(reflectedType);
+            var attr = fsPortableReflection.GetAttribute<fsObjectAttribute>(reflectedType);
             if (attr != null) {
                 requireOptIn = attr.MemberSerialization == fsMemberSerialization.OptIn;
                 requireOptOut = attr.MemberSerialization == fsMemberSerialization.OptOut;
             }
 
-            MemberInfo[] members = reflectedType.GetDeclaredMembers();
+            var members = reflectedType.GetDeclaredMembers();
             foreach (var member in members) {
                 // We don't serialize members annotated with any of the ignore serialize attributes
                 if (fsConfig.IgnoreSerializeAttributes.Any(t => fsPortableReflection.HasAttribute(member, t))) {
                     continue;
                 }
 
-                PropertyInfo property = member as PropertyInfo;
-                FieldInfo field = member as FieldInfo;
+                var property = member as PropertyInfo;
+                var field = member as FieldInfo;
 
                 // If an opt-in annotation is required, then skip the property if it doesn't have one
                 // of the serialize attributes
@@ -99,8 +99,8 @@ namespace Gaia.FullSerializer
                 return false;
             }
 
-            string backingFieldName = "<" + property.Name + ">k__BackingField";
-            for (int i = 0; i < members.Length; ++i) {
+            var backingFieldName = "<" + property.Name + ">k__BackingField";
+            for (var i = 0; i < members.Length; ++i) {
                 if (members[i].Name == backingFieldName) {
                     return true;
                 }
@@ -200,7 +200,7 @@ namespace Gaia.FullSerializer
                 // Direct converters are not used for inherited types, so the reflected converter or something
                 // similar will be used for the derived type instead of our AOT compiled one.
 
-                for (int i = 0; i < Properties.Length; ++i) {
+                for (var i = 0; i < Properties.Length; ++i) {
                     if (Properties[i].IsPublic == false) return false; // cannot do a speedup
                 }
 

@@ -39,13 +39,13 @@ namespace UnityStandardAssets.ImageEffects
         }
 
         public void SetIdentityLut () {
-            int dim = 16;
+            var dim = 16;
             var newC = new Color[dim*dim*dim];
-            float oneOverDim = 1.0f / (1.0f * dim - 1.0f);
+            var oneOverDim = 1.0f / (1.0f * dim - 1.0f);
 
-            for(int i = 0; i < dim; i++) {
-                for(int j = 0; j < dim; j++) {
-                    for(int k = 0; k < dim; k++) {
+            for(var i = 0; i < dim; i++) {
+                for(var j = 0; j < dim; j++) {
+                    for(var k = 0; k < dim; k++) {
                         newC[i + (j*dim) + (k*dim*dim)] = new Color((i*1.0f)*oneOverDim, (j*1.0f)*oneOverDim, (k*1.0f)*oneOverDim, 1.0f);
                     }
                 }
@@ -61,7 +61,7 @@ namespace UnityStandardAssets.ImageEffects
 
         public bool ValidDimensions ( Texture2D tex2d) {
             if (!tex2d) return false;
-            int h = tex2d.height;
+            var h = tex2d.height;
             if (h != Mathf.FloorToInt(Mathf.Sqrt(tex2d.width))) {
                 return false;
             }
@@ -74,7 +74,7 @@ namespace UnityStandardAssets.ImageEffects
             //  w * h, wheras h is the 'depth' (or 3d dimension 'dim') and w = dim * dim
 
             if (temp2DTex) {
-                int dim = temp2DTex.width * temp2DTex.height;
+                var dim = temp2DTex.width * temp2DTex.height;
                 dim = temp2DTex.height;
 
                 if (!ValidDimensions(temp2DTex)) {
@@ -86,10 +86,10 @@ namespace UnityStandardAssets.ImageEffects
                 var c = temp2DTex.GetPixels();
                 var newC = new Color[c.Length];
 
-                for(int i = 0; i < dim; i++) {
-                    for(int j = 0; j < dim; j++) {
-                        for(int k = 0; k < dim; k++) {
-                            int j_ = dim-j-1;
+                for(var i = 0; i < dim; i++) {
+                    for(var j = 0; j < dim; j++) {
+                        for(var k = 0; k < dim; k++) {
+                            var j_ = dim-j-1;
                             newC[i + (j*dim) + (k*dim*dim)] = c[k*dim+i+j_*dim*dim];
                         }
                     }
@@ -118,7 +118,7 @@ namespace UnityStandardAssets.ImageEffects
                 SetIdentityLut ();
             }
 
-            int lutSize = converted3DLut.width;
+            var lutSize = converted3DLut.width;
             converted3DLut.wrapMode = TextureWrapMode.Clamp;
             material.SetFloat("_Scale", (lutSize - 1) / (1.0f*lutSize));
             material.SetFloat("_Offset", 1.0f / (2.0f * lutSize));

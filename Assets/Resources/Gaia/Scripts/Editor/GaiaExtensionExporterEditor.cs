@@ -94,7 +94,7 @@ namespace Gaia
                 GUILayout.Space(10);
                 EditorGUILayout.LabelField("Resources:");
                 GaiaResource resource;
-                for (int resourceIdx = 0; resourceIdx < m_resourceList.Count; resourceIdx++)
+                for (var resourceIdx = 0; resourceIdx < m_resourceList.Count; resourceIdx++)
                 {
                     resource = m_resourceList[resourceIdx];
                     if (resource != null)
@@ -110,7 +110,7 @@ namespace Gaia
                 GUILayout.Space(10);
                 EditorGUILayout.LabelField("Spawners:");
                 Spawner spawner;
-                for (int spawnerIdx = 0; spawnerIdx < m_spawnerList.Count; spawnerIdx++)
+                for (var spawnerIdx = 0; spawnerIdx < m_spawnerList.Count; spawnerIdx++)
                 {
                     spawner = m_spawnerList[spawnerIdx];
                     if (spawner != null)
@@ -145,8 +145,8 @@ namespace Gaia
         public void DropAreaGUI()
         {
             //Ok - set up for drag and drop
-            Event evt = Event.current;
-            Rect drop_area = GUILayoutUtility.GetRect(0.0f, 50.0f, GUILayout.ExpandWidth(true));
+            var evt = Event.current;
+            var drop_area = GUILayoutUtility.GetRect(0.0f, 50.0f, GUILayout.ExpandWidth(true));
             GUI.Box(drop_area, "Drop Spawner Here:", m_boxStyle);
 
             switch (evt.type)
@@ -170,12 +170,12 @@ namespace Gaia
                                 //Debug.Log("Type is " + DragAndDrop.objectReferences[0].GetType());
                                 if (DragAndDrop.objectReferences[0].GetType() == typeof(UnityEngine.GameObject))
                                 {
-                                    GameObject go = DragAndDrop.objectReferences[0] as GameObject;
-                                    Spawner spawner = go.GetComponent<Spawner>();
+                                    var go = DragAndDrop.objectReferences[0] as GameObject;
+                                    var spawner = go.GetComponent<Spawner>();
                                     if (spawner != null)
                                     {
                                         //Only add spawners if we dont already have them
-                                        for (int spIdx = 0; spIdx < m_spawnerList.Count; spIdx++)
+                                        for (var spIdx = 0; spIdx < m_spawnerList.Count; spIdx++)
                                         {
                                             if (m_spawnerList[spIdx].m_spawnerID == spawner.m_spawnerID && m_spawnerList[spIdx].name == spawner.name)
                                             {
@@ -191,7 +191,7 @@ namespace Gaia
                                         }
                                         else
                                         {
-                                            for (int resIdx = 0; resIdx < m_resourceList.Count; resIdx++)
+                                            for (var resIdx = 0; resIdx < m_resourceList.Count; resIdx++)
                                             {
                                                 if (m_resourceList[resIdx].m_resourcesID == spawner.m_resources.m_resourcesID && m_resourceList[resIdx].name == spawner.m_resources.name)
                                                 {
@@ -230,7 +230,7 @@ namespace Gaia
             }
 
             //Make sure we have basic exported extension directory
-            string path = "Assets/GaiaExtensions/";
+            var path = "Assets/GaiaExtensions/";
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
@@ -238,9 +238,9 @@ namespace Gaia
             path = path + FixFileName(m_publisherName) + "_" + FixFileName(m_extensionName) + ".cs";
 
             Template template;
-            string hdrPath = Gaia.Utils.GetAssetPath("GaiaXtnHeader", "txt");
-            string ftrPath = Gaia.Utils.GetAssetPath("GaiaXtnFooter", "txt");
-            using (StreamWriter writer = File.CreateText(path))
+            var hdrPath = Gaia.Utils.GetAssetPath("GaiaXtnHeader", "txt");
+            var ftrPath = Gaia.Utils.GetAssetPath("GaiaXtnFooter", "txt");
+            using (var writer = File.CreateText(path))
             {
                 //Write the generic header
                 template = new Template(hdrPath, true);
@@ -263,7 +263,7 @@ namespace Gaia
                 }
 
                 //Export the resources
-                foreach (GaiaResource resource in m_resourceList)
+                foreach (var resource in m_resourceList)
                 {
                     if (resource == null)
                     {
@@ -302,7 +302,7 @@ namespace Gaia
                 }
 
                 //Export the spawners
-                foreach (Spawner spawner in m_spawnerList)
+                foreach (var spawner in m_spawnerList)
                 {
                     if (spawner == null)
                     {
@@ -341,8 +341,8 @@ namespace Gaia
         /// <returns>A destination string with rubbish removed</returns>
         string FixFileName(string source)
         {
-            StringBuilder sb = new StringBuilder();
-            foreach (char c in source)
+            var sb = new StringBuilder();
+            foreach (var c in source)
             {
                 if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_')
                 {
@@ -371,7 +371,7 @@ namespace Gaia
             }
 
             //Create extraction path
-            string path = "Assets/GaiaExtensions/";
+            var path = "Assets/GaiaExtensions/";
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
@@ -383,7 +383,7 @@ namespace Gaia
             }
             path += Path.GetFileName(AssetDatabase.GetAssetPath(source.GetInstanceID()));
 
-            GaiaResource resources = ScriptableObject.CreateInstance<Gaia.GaiaResource>();
+            var resources = ScriptableObject.CreateInstance<Gaia.GaiaResource>();
             AssetDatabase.CreateAsset(resources, path);
             resources.m_beachHeight = source.m_beachHeight;
             resources.m_name = source.m_name;
@@ -395,7 +395,7 @@ namespace Gaia
             SpawnCritera srcCrit, newCrit;
             ResourceProtoTexture srcTex, newTex;
             resources.m_texturePrototypes = new ResourceProtoTexture[source.m_texturePrototypes.GetLength(0)];
-            for (int resIdx = 0; resIdx < source.m_texturePrototypes.GetLength(0); resIdx++ )
+            for (var resIdx = 0; resIdx < source.m_texturePrototypes.GetLength(0); resIdx++ )
             {
                 srcTex = source.m_texturePrototypes[resIdx];
                 newTex = new ResourceProtoTexture();
@@ -410,7 +410,7 @@ namespace Gaia
                 newTex.m_texture = srcTex.m_texture;
 
                 newTex.m_spawnCriteria = new SpawnCritera[srcTex.m_spawnCriteria.GetLength(0)];
-                for (int critIdx = 0; critIdx < srcTex.m_spawnCriteria.GetLength(0); critIdx++ )
+                for (var critIdx = 0; critIdx < srcTex.m_spawnCriteria.GetLength(0); critIdx++ )
                 {
                     srcCrit = srcTex.m_spawnCriteria[critIdx];
 
@@ -448,11 +448,11 @@ namespace Gaia
                 return "";
             }
 
-            StringBuilder retS = new StringBuilder();
-            FieldInfo[] fields = src.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance);
+            var retS = new StringBuilder();
+            var fields = src.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance);
 
-            string tabs = "";
-            for (int td = 0; td < tabDepth; td++ )
+            var tabs = "";
+            for (var td = 0; td < tabDepth; td++ )
             {
                 tabs += "\t";
             }
@@ -493,7 +493,7 @@ namespace Gaia
                 }
             }
 
-            foreach (FieldInfo f in fields)
+            foreach (var f in fields)
             {
                 if (f.FieldType == typeof(System.String))
                 {
@@ -538,9 +538,9 @@ namespace Gaia
                 {
                     if (((UnityEngine.AnimationCurve)f.GetValue(src)) != null)
                     {
-                        UnityEngine.AnimationCurve curve = ((UnityEngine.AnimationCurve)f.GetValue(src));
+                        var curve = ((UnityEngine.AnimationCurve)f.GetValue(src));
                         retS.AppendLine(string.Format("{0}{1}.{2} = new UnityEngine.AnimationCurve();", tabs, name, f.Name));
-                        foreach(Keyframe frame in curve.keys)
+                        foreach(var frame in curve.keys)
                         {
                             retS.AppendLine(string.Format("{0}{1}.{2}.AddKey({3}f,{4}f);", tabs, name, f.Name, frame.time, frame.value));
                         }
@@ -552,7 +552,7 @@ namespace Gaia
                 }
                 else if (f.FieldType == typeof(UnityEngine.Color))
                 {
-                    Color c = ((UnityEngine.Color)f.GetValue(src));
+                    var c = ((UnityEngine.Color)f.GetValue(src));
                     retS.AppendLine(string.Format("{0}{1}.{2} = new UnityEngine.Color({3}f,{4}f,{5}f,{6}f);", tabs, name, f.Name, c.r, c.b, c.g, c.a));
                 }
                 else if (f.FieldType == typeof(UnityEngine.GameObject))
@@ -568,7 +568,7 @@ namespace Gaia
                 }
                 else if (f.FieldType.IsEnum == true)
                 {
-                    string enumValue = "";
+                    var enumValue = "";
                     foreach (var value in Enum.GetValues(f.FieldType))
                     {
                         if ((int)value == (int)f.GetValue(src))
@@ -582,7 +582,7 @@ namespace Gaia
                 else if (f.FieldType == typeof(Gaia.SpawnRuleExtension[]))
                 {
                     retS.AppendLine(string.Format("{0}{1}.{2} = new {3}[{4}];", tabs, name, f.Name, f.FieldType.ToString().Replace("[]", ""), ((System.Array)f.GetValue(src)).GetLength(0)));
-                    for (int idx = 0; idx < ((System.Array)f.GetValue(src)).GetLength(0); idx++)
+                    for (var idx = 0; idx < ((System.Array)f.GetValue(src)).GetLength(0); idx++)
                     {
                         retS.AppendLine(string.Format("{0}\t{1}.{2}[{3}] = GetSpawnRuleExtension(\"{4}\");", tabs, name, f.Name, idx, AssetDatabase.GetAssetPath(((Gaia.SpawnRuleExtension)(((System.Array)f.GetValue(src)).GetValue(idx))).GetInstanceID())));
                     }
@@ -599,7 +599,7 @@ namespace Gaia
                 }
                 else if (f.FieldType == typeof(Gaia.GaiaResource))
                 {
-                    GaiaResource resource = ((Gaia.GaiaResource)f.GetValue(src));
+                    var resource = ((Gaia.GaiaResource)f.GetValue(src));
                     if (resource != null)
                     {
                         retS.AppendLine(string.Format("{0}{1}.{2} = GetResource(\"{3}\",\"{4}\");", tabs, name, f.Name, 
@@ -613,7 +613,7 @@ namespace Gaia
                 }
                 else if (f.FieldType.IsGenericType == true)
                 {
-                    string type = f.FieldType.ToString();
+                    var type = f.FieldType.ToString();
                     if (type.Contains("System.Collections.Generic.List"))
                     {
                         type = type.Substring(type.IndexOf("[") + 1);
@@ -621,8 +621,8 @@ namespace Gaia
 
                         retS.AppendLine(string.Format("{0}{1}.{2} = new List<{3}>();", tabs, name, f.Name, type));
 
-                        int idx = 0;
-                        IEnumerator enumerator = ((ICollection)f.GetValue(src)).GetEnumerator();
+                        var idx = 0;
+                        var enumerator = ((ICollection)f.GetValue(src)).GetEnumerator();
                         while (enumerator.MoveNext())
                         {
                             retS.AppendLine(string.Format("{0}{1}.{2}.Add(new {3}());", tabs, name, f.Name, type));
@@ -637,7 +637,7 @@ namespace Gaia
                 else if (f.FieldType.BaseType == typeof(System.Array))
                 {
                     retS.AppendLine(string.Format("{0}{1}.{2} = new {3}[{4}];", tabs, name, f.Name, f.FieldType.ToString().Replace("[]",""), ((System.Array)f.GetValue(src)).GetLength(0)));
-                    for (int idx = 0; idx < ((System.Array)f.GetValue(src)).GetLength(0); idx++)
+                    for (var idx = 0; idx < ((System.Array)f.GetValue(src)).GetLength(0); idx++)
                     {
                         retS.Append(DumpObject(((System.Array)f.GetValue(src)).GetValue(idx), string.Format("{0}.{1}[{2}]", name, f.Name, idx), tabDepth+1, false));
                     }
@@ -689,7 +689,7 @@ namespace Gaia
             Gaia.GaiaResource resource = null;
 
             #if UNITY_EDITOR
-            string fileName = Path.GetFileNameWithoutExtension(path);
+            var fileName = Path.GetFileNameWithoutExtension(path);
             resource = (GaiaResource)Gaia.Utils.GetAssetScriptableObject(fileName);
             #endif
 
@@ -708,7 +708,7 @@ namespace Gaia
         /// <returns></returns>
         GUIContent GetLabel(string name)
         {
-            string tooltip = "";
+            var tooltip = "";
             if (m_tooltips.TryGetValue(name, out tooltip))
             {
                 return new GUIContent(name, tooltip);

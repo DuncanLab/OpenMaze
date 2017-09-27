@@ -38,11 +38,11 @@ namespace Gaia.FullSerializer.Internal
         }
 
         public override fsResult TrySerialize(object instance, out fsData serialized, Type storageType) {
-            PropertyInfo keyProperty = storageType.GetDeclaredProperty("Key");
-            PropertyInfo valueProperty = storageType.GetDeclaredProperty("Value");
+            var keyProperty = storageType.GetDeclaredProperty("Key");
+            var valueProperty = storageType.GetDeclaredProperty("Value");
 
-            object keyObject = keyProperty.GetValue(instance, null);
-            object valueObject = valueProperty.GetValue(instance, null);
+            var keyObject = keyProperty.GetValue(instance, null);
+            var valueObject = valueProperty.GetValue(instance, null);
 
             var genericArguments = storageType.GetGenericArguments();
             Type keyType = genericArguments[0], valueType = genericArguments[1];

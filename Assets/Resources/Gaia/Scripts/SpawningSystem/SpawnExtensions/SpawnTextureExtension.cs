@@ -94,35 +94,35 @@ namespace Gaia
             }
 
             //Get the terrain
-            Terrain t = Gaia.TerrainHelper.GetTerrain(spawnInfo.m_hitLocationWU);
+            var t = Gaia.TerrainHelper.GetTerrain(spawnInfo.m_hitLocationWU);
             if (t == null)
             {
                 return;
             }
 
             //Get the cached texture maps
-            List<HeightMap> txtMaps = spawnInfo.m_spawner.GetTextureMaps(spawnInfo.m_hitTerrain.GetInstanceID());
+            var txtMaps = spawnInfo.m_spawner.GetTextureMaps(spawnInfo.m_hitTerrain.GetInstanceID());
             if (txtMaps == null || m_textureIndex >= txtMaps.Count)
             {
                 return;
             }
 
             //Make some speedy calculations
-            float widthWU = spawnInfo.m_hitTerrain.terrainData.size.x;
-            float depthWU = spawnInfo.m_hitTerrain.terrainData.size.z;
-            float radiusWU = spawnRule.GetMaxScaledRadius(ref spawnInfo) * m_scaleMask;
-            float xStartWU = spawnInfo.m_hitLocationWU.x - (radiusWU / 2f);
-            float zStartWU = spawnInfo.m_hitLocationWU.z - (radiusWU / 2f);
-            float xEndWU = xStartWU + radiusWU;
-            float zEndWU = zStartWU + radiusWU;
-            float stepWU = 0.5f;
-            Vector3 locationWU = Vector3.zero;
+            var widthWU = spawnInfo.m_hitTerrain.terrainData.size.x;
+            var depthWU = spawnInfo.m_hitTerrain.terrainData.size.z;
+            var radiusWU = spawnRule.GetMaxScaledRadius(ref spawnInfo) * m_scaleMask;
+            var xStartWU = spawnInfo.m_hitLocationWU.x - (radiusWU / 2f);
+            var zStartWU = spawnInfo.m_hitLocationWU.z - (radiusWU / 2f);
+            var xEndWU = xStartWU + radiusWU;
+            var zEndWU = zStartWU + radiusWU;
+            var stepWU = 0.5f;
+            var locationWU = Vector3.zero;
             float xRotNU = 0f, zRotNU = 0f;
             float currStrength = 0f, newStrength = 1f;
 
-            for (float x = xStartWU; x < xEndWU; x += stepWU)
+            for (var x = xStartWU; x < xEndWU; x += stepWU)
             {
-                for (float z = zStartWU; z < zEndWU; z += stepWU)
+                for (var z = zStartWU; z < zEndWU; z += stepWU)
                 {
                     //Need to rotate x,z around the pivot by the rotation angle
                     locationWU = new Vector3(x, spawnInfo.m_hitLocationWU.y, z);
@@ -143,15 +143,15 @@ namespace Gaia
                     newStrength = m_textureHM[(x - xStartWU) / radiusWU, (z - zStartWU) / radiusWU];
                     if (newStrength > currStrength)
                     {
-                        float delta = newStrength - currStrength;
-                        float theRest = 1f - currStrength;
-                        float adjustment = 0f;
+                        var delta = newStrength - currStrength;
+                        var theRest = 1f - currStrength;
+                        var adjustment = 0f;
                         if (theRest != 0f)
                         {
                             adjustment = 1f - (delta / theRest);
                         }
 
-                        for (int idx = 0; idx < txtMaps.Count; idx++)
+                        for (var idx = 0; idx < txtMaps.Count; idx++)
                         {
                             if (idx == m_textureIndex)
                             {

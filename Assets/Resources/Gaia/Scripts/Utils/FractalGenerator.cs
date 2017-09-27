@@ -264,9 +264,9 @@ namespace Gaia
         /// <returns></returns>
         public float GetValue_Perlin(float x, float z)
         {
-            float value = 0f;
-            float signal = 0f;
-            float persistence = 1f;
+            var value = 0f;
+            var signal = 0f;
+            var persistence = 1f;
             float nx, nz;
 
             x += m_seed;
@@ -276,7 +276,7 @@ namespace Gaia
             x *= m_frequency;
             z *= m_frequency;
 
-            for (int octave = 0; octave < m_octaves; octave++)
+            for (var octave = 0; octave < m_octaves; octave++)
             {
                 nx = x;
                 nz = z;
@@ -300,9 +300,9 @@ namespace Gaia
         /// <returns></returns>
         public float GetValue_Billow(float x, float z)
         {
-            float value = 0f;
-            float signal = 0f;
-            float persistence = 1f;
+            var value = 0f;
+            var signal = 0f;
+            var persistence = 1f;
             float nx, nz;
 
             x += m_seed;
@@ -313,7 +313,7 @@ namespace Gaia
             x *= m_frequency;
             z *= m_frequency;
 
-            for (int octave = 0; octave < m_octaves; octave++)
+            for (var octave = 0; octave < m_octaves; octave++)
             {
                 nx = x;
                 nz = z;
@@ -338,11 +338,11 @@ namespace Gaia
         /// <returns></returns>
         public float GetValue_RidgedMulti(float x, float z)
         {
-            float signal = 0.0f;
-            float value = 0.0f;
-            float weight = 1.0f;
-            float offset = 1f;
-            float gain = m_persistence;
+            var signal = 0.0f;
+            var value = 0.0f;
+            var weight = 1.0f;
+            var offset = 1f;
+            var gain = m_persistence;
             float nx, nz;
 
             x += m_seed;
@@ -352,7 +352,7 @@ namespace Gaia
             x *= m_frequency;
             z *= m_frequency;
 
-            for (int octave = 0; octave < m_octaves; octave++)
+            for (var octave = 0; octave < m_octaves; octave++)
             {
                 nx = x;
                 nz = z;
@@ -401,10 +401,10 @@ namespace Gaia
         /// </summary>
         private void CalcSpectralWeights()
         {
-            float h = 1.0f;
-            float frequency = 1.0f;
-            int maxSpectra = m_spectralWeights.GetLength(0);
-            for (int i = 0; i < maxSpectra; i++)
+            var h = 1.0f;
+            var frequency = 1.0f;
+            var maxSpectra = m_spectralWeights.GetLength(0);
+            for (var i = 0; i < maxSpectra; i++)
             {
                 m_spectralWeights[i] = Mathf.Pow(frequency, -h);
                 frequency *= m_lacunarity;

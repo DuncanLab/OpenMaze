@@ -51,7 +51,7 @@ namespace wallSystem
 		//Here we setup the colours. This is done as a gradient utilizing data given from input.json
 		private void SetupColours(){
 
-			Color col = Data.GetColour(E.Get().CurrTrial.Value.Color);
+			var col = Data.GetColour(E.Get().CurrTrial.Value.Color);
 
 			//And here we set the color of the wall prefab to the appropriate color
 			Wall.GetComponent<Renderer>().sharedMaterial.color = col;
@@ -79,11 +79,11 @@ namespace wallSystem
 		private void GenerateCheckerBoard()
 		{
 			//Quite simply, this is a 2d for loop
-			for (int i = -20; i < 20; i += 2)
+			for (var i = -20; i < 20; i += 2)
 			{
-				for (int j = -20; j < 20; j += 1)
+				for (var j = -20; j < 20; j += 1)
 				{
-					GameObject tile = Instantiate(
+					var tile = Instantiate(
 						Wall, 
 						new Vector3((0.5f + i + j % 2), 0.001f, (0.5f + j)), //With a one offset
 						Quaternion.identity
@@ -110,22 +110,22 @@ namespace wallSystem
 			WallPointContainer.Reset();
 
 			//Here we interate through all the sides
-			for (int i = 0; i < E.Get().CurrTrial.Value.Sides; i++)
+			for (var i = 0; i < E.Get().CurrTrial.Value.Sides; i++)
 			{
 				//We compute the sin and cos of the current angle (essentially plotting points on a circle
-				float x = Cos(currentAngle) * E.Get().CurrTrial.Value.Radius;
-				float y = Sin(currentAngle) * E.Get().CurrTrial.Value.Radius;
+				var x = Cos(currentAngle) * E.Get().CurrTrial.Value.Radius;
+				var y = Sin(currentAngle) * E.Get().CurrTrial.Value.Radius;
 			
 				//This is theoreticially the perfect length of the wall. However, this causes a multitude of problems
 				//Such as:
 				//Gaps appearing in large wall numbers
 				//Desealing some stuff. so, bad.
-				float length = 2 * E.Get().CurrTrial.Value.Radius * Tan(180f / E.Get().CurrTrial.Value.Sides);
+				var length = 2 * E.Get().CurrTrial.Value.Radius * Tan(180f / E.Get().CurrTrial.Value.Sides);
 				WallPointContainer.Length = length;
 				WallPointContainer.Add(new Point{X = x, Y = y}, - currentAngle - 90);
 			
 				//Here we create the wall
-				GameObject obj = Instantiate(Wall,
+				var obj = Instantiate(Wall,
 					new Vector3(x, DS.GetData().WallHeight/2, y),
 					Quaternion.identity
 				);

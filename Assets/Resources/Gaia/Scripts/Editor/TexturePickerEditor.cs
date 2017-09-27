@@ -30,7 +30,7 @@ namespace Gaia
         /// </param>
         public void Setup(string path, ImageSelectedHandler functionHandler)
         {
-            string[] paths = new string[] { path };
+            var paths = new string[] { path };
             Setup(paths, functionHandler);
         } // eo Setup
 
@@ -62,8 +62,8 @@ namespace Gaia
 
             // create a button for each image loaded in, 4 buttons in width
             // calls the handler when a new image is selected.
-            int counter = 0;
-            foreach (Texture2D img in images)
+            var counter = 0;
+            foreach (var img in images)
             {
                 if (counter % 4 == 0 || counter == 0)
                     EditorGUILayout.BeginHorizontal();
@@ -96,12 +96,12 @@ namespace Gaia
         /// </param>
         void ReadInAllTextures(string[] paths)
         {
-            foreach (string path in paths)
+            foreach (var path in paths)
             {
-                string[] allFilesInPath = Directory.GetFiles(path);
-                foreach (string filePath in allFilesInPath)
+                var allFilesInPath = Directory.GetFiles(path);
+                foreach (var filePath in allFilesInPath)
                 {
-                    Texture2D obj = (Texture2D)AssetDatabase.LoadAssetAtPath(filePath, typeof(Texture2D));
+                    var obj = (Texture2D)AssetDatabase.LoadAssetAtPath(filePath, typeof(Texture2D));
                     if (obj is Texture2D)
                     {
                         images.Add(obj as Texture2D);

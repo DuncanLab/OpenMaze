@@ -22,31 +22,31 @@ namespace UnityStandardAssets.ImageEffects
             RenderTexture.active = dest;
             // Assign the source texture to a property from a shader
             material.SetTexture("_MainTex", source);
-            bool  invertY = true; // source.texelSize.y < 0.0f;
+            var  invertY = true; // source.texelSize.y < 0.0f;
             // Set up the simple Matrix
             GL.PushMatrix();
             GL.LoadIdentity();
             GL.LoadProjectionMatrix(cameraForProjectionMatrix.projectionMatrix);
 
-            float fovYHalfRad = cameraForProjectionMatrix.fieldOfView * 0.5f * Mathf.Deg2Rad;
-            float cotangent = Mathf.Cos(fovYHalfRad) / Mathf.Sin(fovYHalfRad);
-            float asp = cameraForProjectionMatrix.aspect;
+            var fovYHalfRad = cameraForProjectionMatrix.fieldOfView * 0.5f * Mathf.Deg2Rad;
+            var cotangent = Mathf.Cos(fovYHalfRad) / Mathf.Sin(fovYHalfRad);
+            var asp = cameraForProjectionMatrix.aspect;
 
-            float x1 = asp/-cotangent;
-            float x2 = asp/cotangent;
-            float y1 = 1.0f/-cotangent;
-            float y2 = 1.0f/cotangent;
+            var x1 = asp/-cotangent;
+            var x2 = asp/cotangent;
+            var y1 = 1.0f/-cotangent;
+            var y2 = 1.0f/cotangent;
 
-            float sc = 1.0f; // magic constant (for now)
+            var sc = 1.0f; // magic constant (for now)
 
             x1 *= dist * sc;
             x2 *= dist * sc;
             y1 *= dist * sc;
             y2 *= dist * sc;
 
-            float z1 = -dist;
+            var z1 = -dist;
 
-            for (int i = 0; i < material.passCount; i++)
+            for (var i = 0; i < material.passCount; i++)
             {
                 material.SetPass(i);
 
@@ -80,12 +80,12 @@ namespace UnityStandardAssets.ImageEffects
             float y2;
 
             RenderTexture.active = dest;
-            bool  invertY = true; // source.texelSize.y < 0.0ff;
+            var  invertY = true; // source.texelSize.y < 0.0ff;
             // Set up the simple Matrix
             GL.PushMatrix();
             GL.LoadOrtho();
 
-            for (int i = 0; i < material.passCount; i++)
+            for (var i = 0; i < material.passCount; i++)
             {
                 material.SetPass(i);
 
@@ -156,12 +156,12 @@ namespace UnityStandardAssets.ImageEffects
             RenderTexture.active = dest;
             // Assign the source texture to a property from a shader
             material.SetTexture("_MainTex", source);
-            bool  invertY = true; // source.texelSize.y < 0.0f;
+            var  invertY = true; // source.texelSize.y < 0.0f;
             // Set up the simple Matrix
             GL.PushMatrix();
             GL.LoadOrtho();
 
-            for (int i = 0; i < material.passCount; i++)
+            for (var i = 0; i < material.passCount; i++)
             {
                 material.SetPass(i);
 

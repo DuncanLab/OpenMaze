@@ -70,11 +70,11 @@ namespace Gaia
         //Create a stamper
         void CreateStamper()
         {
-            string path = m_stampAddress;
+            var path = m_stampAddress;
             path = path.Replace("\\", "/");
 
             //Load the stamp
-            TextAsset stamp = Resources.Load<TextAsset>(path);
+            var stamp = Resources.Load<TextAsset>(path);
             if (stamp == null)
             {
                 m_currentProgress = "Failed to load stamp at " + path;
@@ -93,7 +93,7 @@ namespace Gaia
                         Debug.Log(m_currentProgress);
                     }
 
-                    GameObject stamper = new GameObject("Runtime Stamper");
+                    var stamper = new GameObject("Runtime Stamper");
                     m_stamper = stamper.AddComponent<Stamper>();
                     if (m_stamper.LoadRuntimeStamp(stamp) == true)
                     {

@@ -39,10 +39,10 @@ namespace Gaia
             MethodInfo method;
             MethodInfo[] methods;
             List<MethodInfo> extensionMethods;
-            List<Type> types = GetTypesInNamespace("Gaia.GX.");
+            var types = GetTypesInNamespace("Gaia.GX.");
 
             //Process installed extensions
-            for (int typeIdx = 0; typeIdx < types.Count; typeIdx++)
+            for (var typeIdx = 0; typeIdx < types.Count; typeIdx++)
             {
                 //Get publisher and package name
                 parsedName = types[typeIdx].FullName.Split('.');
@@ -52,7 +52,7 @@ namespace Gaia
                 //Grab the extension methods, update publisher and package name if necessary
                 methods = types[typeIdx].GetMethods(BindingFlags.Public | BindingFlags.Static);
                 extensionMethods = new List<MethodInfo>();
-                for (int methodIdx = 0; methodIdx < methods.Length; methodIdx++)
+                for (var methodIdx = 0; methodIdx < methods.Length; methodIdx++)
                 {
                     method = methods[methodIdx];
 
@@ -82,7 +82,7 @@ namespace Gaia
                 }
 
                 //See if we can locate the extension, if not then add it
-                GaiaCompatiblePackage package = publisher.GetPackage(packageName);
+                var package = publisher.GetPackage(packageName);
                 if (package == null)
                 {
                     package = new GaiaCompatiblePackage();
@@ -104,7 +104,7 @@ namespace Gaia
 
             //Then process compatible extensions
             types = GetTypesInNamespace("Gaia.GXC.");
-            for (int typeIdx = 0; typeIdx < types.Count; typeIdx++)
+            for (var typeIdx = 0; typeIdx < types.Count; typeIdx++)
             {
                 //Get publisher and package name
                 parsedName = types[typeIdx].FullName.Split('.');
@@ -113,7 +113,7 @@ namespace Gaia
 
                 //Grab the extension methods, update publisher and package name if necessary
                 methods = types[typeIdx].GetMethods(BindingFlags.Public | BindingFlags.Static);
-                for (int methodIdx = 0; methodIdx < methods.Length; methodIdx++)
+                for (var methodIdx = 0; methodIdx < methods.Length; methodIdx++)
                 {
                     method = methods[methodIdx];
 
@@ -151,7 +151,7 @@ namespace Gaia
                 }
 
                 //See if we can locate the extension, if not then add it
-                GaiaCompatiblePackage package = publisher.GetPackage(packageName);
+                var package = publisher.GetPackage(packageName);
                 if (package == null)
                 {
                     package = new GaiaCompatiblePackage();
@@ -173,9 +173,9 @@ namespace Gaia
         /// <returns>Number of installed extensions</returns>
         public int GetInstalledExtensionCount()
         {
-            int iec = 0;
+            var iec = 0;
 
-            foreach (GaiaCompatiblePublisher publisher in m_extensions.Values)
+            foreach (var publisher in m_extensions.Values)
             {
                 iec += publisher.InstalledPackages();
             }
@@ -190,7 +190,7 @@ namespace Gaia
         /// <returns></returns>
         public List<GaiaCompatiblePublisher> GetPublishers()
         {
-            List<GaiaCompatiblePublisher> publishers = new List<GaiaCompatiblePublisher>(m_extensions.Values);
+            var publishers = new List<GaiaCompatiblePublisher>(m_extensions.Values);
             publishers.Sort((a, b) => a.m_publisherName.CompareTo(b.m_publisherName));
             return publishers;
         }
@@ -202,11 +202,11 @@ namespace Gaia
         /// <returns>Listr of types</returns>
         public List<Type> GetTypesInNamespace(string nameSpace)
         {
-            List<Type> matchingTypes = new List<Type>();
+            var matchingTypes = new List<Type>();
 
             int assyIdx, typeIdx;
             System.Type[] types;
-            System.Reflection.Assembly[] assemblies = System.AppDomain.CurrentDomain.GetAssemblies();
+            var assemblies = System.AppDomain.CurrentDomain.GetAssemblies();
             for (assyIdx = 0; assyIdx < assemblies.Length; assyIdx++)
             {
                 if (assemblies[assyIdx].FullName.StartsWith("Assembly"))

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using main;
+using UnityEngine;
 using C = data.Constants;
 
 //This class is contains the central data object for all classes.
@@ -10,6 +11,9 @@ namespace data
 		//Our singleton instance
 		private static Data _data;
 
+
+		
+		
 		public static Data GetData(){
 			return _data;
 		}
@@ -17,9 +21,10 @@ namespace data
 	
 		//This function loads the file from a defacto loaction as shown below
 		public static void Load(){
-			string file = System.IO.File.ReadAllText(C.InputFileSrcPath);
+			var file = System.IO.File.ReadAllText(C.InputFileSrcPath);
 			_data = JsonUtility.FromJson<Data>(file);
 		}
 
 	}
+
 }

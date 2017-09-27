@@ -64,7 +64,7 @@ namespace Gaia
             if (m_showGUI)
             {
                 GUILayout.BeginVertical();
-                for (int i = 0; i <= m_maxQuality; i++)
+                for (var i = 0; i <= m_maxQuality; i++)
                 {
                     if (GUILayout.Button(m_qualityNames[i]))
                     {

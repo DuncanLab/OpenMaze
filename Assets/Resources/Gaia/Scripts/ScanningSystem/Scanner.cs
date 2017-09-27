@@ -33,13 +33,13 @@ namespace Gaia
 
         void OnEnable()
         {
-            MeshFilter mf = GetComponent<MeshFilter>();
+            var mf = GetComponent<MeshFilter>();
             if (mf == null)
             {
                 mf = gameObject.AddComponent<MeshFilter>();
             }
             mf.hideFlags = HideFlags.HideInInspector;
-            MeshRenderer mr = GetComponent<MeshRenderer>();
+            var mr = GetComponent<MeshRenderer>();
             if (mr == null)
             {
                 mr = gameObject.AddComponent<MeshRenderer>();
@@ -101,13 +101,13 @@ namespace Gaia
             m_scanBounds = new Bounds(transform.position, new Vector3(m_scanWidth * m_scanResolution, m_scanWidth * m_scanResolution * 0.4f, m_scanDepth * m_scanResolution));
             m_baseLevel = m_scanMap.GetBaseLevel();
 
-            MeshFilter mf = GetComponent<MeshFilter>();
+            var mf = GetComponent<MeshFilter>();
             if (mf == null)
             {
                 mf = gameObject.AddComponent<MeshFilter>();
                 mf.hideFlags = HideFlags.HideInInspector;
             }
-            MeshRenderer mr = GetComponent<MeshRenderer>();
+            var mr = GetComponent<MeshRenderer>();
             if (mr == null)
             {
                 mr = gameObject.AddComponent<MeshRenderer>();
@@ -154,13 +154,13 @@ namespace Gaia
             m_scanBounds = new Bounds(transform.position, new Vector3(m_scanWidth * m_scanResolution, m_scanWidth * m_scanResolution * 0.4f, m_scanDepth * m_scanResolution));
             m_baseLevel = m_scanMap.GetBaseLevel();
 
-            MeshFilter mf = GetComponent<MeshFilter>();
+            var mf = GetComponent<MeshFilter>();
             if (mf == null)
             {
                 mf = gameObject.AddComponent<MeshFilter>();
                 mf.hideFlags = HideFlags.HideInInspector;
             }
-            MeshRenderer mr = GetComponent<MeshRenderer>();
+            var mr = GetComponent<MeshRenderer>();
             if (mr == null)
             {
                 mr = gameObject.AddComponent<MeshRenderer>();
@@ -209,13 +209,13 @@ namespace Gaia
             m_scanBounds = new Bounds(transform.position, new Vector3(m_scanWidth * m_scanResolution, m_scanWidth * m_scanResolution * 0.4f, m_scanDepth * m_scanResolution));
             m_baseLevel = m_scanMap.GetBaseLevel();
 
-            MeshFilter mf = GetComponent<MeshFilter>();
+            var mf = GetComponent<MeshFilter>();
             if (mf == null)
             {
                 mf = gameObject.AddComponent<MeshFilter>();
                 mf.hideFlags = HideFlags.HideInInspector;
             }
-            MeshRenderer mr = GetComponent<MeshRenderer>();
+            var mr = GetComponent<MeshRenderer>();
             if (mr == null)
             {
                 mr = gameObject.AddComponent<MeshRenderer>();
@@ -249,22 +249,22 @@ namespace Gaia
             m_featureName = go.name;
 
             //Duplicate the object
-            GameObject workingGo = GameObject.Instantiate(go);
+            var workingGo = GameObject.Instantiate(go);
 
             workingGo.transform.position = transform.position;
             workingGo.transform.localRotation = Quaternion.identity;
             workingGo.transform.localScale = Vector3.one;
 
             //Delete any old colliders
-            Collider[] colliders = workingGo.GetComponentsInChildren<Collider>();
-            foreach (Collider c in colliders)
+            var colliders = workingGo.GetComponentsInChildren<Collider>();
+            foreach (var c in colliders)
             {
                 DestroyImmediate(c);
             }
 
             //Now add mesh colliders to all active game objects for the most accurate possible scanning
-            Transform[] transforms = workingGo.GetComponentsInChildren<Transform>();
-            foreach (Transform child in transforms)
+            var transforms = workingGo.GetComponentsInChildren<Transform>();
+            foreach (var child in transforms)
             {
                 if (child.gameObject.activeSelf)
                 {
@@ -275,7 +275,7 @@ namespace Gaia
             //Calculate bounds
             m_scanBounds.center = workingGo.transform.position;
             m_scanBounds.size = Vector3.zero;
-            foreach (MeshCollider c in workingGo.GetComponentsInChildren<MeshCollider>())
+            foreach (var c in workingGo.GetComponentsInChildren<MeshCollider>())
             {
                 m_scanBounds.Encapsulate(c.bounds);
             }
@@ -287,16 +287,16 @@ namespace Gaia
 
             //Now scan the object
             m_scanMap = new HeightMap(m_scanWidth, m_scanDepth);
-            Vector3 scanMin = m_scanBounds.min;
-            Vector3 scanPos = scanMin;
+            var scanMin = m_scanBounds.min;
+            var scanPos = scanMin;
             scanPos.y = m_scanBounds.max.y;
             RaycastHit scanHit;
 
             //Perform the scan - only need to store hits as float arrays inherently zero
-            for (int x = 0; x < m_scanWidth; x++)
+            for (var x = 0; x < m_scanWidth; x++)
             {
                 scanPos.x = scanMin.x + (m_scanResolution * (float)x);
-                for (int z = 0; z < m_scanDepth; z++)
+                for (var z = 0; z < m_scanDepth; z++)
                 {
                     scanPos.z = scanMin.z + (m_scanResolution * (float)z);
                     if (Physics.Raycast(scanPos, Vector3.down, out scanHit, m_scanBounds.size.y))
@@ -319,13 +319,13 @@ namespace Gaia
             m_scanBounds = new Bounds(transform.position, new Vector3(m_scanWidth * m_scanResolution, m_scanWidth * m_scanResolution * 0.4f, m_scanDepth * m_scanResolution));
             m_baseLevel = m_scanMap.GetBaseLevel();
 
-            MeshFilter mf = GetComponent<MeshFilter>();
+            var mf = GetComponent<MeshFilter>();
             if (mf == null)
             {
                 mf = gameObject.AddComponent<MeshFilter>();
                 mf.hideFlags = HideFlags.HideInInspector;
             }
-            MeshRenderer mr = GetComponent<MeshRenderer>();
+            var mr = GetComponent<MeshRenderer>();
             if (mr == null)
             {
                 mr = gameObject.AddComponent<MeshRenderer>();
@@ -353,20 +353,20 @@ namespace Gaia
             }
 
             //Save preview
-            string path = Gaia.Utils.GetGaiaAssetPath(m_featureType, m_featureName);
+            var path = Gaia.Utils.GetGaiaAssetPath(m_featureType, m_featureName);
             Gaia.Utils.CompressToSingleChannelFileImage(m_scanMap.Heights(), path, Gaia.GaiaConstants.fmtHmTextureFormat, false, true);
 
             path = Gaia.Utils.GetGaiaStampAssetPath(m_featureType, m_featureName);
 
             //Save stamp
             path = path + ".bytes";
-            float [] metaData = new float[5];
+            var metaData = new float[5];
             metaData[0] = m_scanWidth;
             metaData[1] = m_scanDepth;
             metaData[2] = m_scanHeight;
             metaData[3] = m_scanResolution;
             metaData[4] = m_baseLevel;
-            byte[] byteData = new byte[metaData.Length * 4];
+            var byteData = new byte[metaData.Length * 4];
             Buffer.BlockCopy(metaData, 0, byteData, 0, byteData.Length);
             m_scanMap.SetMetaData(byteData);
             m_scanMap.SaveToBinaryFile(path);

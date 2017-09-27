@@ -32,9 +32,9 @@ namespace Gaia
         /// <param name="terrain">Terrain to be flattened</param>
         public static void FlattenTerrain(Terrain terrain)
         {
-            int width = terrain.terrainData.heightmapWidth;
-            int height = terrain.terrainData.heightmapHeight;
-            float[,] heights = new float[width, height];
+            var width = terrain.terrainData.heightmapWidth;
+            var height = terrain.terrainData.heightmapHeight;
+            var heights = new float[width, height];
             terrain.terrainData.SetHeights(0, 0, heights);
         }
 
@@ -44,11 +44,11 @@ namespace Gaia
         /// <param name="terrains">Terrains to be flattened</param>
         public static void FlattenTerrain(Terrain[] terrains)
         {
-            foreach (Terrain terrain in terrains)
+            foreach (var terrain in terrains)
             {
-                int width = terrain.terrainData.heightmapWidth;
-                int height = terrain.terrainData.heightmapHeight;
-                float[,] heights = new float[width, height];
+                var width = terrain.terrainData.heightmapWidth;
+                var height = terrain.terrainData.heightmapHeight;
+                var heights = new float[width, height];
                 terrain.terrainData.SetHeights(0, 0, heights);
             }
         }
@@ -72,14 +72,14 @@ namespace Gaia
             Terrain bottom = null;
             Terrain top = null;
 
-            foreach (Terrain terrain in terrains)
+            foreach (var terrain in terrains)
             {
                 right = null;
                 left = null;
                 bottom = null;
                 top = null;
 
-                foreach (Terrain neighbor in terrains)
+                foreach (var neighbor in terrains)
                 {
                     //Check to see if neighbor is above or below
                     if (neighbor.transform.position.x == terrain.transform.position.x)
@@ -125,7 +125,7 @@ namespace Gaia
         /// <param name="iterations">Number of smoothing iterations</param>
         public static void Smooth(int iterations)
         {
-            UnityHeightMap hm = new UnityHeightMap(Terrain.activeTerrain);
+            var hm = new UnityHeightMap(Terrain.activeTerrain);
             hm.Smooth(iterations);
             hm.SaveToTerrain(Terrain.activeTerrain);
         }
@@ -137,8 +137,8 @@ namespace Gaia
         /// <returns>Vector3.zero if no terrain, otherwise the centre of it</returns>
         public static Vector3 GetActiveTerrainCenter(bool flushToGround = true)
         {
-            Bounds b = new Bounds();
-            Terrain t = GetActiveTerrain();
+            var b = new Bounds();
+            var t = GetActiveTerrain();
             if (GetTerrainBounds(t, ref b))
             {
                 if (flushToGround == true)
@@ -161,14 +161,14 @@ namespace Gaia
         public static Terrain GetActiveTerrain()
         {
             //Grab active terrain if we can
-            Terrain terrain = Terrain.activeTerrain;
+            var terrain = Terrain.activeTerrain;
             if (terrain != null && terrain.isActiveAndEnabled)
             {
                 return terrain;
             }
 
             //Then check rest of terrains
-            for (int idx = 0; idx < Terrain.activeTerrains.Length; idx++)
+            for (var idx = 0; idx < Terrain.activeTerrains.Length; idx++)
             {
                 terrain = Terrain.activeTerrains[idx];
                 if (terrain != null && terrain.isActiveAndEnabled)
@@ -185,8 +185,8 @@ namespace Gaia
         /// <returns>Layermask of activer terrain or default if there isnt one</returns>
         public static LayerMask GetActiveTerrainLayer()
         {
-            LayerMask layer = new LayerMask();
-            Terrain terrain = GetActiveTerrain();
+            var layer = new LayerMask();
+            var terrain = GetActiveTerrain();
             if (terrain != null)
             {
                 layer.value = 1 << terrain.gameObject.layer;
@@ -203,7 +203,7 @@ namespace Gaia
         public static LayerMask GetActiveTerrainLayerAsInt()
         {
             LayerMask layerValue = GetActiveTerrainLayer().value;
-            for (int layerIdx = 0; layerIdx < 32; layerIdx++)
+            for (var layerIdx = 0; layerIdx < 32; layerIdx++)
             {
                 if (layerValue == (1 << layerIdx))
                 {
@@ -220,8 +220,8 @@ namespace Gaia
         public static int GetActiveTerrainCount()
         {
             Terrain terrain;
-            int terrainCount = 0;
-            for (int idx = 0; idx < Terrain.activeTerrains.Length; idx++)
+            var terrainCount = 0;
+            for (var idx = 0; idx < Terrain.activeTerrains.Length; idx++)
             {
                 terrain = Terrain.activeTerrains[idx];
                 if (terrain != null && terrain.isActiveAndEnabled)
@@ -240,8 +240,8 @@ namespace Gaia
         public static Terrain GetTerrain(Vector3 locationWU)
         {
             Terrain terrain;
-            Vector3 terrainMin = new Vector3();
-            Vector3 terrainMax = new Vector3();
+            var terrainMin = new Vector3();
+            var terrainMax = new Vector3();
 
             //First check active terrain - most likely already selected
             terrain = Terrain.activeTerrain;
@@ -259,7 +259,7 @@ namespace Gaia
             }
 
             //Then check rest of terrains
-            for (int idx = 0; idx < Terrain.activeTerrains.Length; idx++)
+            for (var idx = 0; idx < Terrain.activeTerrains.Length; idx++)
             {
                 terrain = Terrain.activeTerrains[idx];
                 terrainMin = terrain.GetPosition();
@@ -301,7 +301,7 @@ namespace Gaia
         /// <returns>Bounds of selected terrain or null if invalid for some reason</returns>
         public static bool GetTerrainBounds(Vector3 locationWU, ref Bounds bounds)
         {
-            Terrain terrain = GetTerrain(locationWU);
+            var terrain = GetTerrain(locationWU);
             if (terrain == null)
             {
                 return false;
@@ -322,8 +322,8 @@ namespace Gaia
         public static Vector3 GetRandomPositionOnTerrain(Terrain terrain, Vector3 start, float radius)
         {
             Vector3 newLocation;
-            Vector3 terrainMin = terrain.GetPosition();
-            Vector3 terrainMax = terrainMin + terrain.terrainData.size;
+            var terrainMin = terrain.GetPosition();
+            var terrainMax = terrainMin + terrain.terrainData.size;
             while (true)
             {
                 //Get a new location
@@ -348,8 +348,8 @@ namespace Gaia
         public static void ClearTrees()
         {
             Terrain terrain;
-            List<TreeInstance> trees = new List<TreeInstance>();
-            for (int idx = 0; idx < Terrain.activeTerrains.Length; idx++)
+            var trees = new List<TreeInstance>();
+            for (var idx = 0; idx < Terrain.activeTerrains.Length; idx++)
             {
                 terrain = Terrain.activeTerrains[idx];
                 terrain.terrainData.treeInstances = trees.ToArray();
@@ -357,8 +357,8 @@ namespace Gaia
             }
 
             //Call reset on all tree spawners to remove the colliders and reset them to start
-            Spawner[] spawners = Object.FindObjectsOfType<Spawner>();
-            foreach (Spawner spawner in spawners)
+            var spawners = Object.FindObjectsOfType<Spawner>();
+            foreach (var spawner in spawners)
             {
                 spawner.SetUpSpawnerTypeFlags();
                 if (spawner.IsTreeSpawner())
@@ -374,11 +374,11 @@ namespace Gaia
         public static void ClearDetails()
         {
             Terrain terrain;
-            for (int idx = 0; idx < Terrain.activeTerrains.Length; idx++)
+            for (var idx = 0; idx < Terrain.activeTerrains.Length; idx++)
             {
                 terrain = Terrain.activeTerrains[idx];
-                int [,] details = new int[terrain.terrainData.detailWidth, terrain.terrainData.detailHeight];
-                for (int dtlIdx = 0; dtlIdx < terrain.terrainData.detailPrototypes.Length; dtlIdx++)
+                var details = new int[terrain.terrainData.detailWidth, terrain.terrainData.detailHeight];
+                for (var dtlIdx = 0; dtlIdx < terrain.terrainData.detailPrototypes.Length; dtlIdx++)
                 {
                     terrain.terrainData.SetDetailLayer(0, 0, dtlIdx, details);
                 }
@@ -386,8 +386,8 @@ namespace Gaia
             }
 
             //Call reset on all tree spawners to remove the colliders and reset them to start
-            Spawner[] spawners = Object.FindObjectsOfType<Spawner>();
-            foreach (Spawner spawner in spawners)
+            var spawners = Object.FindObjectsOfType<Spawner>();
+            foreach (var spawner in spawners)
             {
                 if (spawner.IsDetailSpawner())
                 {
@@ -402,7 +402,7 @@ namespace Gaia
         /// <returns></returns>
         public static float GetRangeFromTerrain()
         {
-            Terrain t = Gaia.TerrainHelper.GetActiveTerrain();
+            var t = Gaia.TerrainHelper.GetActiveTerrain();
             if (t != null)
             {
                 return Mathf.Max(t.terrainData.size.x, t.terrainData.size.z) / 2f;

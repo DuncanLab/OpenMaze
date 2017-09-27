@@ -57,14 +57,14 @@ namespace Gaia
             EditorGUI.indentLevel++;
             if (DisplayButton(GetLabel("Create Mask")))
             {
-                Terrain terrain = Gaia.TerrainHelper.GetActiveTerrain();
+                var terrain = Gaia.TerrainHelper.GetActiveTerrain();
                 if (terrain == null)
                 {
                     EditorUtility.DisplayDialog("OOPS!", "You must have a valid terrain!!", "OK");
                     return;
                 }
 
-                string path = "Assets/GaiaMasks/";
+                var path = "Assets/GaiaMasks/";
 			    if (!Directory.Exists(path))
 			    {
 				    Directory.CreateDirectory(path);
@@ -88,13 +88,13 @@ namespace Gaia
         /// <returns></returns>
         bool DisplayButton(GUIContent content)
         {
-            TextAnchor oldalignment = GUI.skin.button.alignment;
+            var oldalignment = GUI.skin.button.alignment;
             GUI.skin.button.alignment = TextAnchor.MiddleLeft;
-            Rect btnR = EditorGUILayout.BeginHorizontal();
+            var btnR = EditorGUILayout.BeginHorizontal();
             btnR.xMin += (EditorGUI.indentLevel * 18f);
             btnR.height += 20f;
             btnR.width -= 4f;
-            bool result = GUI.Button(btnR, content);
+            var result = GUI.Button(btnR, content);
             EditorGUILayout.EndHorizontal();
             GUILayout.Space(22);
             GUI.skin.button.alignment = oldalignment;
@@ -108,7 +108,7 @@ namespace Gaia
         /// <returns></returns>
         GUIContent GetLabel(string name)
         {
-            string tooltip = "";
+            var tooltip = "";
             if (m_tooltips.TryGetValue(name, out tooltip))
             {
                 return new GUIContent(name, tooltip);

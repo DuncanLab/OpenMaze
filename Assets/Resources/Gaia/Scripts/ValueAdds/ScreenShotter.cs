@@ -76,7 +76,7 @@ namespace Gaia
             }
 
             //Create the target directory
-            string path = Path.Combine(Application.dataPath, m_targetDirectory);
+            var path = Path.Combine(Application.dataPath, m_targetDirectory);
             if (!System.IO.Directory.Exists(path))
             {
                 System.IO.Directory.CreateDirectory(path);
@@ -109,7 +109,7 @@ namespace Gaia
         /// <returns>Screen shot name and full path</returns>
         private string ScreenShotName(int width, int height)
         {
-            string path = Path.Combine(Application.dataPath, m_targetDirectory);
+            var path = Path.Combine(Application.dataPath, m_targetDirectory);
             path = path.Replace('\\', '/');
 
             if (path[path.Length-1] == '/')
@@ -169,9 +169,9 @@ namespace Gaia
                 }
 
                 m_refreshAssetDB = true;
-                RenderTexture rt = new RenderTexture(m_targetWidth, m_targetHeight, 24);
+                var rt = new RenderTexture(m_targetWidth, m_targetHeight, 24);
                 m_mainCamera.targetTexture = rt;
-                Texture2D screenShot = new Texture2D(m_targetWidth, m_targetHeight, TextureFormat.RGB24, false);
+                var screenShot = new Texture2D(m_targetWidth, m_targetHeight, TextureFormat.RGB24, false);
                 m_mainCamera.Render();
                 RenderTexture.active = rt;
                 screenShot.ReadPixels(new Rect(0, 0, m_targetWidth, m_targetHeight), 0, 0);
@@ -185,8 +185,8 @@ namespace Gaia
                     screenShot = AddWatermark(screenShot, m_watermark);
                 }
 
-                byte[] bytes = screenShot.EncodeToJPG();
-                string filename = ScreenShotName(m_targetWidth, m_targetHeight);
+                var bytes = screenShot.EncodeToJPG();
+                var filename = ScreenShotName(m_targetWidth, m_targetHeight);
                 Gaia.Utils.WriteAllBytes(filename, bytes);
                 m_takeShot = false;
                 Debug.Log(string.Format("Took screenshot to: {0}", filename));
@@ -195,19 +195,19 @@ namespace Gaia
 
         public Texture2D AddWatermark(Texture2D background, Texture2D watermark)
         {
-            int startX = background.width - watermark.width - 10;
-            int endX = startX + watermark.width;
+            var startX = background.width - watermark.width - 10;
+            var endX = startX + watermark.width;
             //int startY = background.height - watermark.height - 20;
-            int startY = 8;
-            int endY = startY + watermark.height;
+            var startY = 8;
+            var endY = startY + watermark.height;
 
-            for (int x = startX; x < endX; x++)
+            for (var x = startX; x < endX; x++)
             {
-                for (int y = startY; y < endY; y++)
+                for (var y = startY; y < endY; y++)
                 {
-                    Color bgColor = background.GetPixel(x, y);
-                    Color wmColor = watermark.GetPixel(x - startX, y - startY);
-                    Color final_color = Color.Lerp(bgColor, wmColor, wmColor.a / 1.0f);
+                    var bgColor = background.GetPixel(x, y);
+                    var wmColor = watermark.GetPixel(x - startX, y - startY);
+                    var final_color = Color.Lerp(bgColor, wmColor, wmColor.a / 1.0f);
                     background.SetPixel(x, y, final_color);
                 }
             }

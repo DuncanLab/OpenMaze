@@ -21,7 +21,7 @@ namespace Gaia
         /// <returns>Base gaia directory</returns>
         public static string GetGaiaAssetDirectory()
         {
-            string path = Path.Combine(Application.dataPath, Gaia.GaiaConstants.AssetDir);
+            var path = Path.Combine(Application.dataPath, Gaia.GaiaConstants.AssetDir);
             return path.Replace('\\', '/');
         }
 
@@ -32,7 +32,7 @@ namespace Gaia
         /// <returns>Path of feature type</returns>
         public static string GetGaiaAssetDirectory(Gaia.GaiaConstants.FeatureType featureType)
         {
-            string path = Path.Combine(Application.dataPath, Gaia.GaiaConstants.AssetDir);
+            var path = Path.Combine(Application.dataPath, Gaia.GaiaConstants.AssetDir);
             path = Path.Combine(path, featureType.ToString());
             return path.Replace('\\', '/');
         }
@@ -55,7 +55,7 @@ namespace Gaia
         /// <returns>Fully qualified path of the asset</returns>
         public static string GetGaiaAssetPath(Gaia.GaiaConstants.FeatureType featureType, string assetName)
         {
-            string path = GetGaiaAssetDirectory(featureType);
+            var path = GetGaiaAssetDirectory(featureType);
             path = Path.Combine(GetGaiaAssetDirectory(featureType), assetName);
             return path.Replace('\\','/');
         }
@@ -68,7 +68,7 @@ namespace Gaia
         /// <returns>Fully qualified path of the asset</returns>
         public static string GetGaiaStampAssetPath(Gaia.GaiaConstants.FeatureType featureType, string assetName)
         {
-            string path = GetGaiaAssetDirectory(featureType);
+            var path = GetGaiaAssetDirectory(featureType);
             path = Path.Combine(GetGaiaAssetDirectory(featureType), "Data");
             path = Path.Combine(path, assetName);
             return path.Replace('\\', '/');
@@ -82,12 +82,12 @@ namespace Gaia
         /// <returns></returns>
         public static string GetGaiaStampPath(Texture2D source)
         {
-            string path = "";
+            var path = "";
             #if UNITY_EDITOR
             path = UnityEditor.AssetDatabase.GetAssetPath(source);
             #endif
 
-            string fileName = Path.GetFileName(path);
+            var fileName = Path.GetFileName(path);
             path = Path.Combine(Path.GetDirectoryName(path), "Data");
             path = Path.Combine(path, fileName);
             path = Path.ChangeExtension(path, ".bytes");
@@ -103,7 +103,7 @@ namespace Gaia
         /// <returns></returns>
         public static bool CheckValidGaiaStampPath(Texture2D source)
         {
-            string path = "";
+            var path = "";
             #if UNITY_EDITOR
                 path = UnityEditor.AssetDatabase.GetAssetPath(source);
             #endif
@@ -117,7 +117,7 @@ namespace Gaia
             }
 
             //Check to see if we have asset file
-            string fileName = Path.GetFileName(path);
+            var fileName = Path.GetFileName(path);
             path = Path.Combine(Path.GetDirectoryName(path), "Data");
             path = Path.Combine(path, fileName);
             path = Path.ChangeExtension(path, ".bytes");
@@ -139,10 +139,10 @@ namespace Gaia
         public static void CreateGaiaAssetDirectories()
         {
             #if UNITY_EDITOR
-            string path = Path.Combine(Application.dataPath, Gaia.GaiaConstants.AssetDir);
+            var path = Path.Combine(Application.dataPath, Gaia.GaiaConstants.AssetDir);
             try
             {
-                bool addedDir = false;
+                var addedDir = false;
                 foreach (Gaia.GaiaConstants.FeatureType feature in Enum.GetValues(typeof(Gaia.GaiaConstants.FeatureType)))
                 {
                     path = GetGaiaAssetDirectory(feature);
@@ -176,20 +176,20 @@ namespace Gaia
         public static T[] GetAtPath<T>(string path)
         {
 
-            ArrayList al = new ArrayList();
+            var al = new ArrayList();
 
             #if UNITY_EDITOR
 
-            string[] fileEntries = Directory.GetFiles(Application.dataPath + "/" + path);
-            foreach (string fileName in fileEntries)
+            var fileEntries = Directory.GetFiles(Application.dataPath + "/" + path);
+            foreach (var fileName in fileEntries)
             {
-                int index = fileName.LastIndexOf("/");
-                string localPath = "Assets/" + path;
+                var index = fileName.LastIndexOf("/");
+                var localPath = "Assets/" + path;
 
                 if (index > 0)
                     localPath += fileName.Substring(index);
 
-                UnityEngine.Object t = UnityEditor.AssetDatabase.LoadAssetAtPath(localPath, typeof(T));
+                var t = UnityEditor.AssetDatabase.LoadAssetAtPath(localPath, typeof(T));
 
                 if (t != null)
                     al.Add(t);
@@ -197,8 +197,8 @@ namespace Gaia
 
             #endif
 
-            T[] result = new T[al.Count];
-            for (int i = 0; i < al.Count; i++)
+            var result = new T[al.Count];
+            for (var i = 0; i < al.Count; i++)
                 result[i] = (T)al[i];
 
             return result;
@@ -219,7 +219,7 @@ namespace Gaia
                 return;
             }
             #if UNITY_EDITOR
-            string assetPath = AssetDatabase.GetAssetPath(texture);
+            var assetPath = AssetDatabase.GetAssetPath(texture);
             var tImporter = AssetImporter.GetAtPath(assetPath) as TextureImporter;
             if (tImporter != null)
             {
@@ -247,7 +247,7 @@ namespace Gaia
                 return;
             }
             #if UNITY_EDITOR
-            string assetPath = AssetDatabase.GetAssetPath(texture);
+            var assetPath = AssetDatabase.GetAssetPath(texture);
             var tImporter = AssetImporter.GetAtPath(assetPath) as TextureImporter;
             if (tImporter != null)
             {
@@ -271,17 +271,17 @@ namespace Gaia
         /// <param name="exportJPG">True if a jpg is wanted</param>
         public static void CompressToSingleChannelFileImage(float[,] input, string imageName, TextureFormat imageStorageFormat = Gaia.GaiaConstants.defaultTextureFormat, bool exportPNG = true, bool exportJPG = true)
         {
-            int width = input.GetLength(0);
-            int height = input.GetLength(1);
+            var width = input.GetLength(0);
+            var height = input.GetLength(1);
 
-            Texture2D exportTexture = new Texture2D(width, height, imageStorageFormat, false);
-            Color pixelColor = new Color();
+            var exportTexture = new Texture2D(width, height, imageStorageFormat, false);
+            var pixelColor = new Color();
             pixelColor.a = 1f;
             pixelColor.r = pixelColor.g = pixelColor.b = 0f;
 
-            for (int x = 0; x < width; x++)
+            for (var x = 0; x < width; x++)
             {
-                for (int y = 0; y < height; y++)
+                for (var y = 0; y < height; y++)
                 {
                     pixelColor.r = pixelColor.b = pixelColor.g = input[x, y];
                     exportTexture.SetPixel(x, y, pixelColor);
@@ -315,20 +315,20 @@ namespace Gaia
         /// <param name="exportJPG">True if a jpg is wanted</param>
         public static void CompressToMultiChannelFileImage(float[, ,] input, string imageName, TextureFormat imageStorageFormat = Gaia.GaiaConstants.defaultTextureFormat, bool exportPNG = true, bool exportJPG = true)
         {
-            int width = input.GetLength(0);
-            int height = input.GetLength(1);
-            int layers = input.GetLength(2);
-            int images = (layers + 3) / 4;
+            var width = input.GetLength(0);
+            var height = input.GetLength(1);
+            var layers = input.GetLength(2);
+            var images = (layers + 3) / 4;
 
-            for (int image = 0; image < images; image++)
+            for (var image = 0; image < images; image++)
             {
-                Texture2D exportTexture = new Texture2D(width, width, imageStorageFormat, false);
-                Color pixelColor = new Color();
-                int layer = image * 4;
+                var exportTexture = new Texture2D(width, width, imageStorageFormat, false);
+                var pixelColor = new Color();
+                var layer = image * 4;
 
-                for (int x = 0; x < width; x++)
+                for (var x = 0; x < width; x++)
                 {
-                    for (int y = 0; y < height; y++)
+                    for (var y = 0; y < height; y++)
                     {
                         pixelColor.r = layer < layers ? input[x, y, layer] : 0f;
                         pixelColor.g = (layer + 1) < layers ? input[x, y, (layer + 1)] : 0f;
@@ -342,14 +342,14 @@ namespace Gaia
                 // Write JPG
                 if (exportJPG)
                 {
-                    byte[] jpgBytes = exportTexture.EncodeToJPG();
+                    var jpgBytes = exportTexture.EncodeToJPG();
                     Gaia.Utils.WriteAllBytes(imageName + image + ".jpg", jpgBytes);
                 }
 
                 // Write PNG
                 if (exportPNG)
                 {
-                    byte[] pngBytes = exportTexture.EncodeToPNG();
+                    var pngBytes = exportTexture.EncodeToPNG();
                     Gaia.Utils.WriteAllBytes(imageName + image + ".png", pngBytes);
                 }
 
@@ -366,10 +366,10 @@ namespace Gaia
         /// <returns>Texture as grayscale array</returns>
         public static float[,] ConvertTextureToArray(Texture2D texture)
         {
-            float[,] array = new float[texture.width, texture.height];
-            for (int x = 0; x < texture.width; x++)
+            var array = new float[texture.width, texture.height];
+            for (var x = 0; x < texture.width; x++)
             {
-                for (int z = 0; z < texture.height; z++)
+                for (var z = 0; z < texture.height; z++)
                 {
                     array[x, z] = texture.GetPixel(x, z).grayscale;
                 }
@@ -393,13 +393,13 @@ namespace Gaia
 
             if (System.IO.File.Exists(fileName))
             {
-                byte[] bytes = Gaia.Utils.ReadAllBytes(fileName);
-                Texture2D importTexture = new Texture2D(width, height, imageStorageFormat, false);
+                var bytes = Gaia.Utils.ReadAllBytes(fileName);
+                var importTexture = new Texture2D(width, height, imageStorageFormat, false);
                 importTexture.LoadImage(bytes);
                 retArray = new float[width, height];
-                for (int x = 0; x < width; x++)
+                for (var x = 0; x < width; x++)
                 {
-                    for (int y = 0; y < height; y++)
+                    for (var y = 0; y < height; y++)
                     {
                         retArray[x, y] = importTexture.GetPixel(x, y).r;
                     }
@@ -431,13 +431,13 @@ namespace Gaia
                 return null;
             }
 
-            float[,] retArray = new float[importTexture.width, importTexture.height];
+            var retArray = new float[importTexture.width, importTexture.height];
 
             if (channelR)
             {
-                for (int x = 0; x < importTexture.width; x++)
+                for (var x = 0; x < importTexture.width; x++)
                 {
-                    for (int y = 0; y < importTexture.height; y++)
+                    for (var y = 0; y < importTexture.height; y++)
                     {
                         retArray[x, y] = importTexture.GetPixel(x, y).r;
                     }
@@ -445,9 +445,9 @@ namespace Gaia
             }
             else if (channelG)
             {
-                for (int x = 0; x < importTexture.width; x++)
+                for (var x = 0; x < importTexture.width; x++)
                 {
-                    for (int y = 0; y < importTexture.height; y++)
+                    for (var y = 0; y < importTexture.height; y++)
                     {
                         retArray[x, y] = importTexture.GetPixel(x, y).g;
                     }
@@ -455,9 +455,9 @@ namespace Gaia
             }
             else if (channelB)
             {
-                for (int x = 0; x < importTexture.width; x++)
+                for (var x = 0; x < importTexture.width; x++)
                 {
-                    for (int y = 0; y < importTexture.height; y++)
+                    for (var y = 0; y < importTexture.height; y++)
                     {
                         retArray[x, y] = importTexture.GetPixel(x, y).b;
                     }
@@ -465,9 +465,9 @@ namespace Gaia
             }
             if (channelA)
             {
-                for (int x = 0; x < importTexture.width; x++)
+                for (var x = 0; x < importTexture.width; x++)
                 {
-                    for (int y = 0; y < importTexture.height; y++)
+                    for (var y = 0; y < importTexture.height; y++)
                     {
                         retArray[x, y] = importTexture.GetPixel(x, y).a;
                     }
@@ -483,7 +483,7 @@ namespace Gaia
         /// <param name="texture">Texture source</param>
         public static void ExportJPG(string fileName, Texture2D texture)
         {
-            byte[] bytes = texture.EncodeToJPG();
+            var bytes = texture.EncodeToJPG();
             Gaia.Utils.WriteAllBytes(fileName + ".jpg", bytes);
         }
 
@@ -494,7 +494,7 @@ namespace Gaia
         /// <param name="texture">Texture source</param>
         public static void ExportPNG(string fileName, Texture2D texture)
         {
-            byte[] bytes = texture.EncodeToPNG();
+            var bytes = texture.EncodeToPNG();
             Gaia.Utils.WriteAllBytes(fileName + ".png", bytes);
         }
 
@@ -512,15 +512,15 @@ namespace Gaia
             }
 
             float[,] heights = null;
-            using (FileStream fileStream = File.OpenRead(fileName))
+            using (var fileStream = File.OpenRead(fileName))
             {
-                using (BinaryReader br = new BinaryReader(fileStream))
+                using (var br = new BinaryReader(fileStream))
                 {
-                    int mapSize = Mathf.CeilToInt(Mathf.Sqrt(fileStream.Length / 2));
+                    var mapSize = Mathf.CeilToInt(Mathf.Sqrt(fileStream.Length / 2));
                     heights = new float[mapSize, mapSize];
-                    for (int x = 0; x < mapSize; x++)
+                    for (var x = 0; x < mapSize; x++)
                     {
-                        for (int y = 0; y < mapSize; y++)
+                        for (var y = 0; y < mapSize; y++)
                         {
                             heights[x, y] = (float)(br.ReadUInt16() / 65535.0f);
                         }
@@ -547,12 +547,12 @@ namespace Gaia
         public static Mesh CreateMesh(float[,] heightmap, Vector3 targetSize)
         {
             //Need to sample these to not blow unity mesh sizes
-            int width = heightmap.GetLength(0);
-            int height = heightmap.GetLength(1);
-            int targetRes = 1;
+            var width = heightmap.GetLength(0);
+            var height = heightmap.GetLength(1);
+            var targetRes = 1;
 
-            Vector3 targetOffset = Vector3.zero - (targetSize / 2f);
-            Vector2 uvScale = new Vector2(1.0f / (width - 1), 1.0f / (height - 1));
+            var targetOffset = Vector3.zero - (targetSize / 2f);
+            var uvScale = new Vector2(1.0f / (width - 1), 1.0f / (height - 1));
 
             //Choose best possible target res
             for (targetRes = 1; targetRes < 100; targetRes++ )
@@ -567,16 +567,16 @@ namespace Gaia
             width = (width - 1) / targetRes + 1;
             height = (height - 1) / targetRes + 1;
 
-            Vector3[] vertices = new Vector3[width * height];
-            Vector2[] uvs = new Vector2[width * height];
-            Vector3[] normals = new Vector3[width * height];
-            Color[] colors = new Color[width * height];
-            int[] triangles = new int[(width - 1) * (height - 1) * 6];
+            var vertices = new Vector3[width * height];
+            var uvs = new Vector2[width * height];
+            var normals = new Vector3[width * height];
+            var colors = new Color[width * height];
+            var triangles = new int[(width - 1) * (height - 1) * 6];
 
             // Build vertices and UVs
-            for (int y = 0; y < height; y++)
+            for (var y = 0; y < height; y++)
             {
-                for (int x = 0; x < width; x++)
+                for (var x = 0; x < width; x++)
                 {
                     colors[y * width + x] = Color.black;
                     normals[y * width + x] = Vector3.up;
@@ -587,10 +587,10 @@ namespace Gaia
             }
 
             // Build triangle indices: 3 indices into vertex array for each triangle
-            int index = 0;
-            for (int y = 0; y < height - 1; y++)
+            var index = 0;
+            for (var y = 0; y < height - 1; y++)
             {
-                for (int x = 0; x < width - 1; x++)
+                for (var x = 0; x < width - 1; x++)
                 {
                     triangles[index++] = (y * width) + x;
                     triangles[index++] = ((y + 1) * width) + x;
@@ -601,7 +601,7 @@ namespace Gaia
                 }
             }
 
-            Mesh mesh = new Mesh();
+            var mesh = new Mesh();
 
             mesh.vertices = vertices;
             mesh.colors = colors;
@@ -620,12 +620,12 @@ namespace Gaia
         /// <param name="go">Game object to check</param>
         public static Bounds GetBounds(GameObject go)
         {
-            Bounds bounds = new Bounds(go.transform.position, Vector3.zero);
-            foreach (Renderer r in go.GetComponentsInChildren<Renderer>())
+            var bounds = new Bounds(go.transform.position, Vector3.zero);
+            foreach (var r in go.GetComponentsInChildren<Renderer>())
             {
                 bounds.Encapsulate(r.bounds);
             }
-            foreach (Collider c in go.GetComponentsInChildren<Collider>())
+            foreach (var c in go.GetComponentsInChildren<Collider>())
             {
                 bounds.Encapsulate(c.bounds);
             }
@@ -830,17 +830,17 @@ namespace Gaia
 
         public static float Math_InterpolateSmooth2(float v1, float v2, float fraction)
         {
-            float fraction2 = fraction * fraction;
+            var fraction2 = fraction * fraction;
             fraction = 3 * fraction2 - 2f * fraction * fraction2;
             return v1 * (1f - fraction) + v2 * fraction;
         }
 
         public static float Math_InterpolateCubic(float v0, float v1, float v2, float v3, float fraction)
         {
-            float p = (v3 - v2) - (v0 - v1);
-            float q = (v0 - v1) - p;
-            float r = v2 - v0;
-            float fraction2 = fraction * fraction;
+            var p = (v3 - v2) - (v0 - v1);
+            var q = (v0 - v1) - p;
+            var r = v2 - v0;
+            var fraction2 = fraction * fraction;
             return p * fraction * fraction2 + q * fraction2 + r * fraction + v1;
         }
 
@@ -854,7 +854,7 @@ namespace Gaia
         /// <returns>New location</returns>
         public static Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Vector3 angle)
         {
-            Vector3 dir = point - pivot;
+            var dir = point - pivot;
             dir = Quaternion.Euler(angle) * dir;
             point = dir + pivot;
             return point;
@@ -871,8 +871,8 @@ namespace Gaia
         /// <returns>A destination string with rubbish removed</returns>
         public static string FixFileName(string sourceFileName)
         {
-            StringBuilder sb = new StringBuilder();
-            foreach (char c in sourceFileName)
+            var sb = new StringBuilder();
+            foreach (var c in sourceFileName)
             {
                 if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_')
                 {
@@ -903,7 +903,7 @@ namespace Gaia
                 throw new ArgumentNullException("path");
             if (path.Length == 0)
                 throw new ArgumentException("Argument_EmptyPath");
-            using (StreamReader sr = new StreamReader(path, Encoding.UTF8, true, 1024))
+            using (var sr = new StreamReader(path, Encoding.UTF8, true, 1024))
                 return sr.ReadToEnd();
         }
 
@@ -923,7 +923,7 @@ namespace Gaia
             if (contents.Length == 0)
                 throw new ArgumentException("Argument_EmptyContents");
 
-            using (StreamWriter sw = new StreamWriter(path, false, Encoding.UTF8, 1024))
+            using (var sw = new StreamWriter(path, false, Encoding.UTF8, 1024))
                 sw.Write(contents);
         }
 
@@ -942,19 +942,19 @@ namespace Gaia
             }
             return new byte[0];
             #else
-            using (FileStream s = OpenRead(path))
+            using (var s = OpenRead(path))
             {
-                long size = s.Length;
+                var size = s.Length;
                 // limited to 2GB according to http://msdn.microsoft.com/en-us/library/system.io.file.readallbytes.aspx
                 if (size > Int32.MaxValue)
                     throw new IOException("Reading more than 2GB with this call is not supported");
 
-                int pos = 0;
-                int count = (int)size;
-                byte[] result = new byte[size];
+                var pos = 0;
+                var count = (int)size;
+                var result = new byte[size];
                 while (count > 0)
                 {
-                    int n = s.Read(result, pos, count);
+                    var n = s.Read(result, pos, count);
                     if (n == 0)
                         throw new IOException("Unexpected end of stream");
                     pos += n;
@@ -986,9 +986,9 @@ namespace Gaia
         public static void CreateAsset<T>() where T : ScriptableObject
         {
             #if UNITY_EDITOR
-            T asset = ScriptableObject.CreateInstance<T>();
+            var asset = ScriptableObject.CreateInstance<T>();
 
-            string path = AssetDatabase.GetAssetPath(Selection.activeObject);
+            var path = AssetDatabase.GetAssetPath(Selection.activeObject);
             if (path == "")
             {
                 path = "Assets";
@@ -998,7 +998,7 @@ namespace Gaia
                 path = path.Replace(Path.GetFileName(AssetDatabase.GetAssetPath(Selection.activeObject)), "");
             }
 
-            string assetPathAndName = AssetDatabase.GenerateUniqueAssetPath(path + "/New " + typeof(T).ToString() + ".asset");
+            var assetPathAndName = AssetDatabase.GenerateUniqueAssetPath(path + "/New " + typeof(T).ToString() + ".asset");
             AssetDatabase.CreateAsset(asset, assetPathAndName);
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
@@ -1014,7 +1014,7 @@ namespace Gaia
         /// <returns></returns>
         public static string GetAssetPath(UnityEngine.Object uo)
         {
-            string path = "";
+            var path = "";
             #if UNITY_EDITOR
             path = Path.Combine(Application.dataPath, AssetDatabase.GetAssetPath(uo));
             path = path.Replace("/Assets", "");
@@ -1029,9 +1029,9 @@ namespace Gaia
         /// <param name="so"></param>
         public static string WrapScriptableObject(ScriptableObject so)
         {
-            string newpath = "";
+            var newpath = "";
             #if UNITY_EDITOR
-            string path = GetAssetPath(so);
+            var path = GetAssetPath(so);
             if (File.Exists(path))
             {
                 newpath = Path.ChangeExtension(path, "bytes");
@@ -1070,8 +1070,8 @@ namespace Gaia
         public static string WrapGameObjectAsPrefab(GameObject go)
         {
             #if UNITY_EDITOR
-            string name = go.name;
-            UnityEngine.Object prefab = PrefabUtility.CreateEmptyPrefab("Assets/" + name + ".prefab");
+            var name = go.name;
+            var prefab = PrefabUtility.CreateEmptyPrefab("Assets/" + name + ".prefab");
             PrefabUtility.ReplacePrefab(go, prefab);
             AssetDatabase.Refresh();
             return AssetDatabase.GetAssetPath(prefab);
@@ -1178,11 +1178,11 @@ namespace Gaia
         public static string GetAssetPath(string fileName)
         {
             #if UNITY_EDITOR
-            string fName = Path.GetFileNameWithoutExtension(fileName);
-            string[] assets = AssetDatabase.FindAssets(fName, null);
-            for (int idx = 0; idx < assets.Length; idx++)
+            var fName = Path.GetFileNameWithoutExtension(fileName);
+            var assets = AssetDatabase.FindAssets(fName, null);
+            for (var idx = 0; idx < assets.Length; idx++)
             {
-                string path = AssetDatabase.GUIDToAssetPath(assets[idx]);
+                var path = AssetDatabase.GUIDToAssetPath(assets[idx]);
                 if (Path.GetFileName(path) == fileName)
                 {
                     return path;
@@ -1201,11 +1201,11 @@ namespace Gaia
         public static string GetAssetPath(string name, string type)
         {
             #if UNITY_EDITOR
-            string[] assets = AssetDatabase.FindAssets(name, null);
+            var assets = AssetDatabase.FindAssets(name, null);
             string [] file;
-            for (int idx = 0; idx < assets.Length; idx++)
+            for (var idx = 0; idx < assets.Length; idx++)
             {
-                string path = AssetDatabase.GUIDToAssetPath(assets[idx]);
+                var path = AssetDatabase.GUIDToAssetPath(assets[idx]);
                 //Make sure its an exact match
                 file = Path.GetFileName(path).Split('.');
                 if (file.GetLength(0) != 2)
@@ -1246,14 +1246,14 @@ namespace Gaia
             #if UNITY_EDITOR
             if (!string.IsNullOrEmpty(fileNameOrPath))
             {
-                UnityEngine.Object obj = AssetDatabase.LoadAssetAtPath(fileNameOrPath, assetType);
+                var obj = AssetDatabase.LoadAssetAtPath(fileNameOrPath, assetType);
                 if (obj != null)
                 {
                     return obj;
                 }
                 else
                 {
-                    string path = Utils.GetAssetPath(Path.GetFileName(fileNameOrPath));
+                    var path = Utils.GetAssetPath(Path.GetFileName(fileNameOrPath));
                     if (!string.IsNullOrEmpty(path))
                     {
                         return AssetDatabase.LoadAssetAtPath(path, assetType);
@@ -1272,7 +1272,7 @@ namespace Gaia
         public static GameObject GetAssetPrefab(string name)
         {
             #if UNITY_EDITOR
-            string path = Utils.GetAssetPath(name, "prefab");
+            var path = Utils.GetAssetPath(name, "prefab");
             if (!string.IsNullOrEmpty(path))
             {
                 return AssetDatabase.LoadAssetAtPath<GameObject>(path);
@@ -1289,7 +1289,7 @@ namespace Gaia
         public static ScriptableObject GetAssetScriptableObject(string name)
         {
             #if UNITY_EDITOR
-            string path = Utils.GetAssetPath(name, "asset");
+            var path = Utils.GetAssetPath(name, "asset");
             if (!string.IsNullOrEmpty(path))
             {
                 return AssetDatabase.LoadAssetAtPath<ScriptableObject>(path);
@@ -1306,14 +1306,14 @@ namespace Gaia
         public static Texture2D GetAssetTexture2D(string name)
         {
             #if UNITY_EDITOR
-            string[] assets = AssetDatabase.FindAssets(name, null);
-            for (int idx = 0; idx < assets.Length; idx++)
+            var assets = AssetDatabase.FindAssets(name, null);
+            for (var idx = 0; idx < assets.Length; idx++)
             {
-                string path = AssetDatabase.GUIDToAssetPath(assets[idx]);
+                var path = AssetDatabase.GUIDToAssetPath(assets[idx]);
                 if (path.Contains(".jpg") || path.Contains(".psd") || path.Contains(".png"))
                 {
                     //Make sure its an exact match
-                    string filename = Path.GetFileNameWithoutExtension(path);
+                    var filename = Path.GetFileNameWithoutExtension(path);
                     if (filename == name)
                     {
                         return AssetDatabase.LoadAssetAtPath<Texture2D>(path);
@@ -1381,8 +1381,8 @@ namespace Gaia
             }
 
             //All loaded assemblies
-            Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            for (int asyIdx = 0; asyIdx < assemblies.GetLength(0); asyIdx++)
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            for (var asyIdx = 0; asyIdx < assemblies.GetLength(0); asyIdx++)
             {
                 type = assemblies[asyIdx].GetType(TypeName);
                 if (type != null)

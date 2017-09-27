@@ -128,12 +128,12 @@ namespace Gaia
         public IEnumerator RunSpawnerIterationCoRoutine()
         {
             SpawnerInstance si;
-            for (int idx = 0; idx < m_spawners.Count; idx++)
+            for (var idx = 0; idx < m_spawners.Count; idx++)
             {
                 si = m_spawners[idx];
                 if (si != null && si.m_spawner != null)
                 {
-                    for (int iter=0; iter < si.m_interationsPerSpawn; iter++)
+                    for (var iter=0; iter < si.m_interationsPerSpawn; iter++)
                     {
                         if (!m_cancelSpawn)
                         {
@@ -164,13 +164,13 @@ namespace Gaia
         {
             //This
             m_cancelSpawn = true;
-            for (int idx = 0; idx < m_spawners.Count; idx++)
+            for (var idx = 0; idx < m_spawners.Count; idx++)
             {
                 m_spawners[idx].m_spawner.CancelSpawn();
             }
 
             //Groups
-            for (int idx = 0; idx < m_spawnerGroups.Count; idx++)
+            for (var idx = 0; idx < m_spawnerGroups.Count; idx++)
             {
                 m_spawnerGroups[idx].CancelSpawn();
             }
@@ -182,9 +182,9 @@ namespace Gaia
         /// <returns></returns>
         public bool FixNames()
         {
-            bool changed = false;
+            var changed = false;
             SpawnerInstance si;
-            for (int idx = 0; idx < m_spawners.Count; idx++)
+            for (var idx = 0; idx < m_spawners.Count; idx++)
             {
                 si = m_spawners[idx];
                 if (si != null && si.m_spawner != null)
@@ -206,7 +206,7 @@ namespace Gaia
         {
             //This
             SpawnerInstance si;
-            for (int idx = 0; idx < m_spawners.Count; idx++)
+            for (var idx = 0; idx < m_spawners.Count; idx++)
             {
                 si = m_spawners[idx];
                 if (si != null && si.m_spawner != null)
@@ -217,7 +217,7 @@ namespace Gaia
 
             //Groups
             SpawnerGroup sg;
-            for (int idx = 0; idx < m_spawnerGroups.Count; idx++)
+            for (var idx = 0; idx < m_spawnerGroups.Count; idx++)
             {
                 sg = m_spawnerGroups[idx];
                 if (sg != null)

@@ -89,13 +89,13 @@ namespace Gaia
         public static GaiaSessionManager GetSessionManager(bool pickupExistingTerrain = false)
         {
             //Find or create gaia
-            GameObject gaiaObj = GameObject.Find("Gaia");
+            var gaiaObj = GameObject.Find("Gaia");
             if (gaiaObj == null)
             {
                 gaiaObj = new GameObject("Gaia");
             }
             GaiaSessionManager sessionMgr = null;
-            GameObject mgrObj = GameObject.Find("Session Manager");
+            var mgrObj = GameObject.Find("Session Manager");
             if (mgrObj == null)
             {
                 mgrObj = new GameObject("Session Manager");
@@ -135,7 +135,7 @@ namespace Gaia
                 CreateSession();
             }
 
-            bool prevLockState = m_session.m_isLocked;
+            var prevLockState = m_session.m_isLocked;
             m_session.m_isLocked = true;
             if (prevLockState == false)
             {
@@ -155,7 +155,7 @@ namespace Gaia
                 CreateSession();
             }
 
-            bool prevLockState = m_session.m_isLocked;
+            var prevLockState = m_session.m_isLocked;
             m_session.m_isLocked = false;
             if (prevLockState == true)
             {
@@ -233,7 +233,7 @@ namespace Gaia
                 {
                     //Get the raw resource and add it into the dictionary
                     #if UNITY_EDITOR
-                    ScriptableObjectWrapper so = new ScriptableObjectWrapper();
+                    var so = new ScriptableObjectWrapper();
                     so.m_name = resource.m_name;
                     so.m_fileName = AssetDatabase.GetAssetPath(resource);
                     so.m_content = Gaia.Utils.ReadAllBytes(so.m_fileName);
@@ -329,7 +329,7 @@ namespace Gaia
                 return null;
             }
 
-            Texture2D image = new Texture2D(m_session.m_previewImageWidth, m_session.m_previewImageHeight, TextureFormat.ARGB32, false);
+            var image = new Texture2D(m_session.m_previewImageWidth, m_session.m_previewImageHeight, TextureFormat.ARGB32, false);
             image.LoadRawTextureData(m_session.m_previewImageBytes);
             image.Apply();
 
@@ -337,8 +337,8 @@ namespace Gaia
             #if UNITY_EDITOR
             if (PlayerSettings.colorSpace == ColorSpace.Linear)
             {
-                Color[] pixels = image.GetPixels();
-                for (int idx = 0; idx < pixels.GetLength(0); idx++)
+                var pixels = image.GetPixels();
+                for (var idx = 0; idx < pixels.GetLength(0); idx++)
                 {
                     pixels[idx] = pixels[idx].gamma;
                 }
@@ -438,7 +438,7 @@ namespace Gaia
             m_session.m_description = "Rocking out at Creativity Central! If you like Gaia please consider rating it :)";
 
             //Grab the sea level from the default resources file
-            GaiaSettings settings = Gaia.Utils.GetGaiaSettings();
+            var settings = Gaia.Utils.GetGaiaSettings();
             if (settings != null)
             {
                 if (settings.m_currentDefaults != null)
@@ -448,7 +448,7 @@ namespace Gaia
             }
 
             //Lets see if we can pick up some defaults from the extisting terrain if there is one
-            Terrain t = Gaia.TerrainHelper.GetActiveTerrain();
+            var t = Gaia.TerrainHelper.GetActiveTerrain();
             if (t != null)
             {
                 m_session.m_terrainWidth = (int)t.terrainData.size.x;
@@ -458,10 +458,10 @@ namespace Gaia
                 //Pick up existing terrain
                 if (pickupExistingTerrain)
                 {
-                    GaiaDefaults defaults = ScriptableObject.CreateInstance<Gaia.GaiaDefaults>();
+                    var defaults = ScriptableObject.CreateInstance<Gaia.GaiaDefaults>();
                     defaults.UpdateFromTerrain();
 
-                    GaiaResource resources = ScriptableObject.CreateInstance<Gaia.GaiaResource>();
+                    var resources = ScriptableObject.CreateInstance<Gaia.GaiaResource>();
                     resources.UpdatePrototypesFromTerrain();
                     resources.ChangeSeaLevel(m_session.m_seaLevel);
 
@@ -528,7 +528,7 @@ namespace Gaia
             if (m_session.m_operations.Count > 1)
             {
                 //Keep the create terrain operation
-                GaiaOperation firstOp = m_session.m_operations[0];
+                var firstOp = m_session.m_operations[0];
                 m_session.m_operations.Clear();
                 if (firstOp.m_operationType == GaiaOperation.OperationType.CreateTerrain)
                 {
@@ -558,11 +558,11 @@ namespace Gaia
             }
 
             //Check we have an active terrain (really should be able to create one)
-            Terrain terrain = TerrainHelper.GetActiveTerrain();
+            var terrain = TerrainHelper.GetActiveTerrain();
             if (terrain == null)
             {
                 //Pick up current settings
-                GaiaSettings settings = (GaiaSettings)Utils.GetAssetScriptableObject("GaiaSettings");
+                var settings = (GaiaSettings)Utils.GetAssetScriptableObject("GaiaSettings");
                 if (settings == null)
                 {
                     Debug.LogError("Can not randomise stamps as we are missing the terrain and settings!");
@@ -570,8 +570,8 @@ namespace Gaia
                 }
 
                 //Grab defaults n settings
-                GaiaDefaults defaults = settings.m_currentDefaults;
-                GaiaResource resources = settings.m_currentResources;
+                var defaults = settings.m_currentDefaults;
+                var resources = settings.m_currentResources;
 
                 if (defaults == null || resources == null)
                 {
@@ -584,17 +584,17 @@ namespace Gaia
             }
 
             //Get its bounds
-            Bounds terrainBounds = new Bounds();
+            var terrainBounds = new Bounds();
             TerrainHelper.GetTerrainBounds(terrain, ref terrainBounds);
 
             //Create stamper
-            GameObject gaiaObj = GameObject.Find("Gaia");
+            var gaiaObj = GameObject.Find("Gaia");
             if (gaiaObj == null)
             {
                 gaiaObj = new GameObject("Gaia");
             }
             Stamper stamper = null;
-            GameObject stamperObj = GameObject.Find("Stamper");
+            var stamperObj = GameObject.Find("Stamper");
             if (stamperObj == null)
             {
                 stamperObj = new GameObject("Stamper");
@@ -607,10 +607,10 @@ namespace Gaia
             }
 
             //Ok now randomly get some stamps and assemble them into a scene
-            for (int stampIdx = 0; stampIdx < m_genNumStampsToGenerate; stampIdx++)
+            for (var stampIdx = 0; stampIdx < m_genNumStampsToGenerate; stampIdx++)
             {
-                string stampPath = "";
-                GaiaConstants.FeatureType featureType = GaiaConstants.FeatureType.Hills;
+                var stampPath = "";
+                var featureType = GaiaConstants.FeatureType.Hills;
 
                 #if UNITY_EDITOR
 
@@ -650,7 +650,7 @@ namespace Gaia
                 //Then customise
                 if (stampIdx == 0)
                 {
-                    float fullWidth = stamper.m_width;
+                    var fullWidth = stamper.m_width;
                     PositionStamp(terrainBounds, stamper, featureType);
                     stamper.m_rotation = 0f;
                     stamper.m_x = 0f;
@@ -678,7 +678,7 @@ namespace Gaia
                     PositionStamp(terrainBounds, stamper, featureType);
 
                     //Randomly make to an inverted stamp and subtract it
-                    float featureSelector = UnityEngine.Random.Range(0f, 1f);
+                    var featureSelector = UnityEngine.Random.Range(0f, 1f);
 
                     if (featureSelector < 0.1f)
                     {
@@ -728,12 +728,12 @@ namespace Gaia
 
         private void PositionStamp(Bounds bounds, Stamper stamper, GaiaConstants.FeatureType stampType)
         {
-            float stampBaseLevel = 0f;
-            float stampMinHeight = 0f;
-            float stampMaxHeight = 0f;
-            float fullHeight = stamper.m_height * 4f;
+            var stampBaseLevel = 0f;
+            var stampMinHeight = 0f;
+            var stampMaxHeight = 0f;
+            var fullHeight = stamper.m_height * 4f;
 
-            float terrainWaterLevel = 0f;
+            var terrainWaterLevel = 0f;
             if (m_session.m_terrainHeight > 0f)
             {
                 terrainWaterLevel = m_session.m_seaLevel / (float)m_session.m_terrainHeight;
@@ -758,14 +758,14 @@ namespace Gaia
                 stamper.m_height = UnityEngine.Random.Range(0.7f, 1.3f) * m_genScaleHeight; // *stampRange;
 
                 //Set stamp offset accounting for water level
-                float relativeHeight = (stamper.m_height / fullHeight) * m_session.m_terrainHeight;
-                float relativeZero = relativeHeight / 2f;
-                float waterTrue = terrainWaterLevel * m_session.m_terrainHeight;
+                var relativeHeight = (stamper.m_height / fullHeight) * m_session.m_terrainHeight;
+                var relativeZero = relativeHeight / 2f;
+                var waterTrue = terrainWaterLevel * m_session.m_terrainHeight;
                 stamper.m_stickBaseToGround = false;
                 stamper.m_y = relativeZero + waterTrue - (stampBaseLevel * relativeHeight);
 
                 //Set stamp position
-                float offsetRange = 1f;
+                var offsetRange = 1f;
                 if (m_genBorderStyle == GaiaConstants.GeneratorBorderStyle.None)
                 {
                     stamper.m_x = UnityEngine.Random.Range(-bounds.extents.x, bounds.extents.x);
@@ -792,10 +792,10 @@ namespace Gaia
         GaiaConstants.FeatureType GetWeightedRandomFeatureType()
         {
             //Choose a random number
-            float randomPick = UnityEngine.Random.Range(0f, 1f);
+            var randomPick = UnityEngine.Random.Range(0f, 1f);
 
             //Work out the random number ranges
-            float sumRanges = m_genChanceOfHills + m_genChanceOfIslands + m_genChanceOfLakes + m_genChanceOfMesas + m_genChanceOfMountains +
+            var sumRanges = m_genChanceOfHills + m_genChanceOfIslands + m_genChanceOfLakes + m_genChanceOfMesas + m_genChanceOfMountains +
                 m_genChanceOfPlains + m_genChanceOfRivers + m_genChanceOfValleys  + m_genChanceOfVillages + m_genChanceOfWaterfalls;
 
             //Stop divide by zero
@@ -805,8 +805,8 @@ namespace Gaia
             }
 
             //Set our way through it - crude but effective
-            float currStep = 0f;
-            float nextStep = 0f;
+            var currStep = 0f;
+            var nextStep = 0f;
 
             nextStep = currStep + (m_genChanceOfHills / sumRanges);
             if (randomPick >= currStep && randomPick < nextStep)
@@ -1026,8 +1026,8 @@ namespace Gaia
             }
 
             string stampPath;
-            int idx = 0;
-            int fields = 0;
+            var idx = 0;
+            var fields = 0;
 
             //Count fields
             for (idx = 0; idx < m_genMountainStamps.Count; idx++)
@@ -1040,8 +1040,8 @@ namespace Gaia
             }
 
             //Now choose one
-            int hits = 0;
-            int luckyNumber = UnityEngine.Random.Range(0, fields-1);
+            var hits = 0;
+            var luckyNumber = UnityEngine.Random.Range(0, fields-1);
             for (idx = 0; idx < m_genMountainStamps.Count; idx++)
             {
                 stampPath = m_genMountainStamps[idx];
@@ -1069,10 +1069,10 @@ namespace Gaia
                 return null;
             }
 
-            GaiaOperation operation = m_session.m_operations[operationIdx];
+            var operation = m_session.m_operations[operationIdx];
 
             //Get or create the game object that generated this operations
-            GameObject go = FindOrCreateObject(operation);
+            var go = FindOrCreateObject(operation);
 
             //Exit out if we couldnt find what generated the operation
             if (go == null)
@@ -1081,7 +1081,7 @@ namespace Gaia
             }
 
             //Deserialise stamp if necessary
-            Stamper stamper = go.GetComponent<Stamper>();
+            var stamper = go.GetComponent<Stamper>();
             if (stamper != null && operation.m_operationType == GaiaOperation.OperationType.Stamp)
             {
                 stamper.DeSerialiseJson(operation.m_operationDataJson[0]);
@@ -1103,7 +1103,7 @@ namespace Gaia
             }
 
             //Deserialise spawner if necessary
-            Spawner spawner = go.GetComponent<Spawner>();
+            var spawner = go.GetComponent<Spawner>();
             if (spawner != null && operation.m_operationType == GaiaOperation.OperationType.Spawn)
             {
                 spawner.DeSerialiseJson(operation.m_operationDataJson[0]);
@@ -1129,7 +1129,7 @@ namespace Gaia
                 {
                     //Apply any missing assets to the terrain
                     spawner.AssociateAssets();
-                    int[] missingResources = spawner.GetMissingResources();
+                    var missingResources = spawner.GetMissingResources();
                     if (missingResources.GetLength(0) > 0)
                     {
                         spawner.AddResourcesToTerrain(missingResources);
@@ -1182,7 +1182,7 @@ namespace Gaia
 
             if (Application.isPlaying)
             {
-                for (int idx = 0; idx < m_session.m_operations.Count; idx++)
+                for (var idx = 0; idx < m_session.m_operations.Count; idx++)
                 {
                     if (!m_cancelPlayback)
                     {
@@ -1195,7 +1195,7 @@ namespace Gaia
             }
             else
             {
-                for (int idx = 0; idx < m_session.m_operations.Count; idx++)
+                for (var idx = 0; idx < m_session.m_operations.Count; idx++)
                 {
                     if (!m_cancelPlayback)
                     {
@@ -1266,15 +1266,15 @@ namespace Gaia
 
 
             //Stop this operation from adding more to the session
-            bool lockState = m_session.m_isLocked;
+            var lockState = m_session.m_isLocked;
             m_session.m_isLocked = true;
 
             //Grab operation and let world know about it
-            GaiaOperation operation = m_session.m_operations[operationIdx];
+            var operation = m_session.m_operations[operationIdx];
             //Debug.Log("Playing: " + operation.m_description);
 
             //Get or create the operation game object, and apply the operation to it
-            GameObject go = Apply(operationIdx);
+            var go = Apply(operationIdx);
 
             //Now invoke the necessary code to play it
             Stamper stamper = null;
@@ -1293,7 +1293,7 @@ namespace Gaia
                         if (m_session.m_defaults != null && m_session.m_defaults.m_content.GetLength(0) > 0)
                         {
                             #if UNITY_EDITOR
-                            GaiaDefaults defaults = Gaia.Utils.GetAsset(
+                            var defaults = Gaia.Utils.GetAsset(
                                 Gaia.ScriptableObjectWrapper.GetSessionedFileName(m_session.m_name, m_session.m_defaults.m_fileName), typeof(Gaia.GaiaDefaults)) 
                                 as Gaia.GaiaDefaults;
                             if (defaults == null)
@@ -1312,7 +1312,7 @@ namespace Gaia
                                 //Now try and locate the resources and pass the into the terrain creation
                                 if (operation.m_operationDataJson != null && operation.m_operationDataJson.GetLength(0) == 2)
                                 {
-                                    GaiaResource resources = Gaia.Utils.GetAsset(
+                                    var resources = Gaia.Utils.GetAsset(
                                         Gaia.ScriptableObjectWrapper.GetSessionedFileName(m_session.m_name, operation.m_operationDataJson[1]), typeof(Gaia.GaiaResource)) 
                                         as Gaia.GaiaResource;
                                     if (resources == null)
@@ -1461,7 +1461,7 @@ namespace Gaia
         public void ExportSessionResources()
         {
             //Make sure we have a session export directory
-            string path = "Assets/GaiaSessions/";
+            var path = "Assets/GaiaSessions/";
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
@@ -1477,14 +1477,14 @@ namespace Gaia
             //Export the defaults if they exist
             if (m_session.m_defaults != null && m_session.m_defaults.m_content.GetLength(0) > 0)
             {
-                string exportName = Path.Combine(path, Gaia.ScriptableObjectWrapper.GetSessionedFileName(m_session.m_name, m_session.m_defaults.m_fileName));
+                var exportName = Path.Combine(path, Gaia.ScriptableObjectWrapper.GetSessionedFileName(m_session.m_name, m_session.m_defaults.m_fileName));
                 Gaia.Utils.WriteAllBytes(exportName, m_session.m_defaults.m_content);
             }
 
             //Export all the resources
-            foreach (KeyValuePair<string, ScriptableObjectWrapper> kvp in m_session.m_resources)
+            foreach (var kvp in m_session.m_resources)
             {
-                string exportName = Path.Combine(path, Gaia.ScriptableObjectWrapper.GetSessionedFileName(m_session.m_name, kvp.Value.m_fileName));
+                var exportName = Path.Combine(path, Gaia.ScriptableObjectWrapper.GetSessionedFileName(m_session.m_name, kvp.Value.m_fileName));
                 Gaia.Utils.WriteAllBytes(exportName, kvp.Value.m_content);
             }
 
@@ -1500,7 +1500,7 @@ namespace Gaia
         public void ExportSessionDefaults()
         {
             //Make sure we have a session export directory
-            string path = "Assets/GaiaSessions/";
+            var path = "Assets/GaiaSessions/";
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
@@ -1516,7 +1516,7 @@ namespace Gaia
             //Export the defaults if they exist
             if (m_session.m_defaults != null && m_session.m_defaults.m_content.GetLength(0) > 0)
             {
-                string exportName = Path.Combine(path, Gaia.ScriptableObjectWrapper.GetSessionedFileName(m_session.m_name, m_session.m_defaults.m_fileName));
+                var exportName = Path.Combine(path, Gaia.ScriptableObjectWrapper.GetSessionedFileName(m_session.m_name, m_session.m_defaults.m_fileName));
                 Gaia.Utils.WriteAllBytes(exportName, m_session.m_defaults.m_content);
             }
 
@@ -1531,7 +1531,7 @@ namespace Gaia
         public void ExportSessionResource(string resourcePath)
         {
             //Make sure we have a session export directory
-            string path = "Assets/GaiaSessions/";
+            var path = "Assets/GaiaSessions/";
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
@@ -1545,11 +1545,11 @@ namespace Gaia
             }
 
             //Export the matching resource
-            foreach (KeyValuePair<string, ScriptableObjectWrapper> kvp in m_session.m_resources)
+            foreach (var kvp in m_session.m_resources)
             {
                 if (Path.GetFileName(resourcePath).ToLower() == Path.GetFileName(kvp.Value.m_fileName).ToLower())
                 {
-                    string exportName = Path.Combine(path, Gaia.ScriptableObjectWrapper.GetSessionedFileName(m_session.m_name, kvp.Value.m_fileName));
+                    var exportName = Path.Combine(path, Gaia.ScriptableObjectWrapper.GetSessionedFileName(m_session.m_name, kvp.Value.m_fileName));
                     Gaia.Utils.WriteAllBytes(exportName, kvp.Value.m_content);
                 }
             }
@@ -1566,7 +1566,7 @@ namespace Gaia
         {
             if (m_session != null)
             {
-                Bounds bounds = new Bounds();
+                var bounds = new Bounds();
                 if (TerrainHelper.GetTerrainBounds(transform.position, ref bounds) == true)
                 {
                     //Terrain dimensions
@@ -1595,8 +1595,8 @@ namespace Gaia
             if (operation.m_generatedByType == "Gaia.Stamper")
             {
                 //See if we can locate it in the existing stamps
-                Stamper[] stampers = GameObject.FindObjectsOfType<Stamper>();
-                for (int stampIdx = 0; stampIdx < stampers.GetLength(0); stampIdx++)
+                var stampers = GameObject.FindObjectsOfType<Stamper>();
+                for (var stampIdx = 0; stampIdx < stampers.GetLength(0); stampIdx++)
                 {
                     if (stampers[stampIdx].m_stampID == operation.m_generatedByID && stampers[stampIdx].name == operation.m_generatedByName)
                     {
@@ -1609,8 +1609,8 @@ namespace Gaia
             else if (operation.m_generatedByType == "Gaia.Spawner")
             {
                 //See if we can locate it in the existing stamps
-                Spawner[] spawners = GameObject.FindObjectsOfType<Spawner>();
-                for (int spawnerIdx = 0; spawnerIdx < spawners.GetLength(0); spawnerIdx++)
+                var spawners = GameObject.FindObjectsOfType<Spawner>();
+                for (var spawnerIdx = 0; spawnerIdx < spawners.GetLength(0); spawnerIdx++)
                 {
                     if (spawners[spawnerIdx].m_spawnerID == operation.m_generatedByID && spawners[spawnerIdx].name == operation.m_generatedByName)
                     {
@@ -1628,17 +1628,17 @@ namespace Gaia
         /// </summary>
         GameObject ShowStamper(string name, string id)
         {
-            GameObject gaiaObj = GameObject.Find("Gaia");
+            var gaiaObj = GameObject.Find("Gaia");
             if (gaiaObj == null)
             {
                 gaiaObj = new GameObject("Gaia");
             }
-            GameObject stamperObj = GameObject.Find(name);
+            var stamperObj = GameObject.Find(name);
             if (stamperObj == null)
             {
                 stamperObj = new GameObject(name);
                 stamperObj.transform.parent = gaiaObj.transform;
-                Stamper stamper = stamperObj.AddComponent<Stamper>();
+                var stamper = stamperObj.AddComponent<Stamper>();
                 stamper.m_stampID = id;
                 stamper.HidePreview();
                 stamper.m_seaLevel = m_session.m_seaLevel;
@@ -1651,14 +1651,14 @@ namespace Gaia
         /// </summary>
         GameObject CreateSpawner(string name, string id)
         {
-            GameObject gaiaObj = GameObject.Find("Gaia");
+            var gaiaObj = GameObject.Find("Gaia");
             if (gaiaObj == null)
             {
                 gaiaObj = new GameObject("Gaia");
             }
-            GameObject spawnerObj = new GameObject(name);
+            var spawnerObj = new GameObject(name);
             spawnerObj.transform.parent = gaiaObj.transform;
-            Spawner spawner = spawnerObj.AddComponent<Spawner>();
+            var spawner = spawnerObj.AddComponent<Spawner>();
             spawner.m_spawnerID = id;
             return spawnerObj;
         }

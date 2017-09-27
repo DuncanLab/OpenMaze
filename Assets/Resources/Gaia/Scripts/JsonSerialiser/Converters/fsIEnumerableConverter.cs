@@ -22,12 +22,12 @@ namespace Gaia.FullSerializer.Internal
             var instance = (IEnumerable)instance_;
             var result = fsResult.Success;
 
-            Type elementType = GetElementType(storageType);
+            var elementType = GetElementType(storageType);
 
             serialized = fsData.CreateList(HintSize(instance));
             var serializedList = serialized.AsList;
 
-            foreach (object item in instance) {
+            foreach (var item in instance) {
                 fsData itemData;
 
                 // note: We don't fail the entire deserialization even if the item failed
@@ -67,7 +67,7 @@ namespace Gaia.FullSerializer.Internal
             var existingSize = TryGetExistingSize(storageType, instance);
 
             var serializedList = data.AsList;
-            for (int i = 0; i < serializedList.Count; ++i) {
+            for (var i = 0; i < serializedList.Count; ++i) {
                 var itemData = serializedList[i];
                 object itemInstance = null;
                 if (getMethod != null && i < existingSize) {
@@ -103,7 +103,7 @@ namespace Gaia.FullSerializer.Internal
         private static Type GetElementType(Type objectType) {
             if (objectType.HasElementType) return objectType.GetElementType();
 
-            Type enumerableList = fsReflectionUtility.GetInterface(objectType, typeof(IEnumerable<>));
+            var enumerableList = fsReflectionUtility.GetInterface(objectType, typeof(IEnumerable<>));
             if (enumerableList != null) return enumerableList.GetGenericArguments()[0];
 
             return typeof(object);
@@ -129,9 +129,9 @@ namespace Gaia.FullSerializer.Internal
             // the add method we want. Just doing type.GetFlattenedMethod() may return the incorrect one --
             // for example, with dictionaries, it'll return Add(TKey, TValue), and we want
             // Add(KeyValuePair<TKey, TValue>).
-            Type collectionInterface = fsReflectionUtility.GetInterface(type, typeof(ICollection<>));
+            var collectionInterface = fsReflectionUtility.GetInterface(type, typeof(ICollection<>));
             if (collectionInterface != null) {
-                MethodInfo add = collectionInterface.GetDeclaredMethod("Add");
+                var add = collectionInterface.GetDeclaredMethod("Add");
                 if (add != null) return add;
             }
 

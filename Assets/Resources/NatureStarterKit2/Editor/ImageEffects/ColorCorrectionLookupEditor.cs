@@ -34,7 +34,7 @@ namespace UnityStandardAssets.ImageEffects
                 if (t) tempClutTex2D = t;
             }
 
-            Texture2D tex = tempClutTex2D;
+            var tex = tempClutTex2D;
 
             if (tex && (target as ColorCorrectionLookup).basedOnTempTex != AssetDatabase.GetAssetPath(tex))
             {
@@ -45,9 +45,9 @@ namespace UnityStandardAssets.ImageEffects
                 }
                 else if (GUILayout.Button ("Convert and Apply"))
                 {
-                    string path = AssetDatabase.GetAssetPath (tex);
-                    TextureImporter textureImporter = AssetImporter.GetAtPath(path) as TextureImporter;
-                    bool doImport = textureImporter.isReadable == false;
+                    var path = AssetDatabase.GetAssetPath (tex);
+                    var textureImporter = AssetImporter.GetAtPath(path) as TextureImporter;
+                    var doImport = textureImporter.isReadable == false;
                     if (textureImporter.mipmapEnabled == true) {
                         doImport = true;
                     }

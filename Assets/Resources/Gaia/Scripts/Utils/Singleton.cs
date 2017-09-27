@@ -55,7 +55,7 @@ namespace Gaia
 
                         if (_instance == null)
                         {
-                            GameObject singleton = new GameObject();
+                            var singleton = new GameObject();
                             _instance = singleton.AddComponent<T>();
                             singleton.name = "(singleton) " + typeof(T).ToString();
 

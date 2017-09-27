@@ -87,7 +87,7 @@ namespace Gaia
                 previewTextureAttribute.m_www = null;
                 previewTextureAttribute.m_cached = null;
             }
-            string path = GetCachedTexturePath(property.stringValue);
+            var path = GetCachedTexturePath(property.stringValue);
 
             if (!string.IsNullOrEmpty(path))
             {
@@ -111,15 +111,15 @@ namespace Gaia
 
         bool IsExpired(string path)
         {
-            string fileName = Path.GetFileNameWithoutExtension(path);
-            string[] split = fileName.Split('_');
+            var fileName = Path.GetFileNameWithoutExtension(path);
+            var split = fileName.Split('_');
             return System.DateTime.Now.Ticks >= long.Parse(split[1]);
         }
 
         string GetCachedTexturePath(string stringValue)
         {
-            int hash = stringValue.GetHashCode();
-            foreach (string path in Directory.GetFiles("Temp"))
+            var hash = stringValue.GetHashCode();
+            foreach (var path in Directory.GetFiles("Temp"))
             {
                 if (Path.GetFileNameWithoutExtension(path).StartsWith(hash.ToString()))
                 {
@@ -146,8 +146,8 @@ namespace Gaia
                 if (previewTextureAttribute.m_www.error != null)
                     return null;
 
-                int hash = property.stringValue.GetHashCode();
-                long expire = (System.DateTime.Now.Ticks + previewTextureAttribute.m_expire);
+                var hash = property.stringValue.GetHashCode();
+                var expire = (System.DateTime.Now.Ticks + previewTextureAttribute.m_expire);
                 Gaia.Utils.WriteAllBytes(string.Format("Temp/{0}_{1}_{2}_{3}", hash, expire, previewTextureAttribute.m_www.texture.width, previewTextureAttribute.m_www.texture.height), previewTextureAttribute.m_www.bytes);
                 return previewTextureAttribute.m_www.texture;
             }
@@ -156,10 +156,10 @@ namespace Gaia
 
         Texture2D GetTextureFromCached(string path)
         {
-            string[] split = Path.GetFileNameWithoutExtension(path).Split('_');
-            int width = int.Parse(split[2]);
-            int height = int.Parse(split[3]);
-            Texture2D t = new Texture2D(width, height);
+            var split = Path.GetFileNameWithoutExtension(path).Split('_');
+            var width = int.Parse(split[2]);
+            var height = int.Parse(split[3]);
+            var t = new Texture2D(width, height);
 
             return t.LoadImage(Gaia.Utils.ReadAllBytes(path)) ? t : null;
         }
@@ -170,8 +170,8 @@ namespace Gaia
         {
             //float width = Mathf.Clamp(texture.width, position.width * 0.7f, position.width * 0.7f);
 
-            float offset = 0.05f + previewTextureAttribute.m_offset;
-            float width = Mathf.Clamp(texture.width, position.width * previewTextureAttribute.m_width, position.width * previewTextureAttribute.m_width);
+            var offset = 0.05f + previewTextureAttribute.m_offset;
+            var width = Mathf.Clamp(texture.width, position.width * previewTextureAttribute.m_width, position.width * previewTextureAttribute.m_width);
             previewTextureAttribute.m_lastPosition = new Rect(position.width * offset, position.y + 16, width, texture.height * (width / texture.width));
 
             if (style == null)

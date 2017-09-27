@@ -63,8 +63,8 @@ namespace UnityStandardAssets.ImageEffects
 
 
         private void CalculateViewProjection () {
-            Matrix4x4 viewMat = _camera.worldToCameraMatrix;
-            Matrix4x4 projMat = GL.GetGPUProjectionMatrix (_camera.projectionMatrix, true);
+            var viewMat = _camera.worldToCameraMatrix;
+            var projMat = GL.GetGPUProjectionMatrix (_camera.projectionMatrix, true);
             currentViewProjMat = projMat * viewMat;
         }
 
@@ -132,16 +132,16 @@ namespace UnityStandardAssets.ImageEffects
             var rtFormat= SystemInfo.SupportsRenderTextureFormat (RenderTextureFormat.RGHalf) ? RenderTextureFormat.RGHalf : RenderTextureFormat.ARGBHalf;
 
             // get temp textures
-            RenderTexture velBuffer = RenderTexture.GetTemporary (divRoundUp (source.width, velocityDownsample), divRoundUp (source.height, velocityDownsample), 0, rtFormat);
-            int tileWidth = 1;
-            int tileHeight = 1;
+            var velBuffer = RenderTexture.GetTemporary (divRoundUp (source.width, velocityDownsample), divRoundUp (source.height, velocityDownsample), 0, rtFormat);
+            var tileWidth = 1;
+            var tileHeight = 1;
             maxVelocity = Mathf.Max (2.0f, maxVelocity);
 
-            float _maxVelocity = maxVelocity; // calculate 'k'
+            var _maxVelocity = maxVelocity; // calculate 'k'
             // note: 's' is hardcoded in shaders except for DX11 path
 
             // auto DX11 fallback!
-            bool fallbackFromDX11 = filterType == MotionBlurFilter.ReconstructionDX11 && dx11MotionBlurMaterial == null;
+            var fallbackFromDX11 = filterType == MotionBlurFilter.ReconstructionDX11 && dx11MotionBlurMaterial == null;
 
             if (filterType == MotionBlurFilter.Reconstruction || fallbackFromDX11 || filterType == MotionBlurFilter.ReconstructionDisc) {
                 maxVelocity = Mathf.Min (maxVelocity, MAX_RADIUS);
@@ -155,8 +155,8 @@ namespace UnityStandardAssets.ImageEffects
                 _maxVelocity = velBuffer.width/tileWidth;
             }
 
-            RenderTexture tileMax  = RenderTexture.GetTemporary (tileWidth, tileHeight, 0, rtFormat);
-            RenderTexture neighbourMax  = RenderTexture.GetTemporary (tileWidth, tileHeight, 0, rtFormat);
+            var tileMax  = RenderTexture.GetTemporary (tileWidth, tileHeight, 0, rtFormat);
+            var neighbourMax  = RenderTexture.GetTemporary (tileWidth, tileHeight, 0, rtFormat);
             velBuffer.filterMode = FilterMode.Point;
             tileMax.filterMode = FilterMode.Point;
             neighbourMax.filterMode = FilterMode.Point;
@@ -176,7 +176,7 @@ namespace UnityStandardAssets.ImageEffects
             wasActive = gameObject.activeInHierarchy;
 
             // matrices
-            Matrix4x4 invViewPrj = Matrix4x4.Inverse (currentViewProjMat);
+            var invViewPrj = Matrix4x4.Inverse (currentViewProjMat);
             motionBlurMaterial.SetMatrix ("_InvViewProj", invViewPrj);
             motionBlurMaterial.SetMatrix ("_PrevViewProj", prevViewProjMat);
             motionBlurMaterial.SetMatrix ("_ToPrevViewProjCombined", prevViewProjMat * invViewPrj);
@@ -195,10 +195,10 @@ namespace UnityStandardAssets.ImageEffects
 
             if (preview) {
                 // generate an artifical 'previous' matrix to simulate blur look
-                Matrix4x4 viewMat = _camera.worldToCameraMatrix;
-                Matrix4x4 offset = Matrix4x4.identity;
+                var viewMat = _camera.worldToCameraMatrix;
+                var offset = Matrix4x4.identity;
                 offset.SetTRS(previewScale * 0.3333f, Quaternion.identity, Vector3.one); // using only translation
-                Matrix4x4 projMat = GL.GetGPUProjectionMatrix (_camera.projectionMatrix, true);
+                var projMat = GL.GetGPUProjectionMatrix (_camera.projectionMatrix, true);
                 prevViewProjMat = projMat * offset * viewMat;
                 motionBlurMaterial.SetMatrix ("_PrevViewProj", prevViewProjMat);
                 motionBlurMaterial.SetMatrix ("_ToPrevViewProjCombined", prevViewProjMat * invViewPrj);
@@ -207,14 +207,14 @@ namespace UnityStandardAssets.ImageEffects
             if (filterType == MotionBlurFilter.CameraMotion)
             {
                 // build blur vector to be used in shader to create a global blur direction
-                Vector4 blurVector = Vector4.zero;
+                var blurVector = Vector4.zero;
 
-                float lookUpDown = Vector3.Dot (transform.up, Vector3.up);
-                Vector3 distanceVector = prevFramePos-transform.position;
+                var lookUpDown = Vector3.Dot (transform.up, Vector3.up);
+                var distanceVector = prevFramePos-transform.position;
 
-                float distMag = distanceVector.magnitude;
+                var distMag = distanceVector.magnitude;
 
-                float farHeur = 1.0f;
+                var farHeur = 1.0f;
 
                 // pitch (vertical)
                 farHeur = (Vector3.Angle (transform.up, prevFrameUp) / _camera.fieldOfView) * (source.width * 0.75f);
@@ -346,8 +346,8 @@ namespace UnityStandardAssets.ImageEffects
 
         Camera GetTmpCam () {
             if (tmpCam == null) {
-                string name = "_" + _camera.name + "_MotionBlurTmpCam";
-                GameObject go = GameObject.Find (name);
+                var name = "_" + _camera.name + "_MotionBlurTmpCam";
+                var go = GameObject.Find (name);
                 if (null == go) // couldn't find, recreate
                     tmpCam = new GameObject (name, typeof (Camera));
                 else

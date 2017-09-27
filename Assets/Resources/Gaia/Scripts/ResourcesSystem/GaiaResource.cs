@@ -39,8 +39,8 @@ namespace Gaia
         /// <returns>True if something changes</returns>
         public bool SetAssetAssociations()
         {
-            int idx = 0;
-            bool isChanged = false;
+            var idx = 0;
+            var isChanged = false;
 
             ResourceProtoTexture texturePrototype;
             for (idx = 0; idx < m_texturePrototypes.GetLength(0); idx++)
@@ -91,8 +91,8 @@ namespace Gaia
         /// <returns>True of the resources were changed in any way</returns>
         public bool AssociateAssets()
         {
-            int idx = 0;
-            bool isChanged = false;
+            var idx = 0;
+            var isChanged = false;
 
             ResourceProtoTexture texturePrototype;
             for (idx = 0; idx < m_texturePrototypes.GetLength(0); idx++)
@@ -155,14 +155,14 @@ namespace Gaia
         /// <returns>True if any of the prototypes are missing from the terrain</returns>
         public bool PrototypesMissingFromTerrain()
         {
-            Terrain terrain = Gaia.TerrainHelper.GetActiveTerrain();
+            var terrain = Gaia.TerrainHelper.GetActiveTerrain();
             if (terrain == null)
             {
                 Debug.LogWarning("Could not check assets in terrain as no terrain has been supplied.");
                 return false;
             }
 
-            int idx = 0;
+            var idx = 0;
             for (idx = 0; idx < m_texturePrototypes.GetLength(0); idx++)
             {
                 if (PrototypeMissingFromTerrain(GaiaConstants.SpawnerResourceType.TerrainTexture, idx))
@@ -218,11 +218,11 @@ namespace Gaia
         public int PrototypeIdxInTerrain(GaiaConstants.SpawnerResourceType resourceType, int resourceIdx)
         {
             //Error index -1 = not found
-            int errorIdx = -1;
-            int localTerrainIdx = 0;
+            var errorIdx = -1;
+            var localTerrainIdx = 0;
 
             //Check to see if we have a terrain
-            Terrain terrain = Gaia.TerrainHelper.GetActiveTerrain();
+            var terrain = Gaia.TerrainHelper.GetActiveTerrain();
             if (terrain == null)
             {
                 return errorIdx;
@@ -244,8 +244,8 @@ namespace Gaia
             switch (resourceType)
             {
                 case GaiaConstants.SpawnerResourceType.TerrainTexture:
-                    ResourceProtoTexture splat = m_texturePrototypes[resourceIdx];
-                    foreach (SplatPrototype proto in terrain.terrainData.splatPrototypes)
+                    var splat = m_texturePrototypes[resourceIdx];
+                    foreach (var proto in terrain.terrainData.splatPrototypes)
                     {
                         if (Gaia.Utils.IsSameTexture(splat.m_texture, proto.texture, false) == true)
                         {
@@ -255,8 +255,8 @@ namespace Gaia
                     }
                     return errorIdx;
                 case GaiaConstants.SpawnerResourceType.TerrainDetail:
-                    ResourceProtoDetail detail = m_detailPrototypes[resourceIdx];
-                    foreach (DetailPrototype proto in terrain.terrainData.detailPrototypes)
+                    var detail = m_detailPrototypes[resourceIdx];
+                    foreach (var proto in terrain.terrainData.detailPrototypes)
                     {
                         if (detail.m_renderMode == proto.renderMode)
                         {
@@ -273,8 +273,8 @@ namespace Gaia
                     }
                     return errorIdx;
                 case GaiaConstants.SpawnerResourceType.TerrainTree:
-                    ResourceProtoTree tree = m_treePrototypes[resourceIdx];
-                    foreach (TreePrototype proto in terrain.terrainData.treePrototypes)
+                    var tree = m_treePrototypes[resourceIdx];
+                    foreach (var proto in terrain.terrainData.treePrototypes)
                     {
                         if (Gaia.Utils.IsSameGameObject(tree.m_desktopPrefab, proto.prefab, false))
                         {
@@ -344,28 +344,28 @@ namespace Gaia
             switch (resourceType)
             {
                 case GaiaConstants.SpawnerResourceType.TerrainTexture:
-                    ResourceProtoTexture splat = m_texturePrototypes[resourceIdx];
+                    var splat = m_texturePrototypes[resourceIdx];
                     if (splat.m_texture == null)
                     {
                         return false;
                     }
                     return true;
                 case GaiaConstants.SpawnerResourceType.TerrainDetail:
-                    ResourceProtoDetail detail = m_detailPrototypes[resourceIdx];
+                    var detail = m_detailPrototypes[resourceIdx];
                     if (detail.m_detailTexture == null && detail.m_detailProtoype == null)
                     {
                         return false;
                     }
                     return true;
                 case GaiaConstants.SpawnerResourceType.TerrainTree:
-                    ResourceProtoTree tree = m_treePrototypes[resourceIdx];
+                    var tree = m_treePrototypes[resourceIdx];
                     if (tree.m_desktopPrefab == null)
                     {
                         return false;
                     }
                     return true;
                 case GaiaConstants.SpawnerResourceType.GameObject:
-                    ResourceProtoGameObject go = m_gameObjectPrototypes[resourceIdx];
+                    var go = m_gameObjectPrototypes[resourceIdx];
                     if (go.m_instances[0] == null)
                     {
                         return false;
@@ -380,7 +380,7 @@ namespace Gaia
         /// </summary>
         public void UpdatePrototypesFromTerrain()
         {
-            Terrain terrain = Gaia.TerrainHelper.GetActiveTerrain();
+            var terrain = Gaia.TerrainHelper.GetActiveTerrain();
             if (terrain == null)
             {
                 Debug.LogWarning("Can not update prototypes from the terrain as there is no terrain currently active in this scene.");
@@ -388,7 +388,7 @@ namespace Gaia
             }
 
             //Name storage to stop replicated names
-            Dictionary<string, string> names = new Dictionary<string, string>();
+            var names = new Dictionary<string, string>();
 
             //Create some useful defaults
             m_terrainHeight = terrain.terrainData.size.y;
@@ -398,7 +398,7 @@ namespace Gaia
             SpawnCritera criteria;
             SplatPrototype terrainTextureProto;
             ResourceProtoTexture resourceTextureProto;
-            List<ResourceProtoTexture> resourceTexturePrototypes = new List<ResourceProtoTexture>(m_texturePrototypes);
+            var resourceTexturePrototypes = new List<ResourceProtoTexture>(m_texturePrototypes);
             while (resourceTexturePrototypes.Count > terrain.terrainData.splatPrototypes.Length)
             {
                 resourceTexturePrototypes.RemoveAt(resourceTexturePrototypes.Count - 1);
@@ -523,7 +523,7 @@ namespace Gaia
             names.Clear();
             DetailPrototype terrainDetailProto;
             ResourceProtoDetail resourceDetailProto;
-            List<ResourceProtoDetail> resourceDetailPrototypes = new List<ResourceProtoDetail>(m_detailPrototypes);
+            var resourceDetailPrototypes = new List<ResourceProtoDetail>(m_detailPrototypes);
             while (resourceDetailPrototypes.Count > terrain.terrainData.detailPrototypes.Length)
             {
                 resourceDetailPrototypes.RemoveAt(resourceDetailPrototypes.Count - 1);
@@ -603,7 +603,7 @@ namespace Gaia
             names.Clear();
             TreePrototype terrainTreeProto;
             ResourceProtoTree resourceTreeProto;
-            List<ResourceProtoTree> resourceTreePrototypes = new List<ResourceProtoTree>(m_treePrototypes);
+            var resourceTreePrototypes = new List<ResourceProtoTree>(m_treePrototypes);
             while (resourceTreePrototypes.Count > terrain.terrainData.treePrototypes.Length)
             {
                 resourceTreePrototypes.RemoveAt(resourceTreePrototypes.Count - 1);
@@ -674,8 +674,8 @@ namespace Gaia
         /// <returns>The new unique name</returns>
         string GetUniqueName(string name, ref Dictionary<string, string> names)
         {
-            int idx = 0;
-            string newName = name;
+            var idx = 0;
+            var newName = name;
             while (names.ContainsKey(newName))
             {
                 newName = name + " " + idx.ToString();
@@ -694,13 +694,13 @@ namespace Gaia
         {
             if (prefab != null)
             {
-                GameObject go = Instantiate(prefab);
-                Bounds bounds = new Bounds(go.transform.position, Vector3.zero);
-                foreach (Renderer r in go.GetComponentsInChildren<Renderer>())
+                var go = Instantiate(prefab);
+                var bounds = new Bounds(go.transform.position, Vector3.zero);
+                foreach (var r in go.GetComponentsInChildren<Renderer>())
                 {
                     bounds.Encapsulate(r.bounds);
                 }
-                foreach (Collider c in go.GetComponentsInChildren<Collider>())
+                foreach (var c in go.GetComponentsInChildren<Collider>())
                 {
                     bounds.Encapsulate(c.bounds);
                 }
@@ -715,14 +715,14 @@ namespace Gaia
         {
             SpawnCritera[] criteria;
             SpawnCritera criterion;
-            float oldMax = oldHeight - m_seaLevel;
-            float newMax = newHeight - m_seaLevel;
+            var oldMax = oldHeight - m_seaLevel;
+            var newMax = newHeight - m_seaLevel;
 
             //Adjust textures
-            for (int pidx = 0; pidx < m_texturePrototypes.Length; pidx++)
+            for (var pidx = 0; pidx < m_texturePrototypes.Length; pidx++)
             {
                 criteria = m_texturePrototypes[pidx].m_spawnCriteria;
-                for (int cidx = 0; cidx < criteria.Length; cidx++)
+                for (var cidx = 0; cidx < criteria.Length; cidx++)
                 {
                     criterion = criteria[cidx];
                     if (criterion.m_maxHeight == oldMax)
@@ -733,10 +733,10 @@ namespace Gaia
             }
 
             //Adjust details
-            for (int pidx = 0; pidx < m_detailPrototypes.Length; pidx++)
+            for (var pidx = 0; pidx < m_detailPrototypes.Length; pidx++)
             {
                 criteria = m_detailPrototypes[pidx].m_spawnCriteria;
-                for (int cidx = 0; cidx < criteria.Length; cidx++)
+                for (var cidx = 0; cidx < criteria.Length; cidx++)
                 {
                     criterion = criteria[cidx];
                     if (criterion.m_maxHeight == oldMax)
@@ -747,10 +747,10 @@ namespace Gaia
             }
 
             //Adjust trees
-            for (int pidx = 0; pidx < m_treePrototypes.Length; pidx++)
+            for (var pidx = 0; pidx < m_treePrototypes.Length; pidx++)
             {
                 criteria = m_treePrototypes[pidx].m_spawnCriteria;
-                for (int cidx = 0; cidx < criteria.Length; cidx++)
+                for (var cidx = 0; cidx < criteria.Length; cidx++)
                 {
                     criterion = criteria[cidx];
                     if (criterion.m_maxHeight == oldMax)
@@ -761,10 +761,10 @@ namespace Gaia
             }
 
             //Adjust gameobjects
-            for (int pidx = 0; pidx < m_gameObjectPrototypes.Length; pidx++)
+            for (var pidx = 0; pidx < m_gameObjectPrototypes.Length; pidx++)
             {
                 criteria = m_gameObjectPrototypes[pidx].m_spawnCriteria;
-                for (int cidx = 0; cidx < criteria.Length; cidx++)
+                for (var cidx = 0; cidx < criteria.Length; cidx++)
                 {
                     criterion = criteria[cidx];
                     if (criterion.m_maxHeight == oldMax)
@@ -811,16 +811,16 @@ namespace Gaia
         {
             SpawnCritera[] criteria;
             SpawnCritera criterion;
-            float oldMin = oldSeaLevel * -1f;
-            float newMin = newSeaLevel * -1f;
-            float oldMax = m_terrainHeight - oldSeaLevel;
-            float newMax = m_terrainHeight - newSeaLevel;
+            var oldMin = oldSeaLevel * -1f;
+            var newMin = newSeaLevel * -1f;
+            var oldMax = m_terrainHeight - oldSeaLevel;
+            var newMax = m_terrainHeight - newSeaLevel;
 
             //Adjust textures
-            for (int pidx = 0; pidx < m_texturePrototypes.Length; pidx++)
+            for (var pidx = 0; pidx < m_texturePrototypes.Length; pidx++)
             {
                 criteria = m_texturePrototypes[pidx].m_spawnCriteria;
-                for (int cidx = 0; cidx < criteria.Length; cidx++)
+                for (var cidx = 0; cidx < criteria.Length; cidx++)
                 {
                     criterion = criteria[cidx];
                     if (criterion.m_minHeight == oldMin)
@@ -835,10 +835,10 @@ namespace Gaia
             }
 
             //Adjust details
-            for (int pidx = 0; pidx < m_detailPrototypes.Length; pidx++)
+            for (var pidx = 0; pidx < m_detailPrototypes.Length; pidx++)
             {
                 criteria = m_detailPrototypes[pidx].m_spawnCriteria;
-                for (int cidx = 0; cidx < criteria.Length; cidx++)
+                for (var cidx = 0; cidx < criteria.Length; cidx++)
                 {
                     criterion = criteria[cidx];
                     if (criterion.m_minHeight == oldMin)
@@ -853,10 +853,10 @@ namespace Gaia
             }
 
             //Adjust trees
-            for (int pidx = 0; pidx < m_treePrototypes.Length; pidx++)
+            for (var pidx = 0; pidx < m_treePrototypes.Length; pidx++)
             {
                 criteria = m_treePrototypes[pidx].m_spawnCriteria;
-                for (int cidx = 0; cidx < criteria.Length; cidx++)
+                for (var cidx = 0; cidx < criteria.Length; cidx++)
                 {
                     criterion = criteria[cidx];
                     if (criterion.m_minHeight == oldMin)
@@ -871,10 +871,10 @@ namespace Gaia
             }
 
             //Adjust gameobjects
-            for (int pidx = 0; pidx < m_gameObjectPrototypes.Length; pidx++)
+            for (var pidx = 0; pidx < m_gameObjectPrototypes.Length; pidx++)
             {
                 criteria = m_gameObjectPrototypes[pidx].m_spawnCriteria;
-                for (int cidx = 0; cidx < criteria.Length; cidx++)
+                for (var cidx = 0; cidx < criteria.Length; cidx++)
                 {
                     criterion = criteria[cidx];
                     if (criterion.m_minHeight == oldMin)
@@ -922,7 +922,7 @@ namespace Gaia
             AssociateAssets();
 
             //Now apply to terrain
-            foreach (Terrain t in Terrain.activeTerrains)
+            foreach (var t in Terrain.activeTerrains)
             {
                 ApplyPrototypesToTerrain(t);
             }
@@ -943,8 +943,8 @@ namespace Gaia
 
             //Alpha splats
             SplatPrototype newSplat;
-            List<SplatPrototype> terrainSplats = new List<SplatPrototype>();
-            foreach (ResourceProtoTexture splat in m_texturePrototypes)
+            var terrainSplats = new List<SplatPrototype>();
+            foreach (var splat in m_texturePrototypes)
             {
                 if (splat.m_texture != null)
                 {
@@ -964,8 +964,8 @@ namespace Gaia
 
             //Detail prototypes
             DetailPrototype newDetail;
-            List<DetailPrototype> terrainDetails = new List<DetailPrototype>();
-            foreach (ResourceProtoDetail detail in m_detailPrototypes)
+            var terrainDetails = new List<DetailPrototype>();
+            foreach (var detail in m_detailPrototypes)
             {
                 if (detail.m_detailProtoype != null || detail.m_detailTexture != null)
                 {
@@ -1000,8 +1000,8 @@ namespace Gaia
 
             //Tree prototypes
             TreePrototype newTree;
-            List<TreePrototype> terrainTrees = new List<TreePrototype>();
-            foreach (ResourceProtoTree tree in m_treePrototypes)
+            var terrainTrees = new List<TreePrototype>();
+            foreach (var tree in m_treePrototypes)
             {
                 if (tree.m_desktopPrefab != null)
                 {
@@ -1026,7 +1026,7 @@ namespace Gaia
         public void AddMissingPrototypesToTerrain()
         {
             AssociateAssets(); //Make sure everything has been connected up
-            foreach (Terrain t in Terrain.activeTerrains)
+            foreach (var t in Terrain.activeTerrains)
             {
                 AddMissingPrototypesToTerrain(t);
             }
@@ -1046,14 +1046,14 @@ namespace Gaia
             }
 
             //Alpha splats
-            bool found = false;
+            var found = false;
             SplatPrototype newSplat;
-            List<SplatPrototype> terrainSplats = new List<SplatPrototype>(terrain.terrainData.splatPrototypes);
-            foreach (ResourceProtoTexture splat in m_texturePrototypes)
+            var terrainSplats = new List<SplatPrototype>(terrain.terrainData.splatPrototypes);
+            foreach (var splat in m_texturePrototypes)
             {
                 //See if we can locate it already
                 found = false;
-                foreach (SplatPrototype sp in terrainSplats)
+                foreach (var sp in terrainSplats)
                 {
                     if (Gaia.Utils.IsSameTexture(sp.texture, splat.m_texture, false))
                     {
@@ -1075,12 +1075,12 @@ namespace Gaia
 
             //Detail prototypes
             DetailPrototype newDetail;
-            List<DetailPrototype> terrainDetails = new List<DetailPrototype>(terrain.terrainData.detailPrototypes);
-            foreach (ResourceProtoDetail detail in m_detailPrototypes)
+            var terrainDetails = new List<DetailPrototype>(terrain.terrainData.detailPrototypes);
+            foreach (var detail in m_detailPrototypes)
             {
                 //See if we can locate it already
                 found = false;
-                foreach (DetailPrototype dp in terrainDetails)
+                foreach (var dp in terrainDetails)
                 {
                     if (dp.renderMode == detail.m_renderMode)
                     {
@@ -1124,12 +1124,12 @@ namespace Gaia
 
             //Tree prototypes
             TreePrototype newTree;
-            List<TreePrototype> terrainTrees = new List<TreePrototype>(terrain.terrainData.treePrototypes);
-            foreach (ResourceProtoTree tree in m_treePrototypes)
+            var terrainTrees = new List<TreePrototype>(terrain.terrainData.treePrototypes);
+            foreach (var tree in m_treePrototypes)
             {
                 //See if we can locate it already
                 found = false;
-                foreach (TreePrototype tp in terrainTrees)
+                foreach (var tp in terrainTrees)
                 {
                     if (Gaia.Utils.IsSameGameObject(tp.prefab, tree.m_desktopPrefab, false))
                     {
@@ -1157,7 +1157,7 @@ namespace Gaia
         /// <param name="resourceIdx">Resource idx</param>
         public void AddPrototypeToTerrain(GaiaConstants.SpawnerResourceType resourceType, int resourceIdx)
         {
-            foreach (Terrain terrain in Terrain.activeTerrains)
+            foreach (var terrain in Terrain.activeTerrains)
             {
                 AddPrototypeToTerrain(resourceType, resourceIdx, terrain);
             }
@@ -1187,9 +1187,9 @@ namespace Gaia
             switch (resourceType)
             {
                 case GaiaConstants.SpawnerResourceType.TerrainTexture:
-                    ResourceProtoTexture splat = m_texturePrototypes[resourceIdx];
-                    List<SplatPrototype> terrainSplats = new List<SplatPrototype>(terrain.terrainData.splatPrototypes);
-                    SplatPrototype newSplat = new SplatPrototype();
+                    var splat = m_texturePrototypes[resourceIdx];
+                    var terrainSplats = new List<SplatPrototype>(terrain.terrainData.splatPrototypes);
+                    var newSplat = new SplatPrototype();
                     newSplat.normalMap = splat.m_normal;
                     newSplat.tileOffset = new Vector2(splat.m_offsetX, splat.m_offsetY);
                     newSplat.tileSize = new Vector2(splat.m_sizeX, splat.m_sizeY);
@@ -1198,9 +1198,9 @@ namespace Gaia
                     terrain.terrainData.splatPrototypes = terrainSplats.ToArray();
                     break;
                 case GaiaConstants.SpawnerResourceType.TerrainDetail:
-                    ResourceProtoDetail detail = m_detailPrototypes[resourceIdx];
-                    List<DetailPrototype> terrainDetails = new List<DetailPrototype>(terrain.terrainData.detailPrototypes);
-                    DetailPrototype newDetail = new DetailPrototype();
+                    var detail = m_detailPrototypes[resourceIdx];
+                    var terrainDetails = new List<DetailPrototype>(terrain.terrainData.detailPrototypes);
+                    var newDetail = new DetailPrototype();
                     newDetail.renderMode = detail.m_renderMode;
                     if (detail.m_detailProtoype != null)
                     {
@@ -1224,9 +1224,9 @@ namespace Gaia
                     terrain.terrainData.detailPrototypes = terrainDetails.ToArray();
                     break;
                 case GaiaConstants.SpawnerResourceType.TerrainTree:
-                    ResourceProtoTree tree = m_treePrototypes[resourceIdx];
-                    List<TreePrototype> terrainTrees = new List<TreePrototype>(terrain.terrainData.treePrototypes);
-                    TreePrototype newTree = new TreePrototype();
+                    var tree = m_treePrototypes[resourceIdx];
+                    var terrainTrees = new List<TreePrototype>(terrain.terrainData.treePrototypes);
+                    var newTree = new TreePrototype();
                     newTree.bendFactor = tree.m_bendFactor;
                     newTree.prefab = tree.m_desktopPrefab;
                     terrainTrees.Add(newTree);
@@ -1431,24 +1431,24 @@ namespace Gaia
             if (PrefabUtility.GetPrefabType(prefab) != PrefabType.None)
             {
                 //Create names array
-                Dictionary<string, string> names = new Dictionary<string, string>();
+                var names = new Dictionary<string, string>();
 
                 //Create space for larger array
-                ResourceProtoGameObject[] pgos = new ResourceProtoGameObject[m_gameObjectPrototypes.Length + 1];
+                var pgos = new ResourceProtoGameObject[m_gameObjectPrototypes.Length + 1];
 
                 //Copy existing items across
-                for (int idx = 0; idx < m_gameObjectPrototypes.Length; idx++)
+                for (var idx = 0; idx < m_gameObjectPrototypes.Length; idx++)
                 {
                     pgos[idx] = m_gameObjectPrototypes[idx];
                     names.Add(pgos[idx].m_name, pgos[idx].m_name);
                 }
 
                 //Create the new game object prototype
-                ResourceProtoGameObject pgo = new ResourceProtoGameObject();
+                var pgo = new ResourceProtoGameObject();
                 pgo.m_name = GetUniqueName(prefab.name, ref names);
 
                 //Create and store prefab in instances
-                ResourceProtoGameObjectInstance pgi = new ResourceProtoGameObjectInstance();
+                var pgi = new ResourceProtoGameObjectInstance();
                 pgi.m_rotateToSlope = true;
                 pgi.m_desktopPrefab = prefab;
                 pgi.m_name = prefab.name;
@@ -1464,7 +1464,7 @@ namespace Gaia
 
                 //Create spawn criteria
                 pgo.m_spawnCriteria = new SpawnCritera[1];
-                SpawnCritera criteria = new SpawnCritera();
+                var criteria = new SpawnCritera();
                 criteria.m_isActive = true;
                 criteria.m_virginTerrain = true;
                 criteria.m_checkType = GaiaConstants.SpawnerLocationCheckType.BoundedAreaCheck;
@@ -1503,31 +1503,31 @@ namespace Gaia
             #if UNITY_EDITOR
 
             //Create names array
-            Dictionary<string, string> names = new Dictionary<string, string>();
+            var names = new Dictionary<string, string>();
 
             //Create space for larger array
-            ResourceProtoGameObject[] pgos = new ResourceProtoGameObject[m_gameObjectPrototypes.Length + 1];
+            var pgos = new ResourceProtoGameObject[m_gameObjectPrototypes.Length + 1];
 
             //Copy existing items across
-            for (int idx = 0; idx < m_gameObjectPrototypes.Length; idx++)
+            for (var idx = 0; idx < m_gameObjectPrototypes.Length; idx++)
             {
                 pgos[idx] = m_gameObjectPrototypes[idx];
                 names.Add(pgos[idx].m_name, pgos[idx].m_name);
             }
 
             //Create the new game object prototype
-            ResourceProtoGameObject pgo = new ResourceProtoGameObject();
+            var pgo = new ResourceProtoGameObject();
 
             //Now process all of the prototypes
             Bounds localBounds;
-            Bounds globalBounds = new Bounds();
+            var globalBounds = new Bounds();
             GameObject prefab = null;
             GameObject rootGO = null;
             ResourceProtoGameObjectInstance pgi = null;
-            List<ResourceProtoGameObjectInstance> instances = new List<ResourceProtoGameObjectInstance>();
+            var instances = new List<ResourceProtoGameObjectInstance>();
 
             //First calculate the global bounds - everything will be done relative to this
-            foreach (GameObject currentInstance in prototypes)
+            foreach (var currentInstance in prototypes)
             {
                 //Calculate the bounds
                 localBounds = Gaia.Utils.GetBounds(currentInstance);
@@ -1546,7 +1546,7 @@ namespace Gaia
 
             //Then process each prototype
             rootGO = null;
-            foreach (GameObject currentInstance in prototypes)
+            foreach (var currentInstance in prototypes)
             {
                 //Get the prefab
                 prefab = PrefabUtility.GetPrefabParent(currentInstance) as GameObject;
@@ -1599,7 +1599,7 @@ namespace Gaia
 
             //Create spawn criteria
             pgo.m_spawnCriteria = new SpawnCritera[1];
-            SpawnCritera criteria = new SpawnCritera();
+            var criteria = new SpawnCritera();
             criteria.m_isActive = true;
             criteria.m_virginTerrain = true;
             criteria.m_checkType = GaiaConstants.SpawnerLocationCheckType.BoundedAreaCheck;
@@ -1688,12 +1688,12 @@ namespace Gaia
         public GameObject CreateCoverageTextureSpawner(float range)
         {
             CreateOrFindSessionManager();
-            GameObject gaiaObj = CreateOrFindGaia();
-            SpawnerGroup sg = CreateOrFindGroupSpawner();
+            var gaiaObj = CreateOrFindGaia();
+            var sg = CreateOrFindGroupSpawner();
 
-            GameObject spawnerObj = new GameObject("Coverage Texture Spawner");
+            var spawnerObj = new GameObject("Coverage Texture Spawner");
             spawnerObj.AddComponent<Spawner>();
-            Spawner spawner = spawnerObj.GetComponent<Spawner>();
+            var spawner = spawnerObj.GetComponent<Spawner>();
             spawner.m_resources = this;
             spawnerObj.transform.parent = gaiaObj.transform;
             spawnerObj.transform.position = Gaia.TerrainHelper.GetActiveTerrainCenter();
@@ -1711,7 +1711,7 @@ namespace Gaia
             spawner.m_locationIncrement = 1f;
 
             //If we have a terrain, then lets look at it, we may want to change the increment
-            Terrain terrain = Gaia.TerrainHelper.GetActiveTerrain();
+            var terrain = Gaia.TerrainHelper.GetActiveTerrain();
             if (terrain != null)
             {
                 spawner.m_locationIncrement =
@@ -1720,7 +1720,7 @@ namespace Gaia
 
             //Iterate thru all the textures and add them. Assume the first one is the base.
             SpawnRule rule;
-            for (int resIdx = 0; resIdx < m_texturePrototypes.Length; resIdx++ )
+            for (var resIdx = 0; resIdx < m_texturePrototypes.Length; resIdx++ )
             {
                 rule = new SpawnRule();
                 rule.m_name = m_texturePrototypes[resIdx].m_name;
@@ -1769,12 +1769,12 @@ namespace Gaia
         public GameObject CreateCoverageDetailSpawner(float range)
         {
             CreateOrFindSessionManager();
-            GameObject gaiaObj = CreateOrFindGaia();
-            SpawnerGroup sg = CreateOrFindGroupSpawner();
+            var gaiaObj = CreateOrFindGaia();
+            var sg = CreateOrFindGroupSpawner();
 
-            GameObject spawnerObj = new GameObject("Coverage Detail Spawner");
+            var spawnerObj = new GameObject("Coverage Detail Spawner");
             spawnerObj.AddComponent<Spawner>();
-            Spawner spawner = spawnerObj.GetComponent<Spawner>();
+            var spawner = spawnerObj.GetComponent<Spawner>();
             spawner.m_resources = this;
             spawnerObj.transform.parent = gaiaObj.transform;
             spawnerObj.transform.position = Gaia.TerrainHelper.GetActiveTerrainCenter();
@@ -1793,7 +1793,7 @@ namespace Gaia
 
             //Iterate thru all the details and add them.
             SpawnRule rule;
-            for (int resIdx = 0; resIdx < m_detailPrototypes.Length; resIdx++)
+            for (var resIdx = 0; resIdx < m_detailPrototypes.Length; resIdx++)
             {
                 rule = new SpawnRule();
                 rule.m_name = m_detailPrototypes[resIdx].m_name;
@@ -1944,7 +1944,7 @@ namespace Gaia
         public GameObject CreateOrFindGaia()
         {
             //Find or create gaia
-            GameObject gaiaObj = GameObject.Find("Gaia");
+            var gaiaObj = GameObject.Find("Gaia");
             if (gaiaObj == null)
             {
                 gaiaObj = new GameObject("Gaia");
@@ -1957,7 +1957,7 @@ namespace Gaia
         /// </summary>
         public GameObject CreateOrFindSessionManager()
         {
-            GaiaSessionManager sessMgr = GaiaSessionManager.GetSessionManager();
+            var sessMgr = GaiaSessionManager.GetSessionManager();
             ChangeSeaLevel(sessMgr.m_session.m_seaLevel);
             return sessMgr.gameObject;
         }
@@ -1969,10 +1969,10 @@ namespace Gaia
         public SpawnerGroup CreateOrFindGroupSpawner()
         {
             CreateOrFindSessionManager();
-            GameObject gaiaObj = CreateOrFindGaia();
+            var gaiaObj = CreateOrFindGaia();
 
             //Find or create the spawner group
-            GameObject sgObj = GameObject.Find("Group Spawner");
+            var sgObj = GameObject.Find("Group Spawner");
             if (sgObj == null)
             {
                 sgObj = new GameObject("Group Spawner");
@@ -1990,12 +1990,12 @@ namespace Gaia
         public GameObject CreateClusteredDetailSpawner(float range)
         {
             CreateOrFindSessionManager();
-            GameObject gaiaObj = CreateOrFindGaia();
-            SpawnerGroup sg = CreateOrFindGroupSpawner();
+            var gaiaObj = CreateOrFindGaia();
+            var sg = CreateOrFindGroupSpawner();
 
-            GameObject spawnerObj = new GameObject("Clustered Detail Spawner");
+            var spawnerObj = new GameObject("Clustered Detail Spawner");
             spawnerObj.AddComponent<Spawner>();
-            Spawner spawner = spawnerObj.GetComponent<Spawner>();
+            var spawner = spawnerObj.GetComponent<Spawner>();
             spawner.m_resources = this;
             spawnerObj.transform.parent = gaiaObj.transform;
             spawnerObj.transform.position = Gaia.TerrainHelper.GetActiveTerrainCenter();
@@ -2016,7 +2016,7 @@ namespace Gaia
 
             //Iterate thru all the details and add them.
             SpawnRule rule;
-            for (int resIdx = 0; resIdx < m_detailPrototypes.Length; resIdx++)
+            for (var resIdx = 0; resIdx < m_detailPrototypes.Length; resIdx++)
             {
                 rule = new SpawnRule();
                 rule.m_name = m_detailPrototypes[resIdx].m_name;
@@ -2053,12 +2053,12 @@ namespace Gaia
         public GameObject CreateClusteredTreeSpawner(float range)
         {
             CreateOrFindSessionManager();
-            GameObject gaiaObj = CreateOrFindGaia();
-            SpawnerGroup sg = CreateOrFindGroupSpawner();
+            var gaiaObj = CreateOrFindGaia();
+            var sg = CreateOrFindGroupSpawner();
 
-            GameObject spawnerObj = new GameObject("Clustered Tree Spawner");
+            var spawnerObj = new GameObject("Clustered Tree Spawner");
             spawnerObj.AddComponent<Spawner>();
-            Spawner spawner = spawnerObj.GetComponent<Spawner>();
+            var spawner = spawnerObj.GetComponent<Spawner>();
             spawner.m_resources = this;
             spawnerObj.transform.parent = gaiaObj.transform;
             spawnerObj.transform.position = Gaia.TerrainHelper.GetActiveTerrainCenter();
@@ -2078,7 +2078,7 @@ namespace Gaia
 
             //Iterate thru all the trees and add them.
             SpawnRule rule;
-            for (int resIdx = 0; resIdx < m_treePrototypes.Length; resIdx++)
+            for (var resIdx = 0; resIdx < m_treePrototypes.Length; resIdx++)
             {
                 rule = new SpawnRule();
                 rule.m_name = m_treePrototypes[resIdx].m_name;
@@ -2143,12 +2143,12 @@ namespace Gaia
         public GameObject CreateCoverageTreeSpawner(float range)
         {
             CreateOrFindSessionManager();
-            GameObject gaiaObj = CreateOrFindGaia();
-            SpawnerGroup sg = CreateOrFindGroupSpawner();
+            var gaiaObj = CreateOrFindGaia();
+            var sg = CreateOrFindGroupSpawner();
 
-            GameObject spawnerObj = new GameObject("Coverage Tree Spawner");
+            var spawnerObj = new GameObject("Coverage Tree Spawner");
             spawnerObj.AddComponent<Spawner>();
-            Spawner spawner = spawnerObj.GetComponent<Spawner>();
+            var spawner = spawnerObj.GetComponent<Spawner>();
             spawner.m_resources = this;
             spawnerObj.transform.parent = gaiaObj.transform;
             spawnerObj.transform.position = Gaia.TerrainHelper.GetActiveTerrainCenter();
@@ -2169,7 +2169,7 @@ namespace Gaia
 
             //Iterate thru all the trees and add them.
             SpawnRule rule;
-            for (int resIdx = 0; resIdx < m_treePrototypes.Length; resIdx++)
+            for (var resIdx = 0; resIdx < m_treePrototypes.Length; resIdx++)
             {
                 rule = new SpawnRule();
                 rule.m_name = m_treePrototypes[resIdx].m_name;
@@ -2234,12 +2234,12 @@ namespace Gaia
         public GameObject CreateCoverageGameObjectSpawner(float range)
         {
             CreateOrFindSessionManager();
-            GameObject gaiaObj = CreateOrFindGaia();
-            SpawnerGroup sg = CreateOrFindGroupSpawner();
+            var gaiaObj = CreateOrFindGaia();
+            var sg = CreateOrFindGroupSpawner();
 
-            GameObject spawnerObj = new GameObject("Coverage GameObject Spawner");
+            var spawnerObj = new GameObject("Coverage GameObject Spawner");
             spawnerObj.AddComponent<Spawner>();
-            Spawner spawner = spawnerObj.GetComponent<Spawner>();
+            var spawner = spawnerObj.GetComponent<Spawner>();
             spawner.m_resources = this;
             spawnerObj.transform.parent = gaiaObj.transform;
             spawnerObj.transform.position = Gaia.TerrainHelper.GetActiveTerrainCenter();
@@ -2260,7 +2260,7 @@ namespace Gaia
             
             //Iterate thru all the trees and add them.
             SpawnRule rule;
-            for (int resIdx = 0; resIdx < m_gameObjectPrototypes.Length; resIdx++)
+            for (var resIdx = 0; resIdx < m_gameObjectPrototypes.Length; resIdx++)
             {
                 rule = new SpawnRule();
                 rule.m_name = m_gameObjectPrototypes[resIdx].m_name;
@@ -2291,12 +2291,12 @@ namespace Gaia
         public GameObject CreateClusteredGameObjectSpawner(float range)
         {
             CreateOrFindSessionManager();
-            GameObject gaiaObj = CreateOrFindGaia();
-            SpawnerGroup sg = CreateOrFindGroupSpawner();
+            var gaiaObj = CreateOrFindGaia();
+            var sg = CreateOrFindGroupSpawner();
 
-            GameObject spawnerObj = new GameObject("Clustered GameObject Spawner");
+            var spawnerObj = new GameObject("Clustered GameObject Spawner");
             spawnerObj.AddComponent<Spawner>();
-            Spawner spawner = spawnerObj.GetComponent<Spawner>();
+            var spawner = spawnerObj.GetComponent<Spawner>();
             spawner.m_resources = this;
             spawnerObj.transform.parent = gaiaObj.transform;
             spawnerObj.transform.position = Gaia.TerrainHelper.GetActiveTerrainCenter();
@@ -2316,7 +2316,7 @@ namespace Gaia
 
             //Iterate thru all the trees and add them.
             SpawnRule rule;
-            for (int resIdx = 0; resIdx < m_gameObjectPrototypes.Length; resIdx++)
+            for (var resIdx = 0; resIdx < m_gameObjectPrototypes.Length; resIdx++)
             {
                 rule = new SpawnRule();
                 rule.m_name = m_gameObjectPrototypes[resIdx].m_name;
@@ -2410,22 +2410,22 @@ namespace Gaia
             float aR, aG, aB, aA;
 
             //Now iterate through the terrains and export them
-            for (int terrIdx = 0; terrIdx < Terrain.activeTerrains.Length; terrIdx++)
+            for (var terrIdx = 0; terrIdx < Terrain.activeTerrains.Length; terrIdx++)
             {
                 terrain = Terrain.activeTerrains[terrIdx];
                 width = terrain.terrainData.alphamapWidth;
                 height = terrain.terrainData.alphamapHeight;
                 layers = terrain.terrainData.alphamapLayers;
                 exportTexture = new Texture2D(width, height, TextureFormat.ARGB32, false);
-                float[, ,] splatMaps = terrain.terrainData.GetAlphamaps(0, 0, width, height);
+                var splatMaps = terrain.terrainData.GetAlphamaps(0, 0, width, height);
 
                 //Iterate thru the terrain
-                for (int x = 0; x < width; x++)
+                for (var x = 0; x < width; x++)
                 {
-                    for (int z = 0; z < height; z++)
+                    for (var z = 0; z < height; z++)
                     {
                         aR = aG = aB = aA = 0f;
-                        for (int t = 0; t < layers; t++)
+                        for (var t = 0; t < layers; t++)
                         {
                             pixel = m_texturePrototypes[t].m_texture.GetPixel(
                                 x % ((int)m_texturePrototypes[t].m_sizeX / m_texturePrototypes[t].m_texture.width),
@@ -2460,7 +2460,7 @@ namespace Gaia
         public string SerialiseJson()
         {
             fsData data;
-            fsSerializer serializer = new fsSerializer();
+            var serializer = new fsSerializer();
             serializer.TrySerialize(this, out data);
             return fsJsonPrinter.CompressedJson(data);
         }
@@ -2471,8 +2471,8 @@ namespace Gaia
         /// <param name="json">Source json</param>
         public void DeSerialiseJson(string json)
         {
-            fsData data = fsJsonParser.Parse(json);
-            fsSerializer serializer = new fsSerializer();
+            var data = fsJsonParser.Parse(json);
+            var serializer = new fsSerializer();
             var defaults = this;
             serializer.TryDeserialize<GaiaResource>(data, ref defaults);
         }

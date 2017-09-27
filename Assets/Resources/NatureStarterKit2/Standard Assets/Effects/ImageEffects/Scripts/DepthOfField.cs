@@ -111,18 +111,18 @@ namespace UnityStandardAssets.ImageEffects
 
             if (nearBlur && fgDilate) {
 
-                int rtW = fromTo.width/2;
-                int rtH = fromTo.height/2;
+                var rtW = fromTo.width/2;
+                var rtH = fromTo.height/2;
 
                 // capture fg coc
-                RenderTexture temp2 = RenderTexture.GetTemporary (rtW, rtH, 0, fromTo.format);
+                var temp2 = RenderTexture.GetTemporary (rtW, rtH, 0, fromTo.format);
                 Graphics.Blit (fromTo, temp2, dofHdrMaterial, 4);
 
                 // special blur
-                float fgAdjustment = internalBlurWidth * foregroundOverlap;
+                var fgAdjustment = internalBlurWidth * foregroundOverlap;
 
                 dofHdrMaterial.SetVector ("_Offsets", new Vector4 (0.0f, fgAdjustment , 0.0f, fgAdjustment));
-                RenderTexture temp1 = RenderTexture.GetTemporary (rtW, rtH, 0, fromTo.format);
+                var temp1 = RenderTexture.GetTemporary (rtW, rtH, 0, fromTo.format);
                 Graphics.Blit (temp2, temp1, dofHdrMaterial, 2);
                 RenderTexture.ReleaseTemporary(temp2);
 
@@ -168,7 +168,7 @@ namespace UnityStandardAssets.ImageEffects
             RenderTexture rtLow2 = null;
             RenderTexture rtSuperLow1 = null;
             RenderTexture rtSuperLow2 = null;
-            float fgBlurDist = internalBlurWidth * foregroundOverlap;
+            var fgBlurDist = internalBlurWidth * foregroundOverlap;
 
             if (visualizeFocus)
             {
@@ -359,7 +359,7 @@ namespace UnityStandardAssets.ImageEffects
                 rtLow = RenderTexture.GetTemporary (source.width >> 1, source.height >> 1, 0, source.format);
                 rtLow2 = RenderTexture.GetTemporary (source.width >> 1, source.height >> 1, 0, source.format);
 
-                int blurPass = (blurSampleCount == BlurSampleCount.High || blurSampleCount == BlurSampleCount.Medium) ? 17 : 11;
+                var blurPass = (blurSampleCount == BlurSampleCount.High || blurSampleCount == BlurSampleCount.Medium) ? 17 : 11;
 
                 if (highResolution) {
                     dofHdrMaterial.SetVector ("_Offsets", new Vector4 (0.0f, internalBlurWidth, 0.025f, internalBlurWidth));

@@ -452,7 +452,7 @@ namespace Gaia
             if (Application.isPlaying)
             {
                 //Disable area bounds colliders
-                Transform collTrans = this.transform.Find("Bounds_ColliderCache");
+                var collTrans = this.transform.Find("Bounds_ColliderCache");
                 if (collTrans != null)
                 {
                     m_areaBoundsColliderCache = collTrans.gameObject;
@@ -494,12 +494,12 @@ namespace Gaia
             m_spawnColliderLayer = Gaia.TerrainHelper.GetActiveTerrainLayerAsInt();
 
             //Destroy any children
-            List<Transform> transList = new List<Transform>();
+            var transList = new List<Transform>();
             foreach (Transform child in transform)
             {
                 transList.Add(child);
             }
-            foreach (Transform child in transList)
+            foreach (var child in transList)
             {
                 if (Application.isPlaying)
                 {
@@ -538,7 +538,7 @@ namespace Gaia
            ResetRandomGenertor();
 
             //Get terrain height - assume all terrains same height
-            Terrain t = TerrainHelper.GetTerrain(transform.position);
+            var t = TerrainHelper.GetTerrain(transform.position);
             if (t != null)
             {
                 m_terrainHeight = t.terrainData.size.y;    
@@ -548,7 +548,7 @@ namespace Gaia
             m_spawnerBounds = new Bounds(transform.position, new Vector3(m_spawnRange * 2f, m_spawnRange * 2f, m_spawnRange * 2f));
 
             //Update the rule counters
-            foreach (SpawnRule rule in m_spawnerRules)
+            foreach (var rule in m_spawnerRules)
             {
                 rule.m_currInstanceCnt = 0;
                 rule.m_activeInstanceCnt = 0;
@@ -610,7 +610,7 @@ namespace Gaia
             }
 
             //Initialise spawner themselves
-            foreach (SpawnRule rule in m_spawnerRules)
+            foreach (var rule in m_spawnerRules)
             {
                 rule.Initialise(this);
             }
@@ -639,7 +639,7 @@ namespace Gaia
         public void SetUpSpawnerTypeFlags()
         {
             m_isDetailSpawner = false;
-            for (int ruleIdx = 0; ruleIdx < m_spawnerRules.Count; ruleIdx++)
+            for (var ruleIdx = 0; ruleIdx < m_spawnerRules.Count; ruleIdx++)
             {
                 if (m_spawnerRules[ruleIdx].m_resourceType == GaiaConstants.SpawnerResourceType.TerrainDetail)
                 {
@@ -649,7 +649,7 @@ namespace Gaia
             }
 
             m_isTextureSpawner = false;
-            for (int ruleIdx = 0; ruleIdx < m_spawnerRules.Count; ruleIdx++)
+            for (var ruleIdx = 0; ruleIdx < m_spawnerRules.Count; ruleIdx++)
             {
                 if (m_spawnerRules[ruleIdx].m_resourceType == GaiaConstants.SpawnerResourceType.TerrainTexture)
                 {
@@ -658,7 +658,7 @@ namespace Gaia
                 }
             }
 
-            for (int ruleIdx = 0; ruleIdx < m_spawnerRules.Count; ruleIdx++)
+            for (var ruleIdx = 0; ruleIdx < m_spawnerRules.Count; ruleIdx++)
             {
                 if (m_spawnerRules[ruleIdx].m_resourceType == GaiaConstants.SpawnerResourceType.TerrainTree)
                 {
@@ -668,7 +668,7 @@ namespace Gaia
             }
 
             m_isGameObjectSpawner = false;
-            for (int ruleIdx = 0; ruleIdx < m_spawnerRules.Count; ruleIdx++)
+            for (var ruleIdx = 0; ruleIdx < m_spawnerRules.Count; ruleIdx++)
             {
                 if (m_spawnerRules[ruleIdx].m_resourceType == GaiaConstants.SpawnerResourceType.GameObject)
                 {
@@ -700,10 +700,10 @@ namespace Gaia
         /// <returns>Array of the resources that are missing</returns>
         public int[] GetMissingResources()
         {
-            List<int> missingRes = new List<int>();
+            var missingRes = new List<int>();
 
             //Initialise spawner themselves
-            for (int ruleIdx = 0; ruleIdx < m_spawnerRules.Count; ruleIdx++)
+            for (var ruleIdx = 0; ruleIdx < m_spawnerRules.Count; ruleIdx++)
             {
                 if (m_spawnerRules[ruleIdx].m_isActive == true) //Only care about active resources
                 {
@@ -723,7 +723,7 @@ namespace Gaia
         /// <param name="rules">Index of rules with resources that should be added to the terrain</param>
         public void AddResourcesToTerrain(int [] rules)
         {
-            for (int ruleIdx = 0; ruleIdx < rules.GetLength(0); ruleIdx++)
+            for (var ruleIdx = 0; ruleIdx < rules.GetLength(0); ruleIdx++)
             {
                 if (!m_spawnerRules[rules[ruleIdx]].ResourceIsLoadedInTerrain(this))
                 {
@@ -815,8 +815,8 @@ namespace Gaia
         private bool CanSpawnInstances()
         {
             SpawnRule rule;
-            bool canSpawnInstances = false;
-            for (int ruleIdx = 0; ruleIdx < m_spawnerRules.Count; ruleIdx++)
+            var canSpawnInstances = false;
+            for (var ruleIdx = 0; ruleIdx < m_spawnerRules.Count; ruleIdx++)
             {
                 rule = m_spawnerRules[ruleIdx];
                 if (rule.m_isActive)
@@ -871,7 +871,7 @@ namespace Gaia
 			}
 
             //Call out any issues with terrain height
-            Terrain t = TerrainHelper.GetTerrain(transform.position);
+            var t = TerrainHelper.GetTerrain(transform.position);
             if (t != null)
             {
                 m_terrainHeight = t.terrainData.size.y;
@@ -885,8 +885,8 @@ namespace Gaia
             if (m_mode == GaiaConstants.OperationMode.RuntimeTriggeredInterval)
             {
                 m_checkDistance = m_triggerRange + 1f;
-                List<GameObject> triggerObjects = new List<GameObject>();
-                string[] tags = new string[0];
+                var triggerObjects = new List<GameObject>();
+                var tags = new string[0];
                 if (!string.IsNullOrEmpty(m_triggerTags))
                 {
                     tags = m_triggerTags.Split(',');
@@ -895,7 +895,7 @@ namespace Gaia
                 {
                     Debug.LogError("You have not supplied a trigger tag. Spawner will not spawn!");
                 }
-                int idx = 0;
+                var idx = 0;
                 if (m_triggerTags.Length > 0 &&  tags.Length > 0)
                 {
                     //Grab the tagged objects
@@ -992,19 +992,19 @@ namespace Gaia
             int ruleIdx;
             float fitness, maxFitness, selectedFitness;
             SpawnRule rule, fittestRule, selectedRule;
-            SpawnInfo spawnInfo = new SpawnInfo();
+            var spawnInfo = new SpawnInfo();
             SpawnLocation spawnLocation;
-            List<SpawnLocation> spawnLocations = new List<SpawnLocation>();
-            int spawnLocationsIdx = 0;
-            int failedSpawns = 0;
+            var spawnLocations = new List<SpawnLocation>();
+            var spawnLocationsIdx = 0;
+            var failedSpawns = 0;
 
             //Set progress
             m_spawnProgress = 0f;
             m_spawnComplete = false;
 
             //Time control for enumeration
-            float currentTime = Time.realtimeSinceStartup;
-            float accumulatedTime = 0.0f;
+            var currentTime = Time.realtimeSinceStartup;
+            var accumulatedTime = 0.0f;
 
             //Set up the texture layer array in spawn info
             spawnInfo.m_textureStrengths = new float[Terrain.activeTerrain.terrainData.alphamapLayers];
@@ -1016,7 +1016,7 @@ namespace Gaia
             LoadImageMask();
 
             //Run the location checks
-            for (int checks = 0; checks < m_locationChecksPerInt; checks++)
+            for (var checks = 0; checks < m_locationChecksPerInt; checks++)
             {
                 //Create the spawn location
                 spawnLocation = new SpawnLocation();
@@ -1176,8 +1176,8 @@ namespace Gaia
 
                 //Update progress and yield periodiocally
                 m_spawnProgress = (float)checks / (float)m_locationChecksPerInt;
-                float newTime = Time.realtimeSinceStartup;
-                float stepTime = newTime - currentTime;
+                var newTime = Time.realtimeSinceStartup;
+                var stepTime = newTime - currentTime;
                 currentTime = newTime;
                 accumulatedTime += stepTime;
                 if (accumulatedTime > m_updateTimeAllowed)
@@ -1219,8 +1219,8 @@ namespace Gaia
             int ruleIdx;
             float fitness, maxFitness, selectedFitness;
             SpawnRule rule, fittestRule, selectedRule;
-            SpawnInfo spawnInfo = new SpawnInfo();
-            Vector3 location = new Vector3();
+            var spawnInfo = new SpawnInfo();
+            var location = new Vector3();
             long currChecks, totalChecks;
             float xWUMin, xWUMax, yMid, zWUMin, zWUMax, jitMin, jitMax;
             float xWU, zWU;
@@ -1230,8 +1230,8 @@ namespace Gaia
             m_spawnComplete = false;
 
             //Time control for enumeration
-            float currentTime = Time.realtimeSinceStartup;
-            float accumulatedTime = 0.0f;
+            var currentTime = Time.realtimeSinceStartup;
+            var accumulatedTime = 0.0f;
 
             //Create spawn caches
             CreateSpawnCaches();
@@ -1367,10 +1367,10 @@ namespace Gaia
                         //If it caused textures to be updated then apply them
                         if (m_textureMapsDirty)
                         {
-                            List<HeightMap> txtMaps = spawnInfo.m_spawner.GetTextureMaps(spawnInfo.m_hitTerrain.GetInstanceID());
+                            var txtMaps = spawnInfo.m_spawner.GetTextureMaps(spawnInfo.m_hitTerrain.GetInstanceID());
                             if (txtMaps != null)
                             {
-                                for (int idx = 0; idx < spawnInfo.m_textureStrengths.Length; idx++)
+                                for (var idx = 0; idx < spawnInfo.m_textureStrengths.Length; idx++)
                                 {
                                     //if ((int)spawnInfo.m_hitLocationWU.z == 1023)
                                     //{
@@ -1386,8 +1386,8 @@ namespace Gaia
 
                     //Update progress and yield periodiocally
                     m_spawnProgress = (float)currChecks / (float)totalChecks;
-                    float newTime = Time.realtimeSinceStartup;
-                    float stepTime = newTime - currentTime;
+                    var newTime = Time.realtimeSinceStartup;
+                    var stepTime = newTime - currentTime;
                     currentTime = newTime;
                     accumulatedTime += stepTime;
                     if (accumulatedTime > m_updateTimeAllowed)
@@ -1422,7 +1422,7 @@ namespace Gaia
         /// </summary>
         public void GroundToTerrain()
         {
-            Terrain t = Gaia.TerrainHelper.GetTerrain(transform.position);
+            var t = Gaia.TerrainHelper.GetTerrain(transform.position);
             if (t == null)
             {
                 t = Terrain.activeTerrain;
@@ -1433,7 +1433,7 @@ namespace Gaia
                 return;
             }
 
-            Bounds b = new Bounds();
+            var b = new Bounds();
             if (TerrainHelper.GetTerrainBounds(t, ref b))
             {
                 transform.position = new Vector3(transform.position.x, t.transform.position.y, transform.position.z);
@@ -1445,7 +1445,7 @@ namespace Gaia
         /// </summary>
         public void FitToTerrain()
         {
-            Terrain t = Gaia.TerrainHelper.GetTerrain(transform.position);
+            var t = Gaia.TerrainHelper.GetTerrain(transform.position);
             if (t == null)
             {
                 t = Terrain.activeTerrain;
@@ -1456,7 +1456,7 @@ namespace Gaia
                 return;
             }
 
-            Bounds b = new Bounds();
+            var b = new Bounds();
             if (TerrainHelper.GetTerrainBounds(t, ref b))
             {
                 transform.position = new Vector3(b.center.x, t.transform.position.y, b.center.z);
@@ -1470,7 +1470,7 @@ namespace Gaia
         /// <returns>True if its a match</returns>
         public bool IsFitToTerrain()
         {
-            Terrain t = Gaia.TerrainHelper.GetTerrain(transform.position);
+            var t = Gaia.TerrainHelper.GetTerrain(transform.position);
             if (t == null)
             {
                 t = Terrain.activeTerrain;
@@ -1481,7 +1481,7 @@ namespace Gaia
                 return false;
             }
 
-            Bounds b = new Bounds();
+            var b = new Bounds();
             if (TerrainHelper.GetTerrainBounds(t, ref b))
             {
                 if (
@@ -1530,9 +1530,9 @@ namespace Gaia
 
                 //Load the image
                 m_imageMaskHM = new HeightMap(m_imageMask.width, m_imageMask.height);
-                for (int x = 0; x < m_imageMaskHM.Width(); x++)
+                for (var x = 0; x < m_imageMaskHM.Width(); x++)
                 {
-                    for (int z = 0; z < m_imageMaskHM.Depth(); z++)
+                    for (var z = 0; z < m_imageMaskHM.Depth(); z++)
                     {
                         switch (m_areaMaskMode)
                         {
@@ -1564,7 +1564,7 @@ namespace Gaia
                     return false;
                 }
 
-                Terrain t = Terrain.activeTerrain;
+                var t = Terrain.activeTerrain;
                 switch (m_areaMaskMode)
                 {
                     case GaiaConstants.ImageFitnessFilterMode.TerrainTexture0:
@@ -1696,7 +1696,7 @@ namespace Gaia
             }
 
             m_cacheTags = false;
-            List<string> tagList = new List<string>();
+            var tagList = new List<string>();
             for (idx = 0; idx < m_spawnerRules.Count; idx++)
             {
                 m_spawnerRules[idx].AddProximityTags(this, ref tagList);
@@ -1759,7 +1759,7 @@ namespace Gaia
                         m_cacheTextures = true;
 
                         //Check for proximity tags
-                        List<string> tagList = new List<string>();
+                        var tagList = new List<string>();
                         m_resources.m_texturePrototypes[resourceIdx].AddTags(ref tagList);
                         if (tagList.Count > 0)
                         {
@@ -1789,7 +1789,7 @@ namespace Gaia
                         }
 
                         //Check for proximity tags
-                        List<string> tagList = new List<string>();
+                        var tagList = new List<string>();
                         m_resources.m_detailPrototypes[resourceIdx].AddTags(ref tagList);
                         if (tagList.Count > 0)
                         {
@@ -1815,7 +1815,7 @@ namespace Gaia
                         }
 
                         //Check for proximity tags
-                        List<string> tagList = new List<string>();
+                        var tagList = new List<string>();
                         m_resources.m_treePrototypes[resourceIdx].AddTags(ref tagList);
                         if (tagList.Count > 0)
                         {
@@ -1841,7 +1841,7 @@ namespace Gaia
                         }
 
                         //Check for proximity tags
-                        List<string> tagList = new List<string>();
+                        var tagList = new List<string>();
                         m_resources.m_gameObjectPrototypes[resourceIdx].AddTags(ref tagList);
                         if (tagList.Count > 0)
                         {
@@ -1970,8 +1970,8 @@ namespace Gaia
                         {
                             if (m_imageMaskHM.HasData())
                             {
-                                float x = (spawnInfo.m_hitLocationWU.x - (transform.position.x - m_spawnRange)) / (m_spawnRange * 2f);
-                                float z = (spawnInfo.m_hitLocationWU.z - (transform.position.z - m_spawnRange)) / (m_spawnRange * 2f);
+                                var x = (spawnInfo.m_hitLocationWU.x - (transform.position.x - m_spawnRange)) / (m_spawnRange * 2f);
+                                var z = (spawnInfo.m_hitLocationWU.z - (transform.position.z - m_spawnRange)) / (m_spawnRange * 2f);
                                 spawnInfo.m_fitness *= m_imageMaskHM[x, z];
                             }
                         }
@@ -2083,8 +2083,8 @@ namespace Gaia
                 {
                     spawnInfo.m_hitTerrain = terrain;
                     spawnInfo.m_terrainHeightWU = terrain.SampleHeight(m_checkHitInfo.point);
-                    Vector3 terrainLocalPos = terrain.transform.InverseTransformPoint(m_checkHitInfo.point);
-                    Vector3 normalizedPos = new Vector3(Mathf.InverseLerp(0.0f, terrain.terrainData.size.x, terrainLocalPos.x),
+                    var terrainLocalPos = terrain.transform.InverseTransformPoint(m_checkHitInfo.point);
+                    var normalizedPos = new Vector3(Mathf.InverseLerp(0.0f, terrain.terrainData.size.x, terrainLocalPos.x),
                                                         Mathf.InverseLerp(0.0f, terrain.terrainData.size.y, terrainLocalPos.y),
                                                         Mathf.InverseLerp(0.0f, terrain.terrainData.size.z, terrainLocalPos.z));
                     spawnInfo.m_hitLocationNU = normalizedPos;
@@ -2104,16 +2104,16 @@ namespace Gaia
                     //Grab the textures
                     if (m_textureMapCache != null && m_textureMapCache.Count > 0)
                     {
-                        List<HeightMap> hms = m_textureMapCache[terrain.GetInstanceID()];
-                        for (int i = 0; i < spawnInfo.m_textureStrengths.Length; i++)
+                        var hms = m_textureMapCache[terrain.GetInstanceID()];
+                        for (var i = 0; i < spawnInfo.m_textureStrengths.Length; i++)
                         {
                             spawnInfo.m_textureStrengths[i] = hms[i][normalizedPos.z, normalizedPos.x];
                         }
                     }
                     else
                     {
-                        float[, ,] hms = terrain.terrainData.GetAlphamaps((int)(normalizedPos.x * (float)(terrain.terrainData.alphamapWidth-1)), (int)(normalizedPos.z * (float)(terrain.terrainData.alphamapHeight-1)), 1, 1);
-                        for (int i = 0; i < spawnInfo.m_textureStrengths.Length; i++)
+                        var hms = terrain.terrainData.GetAlphamaps((int)(normalizedPos.x * (float)(terrain.terrainData.alphamapWidth-1)), (int)(normalizedPos.z * (float)(terrain.terrainData.alphamapHeight-1)), 1, 1);
+                        for (var i = 0; i < spawnInfo.m_textureStrengths.Length; i++)
                         {
                             spawnInfo.m_textureStrengths[i] = hms[0, 0, i];
                         }
@@ -2146,10 +2146,10 @@ namespace Gaia
 
             //Run ray traced hits to check the lay of the land - if we dont get a hit then we are off terrain and will fail
             RaycastHit hit;
-            Vector3 localPos = Vector3.zero;
-            Vector3 normPos = Vector3.zero;
-            float terrainHeight = 0f;
-            float terrainSlope = 0f;
+            var localPos = Vector3.zero;
+            var normPos = Vector3.zero;
+            var terrainHeight = 0f;
+            var terrainSlope = 0f;
             Terrain terrain;
 
             //First check the main volume under the original position for non terrain related hits
@@ -2378,8 +2378,8 @@ namespace Gaia
 
             //Now update the slopes and spawninfo
             spawnInfo.m_areaAvgSlopeWU = spawnInfo.m_areaAvgSlopeWU / 5f;
-            float dx = spawnInfo.m_areaHitsWU[0].y - spawnInfo.m_areaHitsWU[1].y;
-            float dz = spawnInfo.m_areaHitsWU[2].y - spawnInfo.m_areaHitsWU[3].y;
+            var dx = spawnInfo.m_areaHitsWU[0].y - spawnInfo.m_areaHitsWU[1].y;
+            var dz = spawnInfo.m_areaHitsWU[2].y - spawnInfo.m_areaHitsWU[3].y;
             spawnInfo.m_areaHitSlopeWU = Gaia.Utils.Math_Clamp(0f, 90f, (float)(Math.Sqrt((dx * dx) + (dz * dz))));
             
             return true;
@@ -2399,7 +2399,7 @@ namespace Gaia
             m_inactiveInstanceCnt = 0;
             m_totalInstanceCnt = 0;
 
-            foreach (SpawnRule rule in m_spawnerRules)
+            foreach (var rule in m_spawnerRules)
             {
                 m_totalRuleCnt++;
                 if (rule.m_isActive)
@@ -2449,7 +2449,7 @@ namespace Gaia
                 //Water
                 if (m_resources != null)
                 {
-                    Bounds bounds = new Bounds();
+                    var bounds = new Bounds();
                     if (TerrainHelper.GetTerrainBounds(transform.position, ref bounds) == true)
                     {
                         bounds.center = new Vector3(bounds.center.x, m_resources.m_seaLevel, bounds.center.z);
@@ -2479,16 +2479,16 @@ namespace Gaia
 
             //Now find the terrain and load them for the specified terrain
             Terrain terrain;
-            for (int terrIdx = 0; terrIdx < Terrain.activeTerrains.Length; terrIdx++)
+            for (var terrIdx = 0; terrIdx < Terrain.activeTerrains.Length; terrIdx++)
             {
                 terrain = Terrain.activeTerrains[terrIdx];
                 if (terrain.GetInstanceID() == terrainID)
                 {
-                    float[, ,] splatMaps = terrain.terrainData.GetAlphamaps(0, 0, terrain.terrainData.alphamapWidth, terrain.terrainData.alphamapHeight);
-                    List<HeightMap> textureMapList = new List<HeightMap>();
-                    for (int txtIdx = 0; txtIdx < terrain.terrainData.alphamapLayers; txtIdx++)
+                    var splatMaps = terrain.terrainData.GetAlphamaps(0, 0, terrain.terrainData.alphamapWidth, terrain.terrainData.alphamapHeight);
+                    var textureMapList = new List<HeightMap>();
+                    for (var txtIdx = 0; txtIdx < terrain.terrainData.alphamapLayers; txtIdx++)
                     {
-                        HeightMap txtMap = new HeightMap(splatMaps, txtIdx);
+                        var txtMap = new HeightMap(splatMaps, txtIdx);
                         textureMapList.Add(txtMap);
                     }
                     m_textureMapCache[terrainID] = textureMapList;
@@ -2538,7 +2538,7 @@ namespace Gaia
             }
 
             //Locate the terrain
-            for (int terrIdx = 0; terrIdx < Terrain.activeTerrains.Length; terrIdx++)
+            for (var terrIdx = 0; terrIdx < Terrain.activeTerrains.Length; terrIdx++)
             {
                 terrain = Terrain.activeTerrains[terrIdx];
                 if (terrain.GetInstanceID() == terrainID)
@@ -2550,13 +2550,13 @@ namespace Gaia
                         return;
                     }
 
-                    float[,,] splatMaps = new float[terrain.terrainData.alphamapWidth, terrain.terrainData.alphamapHeight, terrain.terrainData.alphamapLayers];
-                    for (int txtIdx = 0; txtIdx < terrain.terrainData.alphamapLayers; txtIdx++)
+                    var splatMaps = new float[terrain.terrainData.alphamapWidth, terrain.terrainData.alphamapHeight, terrain.terrainData.alphamapLayers];
+                    for (var txtIdx = 0; txtIdx < terrain.terrainData.alphamapLayers; txtIdx++)
                     {
                         txtMap = txtMapList[txtIdx];
-                        for (int x = 0; x < txtMap.Width(); x++)
+                        for (var x = 0; x < txtMap.Width(); x++)
                         {
-                            for (int z = 0; z < txtMap.Depth(); z++)
+                            for (var z = 0; z < txtMap.Depth(); z++)
                             {
                                 splatMaps[x, z, txtIdx] = txtMap[x, z];
                             }
@@ -2602,15 +2602,15 @@ namespace Gaia
 
             //Now find the terrain and load them for the specified terrain
             Terrain terrain;
-            for (int terrIdx = 0; terrIdx < Terrain.activeTerrains.Length; terrIdx++)
+            for (var terrIdx = 0; terrIdx < Terrain.activeTerrains.Length; terrIdx++)
             {
                 terrain = Terrain.activeTerrains[terrIdx];
                 if (terrain.GetInstanceID() == terrainID)
                 {
-                    List<HeightMap> detailMapList = new List<HeightMap>();
-                    for (int dtlIdx = 0; dtlIdx < terrain.terrainData.detailPrototypes.Length; dtlIdx++)
+                    var detailMapList = new List<HeightMap>();
+                    for (var dtlIdx = 0; dtlIdx < terrain.terrainData.detailPrototypes.Length; dtlIdx++)
                     {
-                        HeightMap dtlMap = new HeightMap(terrain.terrainData.GetDetailLayer(0,0, terrain.terrainData.detailWidth, terrain.terrainData.detailHeight, dtlIdx));
+                        var dtlMap = new HeightMap(terrain.terrainData.GetDetailLayer(0,0, terrain.terrainData.detailWidth, terrain.terrainData.detailHeight, dtlIdx));
                         detailMapList.Add(dtlMap);
                     }
                     m_detailMapCache[terrainID] = detailMapList;
@@ -2645,7 +2645,7 @@ namespace Gaia
             }
 
             //Locate the terrain
-            for (int terrIdx = 0; terrIdx < Terrain.activeTerrains.Length; terrIdx++)
+            for (var terrIdx = 0; terrIdx < Terrain.activeTerrains.Length; terrIdx++)
             {
                 terrain = Terrain.activeTerrains[terrIdx];
                 if (terrain.GetInstanceID() == terrainID)
@@ -2658,13 +2658,13 @@ namespace Gaia
                     }
 
                     //Mow iterate thru and apply back
-                    int[,] dtlMapArray = new int[dtlMapList[0].Width(), dtlMapList[0].Depth()];
-                    for (int dtlIdx = 0; dtlIdx < terrain.terrainData.detailPrototypes.Length; dtlIdx++)
+                    var dtlMapArray = new int[dtlMapList[0].Width(), dtlMapList[0].Depth()];
+                    for (var dtlIdx = 0; dtlIdx < terrain.terrainData.detailPrototypes.Length; dtlIdx++)
                     {
                         dtlMap = dtlMapList[dtlIdx];
-                        for (int x = 0; x < dtlMap.Width(); x++)
+                        for (var x = 0; x < dtlMap.Width(); x++)
                         {
-                            for (int z = 0; z < dtlMap.Depth(); z++)
+                            for (var z = 0; z < dtlMap.Depth(); z++)
                             {
                                 dtlMapArray[x,z] = (int)dtlMap[x, z];
                             }
@@ -2732,10 +2732,10 @@ namespace Gaia
         public void AddToSession(GaiaOperation.OperationType opType, string opName)
         {
             //Update the session
-            GaiaSessionManager sessionMgr = GaiaSessionManager.GetSessionManager();
+            var sessionMgr = GaiaSessionManager.GetSessionManager();
             if (sessionMgr != null && sessionMgr.IsLocked() != true)
             {
-                GaiaOperation op = new GaiaOperation();
+                var op = new GaiaOperation();
                 op.m_description = opName;
                 op.m_generatedByID = m_spawnerID;
                 op.m_generatedByName = transform.name;
@@ -2762,7 +2762,7 @@ namespace Gaia
             #endif
 
             fsData data;
-            fsSerializer serializer = new fsSerializer();
+            var serializer = new fsSerializer();
             serializer.TrySerialize(this, out data);
 
             //Debug.Log(fsJsonPrinter.PrettyJson(data));
@@ -2776,8 +2776,8 @@ namespace Gaia
         /// <param name="json">Source json</param>
         public void DeSerialiseJson(string json)
         {
-            fsData data = fsJsonParser.Parse(json);
-            fsSerializer serializer = new fsSerializer();
+            var data = fsJsonParser.Parse(json);
+            var serializer = new fsSerializer();
             var spawner = this;
             serializer.TryDeserialize<Spawner>(data, ref spawner);
             spawner.m_resources = Gaia.Utils.GetAsset(m_resourcesPath, typeof(Gaia.GaiaResource)) as Gaia.GaiaResource;
@@ -2796,7 +2796,7 @@ namespace Gaia
             AddToSession(GaiaOperation.OperationType.FlattenTerrain, "Flattening terrain");
 
             //Get an undo buffer
-            GaiaWorldManager mgr = new GaiaWorldManager(Terrain.activeTerrains);
+            var mgr = new GaiaWorldManager(Terrain.activeTerrains);
             mgr.FlattenWorld();
         }
 
@@ -2809,7 +2809,7 @@ namespace Gaia
             AddToSession(GaiaOperation.OperationType.SmoothTerrain, "Smoothing terrain");
 
             //Smooth the world
-            GaiaWorldManager mgr = new GaiaWorldManager(Terrain.activeTerrains);
+            var mgr = new GaiaWorldManager(Terrain.activeTerrains);
             mgr.SmoothWorld();
         }
 
@@ -2850,7 +2850,7 @@ namespace Gaia
 
             //Now find the terrain and load them for the specified terrain
             Terrain terrain;
-            for (int terrIdx = 0; terrIdx < Terrain.activeTerrains.Length; terrIdx++)
+            for (var terrIdx = 0; terrIdx < Terrain.activeTerrains.Length; terrIdx++)
             {
                 terrain = Terrain.activeTerrains[terrIdx];
                 if (terrain.GetInstanceID() == terrainID)
@@ -2894,7 +2894,7 @@ namespace Gaia
             }
 
             //Locate the terrain and update it
-            for (int terrIdx = 0; terrIdx < Terrain.activeTerrains.Length; terrIdx++)
+            for (var terrIdx = 0; terrIdx < Terrain.activeTerrains.Length; terrIdx++)
             {
                 terrain = Terrain.activeTerrains[terrIdx];
                 if (terrain.GetInstanceID() == terrainID)
@@ -2935,7 +2935,7 @@ namespace Gaia
             }
 
             //Get the list of stamps for this spawner
-            for (int idx = 0; idx < stampList.Count; idx++)
+            for (var idx = 0; idx < stampList.Count; idx++)
             {
 
 
@@ -2961,10 +2961,10 @@ namespace Gaia
             string tag;
             bool foundTag;
             Quadtree<GameObject> quadtree;
-            Rect pos = new Rect(Terrain.activeTerrain.transform.position.x, Terrain.activeTerrain.transform.position.z, 
+            var pos = new Rect(Terrain.activeTerrain.transform.position.x, Terrain.activeTerrain.transform.position.z, 
                 Terrain.activeTerrain.terrainData.size.x, Terrain.activeTerrain.terrainData.size.z);
 
-            for (int tagIdx = 0; tagIdx < tagList.Count; tagIdx++)
+            for (var tagIdx = 0; tagIdx < tagList.Count; tagIdx++)
             {
                 //Check that unity knows about the tag
 
@@ -2973,7 +2973,7 @@ namespace Gaia
                 if (!string.IsNullOrEmpty(tag))
                 {
                     #if UNITY_EDITOR
-                    for (int idx = 0; idx < UnityEditorInternal.InternalEditorUtility.tags.Length; idx++)
+                    for (var idx = 0; idx < UnityEditorInternal.InternalEditorUtility.tags.Length; idx++)
                     {
                         if (UnityEditorInternal.InternalEditorUtility.tags[idx].Contains(tag))
                         {
@@ -2997,8 +2997,8 @@ namespace Gaia
                     }
                     GameObject go;
                     Vector2 go2DPos;
-                    GameObject[] gos = GameObject.FindGameObjectsWithTag(tag);
-                    for (int goIdx = 0; goIdx < gos.Length; goIdx++)
+                    var gos = GameObject.FindGameObjectsWithTag(tag);
+                    for (var goIdx = 0; goIdx < gos.Length; goIdx++)
                     {
                         go = gos[goIdx];
 
@@ -3030,9 +3030,9 @@ namespace Gaia
         public List<GameObject> GetNearbyObjects(List<string>tagList, Rect area)
         {
             string tag;
-            List<GameObject> gameObjects = new List<GameObject>();
+            var gameObjects = new List<GameObject>();
             Quadtree<GameObject> quadtree;
-            for (int tagIdx = 0; tagIdx < tagList.Count; tagIdx++)
+            for (var tagIdx = 0; tagIdx < tagList.Count; tagIdx++)
             {
                 quadtree = null;
                 tag = tagList[tagIdx];
@@ -3040,8 +3040,8 @@ namespace Gaia
                 //Process each tag
                 if (m_taggedGameObjectCache.TryGetValue(tag, out quadtree))
                 {
-                    IEnumerable<GameObject> gameObjs = quadtree.Find(area);
-                    foreach (GameObject go in gameObjs)
+                    var gameObjs = quadtree.Find(area);
+                    foreach (var go in gameObjs)
                     {
                         gameObjects.Add(go);
                     }
@@ -3060,10 +3060,10 @@ namespace Gaia
         {
             string tag;
             float distance;
-            float closestDistance = float.MaxValue;
+            var closestDistance = float.MaxValue;
             GameObject closestGo = null;
             Quadtree<GameObject> quadtree;
-            for (int tagIdx = 0; tagIdx < tagList.Count; tagIdx++)
+            for (var tagIdx = 0; tagIdx < tagList.Count; tagIdx++)
             {
                 quadtree = null;
                 tag = tagList[tagIdx];
@@ -3071,8 +3071,8 @@ namespace Gaia
                 //Process each tag
                 if (m_taggedGameObjectCache.TryGetValue(tag, out quadtree))
                 {
-                    IEnumerable<GameObject> gameObjs = quadtree.Find(area);
-                    foreach (GameObject go in gameObjs)
+                    var gameObjs = quadtree.Find(area);
+                    foreach (var go in gameObjs)
                     {
                         distance = Vector2.Distance(area.center, new Vector2(go.transform.position.x, go.transform.position.z));
                         if (distance < closestDistance)
@@ -3100,8 +3100,8 @@ namespace Gaia
 
             if (m_taggedGameObjectCache.TryGetValue(tag, out quadtree))
             {
-                IEnumerable<GameObject> gameObjs = quadtree.Find(area);
-                foreach (GameObject go in gameObjs)
+                var gameObjs = quadtree.Find(area);
+                foreach (var go in gameObjs)
                 {
                     distance = Vector2.Distance(area.center, new Vector2(go.transform.position.x, go.transform.position.z));
                     if (distance < closestDistance)

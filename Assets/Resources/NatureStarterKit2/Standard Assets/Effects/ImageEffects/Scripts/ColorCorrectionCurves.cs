@@ -93,17 +93,17 @@ namespace UnityStandardAssets.ImageEffects
 
             if (redChannel != null && greenChannel != null && blueChannel != null)
 			{
-                for (float i = 0.0f; i <= 1.0f; i += 1.0f / 255.0f)
+                for (var i = 0.0f; i <= 1.0f; i += 1.0f / 255.0f)
 				{
-                    float rCh = Mathf.Clamp (redChannel.Evaluate(i), 0.0f, 1.0f);
-                    float gCh = Mathf.Clamp (greenChannel.Evaluate(i), 0.0f, 1.0f);
-                    float bCh = Mathf.Clamp (blueChannel.Evaluate(i), 0.0f, 1.0f);
+                    var rCh = Mathf.Clamp (redChannel.Evaluate(i), 0.0f, 1.0f);
+                    var gCh = Mathf.Clamp (greenChannel.Evaluate(i), 0.0f, 1.0f);
+                    var bCh = Mathf.Clamp (blueChannel.Evaluate(i), 0.0f, 1.0f);
 
                     rgbChannelTex.SetPixel ((int) Mathf.Floor(i*255.0f), 0, new Color(rCh,rCh,rCh) );
                     rgbChannelTex.SetPixel ((int) Mathf.Floor(i*255.0f), 1, new Color(gCh,gCh,gCh) );
                     rgbChannelTex.SetPixel ((int) Mathf.Floor(i*255.0f), 2, new Color(bCh,bCh,bCh) );
 
-                    float zC = Mathf.Clamp (zCurve.Evaluate(i), 0.0f,1.0f);
+                    var zC = Mathf.Clamp (zCurve.Evaluate(i), 0.0f,1.0f);
 
                     zCurveTex.SetPixel ((int) Mathf.Floor(i*255.0f), 0, new Color(zC,zC,zC) );
 
@@ -144,7 +144,7 @@ namespace UnityStandardAssets.ImageEffects
             if (useDepthCorrection)
                 GetComponent<Camera>().depthTextureMode |= DepthTextureMode.Depth;
 
-            RenderTexture renderTarget2Use = destination;
+            var renderTarget2Use = destination;
 
             if (selectiveCc)
 			{

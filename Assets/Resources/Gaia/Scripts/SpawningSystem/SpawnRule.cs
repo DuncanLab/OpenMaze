@@ -159,7 +159,7 @@ namespace Gaia
             {
                 if (spawner.m_goParentGameObject == null)
                 {
-                    Transform tParent = spawner.transform.Find("Spawned_GameObjects");
+                    var tParent = spawner.transform.Find("Spawned_GameObjects");
                     if (tParent == null)
                     {
                         spawner.m_goParentGameObject = new GameObject("Spawned_GameObjects");
@@ -170,10 +170,10 @@ namespace Gaia
                     }
                 }
 
-                Transform tChild = spawner.m_goParentGameObject.transform.Find(m_name);
+                var tChild = spawner.m_goParentGameObject.transform.Find(m_name);
                 if (tChild == null)
                 {
-                    GameObject spawnChild = new GameObject(m_name);
+                    var spawnChild = new GameObject(m_name);
                     spawnChild.transform.parent = spawner.m_goParentGameObject.transform;
                     tChild = spawnChild.transform;
                 }
@@ -233,7 +233,7 @@ namespace Gaia
             //Initialise extensions
             if (extensions != null)
             {
-                for (int extensionIdx = 0; extensionIdx < extensions.GetLength(0); extensionIdx++)
+                for (var extensionIdx = 0; extensionIdx < extensions.GetLength(0); extensionIdx++)
                 {
                     extensions[extensionIdx].Initialise();
                 }
@@ -340,7 +340,7 @@ namespace Gaia
 
 
             //Get the fitness modifier if we are using fractal based fitness
-            float noiseMaskModifier = 1f;
+            var noiseMaskModifier = 1f;
             if (m_noiseMask != GaiaConstants.NoiseType.None && m_noiseGenerator != null)
             {
                 if (!m_noiseInvert)
@@ -354,11 +354,11 @@ namespace Gaia
             }
 
             //Now calculate fitness
-            float maxFitness = float.MinValue;
+            var maxFitness = float.MinValue;
             int filterIdx, extensionIdx;
             SpawnCritera filter;
             SpawnRuleExtension extension;
-            float fitness = 0f;
+            var fitness = 0f;
 
             for (filterIdx = 0; filterIdx < filters.Length; filterIdx++)
             {
@@ -573,7 +573,7 @@ namespace Gaia
             }
 
             int xtnIdx;
-            bool overrideSpawn = false;
+            var overrideSpawn = false;
             if (extensions != null)
             {
                 for (xtnIdx = 0; xtnIdx < extensions.GetLength(0); xtnIdx++)
@@ -601,15 +601,15 @@ namespace Gaia
                             //Only interested in increasing values
                             if (spawnInfo.m_fitness > spawnInfo.m_textureStrengths[m_resourceIdxPhysical])
                             {
-                                float delta = spawnInfo.m_fitness - spawnInfo.m_textureStrengths[m_resourceIdxPhysical];
-                                float theRest = 1f - spawnInfo.m_textureStrengths[m_resourceIdxPhysical];
-                                float adjustment = 0f;
+                                var delta = spawnInfo.m_fitness - spawnInfo.m_textureStrengths[m_resourceIdxPhysical];
+                                var theRest = 1f - spawnInfo.m_textureStrengths[m_resourceIdxPhysical];
+                                var adjustment = 0f;
                                 if (theRest != 0f)
                                 {
                                     adjustment = 1f - (delta / theRest);
                                 }
 
-                                for (int idx = 0; idx < spawnInfo.m_textureStrengths.Length; idx++)
+                                for (var idx = 0; idx < spawnInfo.m_textureStrengths.Length; idx++)
                                 {
                                     if (idx == m_resourceIdx)
                                     {
@@ -627,8 +627,8 @@ namespace Gaia
                         }
                     case GaiaConstants.SpawnerResourceType.TerrainDetail:
                         {
-                            HeightMap detailMap = spawnInfo.m_spawner.GetDetailMap(spawnInfo.m_hitTerrain.GetInstanceID(), m_resourceIdxPhysical);
-                            int newStrength = 1;
+                            var detailMap = spawnInfo.m_spawner.GetDetailMap(spawnInfo.m_hitTerrain.GetInstanceID(), m_resourceIdxPhysical);
+                            var newStrength = 1;
                             if (spawnInfo.m_spawner.m_resources.m_detailPrototypes[m_resourceIdx].m_dna.m_rndScaleInfluence == true)
                             {
                                 newStrength = (int)Mathf.Clamp(15f * spawnInfo.m_spawner.m_resources.m_detailPrototypes[m_resourceIdx].m_dna.GetScale(spawnInfo.m_fitness, spawnInfo.m_spawner.GetRandomFloat(0f, 1f)), 1f, 15f);
@@ -641,9 +641,9 @@ namespace Gaia
                             //Handle non cached scenario
                             if (detailMap == null)
                             {
-                                int x = (int)(spawnInfo.m_hitLocationNU.x * spawnInfo.m_hitTerrain.terrainData.detailWidth);
-                                int z = (int)(spawnInfo.m_hitLocationNU.z * spawnInfo.m_hitTerrain.terrainData.detailHeight);
-                                int[,] detail = spawnInfo.m_hitTerrain.terrainData.GetDetailLayer(x, z, 1, 1, m_resourceIdxPhysical);
+                                var x = (int)(spawnInfo.m_hitLocationNU.x * spawnInfo.m_hitTerrain.terrainData.detailWidth);
+                                var z = (int)(spawnInfo.m_hitLocationNU.z * spawnInfo.m_hitTerrain.terrainData.detailHeight);
+                                var detail = spawnInfo.m_hitTerrain.terrainData.GetDetailLayer(x, z, 1, 1, m_resourceIdxPhysical);
                                 if (detail[0, 0] < newStrength)
                                 {
                                     detail[0, 0] = newStrength;
@@ -663,8 +663,8 @@ namespace Gaia
                         }
                     case GaiaConstants.SpawnerResourceType.TerrainTree:
                         {
-                            ResourceProtoTree treeProto = spawnInfo.m_spawner.m_resources.m_treePrototypes[m_resourceIdx];
-                            TreeInstance t = new TreeInstance();
+                            var treeProto = spawnInfo.m_spawner.m_resources.m_treePrototypes[m_resourceIdx];
+                            var t = new TreeInstance();
                             t.prototypeIndex = m_resourceIdxPhysical;
                             t.position = spawnInfo.m_hitLocationNU;
 
@@ -683,8 +683,8 @@ namespace Gaia
                             spawnInfo.m_hitTerrain.AddTreeInstance(t);
 
                             //Add a collider cache
-                            float boundsRadius = treeProto.m_dna.m_boundsRadius * t.widthScale;
-                            GameObject colliderObj = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+                            var boundsRadius = treeProto.m_dna.m_boundsRadius * t.widthScale;
+                            var colliderObj = GameObject.CreatePrimitive(PrimitiveType.Capsule);
                             colliderObj.name = m_colliderName;
                             colliderObj.transform.position = new Vector3(spawnInfo.m_hitLocationWU.x, spawnInfo.m_hitLocationWU.y + boundsRadius, spawnInfo.m_hitLocationWU.z); 
                             colliderObj.GetComponent<MeshRenderer>().enabled = false;
@@ -705,10 +705,10 @@ namespace Gaia
                         }
                     case GaiaConstants.SpawnerResourceType.GameObject:
                         {
-                            ResourceProtoGameObject gameProto = spawnInfo.m_spawner.m_resources.m_gameObjectPrototypes[m_resourceIdx];
-                            float scale = 1f;
-                            float localScale = 1f;
-                            float localDist = 0f;
+                            var gameProto = spawnInfo.m_spawner.m_resources.m_gameObjectPrototypes[m_resourceIdx];
+                            var scale = 1f;
+                            var localScale = 1f;
+                            var localDist = 0f;
                             if (gameProto.m_dna.m_rndScaleInfluence == true)
                             {
                                 scale = gameProto.m_dna.GetScale(spawnInfo.m_fitness, spawnInfo.m_spawner.GetRandomFloat(0f, 1f));
@@ -717,19 +717,19 @@ namespace Gaia
                             {
                                 scale = gameProto.m_dna.GetScale(spawnInfo.m_fitness);
                             }
-                            int spawnedInstances = 0;
-                            float boundsRadius = gameProto.m_dna.m_boundsRadius * scale;
-                            Vector3 scaleVect = new Vector3(scale, scale, scale);
-                            Vector3 location = spawnInfo.m_hitLocationWU;
+                            var spawnedInstances = 0;
+                            var boundsRadius = gameProto.m_dna.m_boundsRadius * scale;
+                            var scaleVect = new Vector3(scale, scale, scale);
+                            var location = spawnInfo.m_hitLocationWU;
                             ResourceProtoGameObjectInstance gpi;
-                            SpawnInfo gpSpawnInfo = new SpawnInfo();
+                            var gpSpawnInfo = new SpawnInfo();
                             gpSpawnInfo.m_spawner = spawnInfo.m_spawner;
                             gpSpawnInfo.m_textureStrengths = new float[Terrain.activeTerrain.terrainData.alphamapLayers];
-                            for (int idx = 0; idx < gameProto.m_instances.Length; idx++)
+                            for (var idx = 0; idx < gameProto.m_instances.Length; idx++)
                             {
                                 gpi = gameProto.m_instances[idx];
                                 spawnedInstances = spawnInfo.m_spawner.GetRandomInt(gpi.m_minInstances, gpi.m_maxInstances); //Randomly choose how many instances to spawn
-                                for (int inst = 0; inst < spawnedInstances; inst++) //For each instance
+                                for (var inst = 0; inst < spawnedInstances; inst++) //For each instance
                                 {
                                     if (spawnInfo.m_spawner.GetRandomFloat(0f, 1f) >= gpi.m_failureRate) //Handle failure override
                                     {
@@ -790,7 +790,7 @@ namespace Gaia
                                                 }
 
                                                 //Also add a sphere collider to the cache - this enables bounds radius to be honoured
-                                                GameObject localSphereColliderObj = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                                                var localSphereColliderObj = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 
                                                 if (gpi.m_extParam.ToLower().Contains("nograss"))
                                                 {
@@ -802,7 +802,7 @@ namespace Gaia
                                                 }
                                                 localSphereColliderObj.transform.position = location;
                                                 localSphereColliderObj.GetComponent<MeshRenderer>().enabled = false;
-                                                float localBoundsRadius = gpi.m_localBounds * localScale;
+                                                var localBoundsRadius = gpi.m_localBounds * localScale;
                                                 localSphereColliderObj.transform.localScale = new Vector3(localBoundsRadius, localBoundsRadius, localBoundsRadius);
                                                 localSphereColliderObj.AddComponent<SphereCollider>();
                                                 localSphereColliderObj.layer = spawnInfo.m_spawner.m_spawnColliderLayer;
@@ -824,7 +824,7 @@ namespace Gaia
                             }
 
                             //Also add a sphere collider to the cache - this enables bounds radius to be honoured
-                            GameObject sphereColliderObj = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                            var sphereColliderObj = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                             sphereColliderObj.name = m_colliderName;
                             sphereColliderObj.transform.position = spawnInfo.m_hitLocationWU;
                             sphereColliderObj.GetComponent<MeshRenderer>().enabled = false;
@@ -920,7 +920,7 @@ namespace Gaia
                         extensions = spawner.m_resources.m_texturePrototypes[m_resourceIdx].m_spawnExtensions;
                         if (extensions != null && extensions.GetLength(0) > 0)
                         {
-                            for (int xtnIdx = 0; xtnIdx < extensions.GetLength(0); xtnIdx++)
+                            for (var xtnIdx = 0; xtnIdx < extensions.GetLength(0); xtnIdx++)
                             {
                                 extension = extensions[xtnIdx];
                                 if (extension != null && extension.AffectsTextures())
@@ -936,7 +936,7 @@ namespace Gaia
                         extensions = spawner.m_resources.m_detailPrototypes[m_resourceIdx].m_spawnExtensions;
                         if (extensions != null && extensions.GetLength(0) > 0)
                         {
-                            for (int xtnIdx = 0; xtnIdx < extensions.GetLength(0); xtnIdx++)
+                            for (var xtnIdx = 0; xtnIdx < extensions.GetLength(0); xtnIdx++)
                             {
                                 extension = extensions[xtnIdx];
                                 if (extension != null && extension.AffectsTextures())
@@ -952,7 +952,7 @@ namespace Gaia
                         extensions = spawner.m_resources.m_treePrototypes[m_resourceIdx].m_spawnExtensions;
                         if (extensions != null && extensions.GetLength(0) > 0)
                         {
-                            for (int xtnIdx = 0; xtnIdx < extensions.GetLength(0); xtnIdx++)
+                            for (var xtnIdx = 0; xtnIdx < extensions.GetLength(0); xtnIdx++)
                             {
                                 extension = extensions[xtnIdx];
                                 if (extension != null && extension.AffectsTextures())
@@ -968,7 +968,7 @@ namespace Gaia
                         extensions = spawner.m_resources.m_gameObjectPrototypes[m_resourceIdx].m_spawnExtensions;
                         if (extensions != null && extensions.GetLength(0) > 0)
                         {
-                            for (int xtnIdx = 0; xtnIdx < extensions.GetLength(0); xtnIdx++)
+                            for (var xtnIdx = 0; xtnIdx < extensions.GetLength(0); xtnIdx++)
                             {
                                 extension = extensions[xtnIdx];
                                 if (extension != null && extension.AffectsTextures())
@@ -1017,7 +1017,7 @@ namespace Gaia
                         extensions = spawner.m_resources.m_texturePrototypes[m_resourceIdx].m_spawnExtensions;
                         if (extensions != null && extensions.GetLength(0) > 0)
                         {
-                            for (int xtnIdx = 0; xtnIdx < extensions.GetLength(0); xtnIdx++)
+                            for (var xtnIdx = 0; xtnIdx < extensions.GetLength(0); xtnIdx++)
                             {
                                 extension = extensions[xtnIdx];
                                 if (extension != null && extension.AffectsDetails())
@@ -1033,7 +1033,7 @@ namespace Gaia
                         extensions = spawner.m_resources.m_detailPrototypes[m_resourceIdx].m_spawnExtensions;
                         if (extensions != null && extensions.GetLength(0) > 0)
                         {
-                            for (int xtnIdx = 0; xtnIdx < extensions.GetLength(0); xtnIdx++)
+                            for (var xtnIdx = 0; xtnIdx < extensions.GetLength(0); xtnIdx++)
                             {
                                 extension = extensions[xtnIdx];
                                 if (extension != null && extension.AffectsDetails())
@@ -1049,7 +1049,7 @@ namespace Gaia
                         extensions = spawner.m_resources.m_treePrototypes[m_resourceIdx].m_spawnExtensions;
                         if (extensions != null && extensions.GetLength(0) > 0)
                         {
-                            for (int xtnIdx = 0; xtnIdx < extensions.GetLength(0); xtnIdx++)
+                            for (var xtnIdx = 0; xtnIdx < extensions.GetLength(0); xtnIdx++)
                             {
                                 extension = extensions[xtnIdx];
                                 if (extension != null && extension.AffectsDetails())
@@ -1065,7 +1065,7 @@ namespace Gaia
                         extensions = spawner.m_resources.m_gameObjectPrototypes[m_resourceIdx].m_spawnExtensions;
                         if (extensions != null && extensions.GetLength(0) > 0)
                         {
-                            for (int xtnIdx = 0; xtnIdx < extensions.GetLength(0); xtnIdx++)
+                            for (var xtnIdx = 0; xtnIdx < extensions.GetLength(0); xtnIdx++)
                             {
                                 extension = extensions[xtnIdx];
                                 if (extension != null && extension.AffectsDetails())

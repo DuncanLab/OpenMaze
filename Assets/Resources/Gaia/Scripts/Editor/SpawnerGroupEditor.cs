@@ -168,7 +168,7 @@ namespace Gaia
                 GUILayout.EndVertical();
 
                 //Draw the various progress bars
-                for (int idx = 0; idx < m_spawnerGroup.m_spawners.Count; idx++)
+                for (var idx = 0; idx < m_spawnerGroup.m_spawners.Count; idx++)
                 {
                     //Display progress
                     if (m_spawnerGroup.m_spawners[idx].m_spawner.m_spawnProgress > 0f && m_spawnerGroup.m_spawners[idx].m_spawner.m_spawnProgress < 1f)
@@ -214,7 +214,7 @@ namespace Gaia
         void ProgressBar(string label, float value)
         {
             // Get a rect for the progress bar using the same margins as a textfield:
-            Rect rect = GUILayoutUtility.GetRect(18, 18, "TextField");
+            var rect = GUILayoutUtility.GetRect(18, 18, "TextField");
             EditorGUI.ProgressBar(rect, value, label);
             EditorGUILayout.Space();
         }
@@ -226,7 +226,7 @@ namespace Gaia
         /// <returns></returns>
         GUIContent GetLabel(string name)
         {
-            string tooltip = "";
+            var tooltip = "";
             if (m_tooltips.TryGetValue(name, out tooltip))
             {
                 return new GUIContent(name, tooltip);

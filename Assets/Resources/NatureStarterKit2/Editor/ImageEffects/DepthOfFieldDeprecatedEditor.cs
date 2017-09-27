@@ -80,7 +80,7 @@ namespace UnityStandardAssets.ImageEffects
         public override void OnInspectorGUI () {
             serObj.Update ();
 
-            GameObject go = (target as DepthOfFieldDeprecated).gameObject;
+            var go = (target as DepthOfFieldDeprecated).gameObject;
 
             if (!go)
                 return;

@@ -361,7 +361,7 @@ namespace Gaia.FullSerializer
 
                     if (thisList.Count != otherList.Count) return false;
 
-                    for (int i = 0; i < thisList.Count; ++i) {
+                    for (var i = 0; i < thisList.Count; ++i) {
                         if (thisList[i].Equals(otherList[i]) == false) {
                             return false;
                         }
@@ -375,7 +375,7 @@ namespace Gaia.FullSerializer
 
                     if (thisDict.Count != otherDict.Count) return false;
 
-                    foreach (string key in thisDict.Keys) {
+                    foreach (var key in thisDict.Keys) {
                         if (otherDict.ContainsKey(key) == false) {
                             return false;
                         }

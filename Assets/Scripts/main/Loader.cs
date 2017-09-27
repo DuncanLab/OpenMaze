@@ -31,7 +31,11 @@ namespace main
 		{
 			public Data.Trial Value;
 			public LinkedListNode Next;
-		}		
+			public LinkedListNode TrialRoot;
+
+		}	
+		
+		
 		private void Start () {
 			DontDestroyOnLoad(this);
 			DS.Load ();
@@ -40,7 +44,7 @@ namespace main
 			CurrTrial = new LinkedListNode();
 
 			var temp = CurrTrial;
-			int cnt = 0;
+			var cnt = 0;
 			foreach (var i in DS.GetData().TrialOrder)
 			{
 				temp.Value = DS.GetData().TrialData[i];
@@ -67,7 +71,7 @@ namespace main
 				else
 				{
 					
-					foreach (FieldInfo prop in typeof(Data.Trial).GetFields())
+					foreach (var prop in typeof(Data.Trial).GetFields())
 					{
 						var s = prop.Name + ", " + prop.GetValue(CurrTrial.Value);
 						LogData(s);
@@ -80,7 +84,7 @@ namespace main
 		
 		private void LateUpdate()
 		{
-			if (_inputDone)
+			if (_inputDone) //This is the beginning text field
 			{
 				HandleInput();
 				if (CheckTimeOut())

@@ -73,18 +73,18 @@ namespace Gaia
             }
 
             // Get the terrain
-            UnityHeightMap hm = new UnityHeightMap(Terrain.activeTerrain);
+            var hm = new UnityHeightMap(Terrain.activeTerrain);
 
             // Create a heightmap for the mask
-            HeightMap maskHm = new HeightMap(hm.Width(), hm.Depth());
+            var maskHm = new HeightMap(hm.Width(), hm.Depth());
 
             //Iterate though our terrain, at the resolution of the heightmap and pick up the height
             float testHeight;
-            float nrmSeaLevel = m_seaLevel / Terrain.activeTerrain.terrainData.size.y;
+            var nrmSeaLevel = m_seaLevel / Terrain.activeTerrain.terrainData.size.y;
 
-            for (int x = 0; x < hm.Width(); x++)
+            for (var x = 0; x < hm.Width(); x++)
             {
-                for (int z = 0; z < hm.Depth(); z++)
+                for (var z = 0; z < hm.Depth(); z++)
                 {
                     testHeight = hm[x, z];
                     if (testHeight < nrmSeaLevel)
@@ -108,7 +108,7 @@ namespace Gaia
             //maskHm.Smooth(1);
 
 
-            string path = "Assets/GaiaMasks/";
+            var path = "Assets/GaiaMasks/";
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
@@ -132,12 +132,12 @@ namespace Gaia
         /// <param name="maskHm"></param>
         private void MakeMask(int startX, int startZ, float waterHeight, int maskSize, HeightMap hm, HeightMap maskHm)
         {
-            int width = hm.Width();
-            int depth = hm.Depth();
-            int minX = startX - maskSize;
-            int maxX = startX + maskSize;
-            int minZ = startZ - maskSize;
-            int maxZ = startZ + maskSize;
+            var width = hm.Width();
+            var depth = hm.Depth();
+            var minX = startX - maskSize;
+            var maxX = startX + maskSize;
+            var minZ = startZ - maskSize;
+            var maxZ = startZ + maskSize;
             float strength;
 
             if (minX < 0)
@@ -158,9 +158,9 @@ namespace Gaia
             }
 
             //Make the mask if height is below sea level
-            for (int x = minX; x < maxX; x++)
+            for (var x = minX; x < maxX; x++)
             {
-                for (int z = minZ; z < maxZ; z++)
+                for (var z = minZ; z < maxZ; z++)
                 {
                     if (hm[x, z] <= waterHeight)
                     {

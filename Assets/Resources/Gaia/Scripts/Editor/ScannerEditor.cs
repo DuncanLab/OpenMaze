@@ -73,8 +73,8 @@ namespace Gaia
         public void DropAreaGUI()
         {
             //Ok - set up for drag and drop
-            Event evt = Event.current;
-            Rect drop_area = GUILayoutUtility.GetRect(0.0f, 50.0f, GUILayout.ExpandWidth(true));
+            var evt = Event.current;
+            var drop_area = GUILayoutUtility.GetRect(0.0f, 50.0f, GUILayout.ExpandWidth(true));
             GUI.Box(drop_area, "Drop Here To Scan", m_boxStyle);
 
             switch (evt.type)
@@ -99,7 +99,7 @@ namespace Gaia
                             //Is it a saved file - only raw files are processed this way
                             if (DragAndDrop.paths.Length > 0)
                             {
-                                string filePath = DragAndDrop.paths[0];
+                                var filePath = DragAndDrop.paths[0];
 
                                 //Update in case unity has messed with it 
                                 if (filePath.StartsWith("Assets"))
@@ -108,7 +108,7 @@ namespace Gaia
                                 }
 
                                 //Check file type and process as we can
-                                string fileType = Path.GetExtension(filePath).ToLower();
+                                var fileType = Path.GetExtension(filePath).ToLower();
 
                                 //Handle raw files
                                 if (fileType == ".r16" || fileType == ".raw")
@@ -136,8 +136,8 @@ namespace Gaia
                                 //Check for terrains
                                 if (DragAndDrop.objectReferences[0].GetType() == typeof(UnityEngine.GameObject))
                                 {
-                                    GameObject go = DragAndDrop.objectReferences[0] as GameObject;
-                                    Terrain t = go.GetComponentInChildren<Terrain>();
+                                    var go = DragAndDrop.objectReferences[0] as GameObject;
+                                    var t = go.GetComponentInChildren<Terrain>();
 
                                     //Handle a terrain
                                     if (t != null)
@@ -150,11 +150,11 @@ namespace Gaia
                                 //Check for something with a mesh
                                 if (DragAndDrop.objectReferences[0].GetType() == typeof(UnityEngine.GameObject))
                                 {
-                                    GameObject go = DragAndDrop.objectReferences[0] as GameObject;
+                                    var go = DragAndDrop.objectReferences[0] as GameObject;
 
                                     //Check for a mesh - this means we can scan it
-                                    MeshFilter[] filters = go.GetComponentsInChildren<MeshFilter>();
-                                    for (int idx = 0; idx < filters.Length; idx++)
+                                    var filters = go.GetComponentsInChildren<MeshFilter>();
+                                    for (var idx = 0; idx < filters.Length; idx++)
                                     {
                                         if (filters[idx].mesh != null)
                                         {

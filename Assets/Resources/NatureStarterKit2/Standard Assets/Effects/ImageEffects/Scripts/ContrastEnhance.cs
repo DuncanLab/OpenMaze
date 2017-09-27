@@ -43,22 +43,22 @@ namespace UnityStandardAssets.ImageEffects
                 return;
             }
 
-            int rtW = source.width;
-            int rtH = source.height;
+            var rtW = source.width;
+            var rtH = source.height;
 
-            RenderTexture color2 = RenderTexture.GetTemporary (rtW/2, rtH/2, 0);
+            var color2 = RenderTexture.GetTemporary (rtW/2, rtH/2, 0);
 
             // downsample
 
             Graphics.Blit (source, color2);
-            RenderTexture color4a = RenderTexture.GetTemporary (rtW/4, rtH/4, 0);
+            var color4a = RenderTexture.GetTemporary (rtW/4, rtH/4, 0);
             Graphics.Blit (color2, color4a);
             RenderTexture.ReleaseTemporary (color2);
 
             // blur
 
             separableBlurMaterial.SetVector ("offsets", new Vector4 (0.0f, (blurSpread * 1.0f) / color4a.height, 0.0f, 0.0f));
-            RenderTexture color4b = RenderTexture.GetTemporary (rtW/4, rtH/4, 0);
+            var color4b = RenderTexture.GetTemporary (rtW/4, rtH/4, 0);
             Graphics.Blit (color4a, color4b, separableBlurMaterial);
             RenderTexture.ReleaseTemporary (color4a);
 

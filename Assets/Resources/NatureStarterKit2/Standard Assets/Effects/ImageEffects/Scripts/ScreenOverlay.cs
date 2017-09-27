@@ -44,7 +44,7 @@ namespace UnityStandardAssets.ImageEffects
                 return;
             }
 
-            Vector4 UV_Transform = new  Vector4(1, 0, 0, 1);
+            var UV_Transform = new  Vector4(1, 0, 0, 1);
 
 			#if UNITY_WP8
 	    	// WP8 has no OS support for rotating screen with device orientation,

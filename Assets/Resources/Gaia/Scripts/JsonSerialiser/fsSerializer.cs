@@ -104,11 +104,11 @@ namespace Gaia.FullSerializer
             if (dict.Count > 2) return;
 
             // Key strings used in the legacy system
-            string referenceIdString = "ReferenceId";
-            string sourceIdString = "SourceId";
-            string sourceDataString = "Data";
-            string typeString = "Type";
-            string typeDataString = "Data";
+            var referenceIdString = "ReferenceId";
+            var sourceIdString = "SourceId";
+            var sourceDataString = "Data";
+            var typeString = "Type";
+            var typeDataString = "Data";
 
             // type specifier
             if (dict.Count == 2 && dict.ContainsKey(typeString) && dict.ContainsKey(typeDataString)) {
@@ -138,7 +138,7 @@ namespace Gaia.FullSerializer
 
         #region Utility Methods
         private static void Invoke_OnBeforeSerialize(List<fsObjectProcessor> processors, Type storageType, object instance) {
-            for (int i = 0; i < processors.Count; ++i) {
+            for (var i = 0; i < processors.Count; ++i) {
                 processors[i].OnBeforeSerialize(storageType, instance);
             }
         }
@@ -146,22 +146,22 @@ namespace Gaia.FullSerializer
             // We run the after calls in reverse order; this significantly reduces the interaction burden between
             // multiple processors - it makes each one much more independent and ignorant of the other ones.
 
-            for (int i = processors.Count - 1; i >= 0; --i) {
+            for (var i = processors.Count - 1; i >= 0; --i) {
                 processors[i].OnAfterSerialize(storageType, instance, ref data);
             }
         }
         private static void Invoke_OnBeforeDeserialize(List<fsObjectProcessor> processors, Type storageType, ref fsData data) {
-            for (int i = 0; i < processors.Count; ++i) {
+            for (var i = 0; i < processors.Count; ++i) {
                 processors[i].OnBeforeDeserialize(storageType, ref data);
             }
         }
         private static void Invoke_OnBeforeDeserializeAfterInstanceCreation(List<fsObjectProcessor> processors, Type storageType, object instance, ref fsData data) {
-            for (int i = 0; i < processors.Count; ++i) {
+            for (var i = 0; i < processors.Count; ++i) {
                 processors[i].OnBeforeDeserializeAfterInstanceCreation(storageType, instance, ref data);
             }
         }
         private static void Invoke_OnAfterDeserialize(List<fsObjectProcessor> processors, Type storageType, object instance) {
-            for (int i = processors.Count - 1; i >= 0; --i) {
+            for (var i = processors.Count - 1; i >= 0; --i) {
                 processors[i].OnAfterDeserialize(storageType, instance);
             }
         }
@@ -335,7 +335,7 @@ namespace Gaia.FullSerializer
             else if (_cachedProcessors.TryGetValue(type, out processors) == false) {
                 processors = new List<fsObjectProcessor>();
 
-                for (int i = 0; i < _processors.Count; ++i) {
+                for (var i = 0; i < _processors.Count; ++i) {
                     var processor = _processors[i];
                     if (processor.CanProcess(type)) {
                         processors.Add(processor);
@@ -421,7 +421,7 @@ namespace Gaia.FullSerializer
                     return _cachedConverters[type] = converter;
                 }
                 else {
-                    for (int i = 0; i < _availableConverters.Count; ++i) {
+                    for (var i = 0; i < _availableConverters.Count; ++i) {
                         if (_availableConverters[i].CanProcess(type)) {
                             converter = _availableConverters[i];
                             return _cachedConverters[type] = converter;
@@ -550,9 +550,9 @@ namespace Gaia.FullSerializer
             //       *always* be equal to instance.GetType(), so why bother taking the parameter?
 
             // Check to see if there is versioning information for this type. If so, then we need to serialize it.
-            fsOption<fsVersionedType> optionalVersionedType = fsVersionManager.GetVersionedType(instance.GetType());
+            var optionalVersionedType = fsVersionManager.GetVersionedType(instance.GetType());
             if (optionalVersionedType.HasValue) {
-                fsVersionedType versionedType = optionalVersionedType.Value;
+                var versionedType = optionalVersionedType.Value;
 
                 // Serialize the actual object content; we'll just wrap it with versioning metadata here.
                 var result = InternalSerialize_4_Converter(instance, out data);
@@ -622,7 +622,7 @@ namespace Gaia.FullSerializer
             // it will be a reference. Because of this, if we encounter a reference then we
             // will have *always* already encountered the definition for it.
             if (IsObjectReference(data)) {
-                int refId = int.Parse(data.AsDictionary[Key_ObjectReference].AsString);
+                var refId = int.Parse(data.AsDictionary[Key_ObjectReference].AsString);
                 result = _references.GetReferenceObject(refId);
                 processors = GetProcessors(result.GetType());
                 return fsResult.Success;
@@ -634,9 +634,9 @@ namespace Gaia.FullSerializer
         private fsResult InternalDeserialize_2_Version(fsData data, Type storageType, ref object result, out List<fsObjectProcessor> processors) {
             if (IsVersioned(data)) {
                 // data is versioned, but we might not need to do a migration
-                string version = data.AsDictionary[Key_Version].AsString;
+                var version = data.AsDictionary[Key_Version].AsString;
 
-                fsOption<fsVersionedType> versionedType = fsVersionManager.GetVersionedType(storageType);
+                var versionedType = fsVersionManager.GetVersionedType(storageType);
                 if (versionedType.HasValue &&
                     versionedType.Value.VersionString != version) {
 
@@ -655,7 +655,7 @@ namespace Gaia.FullSerializer
                     if (deserializeResult.Failed) return deserializeResult;
 
                     // TODO: we probably should be invoking object processors all along this pipeline
-                    for (int i = 1; i < path.Count; ++i) {
+                    for (var i = 1; i < path.Count; ++i) {
                         result = path[i].Migrate(result);
                     }
 
@@ -680,13 +680,13 @@ namespace Gaia.FullSerializer
             processors = GetProcessors(storageType);
             Invoke_OnBeforeDeserialize(processors, storageType, ref data);
 
-            Type objectType = storageType;
+            var objectType = storageType;
 
             // If the serialized state contains type information, then we need to make sure to update our
             // objectType and data to the proper values so that when we construct an object instance later
             // and run deserialization we run it on the proper type.
             if (IsTypeSpecified(data)) {
-                fsData typeNameData = data.AsDictionary[Key_InstanceType];
+                var typeNameData = data.AsDictionary[Key_InstanceType];
 
                 // we wrap everything in a do while false loop so we can break out it
                 do {
@@ -695,8 +695,8 @@ namespace Gaia.FullSerializer
                         break;
                     }
 
-                    string typeName = typeNameData.AsString;
-                    Type type = fsTypeLookup.GetType(typeName);
+                    var typeName = typeNameData.AsString;
+                    var type = fsTypeLookup.GetType(typeName);
                     if (type == null) {
                         deserializeResult.AddMessage("Unable to locate specified type \"" + typeName + "\"");
                         break;
@@ -744,7 +744,7 @@ namespace Gaia.FullSerializer
                 // this before actually deserializing the object because when deserializing the object
                 // there may be references to itself.
 
-                int sourceId = int.Parse(data.AsDictionary[Key_ObjectDefinition].AsString);
+                var sourceId = int.Parse(data.AsDictionary[Key_ObjectDefinition].AsString);
                 _references.AddReferenceWithId(sourceId, result);
             }
 

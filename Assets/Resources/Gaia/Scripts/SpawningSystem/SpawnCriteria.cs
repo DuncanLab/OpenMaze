@@ -66,15 +66,15 @@ namespace Gaia
         {
 
             //Check the values in the texture fitness
-            string newTextureFilter = "";
-            int maxTexture = 4;
-            char maxTextureChar = maxTexture.ToString()[0];
+            var newTextureFilter = "";
+            var maxTexture = 4;
+            var maxTextureChar = maxTexture.ToString()[0];
             if (Terrain.activeTerrain != null)
             {
                 maxTexture = Terrain.activeTerrain.terrainData.alphamapLayers;
                 maxTextureChar = maxTexture.ToString()[0];
             }
-            for (int idx = 0; idx < m_matchingTextures.Length; idx++)
+            for (var idx = 0; idx < m_matchingTextures.Length; idx++)
             {
                 if ((m_matchingTextures[idx] >= '0' && m_matchingTextures[idx] <= maxTextureChar) || m_matchingTextures[idx] == '!')
                 {
@@ -94,7 +94,7 @@ namespace Gaia
         /// <returns>Fitness at that slope - if fitness not applicable it returns 1f</returns>
         public float GetSlopeFitness(float slope)
         {
-            float fitness = 1f;
+            var fitness = 1f;
             if (m_checkSlope)
             {
                 if (slope < m_minSlope || slope > m_maxSlope)
@@ -122,7 +122,7 @@ namespace Gaia
         /// <returns>Fitness at that height - if fitness not applicable it returns 1f</returns>
         public float GetHeightFitness(float height, float sealLevel)
         {
-            float fitness = 1f;
+            var fitness = 1f;
             if (m_checkHeight)
             {
                 height -= sealLevel;
@@ -151,7 +151,7 @@ namespace Gaia
         /// <returns>Fitness at that proximity - if fitness not applicable it returns 1f</returns>
         public float GetProximityFitness(float proximity)
         {
-            float fitness = 1f;
+            var fitness = 1f;
             if (m_checkProximity)
             {
                 if (proximity < m_minProximity || proximity > m_maxProximity)
@@ -179,13 +179,13 @@ namespace Gaia
         /// <returns>Fitness of these textures - if fitness not applicable it returns 1f</returns>
         public float GetTextureFitness(float[] textures)
         {
-            bool negate = false;
-            float fitness = 1f;
+            var negate = false;
+            var fitness = 1f;
             float textureFitness;
             if (m_checkTexture)
             {
                 fitness = float.MaxValue;
-                for (int checkIdx = 0; checkIdx < m_matchingTextures.Length; checkIdx++)
+                for (var checkIdx = 0; checkIdx < m_matchingTextures.Length; checkIdx++)
                 {
                     if (m_matchingTextures[checkIdx] == '!')
                     {
@@ -245,7 +245,7 @@ namespace Gaia
             }
 
             //Set default fitness
-            float fitness = 1f;
+            var fitness = 1f;
 
             //Check height
             if (m_checkHeight)
@@ -276,8 +276,8 @@ namespace Gaia
             //Check proximity
             if (m_checkProximity && fitness > 0f)
             {
-                Rect area = new Rect(spawnInfo.m_hitLocationWU.x - m_maxProximity, spawnInfo.m_hitLocationWU.z - m_maxProximity, m_maxProximity * 2f, m_maxProximity * 2f);
-                GameObject closestObject = spawnInfo.m_spawner.GetClosestObject(m_proximityTag, area);
+                var area = new Rect(spawnInfo.m_hitLocationWU.x - m_maxProximity, spawnInfo.m_hitLocationWU.z - m_maxProximity, m_maxProximity * 2f, m_maxProximity * 2f);
+                var closestObject = spawnInfo.m_spawner.GetClosestObject(m_proximityTag, area);
                 if (closestObject != null)
                 {
                     fitness = Mathf.Min(fitness, GetProximityFitness(Vector3.Distance(closestObject.transform.position, spawnInfo.m_hitLocationWU)));

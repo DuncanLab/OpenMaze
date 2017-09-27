@@ -26,7 +26,7 @@ namespace Gaia.FullSerializer.Internal
 
             if (data.IsList) {
                 var list = data.AsList;
-                for (int i = 0; i < list.Count; ++i) {
+                for (var i = 0; i < list.Count; ++i) {
                     var item = list[i];
 
                     fsData keyData, valueData;
@@ -72,9 +72,9 @@ namespace Gaia.FullSerializer.Internal
             GetKeyValueTypes(instance.GetType(), out keyStorageType, out valueStorageType);
 
             // No other way to iterate dictionaries and still have access to the key/value info
-            IDictionaryEnumerator enumerator = instance.GetEnumerator();
+            var enumerator = instance.GetEnumerator();
 
-            bool allStringKeys = true;
+            var allStringKeys = true;
             var serializedKeys = new List<fsData>(instance.Count);
             var serializedValues = new List<fsData>(instance.Count);
             while (enumerator.MoveNext()) {
@@ -92,9 +92,9 @@ namespace Gaia.FullSerializer.Internal
                 serialized = fsData.CreateDictionary();
                 var serializedDictionary = serialized.AsDictionary;
 
-                for (int i = 0; i < serializedKeys.Count; ++i) {
-                    fsData key = serializedKeys[i];
-                    fsData value = serializedValues[i];
+                for (var i = 0; i < serializedKeys.Count; ++i) {
+                    var key = serializedKeys[i];
+                    var value = serializedValues[i];
                     serializedDictionary[key.AsString] = value;
                 }
             }
@@ -102,9 +102,9 @@ namespace Gaia.FullSerializer.Internal
                 serialized = fsData.CreateList(serializedKeys.Count);
                 var serializedList = serialized.AsList;
 
-                for (int i = 0; i < serializedKeys.Count; ++i) {
-                    fsData key = serializedKeys[i];
-                    fsData value = serializedValues[i];
+                for (var i = 0; i < serializedKeys.Count; ++i) {
+                    var key = serializedKeys[i];
+                    var value = serializedValues[i];
 
                     var container = new Dictionary<string, fsData>();
                     container["Key"] = key;
@@ -141,8 +141,8 @@ namespace Gaia.FullSerializer.Internal
                 }
 
                 var keyValuePairType = collectionType.GetGenericArguments()[0];
-                object keyValueInstance = Activator.CreateInstance(keyValuePairType, key, value);
-                MethodInfo add = collectionType.GetFlattenedMethod("Add");
+                var keyValueInstance = Activator.CreateInstance(keyValuePairType, key, value);
+                var add = collectionType.GetFlattenedMethod("Add");
                 add.Invoke(dictionary, new object[] { keyValueInstance });
                 return fsResult.Success;
             }

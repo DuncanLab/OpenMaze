@@ -42,7 +42,7 @@ namespace Gaia
 
         private bool findPreviouslyBuiltFrame()
         {
-            foreach (TemplateFrame htf in TemplateFrames.List)
+            foreach (var htf in TemplateFrames.List)
             {
                 if (htf.FilePath == this.FilePath)
                 {
@@ -72,23 +72,23 @@ namespace Gaia
 
         private int[] CopyIndicies(TemplateFrameVariable tfv)
         {
-            int[] indexArry = new int[tfv.Indicies.Count];
+            var indexArry = new int[tfv.Indicies.Count];
             tfv.Indicies.CopyTo(indexArry);
             return indexArry;
         }
 
         public override string ToString()
         {
-            StringBuilder stringBuilder = new StringBuilder(this.Frame.Text);
+            var stringBuilder = new StringBuilder(this.Frame.Text);
 
-            foreach (TemplateValue tv in this.Variables.Values)
+            foreach (var tv in this.Variables.Values)
             {
                 // Copy indicies so that the global TemplateFrame stays unchanged when values are inserted and indicies need to be shifted. 
                 tv.Indicies = CopyIndicies(tv.FrameVar);
             }
-            foreach (TemplateValue tv in this.Variables.Values)
+            foreach (var tv in this.Variables.Values)
             {
-                for (int j = 0; j < tv.Indicies.Length; j++)
+                for (var j = 0; j < tv.Indicies.Length; j++)
                 {
                     stringBuilder.Insert(tv.Indicies[j], tv.Value);
                     this.UpdateIndicies(tv.FrameVar.Positions[j], tv.Value.Length);
@@ -99,9 +99,9 @@ namespace Gaia
 
         private void UpdateIndicies(int position, int length)
         {
-            foreach (TemplateValue tv in this.Variables.Values)
+            foreach (var tv in this.Variables.Values)
             {
-                for (int i = 0; i < tv.FrameVar.Positions.Count; i++)
+                for (var i = 0; i < tv.FrameVar.Positions.Count; i++)
                 {
                     if (tv.FrameVar.Positions[i] > position)
                     {

@@ -74,16 +74,16 @@ namespace UnityStandardAssets.ImageEffects
 
         public float UpdateCurve()
         {
-            float range = 1.0f;
+            var range = 1.0f;
             if (remapCurve.keys.Length < 1)
                 remapCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(2, 1));
             if (remapCurve != null)
             {
                 if (remapCurve.length > 0)
                     range = remapCurve[remapCurve.length - 1].time;
-                for (float i = 0.0f; i <= 1.0f; i += 1.0f/255.0f)
+                for (var i = 0.0f; i <= 1.0f; i += 1.0f/255.0f)
                 {
-                    float c = remapCurve.Evaluate(i*1.0f*range);
+                    var c = remapCurve.Evaluate(i*1.0f*range);
                     curveTex.SetPixel((int) Mathf.Floor(i*255.0f), 0, new Color(c, c, c));
                 }
                 curveTex.Apply();
@@ -151,7 +151,7 @@ namespace UnityStandardAssets.ImageEffects
 
             if (type == TonemapperType.UserCurve)
             {
-                float rangeScale = UpdateCurve();
+                var rangeScale = UpdateCurve();
                 tonemapMaterial.SetFloat("_RangeScale", rangeScale);
                 tonemapMaterial.SetTexture("_Curve", curveTex);
                 Graphics.Blit(source, destination, tonemapMaterial, 4);
@@ -193,16 +193,16 @@ namespace UnityStandardAssets.ImageEffects
 
             // AdaptiveReinhardAutoWhite will calculate white value automagically
 
-            bool freshlyBrewedInternalRt = CreateInternalRenderTexture(); // this retrieves rtFormat, so should happen before rt allocations
+            var freshlyBrewedInternalRt = CreateInternalRenderTexture(); // this retrieves rtFormat, so should happen before rt allocations
 
-            RenderTexture rtSquared = RenderTexture.GetTemporary((int) adaptiveTextureSize, (int) adaptiveTextureSize, 0, rtFormat);
+            var rtSquared = RenderTexture.GetTemporary((int) adaptiveTextureSize, (int) adaptiveTextureSize, 0, rtFormat);
             Graphics.Blit(source, rtSquared);
 
-            int downsample = (int) Mathf.Log(rtSquared.width*1.0f, 2);
+            var downsample = (int) Mathf.Log(rtSquared.width*1.0f, 2);
 
-            int div = 2;
+            var div = 2;
             var rts = new RenderTexture[downsample];
-            for (int i = 0; i < downsample; i++)
+            for (var i = 0; i < downsample; i++)
             {
                 rts[i] = RenderTexture.GetTemporary(rtSquared.width/div, rtSquared.width/div, 0, rtFormat);
                 div *= 2;
@@ -214,7 +214,7 @@ namespace UnityStandardAssets.ImageEffects
             Graphics.Blit(rtSquared, rts[0], tonemapMaterial, 1);
             if (type == TonemapperType.AdaptiveReinhardAutoWhite)
             {
-                for (int i = 0; i < downsample - 1; i++)
+                for (var i = 0; i < downsample - 1; i++)
                 {
                     Graphics.Blit(rts[i], rts[i + 1], tonemapMaterial, 9);
                     lumRt = rts[i + 1];
@@ -222,7 +222,7 @@ namespace UnityStandardAssets.ImageEffects
             }
             else if (type == TonemapperType.AdaptiveReinhard)
             {
-                for (int i = 0; i < downsample - 1; i++)
+                for (var i = 0; i < downsample - 1; i++)
                 {
                     Graphics.Blit(rts[i], rts[i + 1]);
                     lumRt = rts[i + 1];
@@ -264,7 +264,7 @@ namespace UnityStandardAssets.ImageEffects
 
             // cleanup for adaptive
 
-            for (int i = 0; i < downsample; i++)
+            for (var i = 0; i < downsample; i++)
             {
                 RenderTexture.ReleaseTemporary(rts[i]);
             }

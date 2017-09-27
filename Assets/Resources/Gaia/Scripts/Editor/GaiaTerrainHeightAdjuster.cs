@@ -40,7 +40,7 @@ namespace Gaia
             EditorGUILayout.LabelField("The terrain height adjuster allows you to set the height of the terrains in your scene to the given height.", m_wrapStyle);
             GUILayout.EndVertical();
 
-            Terrain terrain = Gaia.TerrainHelper.GetActiveTerrain();
+            var terrain = Gaia.TerrainHelper.GetActiveTerrain();
             if (terrain != null)
             {
                 m_maxTerrainHeight = terrain.terrainData.size.y;
@@ -59,7 +59,7 @@ namespace Gaia
                     return;
                 }
 
-                GaiaWorldManager mgr = new GaiaWorldManager(Terrain.activeTerrains);
+                var mgr = new GaiaWorldManager(Terrain.activeTerrains);
                 mgr.LoadFromWorld();
                 mgr.SetHeightWU(m_terrainHeight);
                 mgr.SaveToWorld();
@@ -74,13 +74,13 @@ namespace Gaia
         /// <returns></returns>
         bool DisplayButton(GUIContent content)
         {
-            TextAnchor oldalignment = GUI.skin.button.alignment;
+            var oldalignment = GUI.skin.button.alignment;
             GUI.skin.button.alignment = TextAnchor.MiddleLeft;
-            Rect btnR = EditorGUILayout.BeginHorizontal();
+            var btnR = EditorGUILayout.BeginHorizontal();
             btnR.xMin += (EditorGUI.indentLevel * 18f);
             btnR.height += 20f;
             btnR.width -= 4f;
-            bool result = GUI.Button(btnR, content);
+            var result = GUI.Button(btnR, content);
             EditorGUILayout.EndHorizontal();
             GUILayout.Space(22);
             GUI.skin.button.alignment = oldalignment;
@@ -94,7 +94,7 @@ namespace Gaia
         /// <returns></returns>
         GUIContent GetLabel(string name)
         {
-            string tooltip = "";
+            var tooltip = "";
             if (m_tooltips.TryGetValue(name, out tooltip))
             {
                 return new GUIContent(name, tooltip);

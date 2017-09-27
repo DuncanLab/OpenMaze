@@ -18,14 +18,14 @@ namespace Gaia
         public void CreateWaterFlowMap(Terrain terrain)
         {
             m_heightMap = new UnityHeightMap(terrain);
-            int width = m_heightMap.Width();
-            int depth = m_heightMap.Depth();
+            var width = m_heightMap.Width();
+            var depth = m_heightMap.Depth();
             m_waterFlowMap = new HeightMap(width, depth);
 
             //Avoid edges for now
-            for (int x = 1; x < (width - 1); x++)
+            for (var x = 1; x < (width - 1); x++)
             {
-                for (int z = 1; z < (depth - 1); z++)
+                for (var z = 1; z < (depth - 1); z++)
                 {
                     TraceWaterFlow(x, z, width, depth);
                 }
@@ -47,9 +47,9 @@ namespace Gaia
         /// <param name="height"></param>
         void TraceWaterFlow(int startX, int startZ, int width, int height)
         {
-            float dropletVolume = m_dropletVolume;
-            int x = startX;
-            int z = startZ;
+            var dropletVolume = m_dropletVolume;
+            var x = startX;
+            var z = startZ;
             float currHeight, nextHeight;
             int nX, nZ, testX, testZ, nextX, nextZ;
 

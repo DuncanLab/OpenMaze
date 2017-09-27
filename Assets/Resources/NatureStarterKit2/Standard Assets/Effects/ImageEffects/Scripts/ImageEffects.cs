@@ -9,14 +9,14 @@ namespace UnityStandardAssets.ImageEffects
     {
         public static void RenderDistortion(Material material, RenderTexture source, RenderTexture destination, float angle, Vector2 center, Vector2 radius)
         {
-            bool invertY = source.texelSize.y < 0.0f;
+            var invertY = source.texelSize.y < 0.0f;
             if (invertY)
             {
                 center.y = 1.0f - center.y;
                 angle = -angle;
             }
 
-            Matrix4x4 rotationMatrix = Matrix4x4.TRS(Vector3.zero, Quaternion.Euler(0, 0, angle), Vector3.one);
+            var rotationMatrix = Matrix4x4.TRS(Vector3.zero, Quaternion.Euler(0, 0, angle), Vector3.one);
 
             material.SetMatrix("_RotationMatrix", rotationMatrix);
             material.SetVector("_CenterRadius", new Vector4(center.x, center.y, radius.x, radius.y));

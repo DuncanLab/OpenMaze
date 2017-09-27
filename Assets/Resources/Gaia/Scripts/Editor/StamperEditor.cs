@@ -28,7 +28,7 @@ namespace Gaia
         void OnEnable()
         {
             //Get the settings and update tooltips
-            GaiaSettings settings = Gaia.Utils.GetGaiaSettings();
+            var settings = Gaia.Utils.GetGaiaSettings();
             if (settings != null)
             {
                 m_showTooltips = settings.m_showTooltips;
@@ -42,8 +42,8 @@ namespace Gaia
 
             if (Terrain.activeTerrain != false)
             {
-                float height = Terrain.activeTerrain.terrainData.size.y;
-                float maxWidth = Mathf.Max(Terrain.activeTerrain.terrainData.size.x, Terrain.activeTerrain.terrainData.size.z);
+                var height = Terrain.activeTerrain.terrainData.size.y;
+                var maxWidth = Mathf.Max(Terrain.activeTerrain.terrainData.size.x, Terrain.activeTerrain.terrainData.size.z);
                 m_minX = Terrain.activeTerrain.GetPosition().x - (0.5f * maxWidth);
                 m_maxX = m_minX + (2f * maxWidth);
                 m_minY = Terrain.activeTerrain.GetPosition().y - (height);
@@ -158,63 +158,63 @@ namespace Gaia
 
             GUILayout.BeginVertical("Operations:", m_boxStyle);
             GUILayout.Space(20);
-            Texture2D feature = (Texture2D)EditorGUILayout.ObjectField(GetLabel("Stamp Preview"), m_stamper.m_stampPreviewImage, typeof(Texture2D), false);
-            GaiaResource resources = (GaiaResource)EditorGUILayout.ObjectField(GetLabel("Resources"), m_stamper.m_resources, typeof(GaiaResource), false);
-            Gaia.GaiaConstants.FeatureOperation operation = (Gaia.GaiaConstants.FeatureOperation)EditorGUILayout.EnumPopup(GetLabel("Operation Type"), m_stamper.m_stampOperation);
-            float stencilHeight = m_stamper.m_stencilHeight;
+            var feature = (Texture2D)EditorGUILayout.ObjectField(GetLabel("Stamp Preview"), m_stamper.m_stampPreviewImage, typeof(Texture2D), false);
+            var resources = (GaiaResource)EditorGUILayout.ObjectField(GetLabel("Resources"), m_stamper.m_resources, typeof(GaiaResource), false);
+            var operation = (Gaia.GaiaConstants.FeatureOperation)EditorGUILayout.EnumPopup(GetLabel("Operation Type"), m_stamper.m_stampOperation);
+            var stencilHeight = m_stamper.m_stencilHeight;
             if (operation == GaiaConstants.FeatureOperation.StencilHeight)
             {
                 stencilHeight = EditorGUILayout.Slider(GetLabel("Stencil Height"), m_stamper.m_stencilHeight, -1000f, 1000f);
             }
-            float blendStrength = m_stamper.m_blendStrength;
+            var blendStrength = m_stamper.m_blendStrength;
             if (operation == GaiaConstants.FeatureOperation.BlendHeight)
             {
                 blendStrength = EditorGUILayout.Slider(GetLabel("Blend Strength"), m_stamper.m_blendStrength, 0f, 1f);
             }
             //GUILayout.Label(stamper.m_feature, GUILayout.Width(200f), GUILayout.Height(200f) );
-            AnimationCurve heightModifier = EditorGUILayout.CurveField(GetLabel("Transform Height"), m_stamper.m_heightModifier);
-            int smoothIterations = m_stamper.m_smoothIterations = EditorGUILayout.IntSlider(GetLabel("Smooth Stamp"), m_stamper.m_smoothIterations, 0, 10);
-            bool normaliseStamp = EditorGUILayout.Toggle(GetLabel("Normalise Stamp"), m_stamper.m_normaliseStamp);
-            bool invertStamp = EditorGUILayout.Toggle(GetLabel("Invert Stamp"), m_stamper.m_invertStamp);
+            var heightModifier = EditorGUILayout.CurveField(GetLabel("Transform Height"), m_stamper.m_heightModifier);
+            var smoothIterations = m_stamper.m_smoothIterations = EditorGUILayout.IntSlider(GetLabel("Smooth Stamp"), m_stamper.m_smoothIterations, 0, 10);
+            var normaliseStamp = EditorGUILayout.Toggle(GetLabel("Normalise Stamp"), m_stamper.m_normaliseStamp);
+            var invertStamp = EditorGUILayout.Toggle(GetLabel("Invert Stamp"), m_stamper.m_invertStamp);
             GUILayout.EndVertical();
 
             GUILayout.BeginVertical("Position, Rotate and Scale:", m_boxStyle);
             GUILayout.Space(20);
             //GUILayout.Label("Operation:", EditorStyles.boldLabel);
-            float x = EditorGUILayout.Slider(GetLabel("Position X"), m_stamper.m_x, m_minX, m_maxX);
-            float y = m_stamper.m_y;
+            var x = EditorGUILayout.Slider(GetLabel("Position X"), m_stamper.m_x, m_minX, m_maxX);
+            var y = m_stamper.m_y;
             if (!m_stamper.m_stickBaseToGround)
             {
                 y = EditorGUILayout.Slider(GetLabel("Position Y"), m_stamper.m_y, m_minY, m_maxY);
             }
-            float z = EditorGUILayout.Slider(GetLabel("Position Z"), m_stamper.m_z, m_minZ, m_maxZ);
-            float rotation = EditorGUILayout.Slider(GetLabel("Rotation"), m_stamper.m_rotation, -180f, 180f);
-            float width = EditorGUILayout.Slider(GetLabel("Width"), m_stamper.m_width, 0.1f, 100f);
-            float height = EditorGUILayout.Slider(GetLabel("Height"), m_stamper.m_height, 0.1f, 100f);
-            float baseLevel = EditorGUILayout.Slider(GetLabel("Base Level"), m_stamper.m_baseLevel, 0f, 1f);
-            bool stickBaseToGround = EditorGUILayout.Toggle(GetLabel("Ground Base"), m_stamper.m_stickBaseToGround);
-            bool stampBase = EditorGUILayout.Toggle(GetLabel("Stamp Base"), m_stamper.m_drawStampBase);
-            bool showBase = EditorGUILayout.Toggle(GetLabel("Show Base"), m_stamper.m_showBase);
+            var z = EditorGUILayout.Slider(GetLabel("Position Z"), m_stamper.m_z, m_minZ, m_maxZ);
+            var rotation = EditorGUILayout.Slider(GetLabel("Rotation"), m_stamper.m_rotation, -180f, 180f);
+            var width = EditorGUILayout.Slider(GetLabel("Width"), m_stamper.m_width, 0.1f, 100f);
+            var height = EditorGUILayout.Slider(GetLabel("Height"), m_stamper.m_height, 0.1f, 100f);
+            var baseLevel = EditorGUILayout.Slider(GetLabel("Base Level"), m_stamper.m_baseLevel, 0f, 1f);
+            var stickBaseToGround = EditorGUILayout.Toggle(GetLabel("Ground Base"), m_stamper.m_stickBaseToGround);
+            var stampBase = EditorGUILayout.Toggle(GetLabel("Stamp Base"), m_stamper.m_drawStampBase);
+            var showBase = EditorGUILayout.Toggle(GetLabel("Show Base"), m_stamper.m_showBase);
             GUILayout.EndVertical();
 
             GUILayout.BeginVertical("Masks:", m_boxStyle);
             GUILayout.Space(20);
             //GUILayout.Label("Masks:", EditorStyles.boldLabel);
-            AnimationCurve distanceMask = EditorGUILayout.CurveField(GetLabel("Distance Mask"), m_stamper.m_distanceMask);
-            Gaia.GaiaConstants.ImageFitnessFilterMode areaMaskMode = (Gaia.GaiaConstants.ImageFitnessFilterMode)EditorGUILayout.EnumPopup(GetLabel("Area Mask"), m_stamper.m_areaMaskMode);
-            Texture2D imageMask = m_stamper.m_imageMask;
-            bool imageMaskInvert = m_stamper.m_imageMaskInvert;
-            bool imageMaskNormalise = m_stamper.m_imageMaskNormalise;
-            bool imageMaskFlip = m_stamper.m_imageMaskFlip;
+            var distanceMask = EditorGUILayout.CurveField(GetLabel("Distance Mask"), m_stamper.m_distanceMask);
+            var areaMaskMode = (Gaia.GaiaConstants.ImageFitnessFilterMode)EditorGUILayout.EnumPopup(GetLabel("Area Mask"), m_stamper.m_areaMaskMode);
+            var imageMask = m_stamper.m_imageMask;
+            var imageMaskInvert = m_stamper.m_imageMaskInvert;
+            var imageMaskNormalise = m_stamper.m_imageMaskNormalise;
+            var imageMaskFlip = m_stamper.m_imageMaskFlip;
 
-            float noiseMaskSeed = m_stamper.m_noiseMaskSeed;
-            int noiseMaskOctaves = m_stamper.m_noiseMaskOctaves;
-            float noiseMaskPersistence = m_stamper.m_noiseMaskPersistence;
-            float noiseMaskFrequency = m_stamper.m_noiseMaskFrequency;
-            float noiseMaskLacunarity = m_stamper.m_noiseMaskLacunarity;
-            float noiseZoom = m_stamper.m_noiseZoom;
+            var noiseMaskSeed = m_stamper.m_noiseMaskSeed;
+            var noiseMaskOctaves = m_stamper.m_noiseMaskOctaves;
+            var noiseMaskPersistence = m_stamper.m_noiseMaskPersistence;
+            var noiseMaskFrequency = m_stamper.m_noiseMaskFrequency;
+            var noiseMaskLacunarity = m_stamper.m_noiseMaskLacunarity;
+            var noiseZoom = m_stamper.m_noiseZoom;
 
-            int imageMaskSmoothIterations = m_stamper.m_imageMaskSmoothIterations;
+            var imageMaskSmoothIterations = m_stamper.m_imageMaskSmoothIterations;
             if (areaMaskMode == GaiaConstants.ImageFitnessFilterMode.ImageAlphaChannel || 
                 areaMaskMode == GaiaConstants.ImageFitnessFilterMode.ImageBlueChannel || 
                 areaMaskMode == GaiaConstants.ImageFitnessFilterMode.ImageGreenChannel || 
@@ -250,11 +250,11 @@ namespace Gaia
             {
                 EditorGUILayout.LabelField("Sea Level", m_stamper.m_resources.m_seaLevel.ToString() + " m");
             }
-            bool showSeaLevel = EditorGUILayout.Toggle(GetLabel("Show Sea Level"), m_stamper.m_showSeaLevel);
+            var showSeaLevel = EditorGUILayout.Toggle(GetLabel("Show Sea Level"), m_stamper.m_showSeaLevel);
             //Color gizmoColour = EditorGUILayout.ColorField(GetLabel("Gizmo Colour"), m_stamper.m_gizmoColour);
-            bool alwaysShow = EditorGUILayout.Toggle(GetLabel("Always Show Stamper"), m_stamper.m_alwaysShow);
-            bool showRulers = m_stamper.m_showRulers = EditorGUILayout.Toggle(GetLabel("Show Rulers"), m_stamper.m_showRulers);
-            bool showTerrainHelper = m_stamper.m_showTerrainHelper = EditorGUILayout.Toggle(GetLabel("Show Terrain Helper"), m_stamper.m_showTerrainHelper);
+            var alwaysShow = EditorGUILayout.Toggle(GetLabel("Always Show Stamper"), m_stamper.m_alwaysShow);
+            var showRulers = m_stamper.m_showRulers = EditorGUILayout.Toggle(GetLabel("Show Rulers"), m_stamper.m_showRulers);
+            var showTerrainHelper = m_stamper.m_showTerrainHelper = EditorGUILayout.Toggle(GetLabel("Show Terrain Helper"), m_stamper.m_showTerrainHelper);
             GUILayout.EndVertical();
 
             //Check for changes, make undo record, make changes and let editor know we are dirty
@@ -458,9 +458,9 @@ namespace Gaia
                     else
                     {
                         //Check that the centre of the terrain is at 0,0,0, and offer to move
-                        bool isCentred = true;
-                        Bounds b = new Bounds();
-                        Terrain terrain = Gaia.TerrainHelper.GetActiveTerrain();
+                        var isCentred = true;
+                        var b = new Bounds();
+                        var terrain = Gaia.TerrainHelper.GetActiveTerrain();
                         Gaia.TerrainHelper.GetTerrainBounds(terrain, ref b);
                         if ((b.center.x != 0f) || (b.min.y != 0f) || (b.center.z != 0f))
                         {
@@ -544,7 +544,7 @@ namespace Gaia
         void ProgressBar(string label, float value)
         {
             // Get a rect for the progress bar using the same margins as a textfield:
-            Rect rect = GUILayoutUtility.GetRect(18, 18, "TextField");
+            var rect = GUILayoutUtility.GetRect(18, 18, "TextField");
             EditorGUI.ProgressBar(rect, value, label);
             EditorGUILayout.Space();
         }
@@ -556,7 +556,7 @@ namespace Gaia
         /// <returns></returns>
         GUIContent GetLabel(string name)
         {
-            string tooltip = "";
+            var tooltip = "";
             if (m_showTooltips && m_tooltips.TryGetValue(name, out tooltip))
             {
                 return new GUIContent(name, tooltip);

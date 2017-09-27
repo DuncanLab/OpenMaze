@@ -48,7 +48,7 @@ namespace Gaia.FullSerializer.Internal
 
                 if ((result += Serializer.TryDeserialize(targetData, typeof(object), ref targetInstance)).Failed) return result;
 
-                bool trackResurrection = false;
+                var trackResurrection = false;
                 if (data.AsDictionary.ContainsKey("TrackResurrection") && data.AsDictionary["TrackResurrection"].IsBool) {
                     trackResurrection = data.AsDictionary["TrackResurrection"].AsBool;
                 }

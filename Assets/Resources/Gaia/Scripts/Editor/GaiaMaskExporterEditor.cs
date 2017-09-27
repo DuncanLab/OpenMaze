@@ -58,10 +58,10 @@ namespace Gaia
             }
             m_maskName = EditorGUILayout.TextField(GetLabel("Mask Name"), m_maskName);
 
-            List<GUIContent> textureNames = new List<GUIContent>();
+            var textureNames = new List<GUIContent>();
             if (Terrain.activeTerrain != null)
             {
-                for (int idx = 0; idx < Terrain.activeTerrain.terrainData.splatPrototypes.Length; idx++)
+                for (var idx = 0; idx < Terrain.activeTerrain.terrainData.splatPrototypes.Length; idx++)
                 {
                     textureNames.Add(new GUIContent(Terrain.activeTerrain.terrainData.splatPrototypes[idx].texture.name));
                 }
@@ -81,10 +81,10 @@ namespace Gaia
 
         private void ExportMask()
         {
-            GaiaWorldManager mgr = new GaiaWorldManager(Terrain.activeTerrains);
+            var mgr = new GaiaWorldManager(Terrain.activeTerrains);
             if (mgr.TileCount > 0)
             {
-                string path = "Assets/GaiaMasks/";
+                var path = "Assets/GaiaMasks/";
                 if (!Directory.Exists(path))
                 {
                     Directory.CreateDirectory(path);
@@ -110,13 +110,13 @@ namespace Gaia
         /// <returns></returns>
         bool DisplayButton(GUIContent content)
         {
-            TextAnchor oldalignment = GUI.skin.button.alignment;
+            var oldalignment = GUI.skin.button.alignment;
             GUI.skin.button.alignment = TextAnchor.MiddleLeft;
-            Rect btnR = EditorGUILayout.BeginHorizontal();
+            var btnR = EditorGUILayout.BeginHorizontal();
             btnR.xMin += (EditorGUI.indentLevel * 18f);
             btnR.height += 20f;
             btnR.width -= 4f;
-            bool result = GUI.Button(btnR, content);
+            var result = GUI.Button(btnR, content);
             EditorGUILayout.EndHorizontal();
             GUILayout.Space(22);
             GUI.skin.button.alignment = oldalignment;
@@ -130,7 +130,7 @@ namespace Gaia
         /// <returns></returns>
         GUIContent GetLabel(string name)
         {
-            string tooltip = "";
+            var tooltip = "";
             if (m_tooltips.TryGetValue(name, out tooltip))
             {
                 return new GUIContent(name, tooltip);

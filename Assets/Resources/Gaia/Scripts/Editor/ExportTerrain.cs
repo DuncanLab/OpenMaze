@@ -58,7 +58,7 @@ namespace Gaia
         void OnEnable()
         {
             terrain = null;
-            Terrain terrainObject = Selection.activeObject as Terrain;
+            var terrainObject = Selection.activeObject as Terrain;
             if (!terrainObject)
             {
                 terrainObject = Terrain.activeTerrain;
@@ -94,19 +94,19 @@ namespace Gaia
 
         void Export()
         {
-            string fileName = EditorUtility.SaveFilePanel("Export .obj file", "", "Terrain", "obj");
-            int w = terrain.heightmapWidth;
-            int h = terrain.heightmapHeight;
-            Vector3 meshScale = terrain.size;
-            int tRes = (int)Mathf.Pow(2, (int)saveResolution);
+            var fileName = EditorUtility.SaveFilePanel("Export .obj file", "", "Terrain", "obj");
+            var w = terrain.heightmapWidth;
+            var h = terrain.heightmapHeight;
+            var meshScale = terrain.size;
+            var tRes = (int)Mathf.Pow(2, (int)saveResolution);
             meshScale = new Vector3(meshScale.x / (w - 1) * tRes, meshScale.y, meshScale.z / (h - 1) * tRes);
-            Vector2 uvScale = new Vector2(1.0f / (w - 1), 1.0f / (h - 1));
-            float[,] tData = terrain.GetHeights(0, 0, w, h);
+            var uvScale = new Vector2(1.0f / (w - 1), 1.0f / (h - 1));
+            var tData = terrain.GetHeights(0, 0, w, h);
 
             w = (w - 1) / tRes + 1;
             h = (h - 1) / tRes + 1;
-            Vector3[] tVertices = new Vector3[w * h];
-            Vector2[] tUV = new Vector2[w * h];
+            var tVertices = new Vector3[w * h];
+            var tUV = new Vector2[w * h];
 
             int[] tPolys;
 
@@ -120,22 +120,22 @@ namespace Gaia
             }
 
             // Build vertices and UVs
-            for (int y = 0; y < h; y++)
+            for (var y = 0; y < h; y++)
             {
-                for (int x = 0; x < w; x++)
+                for (var x = 0; x < w; x++)
                 {
                     tVertices[y * w + x] = Vector3.Scale(meshScale, new Vector3(-y, tData[x * tRes, y * tRes], x)) + terrainPos;
                     tUV[y * w + x] = Vector2.Scale(new Vector2(x * tRes, y * tRes), uvScale);
                 }
             }
 
-            int index = 0;
+            var index = 0;
             if (saveFormat == SaveFormat.Triangles)
             {
                 // Build triangle indices: 3 indices into vertex array for each triangle
-                for (int y = 0; y < h - 1; y++)
+                for (var y = 0; y < h - 1; y++)
                 {
-                    for (int x = 0; x < w - 1; x++)
+                    for (var x = 0; x < w - 1; x++)
                     {
                         // For each grid cell output two triangles
                         tPolys[index++] = (y * w) + x;
@@ -151,9 +151,9 @@ namespace Gaia
             else
             {
                 // Build quad indices: 4 indices into vertex array for each quad
-                for (int y = 0; y < h - 1; y++)
+                for (var y = 0; y < h - 1; y++)
                 {
-                    for (int x = 0; x < w - 1; x++)
+                    for (var x = 0; x < w - 1; x++)
                     {
                         // For each grid cell output one quad
                         tPolys[index++] = (y * w) + x;
@@ -165,7 +165,7 @@ namespace Gaia
             }
 
             // Export to .obj
-            StreamWriter sw = new StreamWriter(fileName);
+            var sw = new StreamWriter(fileName);
             try
             {
 
@@ -175,10 +175,10 @@ namespace Gaia
                 System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
                 counter = tCount = 0;
                 totalCount = (tVertices.Length * 2 + (saveFormat == SaveFormat.Triangles ? tPolys.Length / 3 : tPolys.Length / 4)) / progressUpdateInterval;
-                for (int i = 0; i < tVertices.Length; i++)
+                for (var i = 0; i < tVertices.Length; i++)
                 {
                     UpdateProgress();
-                    StringBuilder sb = new StringBuilder("v ", 20);
+                    var sb = new StringBuilder("v ", 20);
                     // StringBuilder stuff is done this way because it's faster than using the "{0} {1} {2}"etc. format
                     // Which is important when you're exporting huge terrains.
                     sb.Append(tVertices[i].x.ToString()).Append(" ").
@@ -187,10 +187,10 @@ namespace Gaia
                     sw.WriteLine(sb);
                 }
                 // Write UVs
-                for (int i = 0; i < tUV.Length; i++)
+                for (var i = 0; i < tUV.Length; i++)
                 {
                     UpdateProgress();
-                    StringBuilder sb = new StringBuilder("vt ", 22);
+                    var sb = new StringBuilder("vt ", 22);
                     sb.Append(tUV[i].x.ToString()).Append(" ").
                        Append(tUV[i].y.ToString());
                     sw.WriteLine(sb);
@@ -198,10 +198,10 @@ namespace Gaia
                 if (saveFormat == SaveFormat.Triangles)
                 {
                     // Write triangles
-                    for (int i = 0; i < tPolys.Length; i += 3)
+                    for (var i = 0; i < tPolys.Length; i += 3)
                     {
                         UpdateProgress();
-                        StringBuilder sb = new StringBuilder("f ", 43);
+                        var sb = new StringBuilder("f ", 43);
                         sb.Append(tPolys[i] + 1).Append("/").Append(tPolys[i] + 1).Append(" ").
                            Append(tPolys[i + 1] + 1).Append("/").Append(tPolys[i + 1] + 1).Append(" ").
                            Append(tPolys[i + 2] + 1).Append("/").Append(tPolys[i + 2] + 1);
@@ -211,10 +211,10 @@ namespace Gaia
                 else
                 {
                     // Write quads
-                    for (int i = 0; i < tPolys.Length; i += 4)
+                    for (var i = 0; i < tPolys.Length; i += 4)
                     {
                         UpdateProgress();
-                        StringBuilder sb = new StringBuilder("f ", 57);
+                        var sb = new StringBuilder("f ", 57);
                         sb.Append(tPolys[i] + 1).Append("/").Append(tPolys[i] + 1).Append(" ").
                            Append(tPolys[i + 1] + 1).Append("/").Append(tPolys[i + 1] + 1).Append(" ").
                            Append(tPolys[i + 2] + 1).Append("/").Append(tPolys[i + 2] + 1).Append(" ").

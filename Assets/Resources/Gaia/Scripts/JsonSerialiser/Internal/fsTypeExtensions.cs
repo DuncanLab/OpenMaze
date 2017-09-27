@@ -40,7 +40,7 @@ namespace Gaia.FullSerializer
                 return type.ToString();
             }
 
-            string name = "";
+            var name = "";
 
             var genericArguments = (IEnumerable<Type>)type.GetGenericArguments();
             if (type.IsNested) {

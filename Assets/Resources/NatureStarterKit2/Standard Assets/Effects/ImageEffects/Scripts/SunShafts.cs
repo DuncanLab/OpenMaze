@@ -64,23 +64,23 @@ namespace UnityStandardAssets.ImageEffects
             if (useDepthTexture)
                 GetComponent<Camera>().depthTextureMode |= DepthTextureMode.Depth;
 
-            int divider = 4;
+            var divider = 4;
             if (resolution == SunShaftsResolution.Normal)
                 divider = 2;
             else if (resolution == SunShaftsResolution.High)
                 divider = 1;
 
-            Vector3 v = Vector3.one * 0.5f;
+            var v = Vector3.one * 0.5f;
             if (sunTransform)
                 v = GetComponent<Camera>().WorldToViewportPoint (sunTransform.position);
             else
                 v = new Vector3(0.5f, 0.5f, 0.0f);
 
-            int rtW = source.width / divider;
-            int rtH = source.height / divider;
+            var rtW = source.width / divider;
+            var rtH = source.height / divider;
 
             RenderTexture lrColorB;
-            RenderTexture lrDepthBuffer = RenderTexture.GetTemporary (rtW, rtH, 0);
+            var lrDepthBuffer = RenderTexture.GetTemporary (rtW, rtH, 0);
 
             // mask out everything except the skybox
             // we have 2 methods, one of which requires depth buffer support, the other one is just comparing images
@@ -91,7 +91,7 @@ namespace UnityStandardAssets.ImageEffects
 
             if (!useDepthTexture) {
                 var format= GetComponent<Camera>().hdr ? RenderTextureFormat.DefaultHDR: RenderTextureFormat.Default;
-                RenderTexture tmpBuffer = RenderTexture.GetTemporary (source.width, source.height, 0, format);
+                var tmpBuffer = RenderTexture.GetTemporary (source.width, source.height, 0, format);
                 RenderTexture.active = tmpBuffer;
                 GL.ClearWithSkybox (false, GetComponent<Camera>());
 
@@ -110,12 +110,12 @@ namespace UnityStandardAssets.ImageEffects
 
             radialBlurIterations = Mathf.Clamp (radialBlurIterations, 1, 4);
 
-            float ofs = sunShaftBlurRadius * (1.0f / 768.0f);
+            var ofs = sunShaftBlurRadius * (1.0f / 768.0f);
 
             sunShaftsMaterial.SetVector ("_BlurRadius4", new Vector4 (ofs, ofs, 0.0f, 0.0f));
             sunShaftsMaterial.SetVector ("_SunPosition", new Vector4 (v.x, v.y, v.z, maxRadius));
 
-            for (int it2 = 0; it2 < radialBlurIterations; it2++ ) {
+            for (var it2 = 0; it2 < radialBlurIterations; it2++ ) {
                 // each iteration takes 2 * 6 samples
                 // we update _BlurRadius each time to cheaply get a very smooth look
 

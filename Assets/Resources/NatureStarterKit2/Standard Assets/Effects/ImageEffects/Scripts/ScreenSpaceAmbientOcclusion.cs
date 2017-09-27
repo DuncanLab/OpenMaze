@@ -40,7 +40,7 @@ namespace UnityStandardAssets.ImageEffects
         {
             if (!shader)
                 return null;
-            Material m = new Material (shader);
+            var m = new Material (shader);
             m.hideFlags = HideFlags.HideAndDontSave;
             return m;
         }
@@ -111,11 +111,11 @@ namespace UnityStandardAssets.ImageEffects
             m_Blur = Mathf.Clamp (m_Blur, 0, 4);
 
             // Render SSAO term into a smaller texture
-            RenderTexture rtAO = RenderTexture.GetTemporary (source.width / m_Downsampling, source.height / m_Downsampling, 0);
-            float fovY = GetComponent<Camera>().fieldOfView;
-            float far = GetComponent<Camera>().farClipPlane;
-            float y = Mathf.Tan (fovY * Mathf.Deg2Rad * 0.5f) * far;
-            float x = y * GetComponent<Camera>().aspect;
+            var rtAO = RenderTexture.GetTemporary (source.width / m_Downsampling, source.height / m_Downsampling, 0);
+            var fovY = GetComponent<Camera>().fieldOfView;
+            var far = GetComponent<Camera>().farClipPlane;
+            var y = Mathf.Tan (fovY * Mathf.Deg2Rad * 0.5f) * far;
+            var x = y * GetComponent<Camera>().aspect;
             m_SSAOMaterial.SetVector ("_FarCorner", new Vector3(x,y,far));
             int noiseWidth, noiseHeight;
             if (m_RandomTexture) {
@@ -131,13 +131,13 @@ namespace UnityStandardAssets.ImageEffects
                                                      1.0f / m_OcclusionAttenuation,
                                                      m_OcclusionIntensity));
 
-            bool doBlur = m_Blur > 0;
+            var doBlur = m_Blur > 0;
             Graphics.Blit (doBlur ? null : source, rtAO, m_SSAOMaterial, (int)m_SampleCount);
 
             if (doBlur)
             {
                 // Blur SSAO horizontally
-                RenderTexture rtBlurX = RenderTexture.GetTemporary (source.width, source.height, 0);
+                var rtBlurX = RenderTexture.GetTemporary (source.width, source.height, 0);
                 m_SSAOMaterial.SetVector ("_TexelOffsetScale",
                                           new Vector4 ((float)m_Blur / source.width, 0,0,0));
                 m_SSAOMaterial.SetTexture ("_SSAO", rtAO);
@@ -145,7 +145,7 @@ namespace UnityStandardAssets.ImageEffects
                 RenderTexture.ReleaseTemporary (rtAO); // original rtAO not needed anymore
 
                 // Blur SSAO vertically
-                RenderTexture rtBlurY = RenderTexture.GetTemporary (source.width, source.height, 0);
+                var rtBlurY = RenderTexture.GetTemporary (source.width, source.height, 0);
                 m_SSAOMaterial.SetVector ("_TexelOffsetScale",
                                           new Vector4 (0, (float)m_Blur/source.height, 0,0));
                 m_SSAOMaterial.SetTexture ("_SSAO", rtBlurX);

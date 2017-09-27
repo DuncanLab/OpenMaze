@@ -10,7 +10,7 @@ namespace Gaia.FullSerializer
         /// Inserts the given number of indents into the builder.
         /// </summary>
         private static void InsertSpacing(TextWriter stream, int count) {
-            for (int i = 0; i < count; ++i) {
+            for (var i = 0; i < count; ++i) {
                 stream.Write("    ");
             }
         }
@@ -21,12 +21,12 @@ namespace Gaia.FullSerializer
         private static string EscapeString(string str) {
             // Escaping a string is pretty allocation heavy, so we try hard to not do it.
 
-            bool needsEscape = false;
-            for (int i = 0; i < str.Length; ++i) {
-                char c = str[i];
+            var needsEscape = false;
+            for (var i = 0; i < str.Length; ++i) {
+                var c = str[i];
 
                 // unicode code point
-                int intChar = Convert.ToInt32(c);
+                var intChar = Convert.ToInt32(c);
                 if (intChar < 0 || intChar > 127) {
                     needsEscape = true;
                     break;
@@ -57,13 +57,13 @@ namespace Gaia.FullSerializer
             }
 
 
-            StringBuilder result = new StringBuilder();
+            var result = new StringBuilder();
 
-            for (int i = 0; i < str.Length; ++i) {
-                char c = str[i];
+            for (var i = 0; i < str.Length; ++i) {
+                var c = str[i];
 
                 // unicode code point
-                int intChar = Convert.ToInt32(c);
+                var intChar = Convert.ToInt32(c);
                 if (intChar < 0 || intChar > 127) {
                     result.Append(string.Format("\\u{0:x4} ", intChar).Trim());
                     continue;
@@ -120,7 +120,7 @@ namespace Gaia.FullSerializer
 
                 case fsDataType.Object: {
                         stream.Write('{');
-                        bool comma = false;
+                        var comma = false;
                         foreach (var entry in data.AsDictionary) {
                             if (comma) stream.Write(',');
                             comma = true;
@@ -136,7 +136,7 @@ namespace Gaia.FullSerializer
 
                 case fsDataType.Array: {
                         stream.Write('[');
-                        bool comma = false;
+                        var comma = false;
                         foreach (var entry in data.AsList) {
                             if (comma) stream.Write(',');
                             comma = true;
@@ -183,7 +183,7 @@ namespace Gaia.FullSerializer
                 case fsDataType.Object: {
                         stream.Write('{');
                         stream.WriteLine();
-                        bool comma = false;
+                        var comma = false;
                         foreach (var entry in data.AsDictionary) {
                             if (comma) {
                                 stream.Write(',');
@@ -210,7 +210,7 @@ namespace Gaia.FullSerializer
                     }
 
                     else {
-                        bool comma = false;
+                        var comma = false;
 
                         stream.Write('[');
                         stream.WriteLine();
@@ -276,7 +276,7 @@ namespace Gaia.FullSerializer
         /// </summary>
         private static string ConvertDoubleToString(double d) {
             if (Double.IsInfinity(d) || Double.IsNaN(d)) return d.ToString(CultureInfo.InvariantCulture);
-            string doubledString = d.ToString(CultureInfo.InvariantCulture);
+            var doubledString = d.ToString(CultureInfo.InvariantCulture);
 
             // NOTE/HACK: If we don't serialize with a period, then the number will be deserialized as an Int64, not a double.
             if (doubledString.Contains(".") == false) doubledString += ".0";

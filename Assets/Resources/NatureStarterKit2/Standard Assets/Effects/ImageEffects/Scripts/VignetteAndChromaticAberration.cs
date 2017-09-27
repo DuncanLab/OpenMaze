@@ -55,12 +55,12 @@ namespace UnityStandardAssets.ImageEffects
                 return;
             }
 
-            int rtW = source.width;
-            int rtH = source.height;
+            var rtW = source.width;
+            var rtH = source.height;
 
-            bool  doPrepass = (Mathf.Abs(blur)>0.0f || Mathf.Abs(intensity)>0.0f);
+            var  doPrepass = (Mathf.Abs(blur)>0.0f || Mathf.Abs(intensity)>0.0f);
 
-            float widthOverHeight = (1.0f * rtW) / (1.0f * rtH);
+            var widthOverHeight = (1.0f * rtW) / (1.0f * rtH);
             const float oneOverBaseSize = 1.0f / 512.0f;
 
             RenderTexture color = null;
@@ -77,10 +77,10 @@ namespace UnityStandardAssets.ImageEffects
 
                     Graphics.Blit (source, color2A, m_ChromAberrationMaterial, 0);
 
-                    for(int i = 0; i < 2; i++)
+                    for(var i = 0; i < 2; i++)
                     {	// maybe make iteration count tweakable
                         m_SeparableBlurMaterial.SetVector ("offsets",new Vector4 (0.0f, blurSpread * oneOverBaseSize, 0.0f, 0.0f));
-                        RenderTexture color2B = RenderTexture.GetTemporary (rtW / 2, rtH / 2, 0, source.format);
+                        var color2B = RenderTexture.GetTemporary (rtW / 2, rtH / 2, 0, source.format);
                         Graphics.Blit (color2A, color2B, m_SeparableBlurMaterial);
                         RenderTexture.ReleaseTemporary (color2A);
 

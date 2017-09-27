@@ -330,7 +330,7 @@ namespace Gaia
                 m_stampPreviewImage = null;
                 return;
             }
-            string path = Gaia.Utils.GetGaiaStampPath(m_stampPreviewImage);
+            var path = Gaia.Utils.GetGaiaStampPath(m_stampPreviewImage);
 
             //Load stamp
             m_stampHM = new UnityHeightMap(path);
@@ -343,7 +343,7 @@ namespace Gaia
             }
 
             //Get metadata
-            float[] metaData = new float[5];
+            var metaData = new float[5];
             Buffer.BlockCopy(m_stampHM.GetMetaData(), 0, metaData, 0, metaData.Length * 4);
             m_scanWidth = (int)metaData[0];
             m_scanDepth = (int)metaData[1];
@@ -400,7 +400,7 @@ namespace Gaia
             }
 
             //Get metadata
-            float[] metaData = new float[5];
+            var metaData = new float[5];
             Buffer.BlockCopy(m_stampHM.GetMetaData(), 0, metaData, 0, metaData.Length * 4);
             m_scanWidth = (int)metaData[0];
             m_scanDepth = (int)metaData[1];
@@ -540,8 +540,8 @@ namespace Gaia
             }
 
             //See if we can get the height offset for the terrain, otherwise default to zero
-            float terrainHeightOffset = 0f;
-            Terrain t = Gaia.TerrainHelper.GetTerrain(transform.position);
+            var terrainHeightOffset = 0f;
+            var t = Gaia.TerrainHelper.GetTerrain(transform.position);
             if (t == null)
             {
                 t = Terrain.activeTerrain;
@@ -565,7 +565,7 @@ namespace Gaia
             }
             else
             {
-                float zero = m_scanBounds.min.y + (m_scanBounds.size.y * m_baseLevel);
+                var zero = m_scanBounds.min.y + (m_scanBounds.size.y * m_baseLevel);
                 m_y = m_scanBounds.center.y - (zero - terrainHeightOffset) ;
             }
         }
@@ -594,7 +594,7 @@ namespace Gaia
         /// </summary>
         public void FitToTerrain()
         {
-            Terrain t = Gaia.TerrainHelper.GetTerrain(transform.position);
+            var t = Gaia.TerrainHelper.GetTerrain(transform.position);
             if (t == null)
             {
                 t = Gaia.TerrainHelper.GetActiveTerrain();
@@ -603,7 +603,7 @@ namespace Gaia
             {
                 return;
             }
-            Bounds b = new Bounds();
+            var b = new Bounds();
             if (Gaia.TerrainHelper.GetTerrainBounds(t, ref b))
             {
                 m_height = (b.size.y / 100f) * 2f;
@@ -635,7 +635,7 @@ namespace Gaia
         /// <returns>True if its a match</returns>
         public bool IsFitToTerrain()
         {
-            Terrain t = Gaia.TerrainHelper.GetTerrain(transform.position);
+            var t = Gaia.TerrainHelper.GetTerrain(transform.position);
             if (t == null)
             {
                 t = Terrain.activeTerrain;
@@ -646,13 +646,13 @@ namespace Gaia
                 return false;
             }
                 
-            Bounds b = new Bounds();
+            var b = new Bounds();
             if (TerrainHelper.GetTerrainBounds(t, ref b))
             {
-                float width = (b.size.x / (float)m_stampHM.Width()) * 10f;
-                float x = b.center.x;
-                float z = b.center.z;
-                float rotation = 0f;
+                var width = (b.size.x / (float)m_stampHM.Width()) * 10f;
+                var x = b.center.x;
+                var z = b.center.z;
+                var rotation = 0f;
 
                 if (
                     width != m_width ||
@@ -678,10 +678,10 @@ namespace Gaia
         public void AddToSession(GaiaOperation.OperationType opType, string opName)
         {
             //Update the session
-            GaiaSessionManager sessionMgr = GaiaSessionManager.GetSessionManager();
+            var sessionMgr = GaiaSessionManager.GetSessionManager();
             if (sessionMgr != null && sessionMgr.IsLocked() != true)
             {
-                GaiaOperation op = new GaiaOperation();
+                var op = new GaiaOperation();
                 op.m_description = opName;
                 op.m_generatedByID = m_stampID;
                 op.m_generatedByName = transform.name;
@@ -714,7 +714,7 @@ namespace Gaia
             #endif
 
             fsData data;
-            fsSerializer serializer = new fsSerializer();
+            var serializer = new fsSerializer();
             serializer.TrySerialize(this, out data);
             return fsJsonPrinter.CompressedJson(data);
         }
@@ -725,8 +725,8 @@ namespace Gaia
         /// <param name="json">Source json</param>
         public void DeSerialiseJson(string json)
         {
-            fsData data = fsJsonParser.Parse(json);
-            fsSerializer serializer = new fsSerializer();
+            var data = fsJsonParser.Parse(json);
+            var serializer = new fsSerializer();
             var stamper = this;
             serializer.TryDeserialize<Stamper>(data, ref stamper);
             #if UNITY_EDITOR
@@ -1029,8 +1029,8 @@ namespace Gaia
                 m_rotation = transform.localEulerAngles.y;
                 if (transform.localScale.x != m_width || transform.localScale.z != m_width)
                 {
-                    float deltaX = Mathf.Abs(transform.localScale.x - m_width);
-                    float deltaZ = Mathf.Abs(transform.localScale.z - m_width);
+                    var deltaX = Mathf.Abs(transform.localScale.x - m_width);
+                    var deltaZ = Mathf.Abs(transform.localScale.z - m_width);
                     if (deltaX > deltaZ)
                     {
                         if (transform.localScale.x > 0f)
@@ -1070,7 +1070,7 @@ namespace Gaia
             //Base
             if (m_showBase)
             {
-                Bounds bounds = new Bounds();
+                var bounds = new Bounds();
                 if (TerrainHelper.GetTerrainBounds(transform.position, ref bounds) == true)
                 {
                     bounds.center = new Vector3(bounds.center.x, m_scanBounds.min.y + (m_scanBounds.size.y * m_baseLevel), bounds.center.z);
@@ -1087,7 +1087,7 @@ namespace Gaia
             }
             if (m_showSeaLevel)
             {
-                Bounds bounds = new Bounds();
+                var bounds = new Bounds();
                 if (TerrainHelper.GetTerrainBounds(transform.position, ref bounds) == true)
                 {
                     bounds.center = new Vector3(bounds.center.x, m_seaLevel, bounds.center.z);
@@ -1112,9 +1112,9 @@ namespace Gaia
             }
 
             //Rotation n size
-            Matrix4x4 currMatrix = Gizmos.matrix;
+            var currMatrix = Gizmos.matrix;
             Gizmos.matrix = transform.localToWorldMatrix;
-            Vector3 origSize = new Vector3(
+            var origSize = new Vector3(
                 (float)m_scanWidth * m_scanResolution,
                 (float)m_scanHeight * m_scanResolution,
                 (float)m_scanDepth * m_scanResolution);
@@ -1123,11 +1123,11 @@ namespace Gaia
             Gizmos.matrix = currMatrix;
 
             //Terrain bounds
-            Terrain t = Gaia.TerrainHelper.GetTerrain(transform.position);
+            var t = Gaia.TerrainHelper.GetTerrain(transform.position);
             if (t != null)
             {
                 Gizmos.color = Color.white;
-                Bounds b = new Bounds();
+                var b = new Bounds();
                 Gaia.TerrainHelper.GetTerrainBounds(t, ref b);
                 Gizmos.DrawWireCube(b.center, b.size);
             }
@@ -1146,9 +1146,9 @@ namespace Gaia
                 //Ruler gizmos
                 int ticks;
                 float tickOffset;
-                float tickInterval = 100f;
-                float vertRulerSize = m_scanBounds.max.y - m_scanBounds.min.y;
-                float horizRulerSize = m_scanBounds.max.x - m_scanBounds.min.x;
+                var tickInterval = 100f;
+                var vertRulerSize = m_scanBounds.max.y - m_scanBounds.min.y;
+                var horizRulerSize = m_scanBounds.max.x - m_scanBounds.min.x;
                 Vector3 startPosition;
                 Vector3 endPosition;
                 Vector3 labelPosition;
@@ -1165,7 +1165,7 @@ namespace Gaia
 
                 ticks = Mathf.RoundToInt(vertRulerSize / tickInterval);
                 tickOffset = vertRulerSize / (float)ticks;
-                for (int i = 0; i <= ticks; i++)
+                for (var i = 0; i <= ticks; i++)
                 {
                     Handles.Label(labelPosition, string.Format("{0:0m}", labelPosition.y));
                     labelPosition.y += tickOffset;
@@ -1183,7 +1183,7 @@ namespace Gaia
 
                 ticks = Mathf.RoundToInt(horizRulerSize / tickInterval);
                 tickOffset = horizRulerSize / (float)ticks;
-                for (int i = 0; i <= ticks; i++)
+                for (var i = 0; i <= ticks; i++)
                 {
                     Handles.Label(labelPosition, string.Format("{0:0m}", labelPosition.x));
                     labelPosition.x += tickOffset;
@@ -1205,7 +1205,7 @@ namespace Gaia
             UpdateStamp();
 
             //World manager - create and load from existing terrains
-            GaiaWorldManager mgr = new GaiaWorldManager(Terrain.activeTerrains);
+            var mgr = new GaiaWorldManager(Terrain.activeTerrains);
             mgr.LoadFromWorld();
 
             //Check to see if we loaded anything and exit if we didnt
@@ -1238,14 +1238,14 @@ namespace Gaia
             }
 
             //Rotation
-            Vector3 rotation = new Vector3(0f, transform.localRotation.eulerAngles.y, 0f);
-            Vector3 negRotation = new Vector3(0f, transform.localRotation.eulerAngles.y * -1f, 0f);
+            var rotation = new Vector3(0f, transform.localRotation.eulerAngles.y, 0f);
+            var negRotation = new Vector3(0f, transform.localRotation.eulerAngles.y * -1f, 0f);
 
             //Work out bounds of new rotated and scaled scan map in original resolution of the terrain
-            Bounds origSmBoundsWU = m_stampHM.GetBoundsWU();
+            var origSmBoundsWU = m_stampHM.GetBoundsWU();
 
             //Get new bounds taking rotation into account
-            Bounds newSmBoundsWU = new Bounds();
+            var newSmBoundsWU = new Bounds();
             newSmBoundsWU.center = origSmBoundsWU.center;
             newSmBoundsWU.Encapsulate(RotatePointAroundPivot(new Vector3(origSmBoundsWU.min.x, origSmBoundsWU.center.y, origSmBoundsWU.min.z), origSmBoundsWU.center, rotation));
             newSmBoundsWU.Encapsulate(RotatePointAroundPivot(new Vector3(origSmBoundsWU.min.x, origSmBoundsWU.center.y, origSmBoundsWU.max.z), origSmBoundsWU.center, rotation));
@@ -1253,52 +1253,52 @@ namespace Gaia
             newSmBoundsWU.Encapsulate(RotatePointAroundPivot(new Vector3(origSmBoundsWU.max.x, origSmBoundsWU.center.y, origSmBoundsWU.max.z), origSmBoundsWU.center, rotation));
 
             //Calculate new sm size based on conversion to terrain units and round up
-            Vector3 newSmSizeTU = mgr.Ceil(mgr.WUtoTU(newSmBoundsWU.size));
+            var newSmSizeTU = mgr.Ceil(mgr.WUtoTU(newSmBoundsWU.size));
 
             //Now rotate and scale the original into the new
             Vector3 position;
-            Vector3 pivot = new Vector3(0.5f, 0f, 0.5f);
+            var pivot = new Vector3(0.5f, 0f, 0.5f);
             float newSmXNU, newSmZNU, origSmXNU, origSmZNU;
-            int newSmMaxX = (int)newSmSizeTU.x;
-            int newSmMaxZ = (int)newSmSizeTU.z;
-            float newSmXtoNU = 1f / newSmSizeTU.x;
-            float newSmZtoNU = 1f / newSmSizeTU.z;
-            float xNewSMtoOrigSMScale = newSmBoundsWU.size.x / origSmBoundsWU.size.x;
-            float zNewSMtoOrigSMScale = newSmBoundsWU.size.x / origSmBoundsWU.size.z;
+            var newSmMaxX = (int)newSmSizeTU.x;
+            var newSmMaxZ = (int)newSmSizeTU.z;
+            var newSmXtoNU = 1f / newSmSizeTU.x;
+            var newSmZtoNU = 1f / newSmSizeTU.z;
+            var xNewSMtoOrigSMScale = newSmBoundsWU.size.x / origSmBoundsWU.size.x;
+            var zNewSMtoOrigSMScale = newSmBoundsWU.size.x / origSmBoundsWU.size.z;
 
             //Need to offset due to scaling caused by rotation
-            float scaleOffsetX = 0.5f * ((origSmBoundsWU.size.x - newSmBoundsWU.size.x) / origSmBoundsWU.size.x);
-            float scaleOffsetZ = 0.5f * ((origSmBoundsWU.size.z - newSmBoundsWU.size.x) / origSmBoundsWU.size.z);
+            var scaleOffsetX = 0.5f * ((origSmBoundsWU.size.x - newSmBoundsWU.size.x) / origSmBoundsWU.size.x);
+            var scaleOffsetZ = 0.5f * ((origSmBoundsWU.size.z - newSmBoundsWU.size.x) / origSmBoundsWU.size.z);
 
             //Timing and progress control
             float newTime, stepTime;
-            float currentTime = Time.realtimeSinceStartup;
-            float accumulatedTime = 0.0f;
-            int currChecks = 0;
-            int totalChecks = newSmMaxX * newSmMaxZ;
+            var currentTime = Time.realtimeSinceStartup;
+            var accumulatedTime = 0.0f;
+            var currChecks = 0;
+            var totalChecks = newSmMaxX * newSmMaxZ;
 
             //Work out offset back into global space
             //Vector3 terrainCentreTU = mgr.WorldBoundsTU.center;
-            Vector3 globalCentreTU = mgr.WUtoTU(transform.position);
-            Vector3 globalOffsetTU = globalCentreTU - (newSmSizeTU * 0.5f);
+            var globalCentreTU = mgr.WUtoTU(transform.position);
+            var globalOffsetTU = globalCentreTU - (newSmSizeTU * 0.5f);
 
             //This assumes a zero centered terrain - just allow for terrain offset
 
-            Vector3 globalPositionTU = Vector3.one;
+            var globalPositionTU = Vector3.one;
 
             //Height calcs
             float smHeightRaw, smHeightAdj, terrainHeight, newHeight, distance, strength;
 
             //Source to terrain height conversion
-            float smToOrigHeightConversion = origSmBoundsWU.size.y / mgr.WorldBoundsWU.size.y;
-            float smHeightOffset = (origSmBoundsWU.min.y - mgr.WorldBoundsWU.min.y) / mgr.WorldBoundsWU.size.y;
-            float stencilHeightNU = m_stencilHeight / mgr.WorldBoundsWU.size.y;
+            var smToOrigHeightConversion = origSmBoundsWU.size.y / mgr.WorldBoundsWU.size.y;
+            var smHeightOffset = (origSmBoundsWU.min.y - mgr.WorldBoundsWU.min.y) / mgr.WorldBoundsWU.size.y;
+            var stencilHeightNU = m_stencilHeight / mgr.WorldBoundsWU.size.y;
 
             //Now apply scale and rotation to new scan map
-            for (int x = 0; x < newSmMaxX; x++)
+            for (var x = 0; x < newSmMaxX; x++)
             {
                 newSmXNU = ((float)x) * newSmXtoNU;
-                for (int z = 0; z < newSmMaxZ; z++)
+                for (var z = 0; z < newSmMaxZ; z++)
                 {
                     newSmZNU = ((float)z) * newSmZtoNU;
 
@@ -1411,7 +1411,7 @@ namespace Gaia
                             oldTex = Terrain.activeTerrain.terrainData.splatPrototypes[0].texture;
                         }
                         Utils.MakeTextureReadable(oldTex);
-                        Texture2D newTex = new Texture2D(oldTex.width, oldTex.height, TextureFormat.ARGB32, true);
+                        var newTex = new Texture2D(oldTex.width, oldTex.height, TextureFormat.ARGB32, true);
                         newTex.SetPixels32(oldTex.GetPixels32());
                         newTex.wrapMode = TextureWrapMode.Repeat;
                         newTex.Apply();
@@ -1440,7 +1440,7 @@ namespace Gaia
             }
 
             m_previewRenderer.sharedMaterial = m_previewMaterial;
-            Vector3 meshSize = new Vector3((float)m_scanWidth * m_scanResolution, (float)m_scanHeight * m_scanResolution, (float)m_scanDepth * m_scanResolution);
+            var meshSize = new Vector3((float)m_scanWidth * m_scanResolution, (float)m_scanHeight * m_scanResolution, (float)m_scanDepth * m_scanResolution);
             m_previewFilter.mesh = Gaia.Utils.CreateMesh(m_stampHM.Heights(), meshSize);
         }
 
@@ -1474,9 +1474,9 @@ namespace Gaia
 
                 //Load the image
                 m_imageMaskHM = new HeightMap(m_imageMask.width, m_imageMask.height);
-                for (int x = 0; x < m_imageMaskHM.Width(); x++)
+                for (var x = 0; x < m_imageMaskHM.Width(); x++)
                 {
-                    for (int z = 0; z < m_imageMaskHM.Depth(); z++)
+                    for (var z = 0; z < m_imageMaskHM.Depth(); z++)
                     {
                         switch (m_areaMaskMode)
                         {
@@ -1502,10 +1502,10 @@ namespace Gaia
             else if (m_areaMaskMode == GaiaConstants.ImageFitnessFilterMode.PerlinNoise || m_areaMaskMode == GaiaConstants.ImageFitnessFilterMode.RidgedNoise ||
                 m_areaMaskMode == GaiaConstants.ImageFitnessFilterMode.BillowNoise)
             {
-                int width = 2048;
-                int depth = 2048;
+                var width = 2048;
+                var depth = 2048;
 
-                Terrain t = Gaia.TerrainHelper.GetTerrain(transform.position);
+                var t = Gaia.TerrainHelper.GetTerrain(transform.position);
                 if (t == null)
                 {
                     t = Terrain.activeTerrain;
@@ -1519,7 +1519,7 @@ namespace Gaia
                 m_imageMaskHM = new HeightMap(width, depth);
 
                 //Create the noise generator
-                Gaia.FractalGenerator noiseGenerator = new FractalGenerator();
+                var noiseGenerator = new FractalGenerator();
                 noiseGenerator.Seed = m_noiseMaskSeed;
                 noiseGenerator.Octaves = m_noiseMaskOctaves;
                 noiseGenerator.Persistence = m_noiseMaskPersistence;
@@ -1538,12 +1538,12 @@ namespace Gaia
                     noiseGenerator.FractalType = FractalGenerator.Fractals.Billow;
                 }
 
-                float zoom = 1f / m_noiseZoom;
+                var zoom = 1f / m_noiseZoom;
 
                 //Now fill it with the selected noise
-                for (int x = 0; x < width; x++)
+                for (var x = 0; x < width; x++)
                 {
-                    for (int z = 0; z < depth; z++)
+                    for (var z = 0; z < depth; z++)
                     {
                         m_imageMaskHM[x, z] = noiseGenerator.GetValue((float)(x * zoom), (float)(z * zoom));
                     }
@@ -1554,7 +1554,7 @@ namespace Gaia
                 //Or get a new one
 
                 //Grab the terrain 
-                Terrain t = Gaia.TerrainHelper.GetTerrain(transform.position);
+                var t = Gaia.TerrainHelper.GetTerrain(transform.position);
                 if (t == null)
                 {
                     t = Terrain.activeTerrain;
@@ -1675,8 +1675,8 @@ namespace Gaia
         /// <returns>New height</returns>
         private float CalculateHeight(float terrainHeight, float smHeightRaw, float smHeightAdj, float stencilHeightNU, float strength)
         {
-            float tmpHeight = 0f;
-            float heightDiff = 0f;
+            var tmpHeight = 0f;
+            var heightDiff = 0f;
 
             //Check for the base
             if (m_drawStampBase  != true)
@@ -1764,7 +1764,7 @@ namespace Gaia
         /// <returns></returns>
         private Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Vector3 angle)
         {
-            Vector3 dir = point - pivot;
+            var dir = point - pivot;
             dir = Quaternion.Euler(angle) * dir;
             point = dir + pivot;
             return point;

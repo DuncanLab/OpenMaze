@@ -17,7 +17,7 @@ namespace Gaia.FullSerializer {
         /// </summary>
         public static Dictionary<Type, string> AvailableAotCompilations {
             get {
-                for (int i = 0; i < _uncomputedAotCompilations.Count; ++i) {
+                for (var i = 0; i < _uncomputedAotCompilations.Count; ++i) {
                     var item = _uncomputedAotCompilations[i];
                     _computedAotCompilations[item.Type] = GenerateDirectConverterForTypeInCSharp(item.Type, item.Members, item.IsConstructorPublic);
                 }
@@ -69,8 +69,8 @@ namespace Gaia.FullSerializer {
         /// </summary>
         private static string GenerateDirectConverterForTypeInCSharp(Type type, fsMetaProperty[] members, bool isConstructorPublic) {
             var sb = new StringBuilder();
-            string typeName = type.CSharpName(/*includeNamespace:*/ true);
-            string typeNameSafeDecl = type.CSharpName(true, true);
+            var typeName = type.CSharpName(/*includeNamespace:*/ true);
+            var typeNameSafeDecl = type.CSharpName(true, true);
 
             sb.AppendLine("using System;");
             sb.AppendLine("using System.Collections.Generic;");
@@ -96,7 +96,7 @@ namespace Gaia.FullSerializer {
             sb.AppendLine("        protected override fsResult DoDeserialize(Dictionary<string, fsData> data, ref " + typeName + " model) {");
             sb.AppendLine("            var result = fsResult.Success;");
             sb.AppendLine();
-            for (int i = 0; i < members.Length; ++i) {
+            for (var i = 0; i < members.Length; ++i) {
                 var member = members[i];
                 sb.AppendLine("            var t" + i + " = model." + member.MemberName + ";");
                 sb.AppendLine("            result += DeserializeMember(data, \"" + member.JsonName + "\", out t" + i + ");");

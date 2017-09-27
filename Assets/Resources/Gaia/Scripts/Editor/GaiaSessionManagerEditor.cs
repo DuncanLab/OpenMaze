@@ -25,7 +25,7 @@ namespace Gaia
         void OnEnable()
         {
             //Get the settings and update tooltips
-            GaiaSettings settings = Gaia.Utils.GetGaiaSettings();
+            var settings = Gaia.Utils.GetGaiaSettings();
             if (settings != null)
             {
                 m_showTooltips = settings.m_showTooltips;
@@ -105,7 +105,7 @@ namespace Gaia
             {
                 GUI.enabled = false;
             }
-            string name = EditorGUILayout.TextArea(m_manager.m_session.m_name, m_descWrapStyle, GUILayout.MinHeight(15));
+            var name = EditorGUILayout.TextArea(m_manager.m_session.m_name, m_descWrapStyle, GUILayout.MinHeight(15));
             GUI.enabled = true;
 
             EditorGUILayout.LabelField("Description");
@@ -113,9 +113,9 @@ namespace Gaia
             {
                 GUI.enabled = false;
             }
-            string description = EditorGUILayout.TextArea(m_manager.m_session.m_description, m_descWrapStyle, GUILayout.MinHeight(45));
+            var description = EditorGUILayout.TextArea(m_manager.m_session.m_description, m_descWrapStyle, GUILayout.MinHeight(45));
 
-            Texture2D previewImage = m_manager.GetPreviewImage();
+            var previewImage = m_manager.GetPreviewImage();
             if (!m_manager.IsLocked())
             {
                 previewImage = (Texture2D)EditorGUILayout.ObjectField(GetLabel("Preview Image"), m_manager.m_session.m_previewImage, typeof(Texture2D), false, GUILayout.MaxHeight(15f));
@@ -180,7 +180,7 @@ namespace Gaia
                             Gaia.Utils.MakeTextureReadable(previewImage);
 
                             //Make a new texture from it
-                            Texture2D newTexture = new Texture2D(previewImage.width, previewImage.height, TextureFormat.ARGB32, false);
+                            var newTexture = new Texture2D(previewImage.width, previewImage.height, TextureFormat.ARGB32, false);
                             newTexture.name = m_manager.m_session.m_name;
                             newTexture.SetPixels(previewImage.GetPixels(0));
                             newTexture.Apply();
@@ -224,7 +224,7 @@ namespace Gaia
             m_manager.m_session.m_seaLevel = EditorGUILayout.Slider(GetLabel("Sea Level"), m_manager.m_session.m_seaLevel, 0f, m_manager.m_session.m_terrainDepth);
             GUI.enabled = true; //In response to locked above
 
-            bool locked = EditorGUILayout.Toggle(GetLabel("Locked"), m_manager.m_session.m_isLocked);
+            var locked = EditorGUILayout.Toggle(GetLabel("Locked"), m_manager.m_session.m_isLocked);
             GUILayout.EndVertical();
 
             //Iterate through the operations
@@ -241,7 +241,7 @@ namespace Gaia
             {
                 GaiaOperation op;
                 EditorGUI.indentLevel++;
-                for (int opIdx = 0; opIdx < m_manager.m_session.m_operations.Count; opIdx++)
+                for (var opIdx = 0; opIdx < m_manager.m_session.m_operations.Count; opIdx++)
                 {
                     op = m_manager.m_session.m_operations[opIdx];
 
@@ -267,8 +267,8 @@ namespace Gaia
                         op.m_isActive = EditorGUILayout.Toggle(GetLabel("Active"), op.m_isActive);
                         GUI.enabled = true;
 
-                        int dataLength = 0;
-                        for (int idx = 0; idx < op.m_operationDataJson.GetLength(0); idx++)
+                        var dataLength = 0;
+                        for (var idx = 0; idx < op.m_operationDataJson.GetLength(0); idx++)
                         {
                             dataLength += op.m_operationDataJson[idx].Length;
                         }
@@ -356,7 +356,7 @@ namespace Gaia
                 {
                     if (EditorUtility.DisplayDialog("Flatten Terrain?", "Are you sure you want to flatten your terrain - this can not be undone ?", "Yes", "No"))
                     {
-                        GaiaWorldManager wm = new GaiaWorldManager(Terrain.activeTerrains);
+                        var wm = new GaiaWorldManager(Terrain.activeTerrains);
                         wm.FlattenWorld();
                     }
                 }
@@ -364,7 +364,7 @@ namespace Gaia
                 {
                     if (EditorUtility.DisplayDialog("Smooth Terrain?", "Are you sure you want to smooth your terrain - this can not be undone ?", "Yes", "No"))
                     {
-                        GaiaWorldManager wm = new GaiaWorldManager(Terrain.activeTerrains);
+                        var wm = new GaiaWorldManager(Terrain.activeTerrains);
                         wm.SmoothWorld();
                     }
                 }
@@ -468,7 +468,7 @@ namespace Gaia
         void ProgressBar(string label, float value)
         {
             // Get a rect for the progress bar using the same margins as a textfield:
-            Rect rect = GUILayoutUtility.GetRect(18, 18, "TextField");
+            var rect = GUILayoutUtility.GetRect(18, 18, "TextField");
             EditorGUI.ProgressBar(rect, value, label);
             EditorGUILayout.Space();
         }
@@ -480,7 +480,7 @@ namespace Gaia
         /// <returns></returns>
         GUIContent GetLabel(string name)
         {
-            string tooltip = "";
+            var tooltip = "";
             if (m_showTooltips && m_tooltips.TryGetValue(name, out tooltip))
             {
                 return new GUIContent(name, tooltip);

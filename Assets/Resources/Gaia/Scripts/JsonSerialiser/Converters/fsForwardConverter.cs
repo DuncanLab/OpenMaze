@@ -45,7 +45,7 @@ namespace Gaia.FullSerializer.Internal
 
         private fsResult GetProperty(object instance, out fsMetaProperty property) {
             var properties = fsMetaType.Get(instance.GetType()).Properties;
-            for (int i = 0; i < properties.Length; ++i) {
+            for (var i = 0; i < properties.Length; ++i) {
                 if (properties[i].MemberName == _memberName) {
                     property = properties[i];
                     return fsResult.Success;

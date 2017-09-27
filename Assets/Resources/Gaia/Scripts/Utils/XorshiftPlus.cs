@@ -87,8 +87,8 @@ namespace Gaia
         /// <returns>A value between zero and one inclusive</returns>
 	    public float Next()
 	    {
-		    ulong x = m_stateA;
-		    ulong y = m_stateB;
+		    var x = m_stateA;
+		    var y = m_stateB;
 		    m_stateA = y;
 		    x ^= x << 23;
 		    x ^= x >> 17;

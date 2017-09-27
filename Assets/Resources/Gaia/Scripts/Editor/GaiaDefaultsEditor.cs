@@ -21,7 +21,7 @@ namespace Gaia {
         public override void OnInspectorGUI()
         {
             //Get our resource
-            GaiaDefaults defaults = (GaiaDefaults)target;
+            var defaults = (GaiaDefaults)target;
 
             //Set up the box style
             if (m_boxStyle == null)
@@ -46,7 +46,7 @@ namespace Gaia {
             GUILayout.EndVertical();
 
             //Check for and fix any issues with the settings in the editor
-            string defaultIssues = defaults.GetAndFixDefaults();
+            var defaultIssues = defaults.GetAndFixDefaults();
             if (!string.IsNullOrEmpty(defaultIssues))
             {
                 Debug.LogError(defaultIssues);

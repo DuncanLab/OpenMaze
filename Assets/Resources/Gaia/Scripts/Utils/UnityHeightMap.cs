@@ -96,7 +96,7 @@ namespace Gaia
         /// <returns>Position in world units</returns>
         public Vector3 GetPositionWU()
         {
-            Vector3 pos = m_boundsWU.center - m_boundsWU.extents;
+            var pos = m_boundsWU.center - m_boundsWU.extents;
             return pos;
         }
 
@@ -146,8 +146,8 @@ namespace Gaia
         public void SaveToTerrain(Terrain terrain)
         {
             //Get terrain stats
-            int terWidth = terrain.terrainData.heightmapWidth;
-            int terDepth = terrain.terrainData.heightmapHeight;
+            var terWidth = terrain.terrainData.heightmapWidth;
+            var terDepth = terrain.terrainData.heightmapHeight;
 
             //Direct one to one mapping
             if (m_widthX == terWidth && m_depthZ == terDepth)
@@ -158,10 +158,10 @@ namespace Gaia
             }
 
             //Build new array and scale it to the size of the terrain
-            float[,] heights = new float[terWidth, terDepth];
-            for (int x = 0; x < terWidth; x++)
+            var heights = new float[terWidth, terDepth];
+            for (var x = 0; x < terWidth; x++)
             {
-                for (int z = 0; z < terDepth; z++)
+                for (var z = 0; z < terDepth; z++)
                 {
                     heights[x,z] = this[((float)x / (float)terWidth), ((float)z / (float)terDepth)];
                 }
@@ -185,9 +185,9 @@ namespace Gaia
 			m_heights = new float[m_widthX, m_depthZ];
 			m_isPowerOf2 = Gaia.Utils.Math_IsPowerOf2(m_widthX) && Gaia.Utils.Math_IsPowerOf2(m_depthZ);
 
-			for (int x = 0; x < m_widthX; x++)
+			for (var x = 0; x < m_widthX; x++)
 			{
-				for (int z = 0; z < m_depthZ; z++)
+				for (var z = 0; z < m_depthZ; z++)
 				{
 					m_heights[x, z] = texture.GetPixel(x, z).grayscale;
 				}
@@ -204,16 +204,16 @@ namespace Gaia
         {
             using (Stream s = new MemoryStream(asset.bytes))
             {
-                using (BinaryReader br = new BinaryReader(s))
+                using (var br = new BinaryReader(s))
                 {
                     m_widthX = m_depthZ = Mathf.CeilToInt(Mathf.Sqrt(s.Length / 2));
                     m_widthInvX = 1f / (float)(m_widthX);
                     m_depthInvZ = 1f / (float)(m_depthZ);
                     m_heights = new float[m_widthX, m_depthZ];
                     m_isPowerOf2 = Gaia.Utils.Math_IsPowerOf2(m_widthX) && Gaia.Utils.Math_IsPowerOf2(m_depthZ);
-                    for (int hmX = 0; hmX < m_widthX; hmX++)
+                    for (var hmX = 0; hmX < m_widthX; hmX++)
                     {
-                        for (int hmZ = 0; hmZ < m_depthZ; hmZ++)
+                        for (var hmZ = 0; hmZ < m_depthZ; hmZ++)
                         {
                             m_heights[hmX, hmZ] = (float)br.ReadUInt16() / 65535.0f;
                         }

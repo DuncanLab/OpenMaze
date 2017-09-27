@@ -22,7 +22,7 @@ namespace Gaia
             if (Gaia.TerrainHelper.GetActiveTerrainCount() == 1 && Gaia.TerrainHelper.GetActiveTerrain() != null)
             {
                 //Get sea level
-                GaiaSceneInfo sceneInfo = GaiaSceneInfo.GetSceneInfo();
+                var sceneInfo = GaiaSceneInfo.GetSceneInfo();
                 m_seaLevel = sceneInfo.m_seaLevel;
 
                 //Get our manager
@@ -90,7 +90,7 @@ namespace Gaia
                 case GaiaConstants.SpawnerResourceType.TerrainTexture:
                     {
                         assetChoices = new GUIContent[m_visualiser.m_resources.m_texturePrototypes.Length];
-                        for (int assetIdx = 0; assetIdx < m_visualiser.m_resources.m_texturePrototypes.Length; assetIdx++)
+                        for (var assetIdx = 0; assetIdx < m_visualiser.m_resources.m_texturePrototypes.Length; assetIdx++)
                         {
                             assetChoices[assetIdx] = new GUIContent(m_visualiser.m_resources.m_texturePrototypes[assetIdx].m_name);
                         }
@@ -99,7 +99,7 @@ namespace Gaia
                 case GaiaConstants.SpawnerResourceType.TerrainDetail:
                     {
                         assetChoices = new GUIContent[m_visualiser.m_resources.m_detailPrototypes.Length];
-                        for (int assetIdx = 0; assetIdx < m_visualiser.m_resources.m_detailPrototypes.Length; assetIdx++)
+                        for (var assetIdx = 0; assetIdx < m_visualiser.m_resources.m_detailPrototypes.Length; assetIdx++)
                         {
                             assetChoices[assetIdx] = new GUIContent(m_visualiser.m_resources.m_detailPrototypes[assetIdx].m_name);
                         }
@@ -108,7 +108,7 @@ namespace Gaia
                 case GaiaConstants.SpawnerResourceType.TerrainTree:
                     {
                         assetChoices = new GUIContent[m_visualiser.m_resources.m_treePrototypes.Length];
-                        for (int assetIdx = 0; assetIdx < m_visualiser.m_resources.m_treePrototypes.Length; assetIdx++)
+                        for (var assetIdx = 0; assetIdx < m_visualiser.m_resources.m_treePrototypes.Length; assetIdx++)
                         {
                             assetChoices[assetIdx] = new GUIContent(m_visualiser.m_resources.m_treePrototypes[assetIdx].m_name);
                         }
@@ -117,7 +117,7 @@ namespace Gaia
                 default:
                     {
                         assetChoices = new GUIContent[m_visualiser.m_resources.m_gameObjectPrototypes.Length];
-                        for (int assetIdx = 0; assetIdx < m_visualiser.m_resources.m_gameObjectPrototypes.Length; assetIdx++)
+                        for (var assetIdx = 0; assetIdx < m_visualiser.m_resources.m_gameObjectPrototypes.Length; assetIdx++)
                         {
                             assetChoices[assetIdx] = new GUIContent(m_visualiser.m_resources.m_gameObjectPrototypes[assetIdx].m_name);
                         }
@@ -139,7 +139,7 @@ namespace Gaia
                             {
                                 m_visualiser.m_selectedResourceIdx = 0;
                             }
-                            ResourceProtoTextureSO so = ScriptableObject.CreateInstance<ResourceProtoTextureSO>();
+                            var so = ScriptableObject.CreateInstance<ResourceProtoTextureSO>();
                             so.m_texture = m_visualiser.m_resources.m_texturePrototypes[m_visualiser.m_selectedResourceIdx];
                             var ed = Editor.CreateEditor(so);
                             ed.OnInspectorGUI();
@@ -152,7 +152,7 @@ namespace Gaia
                             {
                                 m_visualiser.m_selectedResourceIdx = 0;
                             }
-                            ResourceProtoDetailSO so = ScriptableObject.CreateInstance<ResourceProtoDetailSO>();
+                            var so = ScriptableObject.CreateInstance<ResourceProtoDetailSO>();
                             so.m_detail = m_visualiser.m_resources.m_detailPrototypes[m_visualiser.m_selectedResourceIdx];
                             var ed = Editor.CreateEditor(so);
                             ed.OnInspectorGUI();
@@ -165,7 +165,7 @@ namespace Gaia
                             {
                                 m_visualiser.m_selectedResourceIdx = 0;
                             }
-                            ResourceProtoTreeSO so = ScriptableObject.CreateInstance<ResourceProtoTreeSO>();
+                            var so = ScriptableObject.CreateInstance<ResourceProtoTreeSO>();
                             so.m_tree = m_visualiser.m_resources.m_treePrototypes[m_visualiser.m_selectedResourceIdx];
                             var ed = Editor.CreateEditor(so);
                             ed.OnInspectorGUI();
@@ -178,7 +178,7 @@ namespace Gaia
                             {
                                 m_visualiser.m_selectedResourceIdx = 0;
                             }
-                            ResourceProtoGameObjectSO so = ScriptableObject.CreateInstance<ResourceProtoGameObjectSO>();
+                            var so = ScriptableObject.CreateInstance<ResourceProtoGameObjectSO>();
                             so.m_gameObject = m_visualiser.m_resources.m_gameObjectPrototypes[m_visualiser.m_selectedResourceIdx];
                             var ed = Editor.CreateEditor(so);
                             ed.OnInspectorGUI();
@@ -226,14 +226,14 @@ namespace Gaia
             if (Event.current.control == true)
             {
                 //Work out where the mouse is and get fitness
-                Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
+                var ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
                 RaycastHit hitInfo;
                 if (Physics.Raycast(ray, out hitInfo, 10000f))
                 {
                     if (hitInfo.point != m_visualiser.m_lastHitPoint)
                     {
                         m_visualiser.m_lastHitPoint = hitInfo.point;
-                        SpawnInfo spawnInfo = m_visualiser.GetSpawnInfo(hitInfo.point);
+                        var spawnInfo = m_visualiser.GetSpawnInfo(hitInfo.point);
 
                         if (!spawnInfo.m_outOfBounds)
                         {
@@ -283,7 +283,7 @@ namespace Gaia
         /// <returns></returns>
         GUIContent GetLabel(string name)
         {
-            string tooltip = "";
+            var tooltip = "";
             if (m_tooltips.TryGetValue(name, out tooltip))
             {
                 return new GUIContent(name, tooltip);

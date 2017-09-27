@@ -25,14 +25,14 @@ namespace twoDSystem
     
         public static void Add(Data.Point p, float angle)
         {
-            Vector3 v = p.GetVector3();
+            var v = p.GetVector3();
             v.y = angle;
             _points.Add(v);
         }
 
         public static void AddPillar(Data.Pillar p)
         {
-            Vector3 v = new Vector3(p.X, p.Radius, p.Y);
+            var v = new Vector3(p.X, p.Radius, p.Y);
             Pillars.Add(v);
         }
         

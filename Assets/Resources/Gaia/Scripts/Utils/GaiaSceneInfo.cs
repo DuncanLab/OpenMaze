@@ -18,8 +18,8 @@ namespace Gaia
         /// <returns></returns>
         public static GaiaSceneInfo GetSceneInfo()
         {
-            GaiaSceneInfo sceneInfo = new GaiaSceneInfo();
-            Terrain terrain = Gaia.TerrainHelper.GetActiveTerrain();
+            var sceneInfo = new GaiaSceneInfo();
+            var terrain = Gaia.TerrainHelper.GetActiveTerrain();
 
             if (terrain == null)
             {
@@ -28,7 +28,7 @@ namespace Gaia
             else
             {
                 //Get or create a session in order to get a sea level
-                GaiaSessionManager sessionMgr = GaiaSessionManager.GetSessionManager();
+                var sessionMgr = GaiaSessionManager.GetSessionManager();
 
                 //Get the terrain bounds
                 Gaia.TerrainHelper.GetTerrainBounds(terrain, ref sceneInfo.m_sceneBounds);

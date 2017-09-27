@@ -8,7 +8,7 @@ namespace twoDSystem
 			var points = WallPointContainer.GetPoints();
 			foreach (var i in points)
 			{
-				GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+				var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
 				cube.GetComponent<Renderer>().material.color = Color.black;
 				cube.transform.position = new Vector3(i.x, 0, i.z);
 				cube.transform.Rotate(new Vector3(0, i.y, 0));
@@ -17,7 +17,7 @@ namespace twoDSystem
 
 			foreach (var i in WallPointContainer.Pillars)
 			{
-				GameObject cylinder = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+				var cylinder = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 				cylinder.GetComponent<Renderer>().material.color = Color.red;
 				cylinder.transform.position = new Vector3(i.x, 0, i.z);
 				cylinder.transform.localScale = new Vector3(i.y, 1f, i.y);

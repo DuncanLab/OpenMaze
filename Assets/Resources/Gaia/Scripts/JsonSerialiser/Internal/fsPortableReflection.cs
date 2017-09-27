@@ -146,7 +146,7 @@ namespace Gaia.FullSerializer.Internal
         public static PropertyInfo GetDeclaredProperty(this Type type, string propertyName) {
             var props = GetDeclaredProperties(type);
 
-            for (int i = 0; i < props.Length; ++i) {
+            for (var i = 0; i < props.Length; ++i) {
                 if (props[i].Name == propertyName) {
                     return props[i];
                 }
@@ -158,7 +158,7 @@ namespace Gaia.FullSerializer.Internal
         public static MethodInfo GetDeclaredMethod(this Type type, string methodName) {
             var methods = GetDeclaredMethods(type);
 
-            for (int i = 0; i < methods.Length; ++i) {
+            for (var i = 0; i < methods.Length; ++i) {
                 if (methods[i].Name == methodName) {
                     return methods[i];
                 }
@@ -171,13 +171,13 @@ namespace Gaia.FullSerializer.Internal
         public static ConstructorInfo GetDeclaredConstructor(this Type type, Type[] parameters) {
             var ctors = GetDeclaredConstructors(type);
 
-            for (int i = 0; i < ctors.Length; ++i) {
+            for (var i = 0; i < ctors.Length; ++i) {
                 var ctor = ctors[i];
                 var ctorParams = ctor.GetParameters();
 
                 if (parameters.Length != ctorParams.Length) continue;
 
-                for (int j = 0; j < ctorParams.Length; ++j) {
+                for (var j = 0; j < ctorParams.Length; ++j) {
                     // require an exact match
                     if (ctorParams[j].ParameterType != parameters[j]) continue;
                 }
@@ -202,7 +202,7 @@ namespace Gaia.FullSerializer.Internal
             while (type != null) {
                 var members = GetDeclaredMembers(type);
 
-                for (int i = 0; i < members.Length; ++i) {
+                for (var i = 0; i < members.Length; ++i) {
                     if (members[i].Name == memberName) {
                         result.Add(members[i]);
                     }
@@ -218,7 +218,7 @@ namespace Gaia.FullSerializer.Internal
             while (type != null) {
                 var methods = GetDeclaredMethods(type);
 
-                for (int i = 0; i < methods.Length; ++i) {
+                for (var i = 0; i < methods.Length; ++i) {
                     if (methods[i].Name == methodName) {
                         return methods[i];
                     }
@@ -234,7 +234,7 @@ namespace Gaia.FullSerializer.Internal
             while (type != null) {
                 var methods = GetDeclaredMethods(type);
 
-                for (int i = 0; i < methods.Length; ++i) {
+                for (var i = 0; i < methods.Length; ++i) {
                     if (methods[i].Name == methodName) {
                         yield return methods[i];
                     }
@@ -248,7 +248,7 @@ namespace Gaia.FullSerializer.Internal
             while (type != null) {
                 var properties = GetDeclaredProperties(type);
 
-                for (int i = 0; i < properties.Length; ++i) {
+                for (var i = 0; i < properties.Length; ++i) {
                     if (properties[i].Name == propertyName) {
                         return properties[i];
                     }
@@ -263,7 +263,7 @@ namespace Gaia.FullSerializer.Internal
         public static MemberInfo GetDeclaredMember(this Type type, string memberName) {
             var members = GetDeclaredMembers(type);
 
-            for (int i = 0; i < members.Length; ++i) {
+            for (var i = 0; i < members.Length; ++i) {
                 if (members[i].Name == memberName) {
                     return members[i];
                 }

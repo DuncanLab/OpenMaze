@@ -16,7 +16,7 @@
  
             // Load a PNG or JPG image from disk to a Texture2D, assign this texture to a new sprite and return its reference
 
-            Texture2D spriteTexture = LoadTexture(filePath);
+            var spriteTexture = LoadTexture(filePath);
             var newSprite = Sprite.Create(spriteTexture, new Rect(0, 0, spriteTexture.width, spriteTexture.height), new Vector2(0, 0), pixelsPerUnit, 0 , spriteType);
  
             return newSprite;

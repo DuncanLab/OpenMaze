@@ -49,8 +49,8 @@ namespace Gaia {
             EditorGUILayout.LabelField("These are the resources used by the Spawning & Stamping system. Create a terrain, add textures, details and trees, then press Get Resources From Terrain to load. To see how the settings influence the system you can hover over them.", m_wrapStyle);
             GUILayout.EndVertical();
 
-            float oldSeaLevel = m_resource.m_seaLevel;
-            float oldHeight = m_resource.m_terrainHeight;
+            var oldSeaLevel = m_resource.m_seaLevel;
+            var oldHeight = m_resource.m_terrainHeight;
 
             EditorGUI.BeginChangeCheck();
 
@@ -167,19 +167,19 @@ namespace Gaia {
 
             if (GUILayout.Button(GetLabel("Visualise")))
             {
-                GameObject gaiaObj = GameObject.Find("Gaia");
+                var gaiaObj = GameObject.Find("Gaia");
                 if (gaiaObj == null)
                 {
                     gaiaObj = new GameObject("Gaia");
                 }
-                GameObject visualiserObj = GameObject.Find("Visualiser");
+                var visualiserObj = GameObject.Find("Visualiser");
                 if (visualiserObj == null)
                 {
                     visualiserObj = new GameObject("Visualiser");
                     visualiserObj.AddComponent<ResourceVisualiser>();
                     visualiserObj.transform.parent = gaiaObj.transform;
                 }
-                ResourceVisualiser visualiser = visualiserObj.GetComponent<ResourceVisualiser>();
+                var visualiser = visualiserObj.GetComponent<ResourceVisualiser>();
                 visualiser.m_resources = m_resource;
                 Selection.activeGameObject = visualiserObj;
             }
@@ -220,8 +220,8 @@ namespace Gaia {
             }
 
             //Ok - set up for drag and drop
-            Event evt = Event.current;
-            Rect drop_area = GUILayoutUtility.GetRect(0.0f, 50.0f, GUILayout.ExpandWidth(true));
+            var evt = Event.current;
+            var drop_area = GUILayoutUtility.GetRect(0.0f, 50.0f, GUILayout.ExpandWidth(true));
             GUI.Box(drop_area, "Drop Game Objects / Prefabs Here", m_boxStyle);
 
             switch (evt.type)
@@ -239,10 +239,10 @@ namespace Gaia {
 
 
                         //Work out if we have prefab instances or prefab objects
-                        bool havePrefabInstances = false;
-                        foreach (UnityEngine.Object dragged_object in DragAndDrop.objectReferences)
+                        var havePrefabInstances = false;
+                        foreach (var dragged_object in DragAndDrop.objectReferences)
                         {
-                            PrefabType pt = PrefabUtility.GetPrefabType(dragged_object);
+                            var pt = PrefabUtility.GetPrefabType(dragged_object);
 
                             if (pt == PrefabType.PrefabInstance || pt == PrefabType.ModelPrefabInstance)
                             {
@@ -253,11 +253,11 @@ namespace Gaia {
 
                         if (havePrefabInstances)
                         {
-                            List<GameObject> prototypes = new List<GameObject>();
+                            var prototypes = new List<GameObject>();
 
-                            foreach (UnityEngine.Object dragged_object in DragAndDrop.objectReferences)
+                            foreach (var dragged_object in DragAndDrop.objectReferences)
                             {
-                                PrefabType pt = PrefabUtility.GetPrefabType(dragged_object);
+                                var pt = PrefabUtility.GetPrefabType(dragged_object);
 
                                 if (pt == PrefabType.PrefabInstance || pt == PrefabType.ModelPrefabInstance)
                                 {
@@ -277,7 +277,7 @@ namespace Gaia {
                         }
                         else
                         {
-                            foreach (UnityEngine.Object dragged_object in DragAndDrop.objectReferences)
+                            foreach (var dragged_object in DragAndDrop.objectReferences)
                             {
                                 if (PrefabUtility.GetPrefabType(dragged_object) == PrefabType.Prefab)
                                 {
@@ -302,8 +302,8 @@ namespace Gaia {
         /// <returns>Range from currently active terrain or 1024f</returns>
         private float GetRangeFromTerrain()
         {
-            float range = 1024f;
-            Terrain t = Gaia.TerrainHelper.GetActiveTerrain();
+            var range = 1024f;
+            var t = Gaia.TerrainHelper.GetActiveTerrain();
             if (t != null)
             {
                 range = Mathf.Max(t.terrainData.size.x, t.terrainData.size.z) / 2f;
@@ -318,7 +318,7 @@ namespace Gaia {
         /// <returns></returns>
         GUIContent GetLabel(string name)
         {
-            string tooltip = "";
+            var tooltip = "";
             if (m_tooltips.TryGetValue(name, out tooltip))
             {
                 return new GUIContent(name, tooltip);

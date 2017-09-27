@@ -43,7 +43,7 @@ namespace Gaia
         /// <param name="spawner">The spawner it belongs to</param>
         public void Initialise(Spawner spawner)
         {
-            foreach (SpawnCritera criteria in m_spawnCriteria)
+            foreach (var criteria in m_spawnCriteria)
             {
                 criteria.Initialise(spawner);
             }
@@ -55,7 +55,7 @@ namespace Gaia
         /// <returns>True if has actrive criteria</returns>
         public bool HasActiveCriteria()
         {
-            for (int idx = 0; idx < m_spawnCriteria.Length; idx++)
+            for (var idx = 0; idx < m_spawnCriteria.Length; idx++)
             {
                 if (m_spawnCriteria[idx].m_isActive)
                 {
@@ -71,12 +71,12 @@ namespace Gaia
         /// <returns>True if something changes</returns>
         public bool SetAssetAssociations()
         {
-            bool isModified = false;
+            var isModified = false;
 
             #if UNITY_EDITOR
             if (m_desktopPrefab != null)
             {
-                string fileName = Path.GetFileName(AssetDatabase.GetAssetPath(m_desktopPrefab));
+                var fileName = Path.GetFileName(AssetDatabase.GetAssetPath(m_desktopPrefab));
                 if (fileName != m_desktopPrefabFileName)
                 {
                     m_desktopPrefabFileName = fileName;
@@ -94,7 +94,7 @@ namespace Gaia
 
             if (m_mobilePrefab != null)
             {
-                string fileName = Path.GetFileName(AssetDatabase.GetAssetPath(m_mobilePrefab));
+                var fileName = Path.GetFileName(AssetDatabase.GetAssetPath(m_mobilePrefab));
                 if (fileName != m_mobilePrefabFileName)
                 {
                     m_mobilePrefabFileName = fileName;
@@ -121,7 +121,7 @@ namespace Gaia
         /// <returns>True if the prototype was in some way modified</returns>
         public bool AssociateAssets()
         {
-            bool isModified = false;
+            var isModified = false;
 
             #if UNITY_EDITOR
             if (m_desktopPrefab == null)
@@ -158,7 +158,7 @@ namespace Gaia
         /// <returns>True if has active criteria that checks textures</returns>
         public bool ChecksTextures()
         {
-            for (int idx = 0; idx < m_spawnCriteria.Length; idx++)
+            for (var idx = 0; idx < m_spawnCriteria.Length; idx++)
             {
                 if (m_spawnCriteria[idx].m_isActive && m_spawnCriteria[idx].m_checkTexture)
                 {
@@ -174,7 +174,7 @@ namespace Gaia
         /// <returns>True if has active criteria that checks proximity</returns>
         public bool ChecksProximity()
         {
-            for (int idx = 0; idx < m_spawnCriteria.Length; idx++)
+            for (var idx = 0; idx < m_spawnCriteria.Length; idx++)
             {
                 if (m_spawnCriteria[idx].m_isActive && m_spawnCriteria[idx].m_checkProximity)
                 {
@@ -190,7 +190,7 @@ namespace Gaia
         /// <param name="tagList">The list to add the tags to</param>
         public void AddTags(ref List<string> tagList)
         {
-            for (int idx = 0; idx < m_spawnCriteria.Length; idx++)
+            for (var idx = 0; idx < m_spawnCriteria.Length; idx++)
             {
                 if (m_spawnCriteria[idx].m_isActive && m_spawnCriteria[idx].m_checkProximity)
                 {

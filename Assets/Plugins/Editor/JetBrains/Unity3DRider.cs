@@ -41,14 +41,14 @@ namespace Plugins.Editor.JetBrains
 
       var slnFile = Directory.GetFiles(currentDirectory, "*.sln").First();
       RiderPlugin.Log(RiderPlugin.LoggingLevel.Verbose, string.Format("Post-processing {0}", slnFile));
-      string content = File.ReadAllText(slnFile);
+      var content = File.ReadAllText(slnFile);
       var lines = content.Split(new[] {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries);
       var sb = new StringBuilder();
       foreach (var line in lines)
       {
         if (line.StartsWith("Project("))
         {
-          MatchCollection mc = Regex.Matches(line, "\"([^\"]*)\"");
+          var mc = Regex.Matches(line, "\"([^\"]*)\"");
           //RiderPlugin.Log(RiderPlugin.LoggingLevel.Info, "mc[1]: "+mc[1].Value);
           //RiderPlugin.Log(RiderPlugin.LoggingLevel.Info, "mc[2]: "+mc[2].Value);
           var to = GetFileNameWithoutExtension(mc[2].Value.Substring(1, mc[2].Value.Length-1)); // remove quotes
@@ -122,7 +122,7 @@ namespace Plugins.Editor.JetBrains
         var hintPath = el.Elements(xmlns + "HintPath").FirstOrDefault();
         if (hintPath != null)
         {
-          string unityAppBaseFolder = Path.GetDirectoryName(EditorApplication.applicationPath);
+          var unityAppBaseFolder = Path.GetDirectoryName(EditorApplication.applicationPath);
           var path = Path.Combine(unityAppBaseFolder, "Data/Managed/nunit.framework.dll");
           if (new FileInfo(path).Exists)
             hintPath.Value = path;
@@ -230,7 +230,7 @@ namespace Plugins.Editor.JetBrains
   
     private static void SetXCodeDllReference(string name, XNamespace xmlns, XElement projectContentElement)
     {
-      string unityAppBaseFolder = Path.GetDirectoryName(EditorApplication.applicationPath);
+      var unityAppBaseFolder = Path.GetDirectoryName(EditorApplication.applicationPath);
 
       var xcodeDllPath = Path.Combine(unityAppBaseFolder, Path.Combine("Data/PlaybackEngines/iOSSupport", name));
       if (!File.Exists(xcodeDllPath))
@@ -496,9 +496,9 @@ namespace Plugins.Editor.JetBrains
 
     private static void AddRiderToRecentlyUsedScriptApp(string userAppPath, string recentAppsKey)
     {
-      for (int index = 0; index < 10; ++index)
+      for (var index = 0; index < 10; ++index)
       {
-        string path = EditorPrefs.GetString(recentAppsKey + (object) index);
+        var path = EditorPrefs.GetString(recentAppsKey + (object) index);
         if (File.Exists(path) && Path.GetFileName(path).ToLower().Contains("rider"))
           return;
       }
@@ -573,7 +573,7 @@ namespace Plugins.Editor.JetBrains
           RiderAssetPostprocessor.OnGeneratedCSProjectFiles();
         }
 
-        string appPath = Path.GetDirectoryName(Application.dataPath);
+        var appPath = Path.GetDirectoryName(Application.dataPath);
 
         // determine asset that has been double clicked in the project view
         var selected = EditorUtility.InstanceIDToObject(instanceID);
@@ -613,7 +613,7 @@ namespace Plugins.Editor.JetBrains
           return false;
       }
 
-      int[] ports = Enumerable.Range(63342, 20).ToArray();
+      var ports = Enumerable.Range(63342, 20).ToArray();
       var res = ports.Any(port =>
       {
         var aboutUrl = string.Format("http://localhost:{0}/api/about/", port);
@@ -773,8 +773,8 @@ namespace Plugins.Editor.JetBrains
     /// </summary>
     private static void SyncSolution()
     {
-      System.Type T = System.Type.GetType("UnityEditor.SyncVS,UnityEditor");
-      System.Reflection.MethodInfo SyncSolution = T.GetMethod("SyncSolution",
+      var T = System.Type.GetType("UnityEditor.SyncVS,UnityEditor");
+      var SyncSolution = T.GetMethod("SyncSolution",
         System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static);
       SyncSolution.Invoke(null, null);
     }
@@ -794,7 +794,7 @@ namespace Plugins.Editor.JetBrains
       var alternatives = GetAllRiderPaths();
       if (alternatives.Any())
       {
-        int index = Array.IndexOf(alternatives, RiderPath);
+        var index = Array.IndexOf(alternatives, RiderPath);
         var alts = alternatives.Select(s => s.Replace("/", ":"))
           .ToArray(); // hack around https://fogbugz.unity3d.com/default.asp?940857_tirhinhe3144t4vn
         RiderPath = alternatives[EditorGUILayout.Popup("Rider executable:", index == -1 ? 0 : index, alts)];
@@ -851,7 +851,7 @@ All those problems will go away after Unity upgrades to mono4.";
       style.richText = true;
       caption = string.Format("<color=#0000FF>{0}</color>", caption);
 
-      bool bClicked = GUILayout.Button(caption, style);
+      var bClicked = GUILayout.Button(caption, style);
 
       var rect = GUILayoutUtility.GetLastRect();
       rect.width = style.CalcSize(new GUIContent(caption)).x;
@@ -1148,12 +1148,12 @@ return SystemInfo.operatingSystemFamily;
 
       public static string Resolve(string filename)
       {
-        ShellLink link = new ShellLink();
+        var link = new ShellLink();
         ((IPersistFile) link).Load(filename, STGM_READ);
         // If I can get hold of the hwnd call resolve first. This handles moved and renamed files.  
         // ((IShellLinkW)link).Resolve(hwnd, 0) 
-        StringBuilder sb = new StringBuilder(MAX_PATH);
-        WIN32_FIND_DATAW data = new WIN32_FIND_DATAW();
+        var sb = new StringBuilder(MAX_PATH);
+        var data = new WIN32_FIND_DATAW();
         ((IShellLinkW) link).GetPath(sb, sb.Capacity, out data, 0);
         return sb.ToString();
       }

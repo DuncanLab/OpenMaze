@@ -115,11 +115,11 @@ namespace UnityStandardAssets.ImageEffects
             }
             scratchTimeLeft -= Time.deltaTime;
 
-            Material mat = material;
+            var mat = material;
 
             mat.SetTexture("_GrainTex", grainTexture);
             mat.SetTexture("_ScratchTex", scratchTexture);
-            float grainScale = 1.0f / grainSize; // we have sanitized it earlier, won't be zero
+            var grainScale = 1.0f / grainSize; // we have sanitized it earlier, won't be zero
             mat.SetVector("_GrainOffsetScale", new Vector4(
                                                    Random.value,
                                                    Random.value,

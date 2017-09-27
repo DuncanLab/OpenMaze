@@ -82,7 +82,7 @@ namespace UnityStandardAssets.ImageEffects
 
                 if (softness > Mathf.Epsilon)
                 {
-                    RenderTexture rt = RenderTexture.GetTemporary((int) (source.width * (1.0f-softness)), (int) (source.height * (1.0f-softness)));
+                    var rt = RenderTexture.GetTemporary((int) (source.width * (1.0f-softness)), (int) (source.height * (1.0f-softness)));
                     DrawNoiseQuadGrid (source, rt, dx11NoiseMaterial, noiseTexture, monochrome ? 3 : 2);
                     dx11NoiseMaterial.SetTexture("_NoiseTex", rt);
                     Graphics.Blit(source, destination, dx11NoiseMaterial, 4);
@@ -108,7 +108,7 @@ namespace UnityStandardAssets.ImageEffects
 
                 if (softness > Mathf.Epsilon)
                 {
-                    RenderTexture rt2 = RenderTexture.GetTemporary((int) (source.width * (1.0f-softness)), (int) (source.height * (1.0f-softness)));
+                    var rt2 = RenderTexture.GetTemporary((int) (source.width * (1.0f-softness)), (int) (source.height * (1.0f-softness)));
                     DrawNoiseQuadGrid (source, rt2, noiseMaterial, noiseTexture, 2);
                     noiseMaterial.SetTexture("_NoiseTex", rt2);
                     Graphics.Blit(source, destination, noiseMaterial, 1);
@@ -123,29 +123,29 @@ namespace UnityStandardAssets.ImageEffects
 		{
             RenderTexture.active = dest;
 
-            float noiseSize = (noise.width * 1.0f);
-            float subDs = (1.0f * source.width) / TILE_AMOUNT;
+            var noiseSize = (noise.width * 1.0f);
+            var subDs = (1.0f * source.width) / TILE_AMOUNT;
 
             fxMaterial.SetTexture ("_MainTex", source);
 
             GL.PushMatrix ();
             GL.LoadOrtho ();
 
-            float aspectCorrection = (1.0f * source.width) / (1.0f * source.height);
-            float stepSizeX = 1.0f / subDs;
-            float stepSizeY = stepSizeX * aspectCorrection;
-            float texTile = noiseSize / (noise.width * 1.0f);
+            var aspectCorrection = (1.0f * source.width) / (1.0f * source.height);
+            var stepSizeX = 1.0f / subDs;
+            var stepSizeY = stepSizeX * aspectCorrection;
+            var texTile = noiseSize / (noise.width * 1.0f);
 
             fxMaterial.SetPass (passNr);
 
             GL.Begin (GL.QUADS);
 
-            for (float x1 = 0.0f; x1 < 1.0f; x1 += stepSizeX)
+            for (var x1 = 0.0f; x1 < 1.0f; x1 += stepSizeX)
 			{
-                for (float y1 = 0.0f; y1 < 1.0f; y1 += stepSizeY)
+                for (var y1 = 0.0f; y1 < 1.0f; y1 += stepSizeY)
 				{
-                    float tcXStart = Random.Range (0.0f, 1.0f);
-                    float tcYStart = Random.Range (0.0f, 1.0f);
+                    var tcXStart = Random.Range (0.0f, 1.0f);
+                    var tcYStart = Random.Range (0.0f, 1.0f);
 
                     //Vector3 v3 = Random.insideUnitSphere;
                     //Color c = new Color(v3.x, v3.y, v3.z);
@@ -153,7 +153,7 @@ namespace UnityStandardAssets.ImageEffects
                     tcXStart = Mathf.Floor(tcXStart*noiseSize) / noiseSize;
                     tcYStart = Mathf.Floor(tcYStart*noiseSize) / noiseSize;
 
-                    float texTileMod = 1.0f / noiseSize;
+                    var texTileMod = 1.0f / noiseSize;
 
                     GL.MultiTexCoord2 (0, tcXStart, tcYStart);
                     GL.MultiTexCoord2 (1, 0.0f, 0.0f);

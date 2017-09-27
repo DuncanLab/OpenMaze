@@ -59,7 +59,7 @@ namespace Gaia.GX.ProceduralWorlds
         /// </summary>
         public static void GX_CreateCameraEffects()
         {
-            Camera camera = Camera.main;
+            var camera = Camera.main;
             if (camera == null)
             {
                 camera = FindObjectOfType<Camera>();
@@ -79,7 +79,7 @@ namespace Gaia.GX.ProceduralWorlds
                 camera.renderingPath = RenderingPath.DeferredShading;
 
                 //Now set up camera FX
-                GameObject cameraObj = camera.gameObject;
+                var cameraObj = camera.gameObject;
 
                 //Field info
                 FieldInfo fi = null;
@@ -91,7 +91,7 @@ namespace Gaia.GX.ProceduralWorlds
                 }
 
                 //Add anti aliasing
-                Type antiAliasingType = Gaia.Utils.GetType("UnityStandardAssets.ImageEffects.Antialiasing");
+                var antiAliasingType = Gaia.Utils.GetType("UnityStandardAssets.ImageEffects.Antialiasing");
                 if (antiAliasingType == null)
                 {
                     EditorUtility.DisplayDialog("OOPS!", "Could not add antialiasing. Please find import Standard Effects Package : Assets -> Import Package -> Effects.", "OK");
@@ -107,7 +107,7 @@ namespace Gaia.GX.ProceduralWorlds
                 }
 
                 //Add SSAO
-                Type ssaoType = Gaia.Utils.GetType("UnityStandardAssets.ImageEffects.ScreenSpaceAmbientOcclusion");
+                var ssaoType = Gaia.Utils.GetType("UnityStandardAssets.ImageEffects.ScreenSpaceAmbientOcclusion");
                 if (ssaoType == null)
                 {
                     EditorUtility.DisplayDialog("OOPS!", "Could not add screen space abient occlusion. Please find import Standard Effects Package : Assets -> Import Package -> Effects.", "OK");
@@ -122,7 +122,7 @@ namespace Gaia.GX.ProceduralWorlds
                     }
                 }
 
-                Type bloomType = Gaia.Utils.GetType("UnityStandardAssets.ImageEffects.BloomOptimized");
+                var bloomType = Gaia.Utils.GetType("UnityStandardAssets.ImageEffects.BloomOptimized");
                 if (bloomType == null)
                 {
                     EditorUtility.DisplayDialog("OOPS!", "Could not add bloom. Please find import Standard Effects Package : Assets -> Import Package -> Effects.", "OK");
@@ -163,7 +163,7 @@ namespace Gaia.GX.ProceduralWorlds
                     }
                 }
 
-                Type dofType = Gaia.Utils.GetType("UnityStandardAssets.ImageEffects.DepthOfField");
+                var dofType = Gaia.Utils.GetType("UnityStandardAssets.ImageEffects.DepthOfField");
                 if (dofType == null)
                 {
                     EditorUtility.DisplayDialog("OOPS!", "Could not add depth of field. Please find import Standard Effects Package : Assets -> Import Package -> Effects.", "OK");
@@ -226,7 +226,7 @@ namespace Gaia.GX.ProceduralWorlds
                 }
 
                 //Rather nasty hack around the fact that unity made this a private class
-                Type fogType = Gaia.Utils.GetType("UnityStandardAssets.ImageEffects.GlobalFog");
+                var fogType = Gaia.Utils.GetType("UnityStandardAssets.ImageEffects.GlobalFog");
                 if (fogType == null)
                 {
                     EditorUtility.DisplayDialog("OOPS!", "Could not add global fog. Please find import Standard Effects Package : Assets -> Import Package -> Effects.", "OK");
@@ -251,7 +251,7 @@ namespace Gaia.GX.ProceduralWorlds
                     }
                 }
 
-                Type toneMappingType = Gaia.Utils.GetType("UnityStandardAssets.ImageEffects.Tonemapping");
+                var toneMappingType = Gaia.Utils.GetType("UnityStandardAssets.ImageEffects.Tonemapping");
                 if (toneMappingType == null)
                 {
                     EditorUtility.DisplayDialog("OOPS!", "Could not add tonemapping. Please find import Standard Effects Package : Assets -> Import Package -> Effects.", "OK");
@@ -277,7 +277,7 @@ namespace Gaia.GX.ProceduralWorlds
                     }
                 }
 
-                Type vignetteType = Gaia.Utils.GetType("UnityStandardAssets.ImageEffects.VignetteAndChromaticAberration");
+                var vignetteType = Gaia.Utils.GetType("UnityStandardAssets.ImageEffects.VignetteAndChromaticAberration");
                 if (vignetteType == null)
                 {
                     EditorUtility.DisplayDialog("OOPS!", "Could not add vignette. Please find import Standard Effects Package : Assets -> Import Package -> Effects.", "OK");
@@ -329,7 +329,7 @@ namespace Gaia.GX.ProceduralWorlds
 
         public static void GX_SetMorningLight()
         {
-            GameObject lightObj = GameObject.Find("Directional Light");
+            var lightObj = GameObject.Find("Directional Light");
             if (lightObj == null)
             {
                 lightObj = GameObject.Find("Directional light");
@@ -337,12 +337,12 @@ namespace Gaia.GX.ProceduralWorlds
             if (lightObj != null)
             {
                 lightObj.transform.localRotation = Quaternion.Euler(new Vector3(18f, 176, 8f));
-                Light light = lightObj.GetComponent<Light>();
+                var light = lightObj.GetComponent<Light>();
                 if (light != null)
                 {
                     light.color = new Color(201f / 255f, 136f / 255f, 66f / 255f, 1f);
                     light.intensity = 1.5f;
-                    string flarePath = GetAssetPath("Gaia85mmLens");
+                    var flarePath = GetAssetPath("Gaia85mmLens");
                     if (!string.IsNullOrEmpty(flarePath))
                     {
                         light.flare = AssetDatabase.LoadAssetAtPath<Flare>(flarePath);
@@ -350,7 +350,7 @@ namespace Gaia.GX.ProceduralWorlds
                 }
 
                 //Set the skybox material
-                string matPath = GetAssetPath("GaiaMorningMaterial");
+                var matPath = GetAssetPath("GaiaMorningMaterial");
                 if (!string.IsNullOrEmpty(matPath))
                 {
                     RenderSettings.skybox = AssetDatabase.LoadAssetAtPath<Material>(matPath);
@@ -378,7 +378,7 @@ namespace Gaia.GX.ProceduralWorlds
         /// </summary>
         public static void GX_SetAfternoonLight()
         {
-            GameObject lightObj = GameObject.Find("Directional Light");
+            var lightObj = GameObject.Find("Directional Light");
             if (lightObj == null)
             {
                 lightObj = GameObject.Find("Directional light");
@@ -386,12 +386,12 @@ namespace Gaia.GX.ProceduralWorlds
             if (lightObj != null)
             {
                 lightObj.transform.localRotation = Quaternion.Euler(new Vector3(42f, 346f, -1.7f));
-                Light light = lightObj.GetComponent<Light>();
+                var light = lightObj.GetComponent<Light>();
                 if (light != null)
                 {
                     light.color = new Color(171f / 255f, 146f / 255f, 119f / 255f, 1f);
                     light.intensity = 1.4f;
-                    string flarePath = GetAssetPath("Gaia85mmLens");
+                    var flarePath = GetAssetPath("Gaia85mmLens");
                     if (!string.IsNullOrEmpty(flarePath))
                     {
                         light.flare = AssetDatabase.LoadAssetAtPath<Flare>(flarePath);
@@ -399,7 +399,7 @@ namespace Gaia.GX.ProceduralWorlds
                 }
 
                 //Set the skybox material
-                string matPath = GetAssetPath("GaiaAfternoonMaterial");
+                var matPath = GetAssetPath("GaiaAfternoonMaterial");
                 if (!string.IsNullOrEmpty(matPath))
                 {
                     RenderSettings.skybox = AssetDatabase.LoadAssetAtPath<Material>(matPath);
@@ -428,7 +428,7 @@ namespace Gaia.GX.ProceduralWorlds
         /// </summary>
         public static void GX_SetEveningLight()
         {
-            GameObject lightObj = GameObject.Find("Directional Light");
+            var lightObj = GameObject.Find("Directional Light");
             if (lightObj == null)
             {
                 lightObj = GameObject.Find("Directional light");
@@ -436,12 +436,12 @@ namespace Gaia.GX.ProceduralWorlds
             if (lightObj != null)
             {
                 lightObj.transform.localRotation = Quaternion.Euler(new Vector3(7f, 3f, -170f));
-                Light light = lightObj.GetComponent<Light>();
+                var light = lightObj.GetComponent<Light>();
                 if (light != null)
                 {
                     light.color = new Color(171f / 255f, 146f / 255f, 119f / 255f, 1f);
                     light.intensity = 1.36f;
-                    string flarePath = GetAssetPath("Gaia85mmLens");
+                    var flarePath = GetAssetPath("Gaia85mmLens");
                     if (!string.IsNullOrEmpty(flarePath))
                     {
                         light.flare = AssetDatabase.LoadAssetAtPath<Flare>(flarePath);
@@ -449,7 +449,7 @@ namespace Gaia.GX.ProceduralWorlds
                 }
 
                 //Set the skybox material
-                string matPath = GetAssetPath("GaiaEveningMaterial");
+                var matPath = GetAssetPath("GaiaEveningMaterial");
                 if (!string.IsNullOrEmpty(matPath))
                 {
                     RenderSettings.skybox = AssetDatabase.LoadAssetAtPath<Material>(matPath);
@@ -477,7 +477,7 @@ namespace Gaia.GX.ProceduralWorlds
         /// </summary>
         public static void GX_SetNightLight()
         {
-            GameObject lightObj = GameObject.Find("Directional Light");
+            var lightObj = GameObject.Find("Directional Light");
             if (lightObj == null)
             {
                 lightObj = GameObject.Find("Directional light");
@@ -485,12 +485,12 @@ namespace Gaia.GX.ProceduralWorlds
             if (lightObj != null)
             {
                 lightObj.transform.localRotation = Quaternion.Euler(new Vector3(16f, 176, 8f));
-                Light light = lightObj.GetComponent<Light>();
+                var light = lightObj.GetComponent<Light>();
                 if (light != null)
                 {
                     light.color = new Color(117f / 255f, 127f / 255f, 146f / 255f, 1f);
                     light.intensity = 0.3f;
-                    string flarePath = GetAssetPath("GaiaSubtle4");
+                    var flarePath = GetAssetPath("GaiaSubtle4");
                     if (!string.IsNullOrEmpty(flarePath))
                     {
                         light.flare = AssetDatabase.LoadAssetAtPath<Flare>(flarePath);
@@ -498,7 +498,7 @@ namespace Gaia.GX.ProceduralWorlds
                 }
 
                 //Set the skybox material
-                string matPath = GetAssetPath("GaiaNightMaterial");
+                var matPath = GetAssetPath("GaiaNightMaterial");
                 if (!string.IsNullOrEmpty(matPath))
                 {
                     RenderSettings.skybox = AssetDatabase.LoadAssetAtPath<Material>(matPath);
@@ -529,7 +529,7 @@ namespace Gaia.GX.ProceduralWorlds
         private static string GetAssetPath(string name)
         {
             #if UNITY_EDITOR
-            string[] assets = AssetDatabase.FindAssets(name, null);
+            var assets = AssetDatabase.FindAssets(name, null);
             if (assets.Length > 0)
             {
                 return AssetDatabase.GUIDToAssetPath(assets[0]);
@@ -546,10 +546,10 @@ namespace Gaia.GX.ProceduralWorlds
         public static GameObject GetAssetPrefab(string name)
         {
             #if UNITY_EDITOR
-            string[] assets = AssetDatabase.FindAssets(name, null);
-            for (int idx = 0; idx < assets.Length; idx++)
+            var assets = AssetDatabase.FindAssets(name, null);
+            for (var idx = 0; idx < assets.Length; idx++)
             {
-                string path = AssetDatabase.GUIDToAssetPath(assets[idx]);
+                var path = AssetDatabase.GUIDToAssetPath(assets[idx]);
                 if (path.Contains(".prefab"))
                 {
                     return AssetDatabase.LoadAssetAtPath<GameObject>(path);
@@ -565,7 +565,7 @@ namespace Gaia.GX.ProceduralWorlds
         /// <returns></returns>
         public static float GetRangeFromTerrain()
         {
-            Terrain terrain = GetActiveTerrain();
+            var terrain = GetActiveTerrain();
             if (terrain != null)
             {
                 return Mathf.Max(terrain.terrainData.size.x, terrain.terrainData.size.z) / 2f;
@@ -580,14 +580,14 @@ namespace Gaia.GX.ProceduralWorlds
         public static Terrain GetActiveTerrain()
         {
             //Grab active terrain if we can
-            Terrain terrain = Terrain.activeTerrain;
+            var terrain = Terrain.activeTerrain;
             if (terrain != null && terrain.isActiveAndEnabled)
             {
                 return terrain;
             }
 
             //Then check rest of terrains
-            for (int idx = 0; idx < Terrain.activeTerrains.Length; idx++)
+            for (var idx = 0; idx < Terrain.activeTerrains.Length; idx++)
             {
                 terrain = Terrain.activeTerrains[idx];
                 if (terrain != null && terrain.isActiveAndEnabled)

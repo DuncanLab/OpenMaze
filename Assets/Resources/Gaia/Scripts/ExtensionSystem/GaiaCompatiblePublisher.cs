@@ -50,7 +50,7 @@ namespace Gaia
         /// <returns></returns>
         public List<GaiaCompatiblePackage> GetPackages()
         {
-            List<GaiaCompatiblePackage> packages = new List<GaiaCompatiblePackage>(m_packages.Values);
+            var packages = new List<GaiaCompatiblePackage>(m_packages.Values);
             packages.Sort((a, b) => a.m_packageName.CompareTo(b.m_packageName));
             return packages;
         }
@@ -61,8 +61,8 @@ namespace Gaia
         /// <returns>The number of installed packages</returns>
         public int InstalledPackages()
         {
-            int installedExtensions = 0;
-            foreach (KeyValuePair<string, GaiaCompatiblePackage> kvp in m_packages)
+            var installedExtensions = 0;
+            foreach (var kvp in m_packages)
             {
                 if (kvp.Value.m_isInstalled)
                 {
@@ -78,8 +78,8 @@ namespace Gaia
         /// <returns>The number of compatible packages</returns>
         public int CompatiblePackages()
         {
-            int compatiblePackages = 0;
-            foreach (KeyValuePair<string, GaiaCompatiblePackage> kvp in m_packages)
+            var compatiblePackages = 0;
+            foreach (var kvp in m_packages)
             {
                 if (kvp.Value.m_isCompatible)
                 {

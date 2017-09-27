@@ -15,10 +15,10 @@ namespace Gaia.FullSerializer
         private string _input;
 
         private fsResult MakeFailure(string message) {
-            int start = Math.Max(0, _start - 20);
-            int length = Math.Min(50, _input.Length - start);
+            var start = Math.Max(0, _start - 20);
+            var length = Math.Min(50, _input.Length - start);
 
-            string error = "Error while parsing: " + message + "; context = <" +
+            var error = "Error while parsing: " + message + "; context = <" +
                 _input.Substring(start, length) + ">";
             return fsResult.Fail(error);
         }
@@ -53,7 +53,7 @@ namespace Gaia.FullSerializer
         /// </summary>
         private void SkipSpace() {
             while (HasValue()) {
-                char c = Character();
+                var c = Character();
 
                 // whitespace; fine to skip
                 if (char.IsWhiteSpace(c)) {
@@ -111,10 +111,10 @@ namespace Gaia.FullSerializer
         }
 
         private uint ParseUnicode(char c1, char c2, char c3, char c4) {
-            uint p1 = ParseSingleChar(c1, 0x1000);
-            uint p2 = ParseSingleChar(c2, 0x100);
-            uint p3 = ParseSingleChar(c3, 0x10);
-            uint p4 = ParseSingleChar(c4, 0x1);
+            var p1 = ParseSingleChar(c1, 0x1000);
+            var p2 = ParseSingleChar(c2, 0x100);
+            var p3 = ParseSingleChar(c3, 0x10);
+            var p4 = ParseSingleChar(c4, 0x1);
 
             return p1 + p2 + p3 + p4;
         }
@@ -145,7 +145,7 @@ namespace Gaia.FullSerializer
                      && IsHex(Character(2))
                      && IsHex(Character(3))) {
 
-                        uint codePoint = ParseUnicode(Character(0), Character(1), Character(2), Character(3));
+                        var codePoint = ParseUnicode(Character(0), Character(1), Character(2), Character(3));
 
                         TryMoveNext();
                         TryMoveNext();
@@ -172,7 +172,7 @@ namespace Gaia.FullSerializer
         #endregion
 
         private fsResult TryParseExact(string content) {
-            for (int i = 0; i < content.Length; ++i) {
+            for (var i = 0; i < content.Length; ++i) {
                 if (Character() != content[i]) {
                     return MakeFailure("Expected " + content[i]);
                 }
@@ -230,7 +230,7 @@ namespace Gaia.FullSerializer
         /// Parses numbers that follow the regular expression [-+](\d+|\d*\.\d*)
         /// </summary>
         private fsResult TryParseNumber(out fsData data) {
-            int start = _start;
+            var start = _start;
 
             // read until we get to a separator
             while (
@@ -239,7 +239,7 @@ namespace Gaia.FullSerializer
             }
 
             // try to parse the value
-            string numberString = _input.Substring(start, _start - start);
+            var numberString = _input.Substring(start, _start - start);
 
             // double -- includes a .
             if (numberString.Contains(".") || numberString == "Infinity" || numberString == "-Infinity" || numberString == "NaN") {
@@ -287,7 +287,7 @@ namespace Gaia.FullSerializer
 
             // read until the next "
             while (HasValue() && Character() != '\"') {
-                char c = Character();
+                var c = Character();
 
                 // escape if necessary
                 if (c == '\\') {
@@ -460,7 +460,7 @@ namespace Gaia.FullSerializer
                 case '9': return TryParseNumber(out data);
                 case '"': {
                         string str;
-                        fsResult fail = TryParseString(out str);
+                        var fail = TryParseString(out str);
                         if (fail.Failed) {
                             data = null;
                             return fail;

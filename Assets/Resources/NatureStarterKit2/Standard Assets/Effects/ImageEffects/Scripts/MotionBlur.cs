@@ -50,7 +50,7 @@ namespace UnityStandardAssets.ImageEffects
             // If Extra Blur is selected, downscale the texture to 4x4 smaller resolution.
             if (extraBlur)
             {
-                RenderTexture blurbuffer = RenderTexture.GetTemporary(source.width/4, source.height/4, 0);
+                var blurbuffer = RenderTexture.GetTemporary(source.width/4, source.height/4, 0);
                 accumTexture.MarkRestoreExpected();
                 Graphics.Blit(accumTexture, blurbuffer);
                 Graphics.Blit(blurbuffer,accumTexture);

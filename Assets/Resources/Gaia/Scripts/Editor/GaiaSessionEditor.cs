@@ -22,7 +22,7 @@ namespace Gaia
         void OnEnable()
         {
             //Get the settings and update tooltips
-            GaiaSettings settings = Gaia.Utils.GetGaiaSettings();
+            var settings = Gaia.Utils.GetGaiaSettings();
             if (settings != null)
             {
                 m_showTooltips = settings.m_showTooltips;
@@ -83,12 +83,12 @@ namespace Gaia
             EditorGUILayout.LabelField("Sea Level", string.Format("{0} meters", m_session.m_seaLevel));
             EditorGUILayout.LabelField("Locked", m_session.m_isLocked.ToString());
 
-            Texture2D previewImage = m_session.GetPreviewImage();
+            var previewImage = m_session.GetPreviewImage();
             if (previewImage != null)
             {
                 //Get aspect ratio and available space and display the image
-                float width = Screen.width - 43f;
-                float height = previewImage.height * (width / previewImage.width);
+                var width = Screen.width - 43f;
+                var height = previewImage.height * (width / previewImage.width);
                 GUILayout.Label(previewImage, GUILayout.MaxWidth(width), GUILayout.MaxHeight(height));
             }
 
@@ -108,7 +108,7 @@ namespace Gaia
             {
                 GaiaOperation op;
                 EditorGUI.indentLevel++;
-                for (int opIdx = 0; opIdx < m_session.m_operations.Count; opIdx++)
+                for (var opIdx = 0; opIdx < m_session.m_operations.Count; opIdx++)
                 {
                     op = m_session.m_operations[opIdx];
 
@@ -144,7 +144,7 @@ namespace Gaia
         /// <returns></returns>
         GUIContent GetLabel(string name)
         {
-            string tooltip = "";
+            var tooltip = "";
             if (m_showTooltips && m_tooltips.TryGetValue(name, out tooltip))
             {
                 return new GUIContent(name, tooltip);

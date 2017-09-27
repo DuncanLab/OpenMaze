@@ -126,7 +126,7 @@ namespace Gaia
 
         public SpawnInfo GetSpawnInfo(Vector3 location)
         {
-            SpawnInfo spawnInfo = new SpawnInfo();
+            var spawnInfo = new SpawnInfo();
             spawnInfo.m_textureStrengths = new float[Terrain.activeTerrain.terrainData.alphamapLayers];
             if (m_spawner.CheckLocation(location, ref spawnInfo))
             {
@@ -181,10 +181,10 @@ namespace Gaia
             }
 
             //Now calculate fitness
-            float maxFitness = float.MinValue;
+            var maxFitness = float.MinValue;
             int filterIdx;
             SpawnCritera filter;
-            float fitness = 0f;
+            var fitness = 0f;
 
             for (filterIdx = 0; filterIdx < filters.Length; filterIdx++)
             {
@@ -277,10 +277,10 @@ namespace Gaia
             }
 
             //Now calculate fitness
-            float minFitness = float.MaxValue;
+            var minFitness = float.MaxValue;
             int filterIdx;
             SpawnCritera filter;
-            float fitness = 0f;
+            var fitness = 0f;
 
             for (filterIdx = 0; filterIdx < filters.Length; filterIdx++)
             {
@@ -366,18 +366,18 @@ namespace Gaia
 
             //Lets visualise fitness
             float x, y = transform.position.y, z;
-            float xStart = transform.position.x - m_range;
-            float xEnd = transform.position.x + m_range;
-            float zStart = transform.position.z - m_range;
-            float zEnd = transform.position.z + m_range;
-            float ballsize = Mathf.Clamp(m_resolution * 0.25f, 0.5f, 5f);
+            var xStart = transform.position.x - m_range;
+            var xEnd = transform.position.x + m_range;
+            var zStart = transform.position.z - m_range;
+            var zEnd = transform.position.z + m_range;
+            var ballsize = Mathf.Clamp(m_resolution * 0.25f, 0.5f, 5f);
 
             m_spawner.m_spawnRange = m_range;
             m_spawner.m_spawnerBounds = new Bounds(transform.position, new Vector3(m_range * 2f, m_range * 20f, m_range * 2f));
 
-            SpawnInfo spawnInfo = new SpawnInfo();
-            Vector3 location = new Vector3();
-            float fitness = 0f;
+            var spawnInfo = new SpawnInfo();
+            var location = new Vector3();
+            var fitness = 0f;
 
             //Create caches
             if ((DateTime.Now - m_lastCacheUpdateDate).TotalSeconds > 5)
@@ -387,7 +387,7 @@ namespace Gaia
                 m_spawner.CreateSpawnCaches(m_selectedResourceType, m_selectedResourceIdx);
 
                 //Also update the location so make moving it easier
-                Terrain terrain = TerrainHelper.GetTerrain(transform.position);
+                var terrain = TerrainHelper.GetTerrain(transform.position);
                 if (terrain != null)
                 {
                     transform.position = new Vector3(transform.position.x, terrain.SampleHeight(transform.position) + 5f, transform.position.z );
@@ -420,7 +420,7 @@ namespace Gaia
             //Water
             if (m_resources != null)
             {
-                Bounds bounds = new Bounds();
+                var bounds = new Bounds();
                 if (TerrainHelper.GetTerrainBounds(transform.position, ref bounds) == true)
                 {
                     bounds.center = new Vector3(bounds.center.x, m_resources.m_seaLevel, bounds.center.z);

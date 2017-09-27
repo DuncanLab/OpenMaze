@@ -113,7 +113,7 @@ namespace UnityStandardAssets.ImageEffects
 
             doHdr = doHdr && supportHDRTextures;
 
-            BloomScreenBlendMode realBlendMode = screenBlendMode;
+            var realBlendMode = screenBlendMode;
             if (doHdr)
                 realBlendMode = BloomScreenBlendMode.Add;
 
@@ -123,15 +123,15 @@ namespace UnityStandardAssets.ImageEffects
             var rtW4= source.width/4;
             var rtH4= source.height/4;
 
-            float widthOverHeight = (1.0f * source.width) / (1.0f * source.height);
-            float oneOverBaseSize = 1.0f / 512.0f;
+            var widthOverHeight = (1.0f * source.width) / (1.0f * source.height);
+            var oneOverBaseSize = 1.0f / 512.0f;
 
             // downsample
-            RenderTexture quarterRezColor = RenderTexture.GetTemporary (rtW4, rtH4, 0, rtFormat);
-            RenderTexture halfRezColorDown = RenderTexture.GetTemporary (rtW2, rtH2, 0, rtFormat);
+            var quarterRezColor = RenderTexture.GetTemporary (rtW4, rtH4, 0, rtFormat);
+            var halfRezColorDown = RenderTexture.GetTemporary (rtW2, rtH2, 0, rtFormat);
             if (quality > BloomQuality.Cheap) {
                 Graphics.Blit (source, halfRezColorDown, screenBlend, 2);
-                RenderTexture rtDown4 = RenderTexture.GetTemporary (rtW4, rtH4, 0, rtFormat);
+                var rtDown4 = RenderTexture.GetTemporary (rtW4, rtH4, 0, rtFormat);
                 Graphics.Blit (halfRezColorDown, rtDown4, screenBlend, 2);
                 Graphics.Blit (rtDown4, quarterRezColor, screenBlend, 6);
                 RenderTexture.ReleaseTemporary(rtDown4);
@@ -143,7 +143,7 @@ namespace UnityStandardAssets.ImageEffects
             RenderTexture.ReleaseTemporary (halfRezColorDown);
 
             // cut colors (thresholding)
-            RenderTexture secondQuarterRezColor = RenderTexture.GetTemporary (rtW4, rtH4, 0, rtFormat);
+            var secondQuarterRezColor = RenderTexture.GetTemporary (rtW4, rtH4, 0, rtFormat);
             BrightFilter (bloomThreshold * bloomThresholdColor, quarterRezColor, secondQuarterRezColor);
 
             // blurring
@@ -151,12 +151,12 @@ namespace UnityStandardAssets.ImageEffects
             if (bloomBlurIterations < 1) bloomBlurIterations = 1;
             else if (bloomBlurIterations > 10) bloomBlurIterations = 10;
 
-            for (int iter = 0; iter < bloomBlurIterations; iter++)
+            for (var iter = 0; iter < bloomBlurIterations; iter++)
 			{
-                float spreadForPass = (1.0f + (iter * 0.25f)) * sepBlurSpread;
+                var spreadForPass = (1.0f + (iter * 0.25f)) * sepBlurSpread;
 
                 // vertical blur
-                RenderTexture blur4 = RenderTexture.GetTemporary (rtW4, rtH4, 0, rtFormat);
+                var blur4 = RenderTexture.GetTemporary (rtW4, rtH4, 0, rtFormat);
                 blurAndFlaresMaterial.SetVector ("_Offsets", new Vector4 (0.0f, spreadForPass * oneOverBaseSize, 0.0f, 0.0f));
                 Graphics.Blit (secondQuarterRezColor, blur4, blurAndFlaresMaterial, 4);
                 RenderTexture.ReleaseTemporary(secondQuarterRezColor);
@@ -197,7 +197,7 @@ namespace UnityStandardAssets.ImageEffects
             if (lensflareIntensity > Mathf.Epsilon)
 			{
 
-                RenderTexture rtFlares4 = RenderTexture.GetTemporary (rtW4, rtH4, 0, rtFormat);
+                var rtFlares4 = RenderTexture.GetTemporary (rtW4, rtH4, 0, rtFormat);
 
                 if (lensflareMode == 0)
 				{
@@ -229,10 +229,10 @@ namespace UnityStandardAssets.ImageEffects
                     //Vignette (0.975ff, rtFlares4, rtFlares4);
                     //DrawBorder(rtFlares4, screenBlend, 8);
 
-                    float flareXRot = 1.0f * Mathf.Cos(flareRotation);
-                    float flareyRot = 1.0f * Mathf.Sin(flareRotation);
+                    var flareXRot = 1.0f * Mathf.Cos(flareRotation);
+                    var flareyRot = 1.0f * Mathf.Sin(flareRotation);
 
-                    float stretchWidth = (hollyStretchWidth * 1.0f / widthOverHeight) * oneOverBaseSize;
+                    var stretchWidth = (hollyStretchWidth * 1.0f / widthOverHeight) * oneOverBaseSize;
 
                     blurAndFlaresMaterial.SetVector ("_Offsets", new Vector4 (flareXRot, flareyRot, 0.0f, 0.0f));
                     blurAndFlaresMaterial.SetVector ("_Threshhold", new Vector4 (lensflareThreshold, 1.0f, 0.0f, 0.0f));
@@ -261,7 +261,7 @@ namespace UnityStandardAssets.ImageEffects
                     Graphics.Blit (rtFlares4, quarterRezColor, blurAndFlaresMaterial, 1);
 
                     // additional blur passes
-                    for (int iter = 0; iter < hollywoodFlareBlurIterations; iter++)
+                    for (var iter = 0; iter < hollywoodFlareBlurIterations; iter++)
 					{
                         stretchWidth = (hollyStretchWidth * 2.0f / widthOverHeight) * oneOverBaseSize;
 
@@ -289,7 +289,7 @@ namespace UnityStandardAssets.ImageEffects
                 RenderTexture.ReleaseTemporary (rtFlares4);
             }
 
-            int blendPass = (int) realBlendMode;
+            var blendPass = (int) realBlendMode;
             //if (Mathf.Abs(chromaticBloom) < Mathf.Epsilon)
             //	blendPass += 4;
 
@@ -298,7 +298,7 @@ namespace UnityStandardAssets.ImageEffects
 
             if (quality > BloomQuality.Cheap)
 			{
-                RenderTexture halfRezColorUp = RenderTexture.GetTemporary (rtW2, rtH2, 0, rtFormat);
+                var halfRezColorUp = RenderTexture.GetTemporary (rtW2, rtH2, 0, rtFormat);
                 Graphics.Blit (secondQuarterRezColor, halfRezColorUp);
                 Graphics.Blit (halfRezColorUp, destination, screenBlend, blendPass);
                 RenderTexture.ReleaseTemporary (halfRezColorUp);

@@ -15,7 +15,7 @@ namespace UnityStandardAssets.ImageEffects
         {
             if (meshes == null)
                 return false;
-            foreach (Mesh m in meshes)
+            foreach (var m in meshes)
                 if (null == m)
                     return false;
             return true;
@@ -27,7 +27,7 @@ namespace UnityStandardAssets.ImageEffects
             if (meshes == null)
                 return;
 
-            for (int i = 0; i < meshes.Length; i++)
+            for (var i = 0; i < meshes.Length; i++)
             {
                 if (null != meshes[i])
                 {
@@ -45,19 +45,19 @@ namespace UnityStandardAssets.ImageEffects
                 return meshes;
             }
 
-            int maxQuads = 65000 / 6;
-            int totalQuads = totalWidth * totalHeight;
+            var maxQuads = 65000 / 6;
+            var totalQuads = totalWidth * totalHeight;
             currentQuads = totalQuads;
 
-            int meshCount = Mathf.CeilToInt ((1.0f * totalQuads) / (1.0f * maxQuads));
+            var meshCount = Mathf.CeilToInt ((1.0f * totalQuads) / (1.0f * maxQuads));
 
             meshes = new Mesh [meshCount];
 
-            int i = 0;
-            int index = 0;
+            var i = 0;
+            var index = 0;
             for (i = 0; i < totalQuads; i += maxQuads)
             {
-                int quads = Mathf.FloorToInt (Mathf.Clamp ((totalQuads-i), 0, maxQuads));
+                var quads = Mathf.FloorToInt (Mathf.Clamp ((totalQuads-i), 0, maxQuads));
 
                 meshes[index] = GetMesh (quads, i, totalWidth, totalHeight);
                 index++;
@@ -76,17 +76,17 @@ namespace UnityStandardAssets.ImageEffects
             var uvs2 = new Vector2[triCount * 4];
             var tris = new int[triCount * 6];
 
-            for (int i = 0; i < triCount; i++)
+            for (var i = 0; i < triCount; i++)
             {
-                int i4 = i * 4;
-                int i6 = i * 6;
+                var i4 = i * 4;
+                var i6 = i * 6;
 
-                int vertexWithOffset = triOffset + i;
+                var vertexWithOffset = triOffset + i;
 
-                float x = Mathf.Floor (vertexWithOffset % totalWidth) / totalWidth;
-                float y = Mathf.Floor (vertexWithOffset / totalWidth) / totalHeight;
+                var x = Mathf.Floor (vertexWithOffset % totalWidth) / totalWidth;
+                var y = Mathf.Floor (vertexWithOffset / totalWidth) / totalHeight;
 
-                Vector3 position = new Vector3 (x * 2 - 1, y * 2 - 1, 1.0f);
+                var position = new Vector3 (x * 2 - 1, y * 2 - 1, 1.0f);
 
                 verts[i4 + 0] = position;
                 verts[i4 + 1] = position;

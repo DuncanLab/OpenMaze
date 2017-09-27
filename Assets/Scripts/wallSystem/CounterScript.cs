@@ -9,7 +9,7 @@ namespace wallSystem
 		// Use this for initialization
 		private void Start ()
 		{
-			Text text = GameObject.Find("CountDown").GetComponent<Text>();
+			var text = GameObject.Find("CountDown").GetComponent<Text>();
 			text.color = Color.white;
 			if (Loader.Get().CurrTrial.Value.PickupType < 0)
 				text.text = "Endless Mode";

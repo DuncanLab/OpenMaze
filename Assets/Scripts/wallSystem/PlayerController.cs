@@ -61,7 +61,7 @@ namespace wallSystem
 			{
 				while (true)
 				{
-					Vector2 v = Random.insideUnitCircle * E.Get().CurrTrial.Value.Radius * DS.GetData().CharacterData.CharacterBound;
+					var v = Random.insideUnitCircle * E.Get().CurrTrial.Value.Radius * DS.GetData().CharacterData.CharacterBound;
 					var mag = v - new Vector2(PickupGenerator.P.X, PickupGenerator.P.Y);
 					if (mag.magnitude > DS.GetData().CharacterData.DistancePickup)
 					{
@@ -73,7 +73,7 @@ namespace wallSystem
 			}
 			else
 			{
-				Data.Point p = DS.GetData().CharacterData.CharacterStartPos;
+				var p = DS.GetData().CharacterData.CharacterStartPos;
 				transform.position = new Vector3(p.X, transform.position.y, p.Y);
 			}
 		}
@@ -81,7 +81,7 @@ namespace wallSystem
 		private void LogData(bool collided)
 		{
 			var v = E.Get().CurrTrial.Value;
-			string line = E.Get().CurrTrial.Value.Index + ", "
+			var line = E.Get().CurrTrial.Value.Index + ", "
 			              + E.Get().RunningTime + ", "
 			              + transform.position.x + ", "
 			              + transform.position.z + ", "
@@ -101,7 +101,7 @@ namespace wallSystem
 		{
 			if (!other.gameObject.CompareTag("Pickup")) return;
 			ObjectsFound++;
-			Text text = GameObject.Find("CountDown").GetComponent<Text>();
+			var text = GameObject.Find("CountDown").GetComponent<Text>();
 			text.text = "Found: " + ObjectsFound;
 			GetComponent<AudioSource> ().PlayOneShot (_gen.GetWaveSrc (), 1);
 			Destroy (other.gameObject);
@@ -119,7 +119,7 @@ namespace wallSystem
 		private void ComputeMovement()
 		{
 			//This calculates the current amount of rotation frame rate independent
-			float rotation = Input.GetAxis("Horizontal") * DS.GetData().CharacterData.RotationSpeed * Time.deltaTime;
+			var rotation = Input.GetAxis("Horizontal") * DS.GetData().CharacterData.RotationSpeed * Time.deltaTime;
 
 
 			//This calculates the forward speed frame rate independent
@@ -150,7 +150,7 @@ namespace wallSystem
 			} 
 			else if (_currDelay < _waitTime)
 			{
-				float angle = 360f * _currDelay / _waitTime + _iniRotation - transform.rotation.eulerAngles.y;
+				var angle = 360f * _currDelay / _waitTime + _iniRotation - transform.rotation.eulerAngles.y;
 				transform.Rotate(new Vector3(0, angle, 0));
 			} 
 			else

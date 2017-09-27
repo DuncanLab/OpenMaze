@@ -108,7 +108,7 @@ namespace Gaia
             Terrain[,] world;
 
             //Update the session
-            GaiaSessionManager sessionMgr = GaiaSessionManager.GetSessionManager();
+            var sessionMgr = GaiaSessionManager.GetSessionManager();
             if (sessionMgr != null && sessionMgr.IsLocked() != true)
             {
                 //Update terrain settings in session
@@ -120,7 +120,7 @@ namespace Gaia
                 sessionMgr.SetSeaLevel(m_seaLevel);
 
                 //Then add the operation
-                GaiaOperation op = new GaiaOperation();
+                var op = new GaiaOperation();
                 op.m_description = "Creating terrain";
                 op.m_generatedByID = m_defaultsID;
                 op.m_generatedByName = this.name;
@@ -135,9 +135,9 @@ namespace Gaia
             world = new Terrain[m_tilesX, m_tilesZ];
 
             //And iterate through and create each terrain
-            for (int x = 0; x < m_tilesX; x++)
+            for (var x = 0; x < m_tilesX; x++)
             {
-                for (int z = 0; z < m_tilesZ; z++)
+                for (var z = 0; z < m_tilesZ; z++)
                 {
                     CreateTile(x, z, ref world, null);
                 }
@@ -152,7 +152,7 @@ namespace Gaia
         /// </summary>
         public void UpdateFromTerrain()
         {
-            Terrain terrain = Terrain.activeTerrain;
+            var terrain = Terrain.activeTerrain;
             if (terrain == null)
             {
                 Debug.Log("Could not update from active terrain - no current active terrain");
@@ -172,13 +172,13 @@ namespace Gaia
             {
                 m_material = terrain.materialTemplate;
             }
-            TerrainCollider collider = terrain.GetComponent<TerrainCollider>();
+            var collider = terrain.GetComponent<TerrainCollider>();
             if (collider != null)
             {
                 m_physicsMaterial = collider.material;
             }
 
-            TerrainData terrainData = terrain.terrainData;
+            var terrainData = terrain.terrainData;
             m_controlTextureResolution = terrainData.alphamapResolution;
             m_baseMapSize = terrainData.baseMapResolution;
             m_detailResolution = terrainData.detailResolution;
@@ -204,7 +204,7 @@ namespace Gaia
             resources.AssociateAssets();
 
             //Update the session
-            GaiaSessionManager sessionMgr = GaiaSessionManager.GetSessionManager();
+            var sessionMgr = GaiaSessionManager.GetSessionManager();
             if (sessionMgr != null && sessionMgr.IsLocked() != true)
             {
                 //Update terrain settings in session
@@ -232,9 +232,9 @@ namespace Gaia
             world = new Terrain[m_tilesX, m_tilesZ];
 
             //And iterate through and create each terrain
-            for (int x = 0; x < m_tilesX; x++)
+            for (var x = 0; x < m_tilesX; x++)
             {
-                for (int z = 0; z < m_tilesZ; z++)
+                for (var z = 0; z < m_tilesZ; z++)
                 {
                     CreateTile(x, z, ref world, resources);
                 }
@@ -247,7 +247,7 @@ namespace Gaia
         public GaiaOperation GetTerrainCreationOperation(GaiaResource resources)
         {
             //Then add the operation
-            GaiaOperation op = new GaiaOperation();
+            var op = new GaiaOperation();
             op.m_description = "Creating terrain";
             op.m_generatedByID = m_defaultsID;
             op.m_generatedByName = this.name;
@@ -257,7 +257,7 @@ namespace Gaia
             op.m_operationType = GaiaOperation.OperationType.CreateTerrain;
             #if UNITY_EDITOR
             op.m_operationDataJson = new string[2];
-            string ap = AssetDatabase.GetAssetPath(this);
+            var ap = AssetDatabase.GetAssetPath(this);
             if (string.IsNullOrEmpty(ap))
             {
                 op.m_operationDataJson[0] = "GaiaDefaults.asset";
@@ -305,7 +305,7 @@ namespace Gaia
             GetAndFixDefaults();
 
             //this will center terrain at origin
-            Vector2 m_offset = new Vector2(-m_terrainSize * m_tilesX * 0.5f, -m_terrainSize * m_tilesZ * 0.5f);
+            var m_offset = new Vector2(-m_terrainSize * m_tilesX * 0.5f, -m_terrainSize * m_tilesZ * 0.5f);
 
             //create the terrains if they dont already exist
             if (world.Length < m_tilesX)
@@ -315,7 +315,7 @@ namespace Gaia
 
             //Create the terrain
             Terrain terrain;
-            TerrainData terrainData = new TerrainData();
+            var terrainData = new TerrainData();
 
             terrainData.name = string.Format("Terrain_{0}_{1}-{2:yyyyMMdd-HHmmss}", tx, tz, DateTime.Now);
             terrainData.alphamapResolution = m_controlTextureResolution;
@@ -352,7 +352,7 @@ namespace Gaia
             }
             if (m_physicsMaterial != null)
             {
-                TerrainCollider collider = terrain.GetComponent<TerrainCollider>();
+                var collider = terrain.GetComponent<TerrainCollider>();
                 if (collider != null)
                 {
                     collider.material = m_physicsMaterial;
@@ -377,7 +377,7 @@ namespace Gaia
             world[tx, tz] = terrain;
 
             //Parent it to the environment
-            GameObject gaiaObj = GameObject.Find("Gaia Environment");
+            var gaiaObj = GameObject.Find("Gaia Environment");
             if (gaiaObj == null)
             {
                 gaiaObj = new GameObject("Gaia Environment");
@@ -392,9 +392,9 @@ namespace Gaia
         private void RemoveWorldSeams(ref Terrain [,] world)
         {
             //Set the neighbours of terrain to remove seams.
-            for (int x = 0; x < m_tilesX; x++)
+            for (var x = 0; x < m_tilesX; x++)
             {
-                for (int z = 0; z < m_tilesZ; z++)
+                for (var z = 0; z < m_tilesZ; z++)
                 {
                     Terrain right = null;
                     Terrain left = null;
@@ -419,7 +419,7 @@ namespace Gaia
         /// <returns></returns>
         public string GetAndFixDefaults()
         {
-            StringBuilder defStr = new StringBuilder();
+            var defStr = new StringBuilder();
 
             if (!Mathf.IsPowerOfTwo(m_terrainSize))
             {
@@ -479,7 +479,7 @@ namespace Gaia
         public string SerialiseJson()
         {
             fsData data;
-            fsSerializer serializer = new fsSerializer();
+            var serializer = new fsSerializer();
             serializer.TrySerialize(this, out data);
             return fsJsonPrinter.CompressedJson(data);
         }
@@ -490,8 +490,8 @@ namespace Gaia
         /// <param name="json">Source json</param>
         public void DeSerialiseJson(string json)
         {
-            fsData data = fsJsonParser.Parse(json);
-            fsSerializer serializer = new fsSerializer();
+            var data = fsJsonParser.Parse(json);
+            var serializer = new fsSerializer();
             var defaults = this;
             serializer.TryDeserialize<GaiaDefaults>(data, ref defaults);
         }

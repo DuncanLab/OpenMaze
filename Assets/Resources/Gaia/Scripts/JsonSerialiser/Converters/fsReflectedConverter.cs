@@ -18,11 +18,11 @@ namespace Gaia.FullSerializer.Internal
             serialized = fsData.CreateDictionary();
             var result = fsResult.Success;
 
-            fsMetaType metaType = fsMetaType.Get(instance.GetType());
+            var metaType = fsMetaType.Get(instance.GetType());
             metaType.EmitAotData();
 
-            for (int i = 0; i < metaType.Properties.Length; ++i) {
-                fsMetaProperty property = metaType.Properties[i];
+            for (var i = 0; i < metaType.Properties.Length; ++i) {
+                var property = metaType.Properties[i];
                 if (property.CanRead == false) continue;
 
                 fsData serializedData;
@@ -47,11 +47,11 @@ namespace Gaia.FullSerializer.Internal
                 return result;
             }
 
-            fsMetaType metaType = fsMetaType.Get(storageType);
+            var metaType = fsMetaType.Get(storageType);
             metaType.EmitAotData();
 
-            for (int i = 0; i < metaType.Properties.Length; ++i) {
-                fsMetaProperty property = metaType.Properties[i];
+            for (var i = 0; i < metaType.Properties.Length; ++i) {
+                var property = metaType.Properties[i];
                 if (property.CanWrite == false) continue;
 
                 fsData propertyData;
@@ -80,7 +80,7 @@ namespace Gaia.FullSerializer.Internal
         }
 
         public override object CreateInstance(fsData data, Type storageType) {
-            fsMetaType metaType = fsMetaType.Get(storageType);
+            var metaType = fsMetaType.Get(storageType);
             return metaType.CreateInstance();
         }
     }

@@ -20,7 +20,7 @@ namespace Gaia
         void OnEnable()
         {
             //Get the settings and update tooltips
-            GaiaSettings settings = Gaia.Utils.GetGaiaSettings();
+            var settings = Gaia.Utils.GetGaiaSettings();
             if (settings != null)
             {
                 m_showTooltips = settings.m_showTooltips;
@@ -147,7 +147,7 @@ namespace Gaia
                 GUI.enabled = false;
             }
 
-            GaiaResource resources = m_spawner.m_resources;
+            var resources = m_spawner.m_resources;
             if (resources == null)
             {
                 GUILayout.BeginVertical("Spawner Settings", m_boxStyle);
@@ -164,11 +164,11 @@ namespace Gaia
                 resources = (GaiaResource)EditorGUILayout.ObjectField(GetLabel("Resources"), m_spawner.m_resources, typeof(GaiaResource), false);
 
                 //We only want to go further if we have resources
-                int seed = EditorGUILayout.IntField(GetLabel("Seed"), m_spawner.m_seed);
-                float spawnRange = EditorGUILayout.FloatField(GetLabel("Range"), m_spawner.m_spawnRange);
-                Gaia.GaiaConstants.SpawnerShape spawnerShape = (Gaia.GaiaConstants.SpawnerShape)EditorGUILayout.EnumPopup(GetLabel("Shape"), m_spawner.m_spawnerShape);
-                LayerMask spawnerLayerMask = LayerMaskField(GetLabel("Collision Layers"), m_spawner.m_spawnCollisionLayers);
-                Gaia.GaiaConstants.OperationMode mode = (Gaia.GaiaConstants.OperationMode)EditorGUILayout.EnumPopup(GetLabel("Execution Mode"), m_spawner.m_mode);
+                var seed = EditorGUILayout.IntField(GetLabel("Seed"), m_spawner.m_seed);
+                var spawnRange = EditorGUILayout.FloatField(GetLabel("Range"), m_spawner.m_spawnRange);
+                var spawnerShape = (Gaia.GaiaConstants.SpawnerShape)EditorGUILayout.EnumPopup(GetLabel("Shape"), m_spawner.m_spawnerShape);
+                var spawnerLayerMask = LayerMaskField(GetLabel("Collision Layers"), m_spawner.m_spawnCollisionLayers);
+                var mode = (Gaia.GaiaConstants.OperationMode)EditorGUILayout.EnumPopup(GetLabel("Execution Mode"), m_spawner.m_mode);
 
                 float spawnerInterval;
                 if (mode == GaiaConstants.OperationMode.DesignTime)
@@ -180,7 +180,7 @@ namespace Gaia
                     spawnerInterval = EditorGUILayout.FloatField(GetLabel("Spawn Interval"), m_spawner.m_spawnInterval);
                 }
 
-                float triggerRange = 0f;
+                var triggerRange = 0f;
                 string triggerTags;
                 if (mode != GaiaConstants.OperationMode.RuntimeTriggeredInterval)
                 {
@@ -193,12 +193,12 @@ namespace Gaia
                     triggerTags = EditorGUILayout.TextField(GetLabel("Trigger Tags"), m_spawner.m_triggerTags);
                 }
 
-                Gaia.GaiaConstants.SpawnerRuleSelector spawnRuleSelector = (Gaia.GaiaConstants.SpawnerRuleSelector)EditorGUILayout.EnumPopup(GetLabel("Rule Selector"), m_spawner.m_spawnRuleSelector);
-                Gaia.GaiaConstants.SpawnerLocation spawnLocationAlgorithm = (Gaia.GaiaConstants.SpawnerLocation)EditorGUILayout.EnumPopup(GetLabel("Location Selector"), m_spawner.m_spawnLocationAlgorithm);
-                float locationIncrement = m_spawner.m_locationIncrement;
-                float maxJitteredLocationOffsetPct = m_spawner.m_maxJitteredLocationOffsetPct;
-                int locationChecksPerInt = m_spawner.m_locationChecksPerInt;
-                int maxSeededClusterSize = m_spawner.m_maxRandomClusterSize;
+                var spawnRuleSelector = (Gaia.GaiaConstants.SpawnerRuleSelector)EditorGUILayout.EnumPopup(GetLabel("Rule Selector"), m_spawner.m_spawnRuleSelector);
+                var spawnLocationAlgorithm = (Gaia.GaiaConstants.SpawnerLocation)EditorGUILayout.EnumPopup(GetLabel("Location Selector"), m_spawner.m_spawnLocationAlgorithm);
+                var locationIncrement = m_spawner.m_locationIncrement;
+                var maxJitteredLocationOffsetPct = m_spawner.m_maxJitteredLocationOffsetPct;
+                var locationChecksPerInt = m_spawner.m_locationChecksPerInt;
+                var maxSeededClusterSize = m_spawner.m_maxRandomClusterSize;
                 if (spawnLocationAlgorithm == GaiaConstants.SpawnerLocation.EveryLocation || spawnLocationAlgorithm == GaiaConstants.SpawnerLocation.EveryLocationJittered)
                 {
                     locationIncrement = EditorGUILayout.FloatField(GetLabel("Location Increment"), m_spawner.m_locationIncrement);
@@ -216,21 +216,21 @@ namespace Gaia
                     }
                 }
 
-                AnimationCurve spawnRangeAttenuator = EditorGUILayout.CurveField(GetLabel("Distance Mask"), m_spawner.m_spawnFitnessAttenuator);
-                Gaia.GaiaConstants.ImageFitnessFilterMode areaMaskMode = (Gaia.GaiaConstants.ImageFitnessFilterMode)EditorGUILayout.EnumPopup(GetLabel("Area Mask"), m_spawner.m_areaMaskMode);
-                Texture2D imageMask = m_spawner.m_imageMask;
-                bool imageMaskInvert = m_spawner.m_imageMaskInvert;
-                bool imageMaskNormalise = m_spawner.m_imageMaskNormalise;
-                bool imageMaskFlip = m_spawner.m_imageMaskFlip;
-                int imageMaskSmoothIterations = m_spawner.m_imageMaskSmoothIterations;
+                var spawnRangeAttenuator = EditorGUILayout.CurveField(GetLabel("Distance Mask"), m_spawner.m_spawnFitnessAttenuator);
+                var areaMaskMode = (Gaia.GaiaConstants.ImageFitnessFilterMode)EditorGUILayout.EnumPopup(GetLabel("Area Mask"), m_spawner.m_areaMaskMode);
+                var imageMask = m_spawner.m_imageMask;
+                var imageMaskInvert = m_spawner.m_imageMaskInvert;
+                var imageMaskNormalise = m_spawner.m_imageMaskNormalise;
+                var imageMaskFlip = m_spawner.m_imageMaskFlip;
+                var imageMaskSmoothIterations = m_spawner.m_imageMaskSmoothIterations;
 
-                float noiseMaskSeed = m_spawner.m_noiseMaskSeed;
-                int noiseMaskOctaves = m_spawner.m_noiseMaskOctaves;
-                float noiseMaskPersistence = m_spawner.m_noiseMaskPersistence;
-                float noiseMaskFrequency = m_spawner.m_noiseMaskFrequency;
-                float noiseMaskLacunarity = m_spawner.m_noiseMaskLacunarity;
-                float noiseZoom = m_spawner.m_noiseZoom;
-                bool noiseInvert = m_spawner.m_noiseInvert;
+                var noiseMaskSeed = m_spawner.m_noiseMaskSeed;
+                var noiseMaskOctaves = m_spawner.m_noiseMaskOctaves;
+                var noiseMaskPersistence = m_spawner.m_noiseMaskPersistence;
+                var noiseMaskFrequency = m_spawner.m_noiseMaskFrequency;
+                var noiseMaskLacunarity = m_spawner.m_noiseMaskLacunarity;
+                var noiseZoom = m_spawner.m_noiseZoom;
+                var noiseInvert = m_spawner.m_noiseInvert;
 
                 if (areaMaskMode == GaiaConstants.ImageFitnessFilterMode.ImageAlphaChannel ||
                     areaMaskMode == GaiaConstants.ImageFitnessFilterMode.ImageBlueChannel ||
@@ -261,7 +261,7 @@ namespace Gaia
                     imageMaskFlip = EditorGUILayout.Toggle(GetLabel("Flip Mask"), m_spawner.m_imageMaskFlip);
                 }
 
-                bool enableColliderCacheAtRuntime = m_spawner.m_enableColliderCacheAtRuntime;
+                var enableColliderCacheAtRuntime = m_spawner.m_enableColliderCacheAtRuntime;
                 if (m_spawner.IsGameObjectSpawner())
                 {
                     enableColliderCacheAtRuntime = EditorGUILayout.Toggle(GetLabel("Enable RT Collider Cache"), enableColliderCacheAtRuntime);
@@ -271,8 +271,8 @@ namespace Gaia
 
             //Back the rules up
             SpawnRule rule, newRule;
-            List<SpawnRule> ruleBackup = new List<SpawnRule>();
-            for (int idx = 0; idx < m_spawner.m_spawnerRules.Count; idx++)
+            var ruleBackup = new List<SpawnRule>();
+            for (var idx = 0; idx < m_spawner.m_spawnerRules.Count; idx++)
             {
                 rule = m_spawner.m_spawnerRules[idx];
                 newRule = new SpawnRule();
@@ -312,7 +312,7 @@ namespace Gaia
             EditorGUILayout.LabelField("Spawner Rules");
             //GUILayout.Space(21);
 
-            Rect addRect = EditorGUILayout.BeginVertical();
+            var addRect = EditorGUILayout.BeginVertical();
             addRect.y -= 20f;
             addRect.x = addRect.width - 10;
             addRect.width = 25;
@@ -325,7 +325,7 @@ namespace Gaia
             addRect.x -= 27f;
             if (GUI.Button(addRect, GetLabel("A")))
             {
-                for (int idx = 0; idx < ruleBackup.Count; idx++)
+                for (var idx = 0; idx < ruleBackup.Count; idx++)
                 {
                     ruleBackup[idx].m_isActive = true;
                 }
@@ -334,7 +334,7 @@ namespace Gaia
             addRect.x -= 27f;
             if (GUI.Button(addRect, GetLabel("I")))
             {
-                for (int idx=0; idx < ruleBackup.Count; idx++)
+                for (var idx=0; idx < ruleBackup.Count; idx++)
                 {
                     ruleBackup[idx].m_isActive = false;
                 }
@@ -352,7 +352,7 @@ namespace Gaia
             EditorGUILayout.EndVertical();
 
             EditorGUI.indentLevel++;
-            for (int ruleIdx = 0; ruleIdx < ruleBackup.Count; ruleIdx++)
+            for (var ruleIdx = 0; ruleIdx < ruleBackup.Count; ruleIdx++)
             {
                 rule = ruleBackup[ruleIdx];
                 if (rule.m_isActive)
@@ -373,7 +373,7 @@ namespace Gaia
                         case GaiaConstants.SpawnerResourceType.TerrainTexture:
                             {
                                 assetChoices = new GUIContent[m_spawner.m_resources.m_texturePrototypes.Length];
-                                for (int assetIdx = 0; assetIdx < m_spawner.m_resources.m_texturePrototypes.Length; assetIdx++)
+                                for (var assetIdx = 0; assetIdx < m_spawner.m_resources.m_texturePrototypes.Length; assetIdx++)
                                 {
                                     assetChoices[assetIdx] = new GUIContent(m_spawner.m_resources.m_texturePrototypes[assetIdx].m_name);
                                 }
@@ -382,7 +382,7 @@ namespace Gaia
                         case GaiaConstants.SpawnerResourceType.TerrainDetail:
                             {
                                 assetChoices = new GUIContent[m_spawner.m_resources.m_detailPrototypes.Length];
-                                for (int assetIdx = 0; assetIdx < m_spawner.m_resources.m_detailPrototypes.Length; assetIdx++)
+                                for (var assetIdx = 0; assetIdx < m_spawner.m_resources.m_detailPrototypes.Length; assetIdx++)
                                 {
                                     assetChoices[assetIdx] = new GUIContent(m_spawner.m_resources.m_detailPrototypes[assetIdx].m_name);
                                 }
@@ -391,7 +391,7 @@ namespace Gaia
                         case GaiaConstants.SpawnerResourceType.TerrainTree:
                             {
                                 assetChoices = new GUIContent[m_spawner.m_resources.m_treePrototypes.Length];
-                                for (int assetIdx = 0; assetIdx < m_spawner.m_resources.m_treePrototypes.Length; assetIdx++)
+                                for (var assetIdx = 0; assetIdx < m_spawner.m_resources.m_treePrototypes.Length; assetIdx++)
                                 {
                                     assetChoices[assetIdx] = new GUIContent(m_spawner.m_resources.m_treePrototypes[assetIdx].m_name);
                                 }
@@ -400,7 +400,7 @@ namespace Gaia
                         case GaiaConstants.SpawnerResourceType.GameObject:
                             {
                                 assetChoices = new GUIContent[m_spawner.m_resources.m_gameObjectPrototypes.Length];
-                                for (int assetIdx = 0; assetIdx < m_spawner.m_resources.m_gameObjectPrototypes.Length; assetIdx++)
+                                for (var assetIdx = 0; assetIdx < m_spawner.m_resources.m_gameObjectPrototypes.Length; assetIdx++)
                                 {
                                     assetChoices[assetIdx] = new GUIContent(m_spawner.m_resources.m_gameObjectPrototypes[assetIdx].m_name);
                                 }
@@ -449,8 +449,8 @@ namespace Gaia
                                     //See if we can find a custom fitness
                                     if (m_spawner.m_resources.m_gameObjectPrototypes[rule.m_resourceIdx].m_instances.Length > 0)
                                     {
-                                        GameObject go = m_spawner.m_resources.m_gameObjectPrototypes[rule.m_resourceIdx].m_instances[0].m_desktopPrefab;
-                                        bool gotExtension = false;
+                                        var go = m_spawner.m_resources.m_gameObjectPrototypes[rule.m_resourceIdx].m_instances[0].m_desktopPrefab;
+                                        var gotExtension = false;
                                         //if (go.GetComponent<ISpawnRuleExtension>() != null)
                                         //{
                                         //    gotExtension = true;
@@ -522,7 +522,7 @@ namespace Gaia
                     }
 
                     GUILayout.Space(20);
-                    Rect delRect = EditorGUILayout.BeginHorizontal();
+                    var delRect = EditorGUILayout.BeginHorizontal();
                     delRect.x += 17;
                     delRect.y -= 20;
                     delRect.width = 17;
@@ -536,12 +536,12 @@ namespace Gaia
                     delRect.width += 50f;
                     if (GUI.Button(delRect, GetLabel("Visualise")))
                     {
-                        GameObject gaiaObj = GameObject.Find("Gaia");
+                        var gaiaObj = GameObject.Find("Gaia");
                         if (gaiaObj == null)
                         {
                             gaiaObj = new GameObject("Gaia");
                         }
-                        GameObject visualiserObj = GameObject.Find("Visualiser");
+                        var visualiserObj = GameObject.Find("Visualiser");
                         if (visualiserObj == null)
                         {
                             visualiserObj = new GameObject("Visualiser");
@@ -549,7 +549,7 @@ namespace Gaia
                             visualiserObj.transform.parent = gaiaObj.transform;
                             visualiserObj.transform.position = Gaia.TerrainHelper.GetActiveTerrainCenter();
                         }
-                        ResourceVisualiser visualiser = visualiserObj.GetComponent<ResourceVisualiser>();
+                        var visualiser = visualiserObj.GetComponent<ResourceVisualiser>();
                         visualiser.m_resources = m_spawner.m_resources;
                         visualiser.m_selectedResourceType = rule.m_resourceType;
                         visualiser.m_selectedResourceIdx = rule.m_resourceIdx;
@@ -580,9 +580,9 @@ namespace Gaia
 
             GUILayout.BeginVertical("Layout Helpers", m_boxStyle);
             GUILayout.Space(20);
-            bool showGizmos = EditorGUILayout.Toggle(GetLabel("Show Gizmos"), m_spawner.m_showGizmos);
-            bool showStatistics = m_spawner.m_showStatistics = EditorGUILayout.Toggle(GetLabel("Show Statistics"), m_spawner.m_showStatistics);
-            bool showTerrainHelper = m_spawner.m_showTerrainHelper = EditorGUILayout.Toggle(GetLabel("Show Terrain Helper"), m_spawner.m_showTerrainHelper);
+            var showGizmos = EditorGUILayout.Toggle(GetLabel("Show Gizmos"), m_spawner.m_showGizmos);
+            var showStatistics = m_spawner.m_showStatistics = EditorGUILayout.Toggle(GetLabel("Show Statistics"), m_spawner.m_showStatistics);
+            var showTerrainHelper = m_spawner.m_showTerrainHelper = EditorGUILayout.Toggle(GetLabel("Show Terrain Helper"), m_spawner.m_showTerrainHelper);
             GUILayout.EndVertical();
 
             //Check for changes, make undo record, make changes and let editor know we are dirty
@@ -726,7 +726,7 @@ namespace Gaia
                     }
                     else
                     {
-                        bool cancel = false;
+                        var cancel = false;
 
                         //Check that the terrain layer is selected
                         if (!Gaia.Utils.IsInLayerMask(Gaia.TerrainHelper.GetActiveTerrain().gameObject, m_spawner.m_spawnCollisionLayers))
@@ -743,7 +743,7 @@ namespace Gaia
                         }
 
                         //Check that the sea level matches the sea level of the session
-                        GaiaSessionManager sessionMgr = GaiaSessionManager.GetSessionManager();
+                        var sessionMgr = GaiaSessionManager.GetSessionManager();
                         if (sessionMgr != null && sessionMgr.m_session != null)
                         {
                             if (m_spawner.m_resources.m_seaLevel != sessionMgr.m_session.m_seaLevel)
@@ -759,12 +759,12 @@ namespace Gaia
                         if (!cancel)
                         {
                             m_spawner.AssociateAssets();
-                            int[] missingResources = m_spawner.GetMissingResources();
+                            var missingResources = m_spawner.GetMissingResources();
                             if (missingResources.GetLength(0) > 0)
                             {
                                 SpawnRule missingRule;
-                                StringBuilder sb = new StringBuilder();
-                                for (int idx = 0; idx < missingResources.GetLength(0); idx++)
+                                var sb = new StringBuilder();
+                                for (var idx = 0; idx < missingResources.GetLength(0); idx++)
                                 {
                                     missingRule = m_spawner.m_spawnerRules[missingResources[idx]];
                                     if (idx != 0)
@@ -849,9 +849,9 @@ namespace Gaia
             }
 
             //Drop out if spawner doesnt have resources
-            int idx = 0;
+            var idx = 0;
             SpawnRule rule;
-            bool dirty = false;
+            var dirty = false;
             while (idx < m_spawner.m_spawnerRules.Count)
             {
                 rule = m_spawner.m_spawnerRules[idx];
@@ -963,7 +963,7 @@ namespace Gaia
         void ProgressBar(string label, float value)
         {
             // Get a rect for the progress bar using the same margins as a textfield:
-            Rect rect = GUILayoutUtility.GetRect(18, 18, "TextField");
+            var rect = GUILayoutUtility.GetRect(18, 18, "TextField");
             EditorGUI.ProgressBar(rect, value, label);
             EditorGUILayout.Space();
         }
@@ -976,27 +976,27 @@ namespace Gaia
         /// <returns></returns>
         static LayerMask LayerMaskField(GUIContent label, LayerMask layerMask)
         {
-            List<string> layers = new List<string>();
-            List<int> layerNumbers = new List<int>();
+            var layers = new List<string>();
+            var layerNumbers = new List<int>();
 
-            for (int i = 0; i < 32; i++)
+            for (var i = 0; i < 32; i++)
             {
-                string layerName = LayerMask.LayerToName(i);
+                var layerName = LayerMask.LayerToName(i);
                 if (layerName != "")
                 {
                     layers.Add(layerName);
                     layerNumbers.Add(i);
                 }
             }
-            int maskWithoutEmpty = 0;
-            for (int i = 0; i < layerNumbers.Count; i++)
+            var maskWithoutEmpty = 0;
+            for (var i = 0; i < layerNumbers.Count; i++)
             {
                 if (((1 << layerNumbers[i]) & layerMask.value) > 0)
                     maskWithoutEmpty |= (1 << i);
             }
             maskWithoutEmpty = EditorGUILayout.MaskField(label, maskWithoutEmpty, layers.ToArray());
-            int mask = 0;
-            for (int i = 0; i < layerNumbers.Count; i++)
+            var mask = 0;
+            for (var i = 0; i < layerNumbers.Count; i++)
             {
                 if ((maskWithoutEmpty & (1 << i)) > 0)
                     mask |= (1 << layerNumbers[i]);
@@ -1012,7 +1012,7 @@ namespace Gaia
         /// <returns></returns>
         GUIContent GetLabel(string name)
         {
-            string tooltip = "";
+            var tooltip = "";
             if (m_showTooltips && m_tooltips.TryGetValue(name, out tooltip))
             {
                 return new GUIContent(name, tooltip);

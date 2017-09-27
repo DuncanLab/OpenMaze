@@ -48,10 +48,10 @@ namespace Gaia
         {
             //Set growth params
             float scale;
-            float startTime = Time.realtimeSinceStartup;
-            float currentTime = startTime;
-            float deltaScale = m_actualEndScale - m_startScale;
-            float finishTime = startTime + m_growthTime;
+            var startTime = Time.realtimeSinceStartup;
+            var currentTime = startTime;
+            var deltaScale = m_actualEndScale - m_startScale;
+            var finishTime = startTime + m_growthTime;
             while (currentTime < finishTime)
             {
                 //Update scale

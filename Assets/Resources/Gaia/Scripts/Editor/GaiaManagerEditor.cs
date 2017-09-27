@@ -68,7 +68,7 @@ namespace Gaia
         /// <returns>New gaia settings asset</returns>
         public static GaiaSettings CreateSettingsAsset()
         {
-            GaiaSettings settings = ScriptableObject.CreateInstance<Gaia.GaiaSettings>();
+            var settings = ScriptableObject.CreateInstance<Gaia.GaiaSettings>();
             AssetDatabase.CreateAsset(settings, "Assets/Gaia/Data/GaiaSettings.asset");
             AssetDatabase.SaveAssets();
             return settings;
@@ -80,7 +80,7 @@ namespace Gaia
         /// <returns>New defaults asset</returns>
         public static GaiaDefaults CreateDefaultsAsset()
         {
-            GaiaDefaults defaults = ScriptableObject.CreateInstance<Gaia.GaiaDefaults>();
+            var defaults = ScriptableObject.CreateInstance<Gaia.GaiaDefaults>();
             AssetDatabase.CreateAsset(defaults, string.Format("Assets/Gaia/Data/GD-{0:yyyyMMdd-HHmmss}.asset", DateTime.Now));
             AssetDatabase.SaveAssets();
             return defaults;
@@ -92,7 +92,7 @@ namespace Gaia
         /// <returns>New resources asset</returns>
         public static GaiaResource CreateResourcesAsset()
         {
-            GaiaResource resources = ScriptableObject.CreateInstance<Gaia.GaiaResource>();
+            var resources = ScriptableObject.CreateInstance<Gaia.GaiaResource>();
             AssetDatabase.CreateAsset(resources, string.Format("Assets/Gaia/Data/GR-{0:yyyyMMdd-HHmmss}.asset", DateTime.Now));
             AssetDatabase.SaveAssets();
             return resources;
@@ -103,7 +103,7 @@ namespace Gaia
         /// </summary>
         public void SetGaiaDefines()
         {
-            string currBuildSettings = PlayerSettings.GetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup);
+            var currBuildSettings = PlayerSettings.GetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup);
 
             //Check for and inject GAIA_PRESENT
             if (!currBuildSettings.Contains("GAIA_PRESENT"))
@@ -118,7 +118,7 @@ namespace Gaia
         /// </summary>
         public static void SetGaiaDefinesStatic()
         {
-            string currBuildSettings = PlayerSettings.GetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup);
+            var currBuildSettings = PlayerSettings.GetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup);
 
             //Check for and inject GAIA_PRESENT
             if (!currBuildSettings.Contains("GAIA_PRESENT"))
@@ -635,18 +635,18 @@ namespace Gaia
             GUI.enabled = true;
             EditorGUILayout.EndHorizontal();
 
-            int methodIdx = 0;
+            var methodIdx = 0;
             string cmdName;
-            string currFoldoutName = "";
-            string prevFoldoutName = ""; 
+            var currFoldoutName = "";
+            var prevFoldoutName = ""; 
             MethodInfo command;
-            string[] cmdBreakOut = new string[0];
+            var cmdBreakOut = new string[0];
             List<GaiaCompatiblePackage> packages;
-            List<GaiaCompatiblePublisher> publishers = m_extensionMgr.GetPublishers();
+            var publishers = m_extensionMgr.GetPublishers();
 
             if (m_drawGXInstalled)
             {
-                foreach (GaiaCompatiblePublisher publisher in publishers)
+                foreach (var publisher in publishers)
                 {
                     if (publisher.InstalledPackages() > 0)
                     {
@@ -655,7 +655,7 @@ namespace Gaia
                             EditorGUI.indentLevel++;
 
                             packages = publisher.GetPackages();
-                            foreach (GaiaCompatiblePackage package in packages)
+                            foreach (var package in packages)
                             {
                                 if (package.m_isInstalled)
                                 {
@@ -821,7 +821,7 @@ namespace Gaia
             }
             else
             {
-                foreach (GaiaCompatiblePublisher publisher in publishers)
+                foreach (var publisher in publishers)
                 {
                     if (publisher.CompatiblePackages() > 0)
                     {
@@ -830,7 +830,7 @@ namespace Gaia
                             EditorGUI.indentLevel++;
 
                             packages = publisher.GetPackages();
-                            foreach (GaiaCompatiblePackage package in packages)
+                            foreach (var package in packages)
                             {
                                 if (package.m_isCompatible)
                                 {
@@ -840,13 +840,13 @@ namespace Gaia
                                         EditorGUILayout.BeginVertical(GUILayout.Width(280));
                                         EditorGUILayout.BeginHorizontal();
                                         GUILayout.Space(50);
-                                        Texture2D image = Utils.GetAssetTexture2D(package.m_packageImageName);
+                                        var image = Utils.GetAssetTexture2D(package.m_packageImageName);
                                         if (image != null)
                                         {
                                             GUILayout.Label(image, GUILayout.Width(280), GUILayout.Height(140f));
                                         }
                                         EditorGUILayout.EndHorizontal();
-                                        GUIStyle ws = GUI.skin.label;
+                                        var ws = GUI.skin.label;
                                         ws.wordWrap = true;
                                         EditorGUILayout.LabelField(package.m_packageDescription, ws);
                                         EditorGUILayout.BeginHorizontal();
@@ -875,7 +875,7 @@ namespace Gaia
         void CreateTerrain()
         {
             //Only do this if we have < 1 terrain
-            int actualTerrainCount = Gaia.TerrainHelper.GetActiveTerrainCount();
+            var actualTerrainCount = Gaia.TerrainHelper.GetActiveTerrainCount();
             if (actualTerrainCount != 0)
             {
                 EditorUtility.DisplayDialog("OOPS!", string.Format("You currently have {0} active terrains in your scene, but to use this feature you need {1}. Please add or remove terrains.", actualTerrainCount, 0), "OK");
@@ -892,7 +892,7 @@ namespace Gaia
         /// </summary>
         GameObject ShowSessionManager(bool pickupExistingTerrain = false)
         {
-            GameObject mgrObj = GaiaSessionManager.GetSessionManager(pickupExistingTerrain).gameObject;
+            var mgrObj = GaiaSessionManager.GetSessionManager(pickupExistingTerrain).gameObject;
             Selection.activeGameObject = mgrObj;
             return mgrObj;
         }
@@ -912,15 +912,15 @@ namespace Gaia
             //m_sessionManager = m_resources.CreateOrFindSessionManager().GetComponent<GaiaSessionManager>();
 
             //Make sure we have gaia object
-            GameObject gaiaObj = m_resources.CreateOrFindGaia();
+            var gaiaObj = m_resources.CreateOrFindGaia();
 
             //Create or find the stamper
-            GameObject stamperObj = GameObject.Find("Stamper");
+            var stamperObj = GameObject.Find("Stamper");
             if (stamperObj == null)
             {
                 stamperObj = new GameObject("Stamper");
                 stamperObj.transform.parent = gaiaObj.transform;
-                Stamper stamper = stamperObj.AddComponent<Stamper>();
+                var stamper = stamperObj.AddComponent<Stamper>();
                 stamper.m_resources = m_resources;
                 stamper.FitToTerrain();
                 stamperObj.transform.position = new Vector3(stamper.m_x, stamper.m_y, stamper.m_z);
@@ -933,17 +933,17 @@ namespace Gaia
         /// </summary>
         GameObject CreateScanner()
         {
-            GameObject gaiaObj = m_resources.CreateOrFindGaia();
-            GameObject scannerObj = GameObject.Find("Scanner");
+            var gaiaObj = m_resources.CreateOrFindGaia();
+            var scannerObj = GameObject.Find("Scanner");
             if (scannerObj == null)
             {
                 scannerObj = new GameObject("Scanner");
                 scannerObj.transform.parent = gaiaObj.transform;
                 scannerObj.transform.position = Gaia.TerrainHelper.GetActiveTerrainCenter(false);
-                Scanner scanner = scannerObj.AddComponent<Scanner>();
+                var scanner = scannerObj.AddComponent<Scanner>();
 
                 //Load the material to draw it
-                string matPath = GetAssetPath("GaiaScannerMaterial");
+                var matPath = GetAssetPath("GaiaScannerMaterial");
                 if (!string.IsNullOrEmpty(matPath))
                 {
                     scanner.m_previewMaterial = AssetDatabase.LoadAssetAtPath<Material>(matPath);
@@ -964,8 +964,8 @@ namespace Gaia
                 return null;
             }
 
-            GameObject gaiaObj = m_resources.CreateOrFindGaia();
-            GameObject visualiserObj = GameObject.Find("Visualiser");
+            var gaiaObj = m_resources.CreateOrFindGaia();
+            var visualiserObj = GameObject.Find("Visualiser");
             if (visualiserObj == null)
             {
                 visualiserObj = new GameObject("Visualiser");
@@ -975,7 +975,7 @@ namespace Gaia
                 //Center it on the terrain
                 visualiserObj.transform.position = Gaia.TerrainHelper.GetActiveTerrainCenter();
             }
-            ResourceVisualiser visualiser = visualiserObj.GetComponent<ResourceVisualiser>();
+            var visualiser = visualiserObj.GetComponent<ResourceVisualiser>();
             visualiser.m_resources = m_resources;
             return visualiserObj;
         }
@@ -1072,10 +1072,10 @@ namespace Gaia
                 return;
             }
 
-            GaiaWorldManager mgr = new GaiaWorldManager(Terrain.activeTerrains);
+            var mgr = new GaiaWorldManager(Terrain.activeTerrains);
             if (mgr.TileCount > 0)
             {
-                string path = "Assets/GaiaMasks/";
+                var path = "Assets/GaiaMasks/";
                 if (!Directory.Exists(path))
                 {
                     Directory.CreateDirectory(path);
@@ -1130,7 +1130,7 @@ namespace Gaia
         /// <returns>True if an error, false otherwise</returns>
         private bool DisplayErrorIfInvalidTerrainCount(int requiredTerrainCount, string feature = "")
         {
-            int actualTerrainCount = Gaia.TerrainHelper.GetActiveTerrainCount();
+            var actualTerrainCount = Gaia.TerrainHelper.GetActiveTerrainCount();
             if (actualTerrainCount != requiredTerrainCount)
             {
                 if (string.IsNullOrEmpty(feature))
@@ -1169,7 +1169,7 @@ namespace Gaia
         private float GetRangeFromTerrain()
         {
             float range = (m_defaults.m_terrainSize / 2) * m_defaults.m_tilesX;
-            Terrain t = Gaia.TerrainHelper.GetActiveTerrain();
+            var t = Gaia.TerrainHelper.GetActiveTerrain();
             if (t != null)
             {
                 range = (Mathf.Max(t.terrainData.size.x, t.terrainData.size.z) / 2f) * m_defaults.m_tilesX;
@@ -1313,20 +1313,20 @@ namespace Gaia
                 return null;
             }
 
-            GameObject playerObj = GameObject.Find("Player");
+            var playerObj = GameObject.Find("Player");
             if (playerObj == null)
             {
-                string playerPrefabName = m_settings.m_playerPrefabName;
+                var playerPrefabName = m_settings.m_playerPrefabName;
                 if (string.IsNullOrEmpty(playerPrefabName))
                 {
                     playerPrefabName = "FPSController";
                 }
 
-                GameObject fps = Utils.GetAssetPrefab(playerPrefabName);
+                var fps = Utils.GetAssetPrefab(playerPrefabName);
                 if (fps != null)
                 {
                     //Place at centre of world at game height
-                    Vector3 location = Gaia.TerrainHelper.GetActiveTerrainCenter(true);
+                    var location = Gaia.TerrainHelper.GetActiveTerrainCenter(true);
                     location.y += 1f;
                     playerObj = Instantiate(fps, location, Quaternion.identity) as GameObject;
                     playerObj.name = "Player";
@@ -1343,14 +1343,14 @@ namespace Gaia
                     //}
 
                     //Find and raise the camera
-                    Transform cameraObj = playerObj.transform.Find("FirstPersonCharacter");
+                    var cameraObj = playerObj.transform.Find("FirstPersonCharacter");
                     if (cameraObj != null)
                     {
                         cameraObj.localPosition = new Vector3(cameraObj.localPosition.x, 1.6f, cameraObj.localPosition.z);
                     }
 
                     //Put into gaia environment
-                    GameObject gaiaObj = GameObject.Find("Gaia Environment");
+                    var gaiaObj = GameObject.Find("Gaia Environment");
                     if (gaiaObj == null)
                     {
                         gaiaObj = new GameObject("Gaia Environment");
@@ -1358,7 +1358,7 @@ namespace Gaia
                     playerObj.transform.parent = gaiaObj.transform;
 
                     //Ok - we have added a new camera into the scene - lets disable the existing one
-                    GameObject mainCameraObj = GameObject.Find("Main Camera");
+                    var mainCameraObj = GameObject.Find("Main Camera");
                     if (mainCameraObj != null)
                     {
                         mainCameraObj.SetActive(false);
@@ -1372,7 +1372,7 @@ namespace Gaia
             else
             {
                 //Lets just drop them to ground level
-                Vector3 location = Gaia.TerrainHelper.GetActiveTerrainCenter(true);
+                var location = Gaia.TerrainHelper.GetActiveTerrainCenter(true);
                 location.y += 1f;
                 playerObj.transform.position = location;
             }
@@ -1416,17 +1416,17 @@ namespace Gaia
                 return null;
             }
 
-            GameObject windZoneObj = GameObject.Find("Wind Zone");
+            var windZoneObj = GameObject.Find("Wind Zone");
             if (windZoneObj == null)
             {
                 windZoneObj = new GameObject("Wind Zone");
                 windZoneObj.transform.position = Gaia.TerrainHelper.GetActiveTerrainCenter(false);
-                WindZone windZone = windZoneObj.AddComponent<WindZone>();
+                var windZone = windZoneObj.AddComponent<WindZone>();
                 windZone.windMain = 0.2f;
                 windZone.windTurbulence = 0.2f;
                 windZone.windPulseMagnitude = 0.2f;
                 windZone.windPulseFrequency = 0.01f;
-                GameObject gaiaObj = GameObject.Find("Gaia Environment");
+                var gaiaObj = GameObject.Find("Gaia Environment");
                 if (gaiaObj == null)
                 {
                     gaiaObj = new GameObject("Gaia Environment");
@@ -1448,21 +1448,21 @@ namespace Gaia
                 return null;
             }
 
-            GameObject waterObj = GameObject.Find("Water");
+            var waterObj = GameObject.Find("Water");
             if (waterObj == null)
             {
-                string waterPrefabName = m_settings.m_waterPrefabName;
+                var waterPrefabName = m_settings.m_waterPrefabName;
                 if (string.IsNullOrEmpty(waterPrefabName))
                 {
                     waterPrefabName = "Water4Advanced";
                 }
 
-                GameObject waterPrefab = Utils.GetAssetPrefab(waterPrefabName);
+                var waterPrefab = Utils.GetAssetPrefab(waterPrefabName);
                 if (waterPrefab != null)
                 {
-                    GaiaSceneInfo sceneInfo = GaiaSceneInfo.GetSceneInfo();
-                    Terrain terrain = Gaia.TerrainHelper.GetActiveTerrain();
-                    Vector3 location = sceneInfo.m_centrePointOnTerrain;
+                    var sceneInfo = GaiaSceneInfo.GetSceneInfo();
+                    var terrain = Gaia.TerrainHelper.GetActiveTerrain();
+                    var location = sceneInfo.m_centrePointOnTerrain;
                     location.y = sceneInfo.m_seaLevel;
                     waterObj = Instantiate(waterPrefab, location, Quaternion.identity) as GameObject;
                     if (terrain != null)
@@ -1485,7 +1485,7 @@ namespace Gaia
                 {
                     EditorUtility.DisplayDialog("OOPS!", "Unable to locate the Water4Advanced prefab!! Please Import Unity Standard Environment Assets and try again.", "OK");
                 }
-                GameObject gaiaObj = GameObject.Find("Gaia Environment");
+                var gaiaObj = GameObject.Find("Gaia Environment");
                 if (gaiaObj == null)
                 {
                     gaiaObj = new GameObject("Gaia Environment");
@@ -1509,14 +1509,14 @@ namespace Gaia
             {
                 return null;
             }
-            GameObject shotterObj = GameObject.Find("Screen Shotter");
+            var shotterObj = GameObject.Find("Screen Shotter");
             if (shotterObj == null)
             {
                 shotterObj = new GameObject("Screen Shotter");
-                Gaia.ScreenShotter shotter = shotterObj.AddComponent<Gaia.ScreenShotter>();
+                var shotter = shotterObj.AddComponent<Gaia.ScreenShotter>();
                 shotter.m_watermark = Gaia.Utils.GetAsset("Made With Gaia Watermark.png", typeof(Texture2D)) as Texture2D;
 
-                GameObject gaiaObj = GameObject.Find("Gaia Environment");
+                var gaiaObj = GameObject.Find("Gaia Environment");
                 if (gaiaObj == null)
                 {
                     gaiaObj = new GameObject("Gaia Environment");
@@ -1538,13 +1538,13 @@ namespace Gaia
         /// <returns></returns>
         bool DisplayButton(GUIContent content)
         {
-            TextAnchor oldalignment = GUI.skin.button.alignment;
+            var oldalignment = GUI.skin.button.alignment;
             GUI.skin.button.alignment = TextAnchor.MiddleLeft;
-            Rect btnR = EditorGUILayout.BeginHorizontal();
+            var btnR = EditorGUILayout.BeginHorizontal();
             btnR.xMin += (EditorGUI.indentLevel * 18f);
             btnR.height += 20f;
             btnR.width -= 4f;
-            bool result = GUI.Button(btnR, content);
+            var result = GUI.Button(btnR, content);
             EditorGUILayout.EndHorizontal();
             GUILayout.Space(22);
             GUI.skin.button.alignment = oldalignment;
@@ -1558,7 +1558,7 @@ namespace Gaia
         /// <returns></returns>
         GUIContent GetLabel(string name)
         {
-            string tooltip = "";
+            var tooltip = "";
             if (m_tooltips.TryGetValue(name, out tooltip))
             {
                 return new GUIContent(name, tooltip);
@@ -1585,7 +1585,7 @@ namespace Gaia
         /// <returns></returns>
         string GetAssetPath(string name)
         {
-            string[] assets = AssetDatabase.FindAssets(name, null);
+            var assets = AssetDatabase.FindAssets(name, null);
             if (assets.Length > 0)
             {
                 return AssetDatabase.GUIDToAssetPath(assets[0]);
@@ -1597,11 +1597,11 @@ namespace Gaia
 
         public static List<Type> GetTypesInNamespace(string nameSpace)
         {
-            List<Type> gaiaTypes = new List<Type>();
+            var gaiaTypes = new List<Type>();
 
             int assyIdx, typeIdx;
             System.Type[] types;
-            System.Reflection.Assembly[] assemblies = System.AppDomain.CurrentDomain.GetAssemblies();
+            var assemblies = System.AppDomain.CurrentDomain.GetAssemblies();
             for (assyIdx = 0; assyIdx < assemblies.Length; assyIdx++)
             {
                 if (assemblies[assyIdx].FullName.StartsWith("Assembly"))
@@ -1628,7 +1628,7 @@ namespace Gaia
         /// <returns></returns>
         public static bool GotImageFX()
         {
-            List<Type> types = GetTypesInNamespace("UnityStandardAssets.ImageEffects");
+            var types = GetTypesInNamespace("UnityStandardAssets.ImageEffects");
             if (types.Count > 0)
             {
                 return true;

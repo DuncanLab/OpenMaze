@@ -46,7 +46,7 @@ namespace UnityStandardAssets.ImageEffects
 
             EditorGUILayout.PropertyField(mode, new GUIContent("Technique"));
 
-            Material mat = (target as Antialiasing).CurrentAAMaterial();
+            var mat = (target as Antialiasing).CurrentAAMaterial();
             if (null == mat && (target as Antialiasing).enabled)
             {
                 EditorGUILayout.HelpBox("This AA technique is currently not supported. Choose a different technique or disable the effect and use MSAA instead.", MessageType.Warning);

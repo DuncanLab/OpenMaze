@@ -78,7 +78,7 @@ namespace Gaia.FullSerializer.Internal
         }
 
         public void MarkSerialized(object item) {
-            int referenceId = GetReferenceId(item);
+            var referenceId = GetReferenceId(item);
 
             if (_marked.ContainsKey(referenceId)) {
                 throw new InvalidOperationException("Internal Error - " + item +
