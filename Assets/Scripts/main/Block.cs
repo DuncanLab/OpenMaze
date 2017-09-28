@@ -1,14 +1,119 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using DS = data.DataSingleton;
 //This is a standard block trial
+
+using data;
+using UnityEngine;
+using Random = UnityEngine.Random;
+
 namespace main
 {
-    [System.Serializable]
-    public class BlockData
+    
+    public class Block
     {
-        //This field determines if the block is repeatable.
+        
+        private readonly Data.BlockData _blockData;
+        private Loader.LinkedListNode<Data.Trial> _head;
+        private Loader.LinkedListNode<Data.Trial> _curr;
+
+
+
+
+        private void Init()
+        {
+            _head = new Loader.LinkedListNode<Data.Trial>();
+
+            var temp = _head;
+            var cnt = 0;
+            
+            var tmplist = new List<int>(_blockData.RandomTrialType);
+            
+            foreach (var i in _blockData.TrialOrder)
+            {
+                if (i >= 0)
+                    temp.Value = DS.GetData().TrialData[i];
+                else if (_blockData.Replacement == 1)
+                {
+                    var val = Random.Range(0, tmplist.Count);
+                    
+                    var val2 = tmplist[val];
+                    tmplist.Remove(val2);
+                    temp.Value = DS.GetData().TrialData[val2];
+                }
+                else
+                {
+                    temp.Value = DS.GetData().TrialData[tmplist[Random.Range(0, tmplist.Count)]];
+                }
+
+                if (cnt++ != _blockData.TrialOrder.Count - 1)
+                    temp.Next = new Loader.LinkedListNode<Data.Trial>();
+                temp = temp.Next;
+
+            }
+            _curr = _head;
+
+        }
+        
+        public Block(Data.BlockData blockData)
+        {
+            _blockData = blockData;
+            Init();
+
+        }
+
+        public Data.Trial Peek()
+        {
+            return _curr.Value;
+        }
+        
+        public Data.Trial Progress()
+        {
+            
+            if (_blockData.EndFunction != null)
+            {
+                var tmp = _blockData.EndFunction;
+                var func = typeof(Functions).GetMethod(tmp, BindingFlags.Static | BindingFlags.Public);
+                var val = (bool) func.Invoke(null, new object[] {_blockData});
+                if (val)
+                {
+                    return null;
+                }
+
+
+                if (IsDone())
+                {
+                    Init();
+                    return _curr.Value;
+                }
+            }
+            else
+            {
+                if (IsDone()) return null;
+            }
+            
+            
+            
+            var returnValue = _curr.Value;
+            _curr = _curr.Next;
+            return returnValue;
+            
+        }
         
         
-        //This is an array of integers that determine 
         
+        private bool IsDone()
+        {
+            return _curr.Next == null;
+        }
+
+
+        public void Log()
+        {
+            Loader.LogData(_blockData.BlockName + ", " + _blockData.Notes);
+            
+        }
     }
 }

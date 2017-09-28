@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using data;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -22,16 +23,20 @@ namespace main
 
 		public InputField[] TextBoxes;
 		private bool _inputDone;
-		
-		
-		public LinkedListNode CurrTrial;
+
+		public LinkedListNode<Block> Blocks;
+		public LinkedListNode<Data.Trial> CurrTrial;
 		public float RunningTime;
 
-		public class LinkedListNode
+		public class LinkedListNode<T>
 		{
-			public Data.Trial Value;
-			public LinkedListNode Next;
+			public T Value;
+			public LinkedListNode<T> Next;
 
+			public void Log()
+			{
+				throw new System.NotImplementedException();
+			}
 		}	
 		
 		
@@ -39,46 +44,69 @@ namespace main
 			DontDestroyOnLoad(this);
 			DS.Load ();
 			Directory.CreateDirectory(C.OutputDirectory);
-
-			CurrTrial = new LinkedListNode();
-
-			var temp = CurrTrial;
+			
+		
+			
+			Blocks = new LinkedListNode<Block>();
+			CurrTrial = new LinkedListNode<Data.Trial>();
+			var temp = Blocks;
+			
+			
 			var cnt = 0;
-			foreach (var i in DS.GetData().TrialOrder)
+			foreach (var i in DS.GetData().BlockOrder)
 			{
-				temp.Value = DS.GetData().TrialData[i];
-				if (cnt++ != DS.GetData().TrialOrder.Count - 1)
-					temp.Next = new LinkedListNode();
+				temp.Value = new Block(DS.GetData().BlockList[i]);
+				if (cnt++ != DS.GetData().BlockOrder.Count - 1)
+					temp.Next = new LinkedListNode<Block>();
 				temp = temp.Next;
 			}
+
+			Blocks.Value.Log();
+			CurrTrial.Value = Blocks.Value.Peek();
 			_inputDone = false;
 		}
 
 		public void Progress()
 		{
-			if (CurrTrial.Next != null)
+			if (Blocks == null)
 			{
-				RunningTime = 0;
-				CurrTrial = CurrTrial.Next;
-				if (CurrTrial.Value.FileLocation != null)
-				{
-					SceneManager.LoadScene(C.LoadingScreen);
-				} else if (CurrTrial.Value.TwoDimensional == 1)
-				{
-					SceneManager.LoadScene(CurrTrial.Value.EnvironmentType + 4);
-				}
-				else
-				{
-					
-					foreach (var prop in typeof(Data.Trial).GetFields())
-					{
-						var s = prop.Name + ", " + prop.GetValue(CurrTrial.Value);
-						LogData(s);
-					}
-					SceneManager.LoadScene(CurrTrial.Value.EnvironmentType + 2);
-				}
+				return;
+			}
+			RunningTime = 0;
+	
+			if (Blocks.Value.Progress() == null)
+			{
+				Blocks = Blocks.Next;
+				if (Blocks == null) return;
+				BlockState.Reset();
+				Blocks.Value.Log();
 
 			}
+
+				
+				
+				
+			CurrTrial.Value = Blocks.Value.Peek();
+
+			
+			if (CurrTrial.Value.FileLocation != null)
+			{
+				SceneManager.LoadScene(C.LoadingScreen);
+			} else if (CurrTrial.Value.TwoDimensional == 1)
+			{
+				SceneManager.LoadScene(CurrTrial.Value.EnvironmentType + 4);
+			}
+			else
+			{
+					
+				foreach (var prop in typeof(Data.Trial).GetFields())
+				{
+					var s = prop.Name + ", " + prop.GetValue(CurrTrial.Value);
+					LogData(s);
+				}
+				SceneManager.LoadScene(CurrTrial.Value.EnvironmentType + 2);
+			}
+			
 		}
 		
 		private void LateUpdate()
@@ -88,7 +116,9 @@ namespace main
 				HandleInput();
 				if (CheckTimeOut())
 				{
-
+					if (CurrTrial.Value.Color != null)
+						BlockState.Failed();
+						
 					Progress();
 				}
 				RunningTime += Time.deltaTime;
@@ -99,12 +129,15 @@ namespace main
 				if (Input.GetKeyDown(KeyCode.Return))
 				{
 					LogData("", false);
+
 					foreach (var textBox in TextBoxes)
 					{
 						var arr = textBox.transform.GetComponentsInChildren<Text>();
 						LogData(arr[0].text + ": " + arr[1].text);
 						
 					}					
+					Blocks.Value.Log(); 
+
 					_inputDone = true;
 					SceneManager.LoadScene(1);
 				}
@@ -123,7 +156,7 @@ namespace main
 		{
 			if (CurrTrial.Value.TimeAllotted > 0) return;
 
-			if (Input.GetKeyDown(KeyCode.Space) )
+			if (Input.GetKeyDown(KeyCode.Return) )
 			{
 				Progress();
 			}			

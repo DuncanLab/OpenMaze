@@ -13,14 +13,25 @@
         "CharacterStartPos" : {"X" : 0, "Y" : 0}
     },
     
+    "BlockOrder" : [0],
     
-    "TrialOrder": [
-        0, 1, 0, 2, 0, 1
+    "BlockList" : [
+         {
+            
+              "BlockName" : "TEST1",
+              "Notes" : "TEST NOTE",
+
+              "TrialOrder": [
+                 0, 1, 0, 2, 0
+                ]
+        }
+        
     ],
+
     "TrialData": [
         {
             "FileLocation": "Test.jpg",
-            "TimeAllotted": -1
+            "TimeAllotted": 1
         },
         {
             "Index": 4,
@@ -35,7 +46,7 @@
             "PickupVisible" : 1,
         	"RandomLoc" : 0
         },
-        {
+         {
             "TwoDimensional" : 1,
             "EnvironmentType" : 0,
             "TimeAllotted" : 10
@@ -52,24 +63,8 @@
             "TimeAllotted" : 10,
             "PickupVisible" : 1,
             "RandomLoc" : 0
-        },
-        {
-            "Index": 3,
-            "EnvironmentType": 1,
-            "Sides": 5,
-            "Color": "ff0000",
-        	"PillarColor" : "00ff00",
-            "Radius": 10,
-            "InitialAngle" : 0,
-            "PickupType" : 2,
-            "TimeAllotted" : 10,
-            "RandomLoc" : 0,
-            "PickupVisible" : 1
-        },
-        {
-            "FileLocation": "Test.jpg",
-            "TimeAllotted": 2
         }
+        
     ],
     "PickupItems": [
         {

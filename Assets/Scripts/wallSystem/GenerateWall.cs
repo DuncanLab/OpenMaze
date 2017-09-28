@@ -52,15 +52,17 @@ namespace wallSystem
 		private void SetupColours(){
 
 			var col = Data.GetColour(E.Get().CurrTrial.Value.Color);
-
 			//And here we set the color of the wall prefab to the appropriate color
 			Wall.GetComponent<Renderer>().sharedMaterial.color = col;
+			WallPointContainer.WallColor = col;
+
 			
 		}
 
 
 		private void GeneratePillars()
 		{
+			WallPointContainer.PillarColor = Data.GetColour(E.Get().CurrTrial.Value.PillarColor);
 			foreach (var p in DS.GetData().Pillars)
 			{
 				var cylin = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
@@ -68,6 +70,7 @@ namespace wallSystem
 				cylin.transform.position = new Vector3(p.X, 0, p.Y);
 				cylin.transform.localScale = new Vector3(p.Radius, p.Height, p.Radius);
 				cylin.GetComponent<Renderer>().material.color = Data.GetColour(E.Get().CurrTrial.Value.PillarColor);
+				
 				WallPointContainer.AddPillar(p);
 				_created.Add(cylin);
 			}

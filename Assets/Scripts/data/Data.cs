@@ -23,14 +23,30 @@ namespace data
 		//This is a list of the pillar objects
 		public List<Pillar> Pillars;
 
-		//This list orders the trials to be shown. 
-		public List<int> TrialOrder;
-
+		
 		//This list contains all pre-defined trials.
 		public List<Trial> TrialData;
 
 		public float WallHeight;
+
+		public List<BlockData> BlockList;
+
+		public List<int> BlockOrder;
 		
+		
+		[Serializable]
+		public class BlockData
+		{
+			public string EndGoal;
+			public string EndFunction; //The function name (if not present, we assume its always true)
+
+			
+			public string BlockName;
+			public string Notes;
+			public int Replacement;
+			public List<int> RandomTrialType;
+			public List<int> TrialOrder;
+		}
 		
 		
 		/// <summary>
@@ -105,7 +121,7 @@ namespace data
 
 		//This is essentially a pillar object.
 		//Fields are pretty obvious.
-		[System.Serializable]
+		[Serializable]
 		public class Pillar
 		{
 			public float X;

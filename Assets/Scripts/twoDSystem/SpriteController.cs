@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using wallSystem;
@@ -23,14 +24,9 @@ namespace twoDSystem
 		private void Update () {
 			LogData();
 
-			if (Input.GetKey(KeyCode.Space))
-			{
-				
-				
+			if (Input.GetKeyDown(KeyCode.Space))
 				E.Get().Progress();
-			}
 			
-		
 			//This calculates the current amount of rotation frame rate independent
 			var rotation = Input.GetAxis("Horizontal") * DS.GetData().CharacterData.RotationSpeed * Time.deltaTime;
 
@@ -47,8 +43,9 @@ namespace twoDSystem
 			
 			//Here is the movement system
 			const double tolerance = 0.0001;
-			if (Mathf.Abs(rotation) < tolerance && Input.GetKey(KeyCode.UpArrow))
+			if (Mathf.Abs(rotation) < tolerance && (Input.GetKey(KeyCode.UpArrow) ||	 Input.GetKey(KeyCode.DownArrow)))
 			{
+				if (Input.GetKey(KeyCode.DownArrow)) trans *= -1;
 				GetComponent<CharacterController>().Move(trans);
 			}
 			

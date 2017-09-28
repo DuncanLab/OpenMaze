@@ -1,4 +1,4 @@
-using Unity;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace main
@@ -9,18 +9,28 @@ namespace main
 
         private static double  _blockTime;
 
-        private static int _numberItemsFound;
+        private static readonly List<int> TrialSuccess = new List<int>();
 
         public static double GetCurrentBlockTime()
-        {
+        {        
             return _blockTime;
         }
 
-        public static int GetNumberItemsFound()
+        public static int GetNumberItemsFound(int total = 0)
         {
-            return _numberItemsFound;
+            var goal = Mathf.Max(TrialSuccess.Count - total, 0);
+            var sum = 0;
+            for (var i = goal; i < TrialSuccess.Count; i++)
+            {
+                sum += TrialSuccess[i];
+            }
+            return sum;
         }
-        
+
+        public static int GetBlockLength()
+        {
+            return TrialSuccess.Count;
+        }
         
         
         
@@ -35,13 +45,19 @@ namespace main
         public static void Reset()
         {
             _blockTime = 0;
-            _numberItemsFound = 0;
+            TrialSuccess.Clear();
         }
         
         
         public static void Found()
         {
-            _numberItemsFound++;
+            TrialSuccess.Add(1);
+        }
+
+        public static void Failed()
+        {
+
+            TrialSuccess.Add(0);
         }
         
         

@@ -7,6 +7,9 @@ namespace twoDSystem
     public class WallPointContainer
     {
 
+        public static Color WallColor;
+        public static Color PillarColor;
+        
         private static List<Vector3> _points;
 
         public static List<Vector3> Pillars;
@@ -16,7 +19,6 @@ namespace twoDSystem
         {
             if (_points == null) _points = new List<Vector3>();
             if (Pillars == null) Pillars = new List<Vector3>();
-            
             Pillars.Clear();
             
             _points.Clear();
