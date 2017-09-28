@@ -9,7 +9,6 @@ namespace main
         
         
         //This is an array of integers that determine 
-        private int[] TrialOrder;
         
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using data;
+using main;
 using UnityEngine;
 using UnityEngine.UI;
 using DS = data.DataSingleton;
@@ -13,7 +14,6 @@ namespace wallSystem
 	public class PlayerController : MonoBehaviour {
    
 		public Camera Cam;
-		public static int ObjectsFound;
 		private GenerateGenerateWall _gen;
     
     
@@ -100,9 +100,9 @@ namespace wallSystem
 		private void OnTriggerEnter(Collider other)
 		{
 			if (!other.gameObject.CompareTag("Pickup")) return;
-			ObjectsFound++;
+			BlockState.Found();
 			var text = GameObject.Find("CountDown").GetComponent<Text>();
-			text.text = "Found: " + ObjectsFound;
+			text.text = "Found: " + BlockState.GetNumberItemsFound();
 			GetComponent<AudioSource> ().PlayOneShot (_gen.GetWaveSrc (), 1);
 			Destroy (other.gameObject);
 			LogData(true);

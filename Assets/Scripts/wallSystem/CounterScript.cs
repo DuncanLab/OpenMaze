@@ -15,7 +15,7 @@ namespace wallSystem
 				text.text = "Endless Mode";
 			else if (Loader.Get().CurrTrial.Value.PickupType > 0)
 			{
-				text.text = "Found: " + PlayerController.ObjectsFound;
+				text.text = "Found: " + BlockState.GetNumberItemsFound();
 			}
 		}
 		

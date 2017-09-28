@@ -1,11 +1,11 @@
 ﻿using System.IO;
-using System.Reflection;
 using data;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DS = data.DataSingleton;
 using C = data.Constants;
+using BS = main.BlockState;
 
 namespace main
 {
@@ -31,7 +31,6 @@ namespace main
 		{
 			public Data.Trial Value;
 			public LinkedListNode Next;
-			public LinkedListNode TrialRoot;
 
 		}	
 		
@@ -93,6 +92,7 @@ namespace main
 					Progress();
 				}
 				RunningTime += Time.deltaTime;
+				BS.Update(Time.deltaTime);
 			}
 			else
 			{
