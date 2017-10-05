@@ -13,16 +13,29 @@
         "CharacterStartPos" : {"X" : 0, "Y" : 0}
     },
     
-    "BlockOrder" : [0],
+    "BlockOrder" : [0, 1],
     
     "BlockList" : [
          {
             
               "BlockName" : "TEST1",
               "Notes" : "TEST NOTE",
-
+              "EndFunction" : "CheckFoodThresholdPercentage",
+              "EndGoal" : ".2, 5",
               "TrialOrder": [
-                 0, 1, 0, 2, 0
+                 0, -1, 0, -1, 0
+                ],
+              "Replacement" : 1,
+              "RandomTrialType" : [
+                1, 2, 1, 2
+              ]
+        },
+
+        {
+            "BlockName" : "TEST1",
+              "Notes" : "TEST NOTE",
+              "TrialOrder": [
+                 0, 1,  0, 1, 0
                 ]
         }
         

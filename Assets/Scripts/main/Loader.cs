@@ -33,10 +33,7 @@ namespace main
 			public T Value;
 			public LinkedListNode<T> Next;
 
-			public void Log()
-			{
-				throw new System.NotImplementedException();
-			}
+			
 		}	
 		
 		

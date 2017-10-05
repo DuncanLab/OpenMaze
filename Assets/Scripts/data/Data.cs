@@ -37,7 +37,7 @@ namespace data
 		[Serializable]
 		public class BlockData
 		{
-			public string EndGoal;
+			public string EndGoal; //percentage ___SPACE___ number
 			public string EndFunction; //The function name (if not present, we assume its always true)
 
 			
