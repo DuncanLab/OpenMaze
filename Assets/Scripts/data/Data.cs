@@ -27,10 +27,13 @@ namespace data
 		//This list contains all pre-defined trials.
 		public List<Trial> TrialData;
 
+		//This is the wall height
 		public float WallHeight;
 
+		//Array of blocks
 		public List<BlockData> BlockList;
 
+		//Order of blocks
 		public List<int> BlockOrder;
 		
 		
@@ -41,11 +44,11 @@ namespace data
 			public string EndFunction; //The function name (if not present, we assume its always true)
 
 			
-			public string BlockName;
+			public string BlockName; //Name and ntoes
 			public string Notes;
 			public int Replacement;
-			public List<int> RandomTrialType;
-			public List<int> TrialOrder;
+			public List<int> RandomTrialType; //Array that contains all the possible random values
+			public List<int> TrialOrder; //Trial order (-1 means random)
 		}
 		
 		
