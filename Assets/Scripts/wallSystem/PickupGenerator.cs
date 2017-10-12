@@ -95,7 +95,7 @@ namespace wallSystem
 			E.LogData("Target Location, " + P.X + ", " + P.Y);
 			obj.transform.localScale = new Vector3 (1, 1, 1) * item.Size;
 			var color = Data.GetColour (item.Color);
-			obj.GetComponent<Renderer> ().material.color = color;
+			obj.GetComponent<Renderer>().material.color = color;
 			obj.GetComponent<Renderer>().enabled = E.Get().CurrTrial.Value.PickupVisible == 1;
 		
 
