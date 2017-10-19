@@ -35,17 +35,27 @@ namespace main
             {
                 if (i >= 0)
                     temp.Value = DS.GetData().TrialData[i];
-                else if (_blockData.Replacement == 1)
-                {
-                    var val = Random.Range(0, tmplist.Count);
-                    
-                    var val2 = tmplist[val];
-                    tmplist.Remove(val2);
-                    temp.Value = DS.GetData().TrialData[val2];
-                }
                 else
                 {
-                    temp.Value = DS.GetData().TrialData[tmplist[Random.Range(0, tmplist.Count)]];
+                    var val = Random.Range(0, tmplist.Count);
+                        
+                    var val2 = tmplist[val];
+                    
+                                        
+                    if (_blockData.Replacement == 1)
+                    {
+                        tmplist.Remove(val2);
+                    }
+                    var tempTrial =  DS.GetData().TrialData[val2];
+
+                    if (tempTrial.HasRecursiveTrial == 1)
+                    {
+                        temp.Value = DS.GetData().TrialData[tempTrial.RecursiveTrialReference];
+                        temp.Next = new Loader.LinkedListNode<Data.Trial>();
+                        temp = temp.Next;
+                        temp.Value = tempTrial;
+                    }
+                    
                 }
 
                 if (cnt++ != _blockData.TrialOrder.Count - 1)

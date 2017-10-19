@@ -69,8 +69,11 @@ namespace data
 			public int PickupType;
 			public int TimeAllotted;
 			public string PillarColor;
+			public int HasRecursiveTrial;
+			public int RecursiveTrialReference;
 			public int RandomLoc;
 			public int PickupVisible;
+			public int OtherIndex;
 		}
 
 
