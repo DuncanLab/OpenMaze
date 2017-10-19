@@ -4,9 +4,13 @@ namespace data
 {
      public class Constants
      {
+          //The input directory for the game (we can adjust this for shipment later)
           public const string InputDirectory = "Assets/InputFiles~/";
-
+          
+          //This is the path of the config file
           public const string InputFileSrcPath = InputDirectory + "config.json";
+          
+          //This is where all of the output values are stored.
           public const string OutputDirectory = "Assets/Outputfiles~";
 
 

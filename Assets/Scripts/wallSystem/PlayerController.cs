@@ -81,7 +81,7 @@ namespace wallSystem
 		private void LogData(bool collided)
 		{
 			var v = E.Get().CurrTrial.Value;
-			var line = E.Get().CurrTrial.Value.Index + ", "
+			var line = E.Get().CurrTrial.Value.Note + ", "
 			              + E.Get().RunningTime + ", "
 			              + transform.position.x + ", "
 			              + transform.position.z + ", "

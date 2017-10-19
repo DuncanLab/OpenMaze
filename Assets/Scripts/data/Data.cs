@@ -13,7 +13,6 @@ namespace data
 	[Serializable]
 	public class Data
 	{
-		public string InstructionFile; //This is the csv file that contains the experiment data.
 		//This is the object (defined below) which contains all data available for the main player
 		public Character CharacterData;
 	
@@ -36,17 +35,17 @@ namespace data
 		//Order of blocks
 		public List<int> BlockOrder;
 		
-		
+		//Each given block
 		[Serializable]
 		public class BlockData
 		{
-			public string EndGoal; //percentage ___SPACE___ number
+			public string EndGoal; //percentage ___SPACE___ number. This is very arbitrary.
 			public string EndFunction; //The function name (if not present, we assume its always true)
 
 			
-			public string BlockName; //Name and ntoes
-			public string Notes;
-			public int Replacement;
+			public string BlockName; //Name (outputed at the end of the Block)
+			public string Notes; //Notes about the given block
+			public int Replacement; //Integer value representing replacement
 			public List<int> RandomTrialType; //Array that contains all the possible random values
 			public List<int> TrialOrder; //Trial order (-1 means random)
 		}
@@ -58,22 +57,20 @@ namespace data
 		[Serializable]
 		public class Trial
 		{
-			public int Index;
-			public int TwoDimensional;
-			public string FileLocation;
-			public int EnvironmentType;
-			public int Sides;
-			public string Color;
-			public int Radius;
-			public int InitialAngle;
-			public int PickupType;
-			public int TimeAllotted;
-			public string PillarColor;
-			public int HasRecursiveTrial;
-			public int RecursiveTrialReference;
-			public int RandomLoc;
-			public int PickupVisible;
-			public int OtherIndex;
+			public int TwoDimensional; //Set to true iff trial is two dimensional
+			public string FileLocation; //Is not null iff FileLocation exists (Image for 1D trials)
+			public int EnvironmentType; //This is the environment type referenced.
+			public int Sides; //Number of sides present in the trial.
+			public string Color; //HEX color of the walls
+			public int Radius; //Radius of the walls
+			public int PickupType; //Pickup type associated with the block
+			public int TimeAllotted; //Allotted amount of time
+			public string PillarColor; //Color of the pillars
+			public int HasRecursiveTrial; //This field will be 1 iff there is a recursive trial referenced.
+			public int RecursiveTrialReference;  //The given recursive trial reference
+			public int RandomLoc; //Whether or not the pickup has a random loaction
+			public int PickupVisible; //Visibility of the pickup
+			public string Note; //Note outputted out of the trial.
 		}
 
 

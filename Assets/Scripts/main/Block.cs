@@ -42,7 +42,7 @@ namespace main
                     var val2 = tmplist[val];
                     
                                         
-                    if (_blockData.Replacement == 1)
+                    if (_blockData.Replacement == 0)
                     {
                         tmplist.Remove(val2);
                     }
