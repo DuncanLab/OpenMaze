@@ -45,7 +45,6 @@ namespace main
                 {
                     if (tmplist == null)
                     {
-                        Debug.Log("Fuck");
                         continue;
                     }
                     var val = Random.Range(0, tmplist.Count);
