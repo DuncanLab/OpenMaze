@@ -28,10 +28,10 @@ namespace main
 
             var temp = _head;
         
-            List<List<int>> tmplist = null;
+            List<Data.RandomData> tmplist = null;
             if (_blockData.RandomTrialType != null)
             {
-                 tmplist = new List<List<int>>(_blockData.RandomTrialType);
+                 tmplist = new List<Data.RandomData>(_blockData.RandomTrialType);
             }
             foreach (var i in _blockData.TrialOrder)
             {
@@ -45,7 +45,7 @@ namespace main
                 {
                     if (tmplist == null)
                     {
-                        Debug.Log("fuck");
+                        Debug.Log("Fuck");
                         continue;
                     }
                     var val = Random.Range(0, tmplist.Count);
@@ -58,12 +58,20 @@ namespace main
                     {
                         tmplist.Remove(currTrialBlock);
                     }
-                    foreach (var j in currTrialBlock)
+                       
+                    int cnt = 0;
+                    foreach (var j in currTrialBlock.RandomGroup)
                     {
-                        Debug.Log(j);
+                        
+                        
                         temp.Value = DS.GetData().TrialData[j];
-                        temp.Next = new Loader.LinkedListNode<Data.Trial>();
-                        temp = temp.Next;
+
+                        if (cnt++ != currTrialBlock.RandomGroup.Count - 1)
+                        {
+                            temp.Next = new Loader.LinkedListNode<Data.Trial>();
+                            temp = temp.Next;
+                        }
+
                     }
 
 
