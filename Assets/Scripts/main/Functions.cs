@@ -7,7 +7,6 @@ namespace main
     {
         public static bool CheckFoodThresholdPercentage(Data.BlockData blockData)
         {
-
             var arr = blockData.EndGoal.Split(' ');
 
             var percentage = Convert.ToDouble(arr[0]);

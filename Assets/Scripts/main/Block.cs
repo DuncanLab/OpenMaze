@@ -58,7 +58,7 @@ namespace main
                         tmplist.Remove(currTrialBlock);
                     }
                        
-                    int cnt = 0;
+                    var cnt = 0;
                     foreach (var j in currTrialBlock.RandomGroup)
                     {
                         
