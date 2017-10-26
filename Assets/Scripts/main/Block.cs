@@ -27,40 +27,48 @@ namespace main
             _head = new Loader.LinkedListNode<Data.Trial>();
 
             var temp = _head;
-            var cnt = 0;
-            
-            var tmplist = new List<int>(_blockData.RandomTrialType);
-            
+        
+            List<List<int>> tmplist = null;
+            if (_blockData.RandomTrialType != null)
+            {
+                 tmplist = new List<List<int>>(_blockData.RandomTrialType);
+            }
             foreach (var i in _blockData.TrialOrder)
             {
                 if (i >= 0)
+                {
                     temp.Value = DS.GetData().TrialData[i];
+                    temp.Next = new Loader.LinkedListNode<Data.Trial>();
+                    temp = temp.Next;
+                }
                 else
                 {
+                    if (tmplist == null)
+                    {
+                        Debug.Log("fuck");
+                        continue;
+                    }
                     var val = Random.Range(0, tmplist.Count);
-                        
-                    var val2 = tmplist[val];
+
                     
-                                        
+                    var currTrialBlock = tmplist[val];
+
+
                     if (_blockData.Replacement == 0)
                     {
-                        tmplist.Remove(val2);
+                        tmplist.Remove(currTrialBlock);
                     }
-                    var tempTrial =  DS.GetData().TrialData[val2];
-
-                    if (tempTrial.HasRecursiveTrial == 1)
+                    foreach (var j in currTrialBlock)
                     {
-                        temp.Value = DS.GetData().TrialData[tempTrial.RecursiveTrialReference];
+                        Debug.Log(j);
+                        temp.Value = DS.GetData().TrialData[j];
                         temp.Next = new Loader.LinkedListNode<Data.Trial>();
                         temp = temp.Next;
-                        temp.Value = tempTrial;
                     }
-                    
+
+
                 }
 
-                if (cnt++ != _blockData.TrialOrder.Count - 1)
-                    temp.Next = new Loader.LinkedListNode<Data.Trial>();
-                temp = temp.Next;
 
             }
             _curr = _head;
@@ -116,7 +124,7 @@ namespace main
         
         private bool IsDone()
         {
-            return _curr.Next == null;
+            return _curr.Next.Value == null;
         }
 
 

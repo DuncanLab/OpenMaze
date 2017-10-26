@@ -1,4 +1,4 @@
-{
+    {
     "InstructionFile": "Instructions.xml",
     "WallHeight" : 3,
     "CharacterData": {
@@ -13,7 +13,7 @@
         "CharacterStartPos" : {"X" : 0, "Y" : 0}
     },
     
-    "BlockOrder" : [0, 1],
+    "BlockOrder" : [0],
     
     "BlockList" : [
          {
@@ -21,24 +21,16 @@
               "BlockName" : "TEST1",
               "Notes" : "TEST NOTE",
               "EndFunction" : "CheckFoodThresholdPercentage",
-              "EndGoal" : ".2, 5",
+              "EndGoal" : ".2 5",
               "TrialOrder": [
-                 0, -1, 0, -1, 0
+                 -1, -1
                 ],
-              "Replacement" : 1,
+              "Replacement" : 0,
               "RandomTrialType" : [
-                1, 2, 1, 2
+                {"arr": [0, 1]}, {"arr": [0, 3]}
               ]
-        },
-
-        {
-            "BlockName" : "TEST1",
-              "Notes" : "TEST NOTE",
-              "TrialOrder": [
-                 0, 1,  0, 1, 0
-                ]
         }
-        
+ 
     ],
 
     "TrialData": [

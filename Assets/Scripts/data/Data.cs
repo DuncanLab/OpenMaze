@@ -46,7 +46,7 @@ namespace data
 			public string BlockName; //Name (outputed at the end of the Block)
 			public string Notes; //Notes about the given block
 			public int Replacement; //Integer value representing replacement
-			public List<int> RandomTrialType; //Array that contains all the possible random values
+			public List<List<int>>	 RandomTrialType; //Array that contains all the possible random values
 			public List<int> TrialOrder; //Trial order (-1 means random)
 		}
 		
