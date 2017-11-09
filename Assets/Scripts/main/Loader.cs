@@ -41,7 +41,7 @@ namespace main
 		private void Start () {
 			DontDestroyOnLoad(this);
 			var inputFile = EditorUtility.OpenFilePanel("Choose Input File", "", "");
-				
+			
 			
 			DS.Load (inputFile);
 			Directory.CreateDirectory(C.OutputDirectory);
