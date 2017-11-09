@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using data;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -39,7 +40,10 @@ namespace main
 		
 		private void Start () {
 			DontDestroyOnLoad(this);
-			DS.Load ();
+			var inputFile = EditorUtility.OpenFilePanel("Choose Input File", "", "");
+			
+			
+			DS.Load (inputFile);
 			Directory.CreateDirectory(C.OutputDirectory);
 			
 		
