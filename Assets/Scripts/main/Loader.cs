@@ -123,16 +123,20 @@ namespace main
 			}
 			else
 			{
-				if (Input.GetKeyDown(KeyCode.Return))
+				if (Input.GetKeyDown(KeyCode.Space))
 				{
-					LogData("", false);
 
 					foreach (var textBox in TextBoxes)
 					{
 						var arr = textBox.transform.GetComponentsInChildren<Text>();
 						LogData(arr[0].text + ": " + arr[1].text);
-						
-					}					
+						DS.GetData().CharacterData.OutputFile = arr[1].text + "_" + DS.GetData().CharacterData.OutputFile;
+					}				
+					
+					
+					
+					LogData("", false);
+
 					Blocks.Value.Log(); 
 
 					_inputDone = true;
