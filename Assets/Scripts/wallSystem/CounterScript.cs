@@ -6,8 +6,8 @@ namespace wallSystem
 {
 	public class CounterScript : MonoBehaviour {
 
-		// Use this for initialization
-		private void Start ()
+
+		public void Start()
 		{
 			var text = GameObject.Find("CountDown").GetComponent<Text>();
 			text.color = Color.white;
@@ -18,7 +18,6 @@ namespace wallSystem
 				text.text = "Found: " + BlockState.GetNumberItemsFound();
 			}
 		}
-		
 	
 	}
 }

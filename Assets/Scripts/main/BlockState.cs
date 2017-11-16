@@ -16,14 +16,17 @@ namespace main
             return _blockTime;
         }
 
-        public static int GetNumberItemsFound(int total = 0)
+        public static int GetNumberItemsFound(int total = -1)
         {
+            
             var goal = Mathf.Max(TrialSuccess.Count - total, 0);
+            if (total == -1) goal = 0;
             var sum = 0;
             for (var i = goal; i < TrialSuccess.Count; i++)
             {
                 sum += TrialSuccess[i];
             }
+
             return sum;
         }
 

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using data;
+using UnityEngine;
 
 namespace main
 {
@@ -13,10 +15,11 @@ namespace main
 
             var n = Convert.ToInt32(arr[1]);
             if (n > BlockState.GetBlockLength()) return false;
-
+            
+            
             return BlockState.GetNumberItemsFound(n) / (double) n >= percentage;
 
-
+            
         }
     }
 }
