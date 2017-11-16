@@ -10,7 +10,6 @@ namespace wallSystem
 {
 	public class PickupGenerator : MonoBehaviour {
 		private List<GameObject> _destroy;
-		public GameObject Pickup;
 		private Text _goalText;
 		
 		public static Data.Point P;
@@ -89,11 +88,19 @@ namespace wallSystem
 		
 			P = ReadFromExternal (item.PythonFile);
 			GameObject.Find("FirstPerson").GetComponent<PlayerController>().ExternalStart();
-			var obj = Instantiate (Pickup);
+			
+			var prefab = (GameObject)Resources.Load("prefabs/" + item.PrefabName, typeof(GameObject));
+			prefab.AddComponent<RotateBlock>();
+			
+			
+			
+			
+			var obj = Instantiate (prefab);
 	
-			obj.transform.position = new Vector3 (P.X, 0.5f, P.Y);
 			E.LogData("Target Location, " + P.X + ", " + P.Y);
 			obj.transform.localScale = new Vector3 (1, 1, 1) * item.Size;
+			obj.transform.position = new Vector3 (P.X, prefab.GetComponent<Renderer>().bounds.size.y/2, P.Y);
+
 			var color = Data.GetColour (item.Color);
 			obj.GetComponent<Renderer>().material.color = color;
 			obj.GetComponent<Renderer>().enabled = E.Get().CurrTrial.Value.PickupVisible == 1;

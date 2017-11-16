@@ -89,7 +89,7 @@ namespace data
 			public string SoundLocation; //The file path of the sound
 			public string PythonFile; //The python file that will generate the position
 			public float Size; //The size of the object
-
+			public string PrefabName; //The name of the prefab object
 		}
 
 
@@ -104,6 +104,8 @@ namespace data
 			public string OutputFile; //The output file of the character's movements during an experiment
 			public Point CharacterStartPos; //The start position of the character (usually 0, 0)
 			public float CharacterBound;
+			public float PickupRotationSpeed;
+
 			
 			public float DistancePickup;
 		}

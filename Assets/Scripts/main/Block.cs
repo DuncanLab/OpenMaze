@@ -131,7 +131,7 @@ namespace main
         
         private bool IsDone()
         {
-            return _curr.Next.Value == null;
+            return _curr.Next == null;
         }
 
 
