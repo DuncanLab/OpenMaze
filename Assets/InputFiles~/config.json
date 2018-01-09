@@ -24,7 +24,7 @@
               "EndFunction" : "CheckFoodThresholdPercentage",
               "EndGoal" : ".2 5",
               "TrialOrder": [
-                 -1, -1
+                 0, 1, 0, 3
                 ],
               "Replacement" : 1,
               "RandomTrialType" : [
@@ -67,7 +67,7 @@
             "InitialAngle" : 0,
             "PickupType" : 2,
             "TimeAllotted" : 10,
-            "PickupVisible" : 1,
+            "PickupVisible" : 0,
             "RandomLoc" : 0
         }
         
@@ -79,7 +79,7 @@
             "SoundLocation": "eat",
             "PythonFile": "Example.py",
             "Size": 1.0,
-            "PrefabName": "phone"
+            "PrefabName": "Pickup"
         },
         {
             "Tag": "Water",
@@ -87,7 +87,7 @@
             "SoundLocation": "drink",
             "PythonFile": "Example.py",
             "Size": 1.0,
-            "PrefabName": "phone"
+            "PrefabName": "Pickup"
 
         },
         {
@@ -96,7 +96,7 @@
             "SoundLocation": "money",
             "PythonFile": "Example.py",
             "Size": 1.0,
-            "PrefabName": "phone"
+            "PrefabName": "Pickup"
 
         }
     ],
