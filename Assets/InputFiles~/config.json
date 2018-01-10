@@ -24,7 +24,7 @@
               "EndFunction" : "CheckFoodThresholdPercentage",
               "EndGoal" : ".2 5",
               "TrialOrder": [
-                 0, 1
+                 0, 1, 0, 3
                 ],
               "Replacement" : 1,
               "RandomTrialType" : [
@@ -68,7 +68,7 @@
             "InitialAngle" : 0,
             "PickupType" : 2,
             "TimeAllotted" : 10,
-            "PickupVisible" : 1,
+            "PickupVisible" : 0,
             "RandomLoc" : 0
         }
         
