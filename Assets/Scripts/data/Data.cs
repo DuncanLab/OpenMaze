@@ -70,11 +70,10 @@ namespace data
 			public int PickupType; //Pickup type associated with the block
 			public int TimeAllotted; //Allotted amount of time
 			public string PillarColor; //Color of the pillars
-			public int HasRecursiveTrial; //This field will be 1 iff there is a recursive trial referenced.
-			public int RecursiveTrialReference;  //The given recursive trial reference
 			public int RandomLoc; //Whether or not the pickup has a random loaction
 			public int PickupVisible; //Visibility of the pickup
 			public string Note; //Note outputted out of the trial.
+			public List<int> Pickups;
 		}
 
 
@@ -90,6 +89,7 @@ namespace data
 			public string PythonFile; //The python file that will generate the position
 			public float Size; //The size of the object
 			public string PrefabName; //The name of the prefab object
+			public List<int> Loc;
 		}
 
 

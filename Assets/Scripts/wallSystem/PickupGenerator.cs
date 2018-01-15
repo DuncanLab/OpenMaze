@@ -44,7 +44,7 @@ namespace wallSystem
 				UnityEngine.Debug.Log("PYTHON FILE ERROR!");
 				return new Data.Point{X = 5, Y = 5};
 			}
-		
+			
 			var arr = line.Split (',');
 			return new Data.Point
 			{
@@ -62,49 +62,56 @@ namespace wallSystem
 			_destroy = new List<GameObject>(); //This initializes the food object destroy list
 
 			_goalText = GameObject.Find("Goal").GetComponent<Text>();
-
-			var val = E.Get().CurrTrial.Value.PickupType;
-			if (val == 0)
+			var l = E.Get().CurrTrial.Value.Pickups ?? new List<int> {E.Get().CurrTrial.Value.PickupType};
+			foreach (var val in l)
 			{
-				_goalText.text = "Explore";
-				_goalText.color = Color.white;
-				return;
-			} 
-			var item = DS.GetData ().PickupItems [Mathf.Abs(val) - 1];
-			gen.SetWaveSrc (item.SoundLocation);
-			
-        
-			//Here is the text to determine the type of food that exists here
+				if (val == 0)
+				{
+					_goalText.text = "Explore";
+					_goalText.color = Color.white;
+					return;
+				}
+				var item = DS.GetData().PickupItems[Mathf.Abs(val) - 1];
+				gen.SetWaveSrc(item.SoundLocation);
 
-			//And this section sets the text.
-			_goalText.text = item.Tag;
-			_goalText.color = Data.GetColour(item.Color);
+				//Here is the text to determine the type of food that exists here
 
-			if (val < 0)
-				return;
+				//And this section sets the text.
+				_goalText.text = item.Tag;
+				_goalText.color = Data.GetColour(item.Color);
+
+				if (l.Count == 1 && val < 0)
+					return;
 
 
-			Data.Point p = ReadFromExternal (item.PythonFile);
-			GameObject.Find("FirstPerson").GetComponent<PlayerController>().ExternalStart(p.X, p.Y);
-			
-			var prefab = (GameObject)Resources.Load("prefabs/" + item.PrefabName, typeof(GameObject));
-			prefab.AddComponent<RotateBlock>();
-			
-			
-			
-			
-			var obj = Instantiate (prefab);
-	
-			obj.transform.localScale = new Vector3 (1, 1, 1) * item.Size;
-			obj.transform.position = new Vector3 (p.X, prefab.GetComponent<Renderer>().bounds.size.y/2, p.Y);
+				P = item.Loc != null ?  new Data.Point{X=item.Loc[0], Y = item.Loc[1]} : ReadFromExternal(item.PythonFile);
+				var prefab = (GameObject) Resources.Load("prefabs/" + item.PrefabName, typeof(GameObject));
+				prefab.AddComponent<RotateBlock>();
 
-			var color = Data.GetColour (item.Color);
-			obj.GetComponent<Renderer>().material.color = color;
-			obj.GetComponent<Renderer>().enabled = E.Get().CurrTrial.Value.PickupVisible == 1;
-		
 
-			_destroy.Add (obj);
-	
+
+
+				var obj = Instantiate(prefab);
+				
+				
+				if (val < 0)
+				{
+					obj.GetComponent<Collider>().enabled = false;
+				}
+				
+				E.LogData("Target Location, " + P.X + ", " + P.Y);
+				obj.transform.localScale = new Vector3(1, 1, 1) * item.Size;
+				obj.transform.position = new Vector3(P.X, prefab.GetComponent<Renderer>().bounds.size.y / 2, P.Y);
+
+				var color = Data.GetColour(item.Color);
+				obj.GetComponent<Renderer>().material.color = color;
+				obj.GetComponent<Renderer>().enabled = E.Get().CurrTrial.Value.PickupVisible == 1;
+
+
+				_destroy.Add(obj);
+			}
+			GameObject.Find("FirstPerson").GetComponent<PlayerController>().ExternalStart();
+
 		}
 
 		//And here we destroy all the food.
