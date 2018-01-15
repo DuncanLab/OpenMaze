@@ -118,15 +118,14 @@ namespace wallSystem
 			{
 				if (!GetComponent<AudioSource>().isPlaying)
 				{
-					E.Get().Progress();
+					//We finish it here
+					E.Get().CurrTrial.Progress();
 				}
 			} 
 			else if (_currDelay < _waitTime)
 			{
 				var angle = 360f * _currDelay / _waitTime + _iniRotation - transform.rotation.eulerAngles.y;
 				transform.Rotate(new Vector3(0, angle, 0));
-				E.Get().CurrTrial.LogData(transform);
-
 			} 
 			else
 			{
@@ -139,7 +138,6 @@ namespace wallSystem
 				}
 				ComputeMovement();
 				E.Get().CurrTrial.LogData(transform);
-
 			}
 			_currDelay += Time.deltaTime;
 

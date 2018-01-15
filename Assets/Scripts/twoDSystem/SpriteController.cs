@@ -18,9 +18,9 @@ namespace twoDSystem
 		private void Update () {
 			E.Get().CurrTrial.LogData(transform);
 
-			if (Input.GetKeyDown(KeyCode.Space))
-				E.Get().Progress();
-			
+//			if (Input.GetKeyDown(KeyCode.Space))
+//				E.Get().Progress();
+//			
 			//This calculates the current amount of rotation frame rate independent
 			var rotation = Input.GetAxis("Horizontal") * DS.GetData().CharacterData.RotationSpeed * Time.deltaTime;
 

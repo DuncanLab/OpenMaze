@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using data;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace trial
@@ -10,8 +11,8 @@ namespace trial
 
 
         private List<AbstractTrial> pool;
-        
-        public RandomTrial(Data.Trial value) : base(value)
+
+        public RandomTrial(int blockId, int trialId) : base(blockId, trialId)
         {
         }
 
@@ -20,19 +21,12 @@ namespace trial
             throw new System.NotImplementedException();
         }
 
-        public override void PreEntry()
+        public override void PreEntry(TrialProgress t)
         {
             throw new System.NotImplementedException();
         }
 
-        public override void Update(float deltaTime)
-        {
-            throw new System.NotImplementedException();
-        }
+        
 
-        public override void Progress()
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

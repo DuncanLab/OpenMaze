@@ -60,7 +60,7 @@ namespace wallSystem
 			var gen = GameObject.Find("WallCreator").GetComponent<GenerateGenerateWall>();
 
 			_destroy = new List<GameObject>(); //This initializes the food object destroy list
-
+			var p = new Data.Point{X = 0, Y = 0};
 			_goalText = GameObject.Find("Goal").GetComponent<Text>();
 			var l = E.Get().CurrTrial.Value.Pickups ?? new List<int> {E.Get().CurrTrial.Value.PickupType};
 			foreach (var val in l)
@@ -83,8 +83,7 @@ namespace wallSystem
 				if (l.Count == 1 && val < 0)
 					return;
 
-
-				P = item.Loc != null ?  new Data.Point{X=item.Loc[0], Y = item.Loc[1]} : ReadFromExternal(item.PythonFile);
+				p = item.Loc != null ?  new Data.Point{X=item.Loc[0], Y = item.Loc[1]} : ReadFromExternal(item.PythonFile);
 				var prefab = (GameObject) Resources.Load("prefabs/" + item.PrefabName, typeof(GameObject));
 				prefab.AddComponent<RotateBlock>();
 
@@ -99,9 +98,9 @@ namespace wallSystem
 					obj.GetComponent<Collider>().enabled = false;
 				}
 				
-				E.LogData("Target Location, " + P.X + ", " + P.Y);
+				E.LogData("Target Location, " + p.X + ", " + p.Y);
 				obj.transform.localScale = new Vector3(1, 1, 1) * item.Size;
-				obj.transform.position = new Vector3(P.X, prefab.GetComponent<Renderer>().bounds.size.y / 2, P.Y);
+				obj.transform.position = new Vector3(p.X, prefab.GetComponent<Renderer>().bounds.size.y / 2, p.Y);
 
 				var color = Data.GetColour(item.Color);
 				obj.GetComponent<Renderer>().material.color = color;
@@ -110,7 +109,7 @@ namespace wallSystem
 
 				_destroy.Add(obj);
 			}
-			GameObject.Find("FirstPerson").GetComponent<PlayerController>().ExternalStart();
+			GameObject.Find("FirstPerson").GetComponent<PlayerController>().ExternalStart(p.X, p.Y);
 
 		}
 

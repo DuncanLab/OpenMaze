@@ -5,7 +5,7 @@ namespace trial
 {
     public class ThreeDTrial : AbstractTrial
     {
-        public ThreeDTrial(Data.Trial value) : base(value)
+        public ThreeDTrial(int blockId, int trialId) : base(blockId, trialId)
         {
         }
 
@@ -14,20 +14,18 @@ namespace trial
             throw new System.NotImplementedException();
         }
         
-        //We guarantee that PreEntry wi
-        public override void PreEntry()
+        //Here is the entry point to the current trial, in PreEntry, we pass in the data from the previou
+        public override void PreEntry(TrialProgress t)
         {
             throw new System.NotImplementedException();
         }
 
-        public override void Update(float deltaTime)
-        {
-            throw new System.NotImplementedException();
-        }
+        
 
         public override void Progress()
         {
             throw new System.NotImplementedException();
         }
+
     }
 }
