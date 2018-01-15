@@ -54,7 +54,6 @@ namespace wallSystem
 			var col = Data.GetColour(E.Get().CurrTrial.Value.Color);
 			//And here we set the color of the wall prefab to the appropriate color
 			Wall.GetComponent<Renderer>().sharedMaterial.color = col;
-			WallPointContainer.WallColor = col;
 
 			
 		}
@@ -62,7 +61,6 @@ namespace wallSystem
 
 		private void GeneratePillars()
 		{
-			WallPointContainer.PillarColor = Data.GetColour(E.Get().CurrTrial.Value.PillarColor);
 			foreach (var p in DS.GetData().Pillars)
 			{
 				var cylin = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
@@ -71,7 +69,6 @@ namespace wallSystem
 				cylin.transform.localScale = new Vector3(p.Radius, p.Height, p.Radius);
 				cylin.GetComponent<Renderer>().material.color = Data.GetColour(E.Get().CurrTrial.Value.PillarColor);
 				
-				WallPointContainer.AddPillar(p);
 				_created.Add(cylin);
 			}
 		}
@@ -109,8 +106,6 @@ namespace wallSystem
 			//This sets the initial angle to the one given in the preset
 			float currentAngle = 0;
 		
-			//This object is for 2D
-			WallPointContainer.Reset();
 
 			//Here we interate through all the sides
 			for (var i = 0; i < E.Get().CurrTrial.Value.Sides; i++)
@@ -124,8 +119,7 @@ namespace wallSystem
 				//Gaps appearing in large wall numbers
 				//Desealing some stuff. so, bad.
 				var length = 2 * E.Get().CurrTrial.Value.Radius * Tan(180f / E.Get().CurrTrial.Value.Sides);
-				WallPointContainer.Length = length;
-				WallPointContainer.Add(new Point{X = x, Y = y}, - currentAngle - 90);
+				
 			
 				//Here we create the wall
 				var obj = Instantiate(Wall,

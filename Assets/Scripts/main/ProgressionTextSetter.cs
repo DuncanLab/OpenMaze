@@ -12,8 +12,8 @@ namespace main
 
 		public void Start()
 		{
-			var filePath = C.InputDirectory + E.Get().CurrTrial.Value.FileLocation;
-			GetComponent<RawImage>().texture = Img2Sprite.LoadTexture(filePath);
+//			var filePath = C.InputDirectory + E.Get().CurrTrial.Value.FileLocation;
+//			GetComponent<RawImage>().texture = Img2Sprite.LoadTexture(filePath);
 		}		
 	}
 }

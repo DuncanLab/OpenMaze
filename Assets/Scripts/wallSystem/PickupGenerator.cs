@@ -12,7 +12,6 @@ namespace wallSystem
 		private List<GameObject> _destroy;
 		private Text _goalText;
 		
-		public static Data.Point P;
 
 		private static Data.Point ReadFromExternal(string inputFile){
 			var p = new Process
@@ -83,11 +82,10 @@ namespace wallSystem
 
 			if (val < 0)
 				return;
-			
-		
-		
-			P = ReadFromExternal (item.PythonFile);
-			GameObject.Find("FirstPerson").GetComponent<PlayerController>().ExternalStart();
+
+
+			Data.Point p = ReadFromExternal (item.PythonFile);
+			GameObject.Find("FirstPerson").GetComponent<PlayerController>().ExternalStart(p.X, p.Y);
 			
 			var prefab = (GameObject)Resources.Load("prefabs/" + item.PrefabName, typeof(GameObject));
 			prefab.AddComponent<RotateBlock>();
@@ -97,9 +95,8 @@ namespace wallSystem
 			
 			var obj = Instantiate (prefab);
 	
-			E.LogData("Target Location, " + P.X + ", " + P.Y);
 			obj.transform.localScale = new Vector3 (1, 1, 1) * item.Size;
-			obj.transform.position = new Vector3 (P.X, prefab.GetComponent<Renderer>().bounds.size.y/2, P.Y);
+			obj.transform.position = new Vector3 (p.X, prefab.GetComponent<Renderer>().bounds.size.y/2, p.Y);
 
 			var color = Data.GetColour (item.Color);
 			obj.GetComponent<Renderer>().material.color = color;

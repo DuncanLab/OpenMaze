@@ -12,17 +12,11 @@ namespace twoDSystem
 	public class SpriteController : MonoBehaviour
 	{
 
-		private void LogData()
-		{
-			var str = "TwoD, x, " + transform.position.x + ", y, " + transform.position.z + ", time, " + E.Get().RunningTime;
-			E.LogData(str);	
-		}
-
 
 
 		// Update is called once per frame
 		private void Update () {
-			LogData();
+			E.Get().CurrTrial.LogData(transform);
 
 			if (Input.GetKeyDown(KeyCode.Space))
 				E.Get().Progress();
