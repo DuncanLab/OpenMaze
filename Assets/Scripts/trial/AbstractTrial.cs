@@ -10,62 +10,74 @@ namespace trial
     public abstract class AbstractTrial
     {
         //These two fields register the current block and trial ID in the dataSingleton
-        protected int BlockID, TrialID;
-        
-        protected TrialProgress TrialProgress;
+        public int BlockID;
+
+        protected int TrialID;
+
+        public TrialProgress TrialProgress;
 
         //This points to the start of the block of trials (if present)
-        protected AbstractTrial head;
+        public AbstractTrial head;
 
-        protected bool isTail;
+        public bool isTail;
         
         public Data.Trial Value;
         
         //This points to the next trial
-        protected AbstractTrial next;
+        public AbstractTrial next;
 
         protected float _runningTime;
 
-
+        
+        
         protected AbstractTrial(int blockId, int trialId)
         {
             BlockID = blockId;
             TrialID = trialId;
             
             if (DataSingleton.GetData().BlockList.Count == 0) throw new Exception("No trial in block");
-            Value = DataSingleton.GetData().TrialData[trialId];
-            _runningTime = 0;
+            
+            if (!(blockId == -1 || trialId == -1))
+                Value = DataSingleton.GetData().TrialData[trialId];
 
         }
 
 
 
-        public abstract void LogData(Transform t, bool collided = false);
 
         public virtual void PreEntry(TrialProgress t)
         {
-            ResetTimer();
+            //Prentry into the next trial
+            Debug.Log("Entering trial: " + TrialID);
+            if (head == this)
+            {
+                Debug.Log(string.Format("Entered Block: {0} at time: {1}", BlockID,  DateTime.Now));
+                t = new TrialProgress ();
+            }
+            _runningTime = 0;
+
+            TrialProgress = t;
+            t.NumProgressed++;
         }
 
         public virtual void Update(float deltaTime)
         {
             _runningTime += deltaTime;
         }
-
-        public void ResetTimer()
+        
+        //Function for stuff to know that things have happened
+        public virtual void Register()
         {
-            _runningTime = 0;
-        }
-
-        public float GetTimer()
-        {
-            return _runningTime;
+            
         }
         
         
         //Essentially, here we load
         public virtual void Progress()
         {
+            Debug.Log("Progressing...");
+            //Exiting current trial
+            TrialProgress.PreviousTrial = this; 
 
             var blockData = DS.GetData().BlockList[BlockID];
             //Data on how to choose the next trial will be selected here.
@@ -76,7 +88,7 @@ namespace trial
                     
                     var tmp = blockData.EndFunction;
                     var func = typeof(Functions).GetMethod(tmp, BindingFlags.Static | BindingFlags.Public);
-                    var result = (bool) func.Invoke(null, new object[] {blockData, TrialProgress});
+                    var result = (bool) func.Invoke(null, new object[] {TrialProgress});
                     if (result)
                     {
                         head.PreEntry(TrialProgress);
@@ -86,9 +98,9 @@ namespace trial
                 }
                 
             } 
-            
-            next.PreEntry(TrialProgress); //We don't have any data on the current trail from the loading screen   
             Loader.Get().CurrTrial = next;
+
+            next.PreEntry(TrialProgress);
             
             
         }

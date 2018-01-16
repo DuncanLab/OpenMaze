@@ -1,29 +1,23 @@
-﻿using System.Reflection;
-using data;
-using main;
+﻿using data;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using DS = data.DataSingleton;
 
 namespace trial
 {
-    public class LoadingScreenTrial : TimeoutableTrial
-
+    public class TwoDTrial : TimeoutableTrial
     {
-
-        public LoadingScreenTrial(int blockId, int trialId) : base(blockId, trialId)
+        public TwoDTrial(int blockId, int trialId) : base(blockId, trialId)
         {
         }
-
-
-
+        
+        
         public override void PreEntry(TrialProgress t)
         {
             base.PreEntry(t);
-            SceneManager.LoadScene(Constants.LoadingScreen);
-            
+            SceneManager.LoadScene(Value.EnvironmentType);
         }
 
+        
         //Code for a trial to continue
         public override void Update(float deltaTime)
         {
@@ -33,6 +27,5 @@ namespace trial
                 Progress();
             }
         }
-
     }
 }

@@ -14,21 +14,31 @@
         "CharacterStartPos" : {"X" : 0, "Y" : 0}
     },
     
-    "BlockOrder" : [0],
+    "BlockOrder" : [1],
     
     "BlockList" : [
+        {
+            "BlockName" : "TEST1",
+            "Notes" : "TEST NOTE",
+
+            "EndFunction" : "CheckFoodThresholdPercentage",
+            "EndGoal" : "0 5",
+
+            "TrialOrder" : [
+                0, 2, 3
+            ]  
+        },
          {
             
               "BlockName" : "TEST1",
               "Notes" : "TEST NOTE",
-              "EndFunction" : "CheckFoodThresholdPercentage",
-              "EndGoal" : ".2 5",
+              "EndGoal" : "0 5",
               "TrialOrder": [
-                 0, 1, 0, 3
+                 0, -1
                 ],
               "Replacement" : 1,
               "RandomTrialType" : [
-                {"RandomGroup": [0, 1]}, {"RandomGroup": [0, 3]}
+                {"RandomGroup": [0, 2]}
               ]
         }
  
@@ -40,8 +50,12 @@
             "TimeAllotted": 1
         },
         {
+            "FileLocation": "Test2.jpg",
+            "TimeAllotted": -1
+        },
+        {
             "Index": 4,
-        	"EnvironmentType": 1,
+        	"EnvironmentType": 2,
         	"Sides": 40,
         	"Color": "00ff00",
         	"PillarColor" : "00ff00",
@@ -51,11 +65,11 @@
         	"TimeAllotted" : 10,
             "PickupVisible" : 1,
         	"RandomLoc" : 0,
-        	"Pickups" : [1, -2, 3]
+        	"Pickups" : [1]
         },
          {
             "TwoDimensional" : 1,
-            "EnvironmentType" : 0,
+            "EnvironmentType" : 4,
             "TimeAllotted" : 10
         },       
         {

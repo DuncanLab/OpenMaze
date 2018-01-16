@@ -23,6 +23,7 @@ namespace main
 		{
 			return GameObject.Find("Loader").GetComponent<Loader>();
 		}
+		public InputField[] Fields;
 
 		public AbstractTrial CurrTrial;
 
@@ -36,6 +37,7 @@ namespace main
 			
 			DS.Load (inputFile);
 			Directory.CreateDirectory(C.OutputDirectory);
+			CurrTrial = new FieldTrial(Fields);
 		}
 
 
@@ -54,5 +56,9 @@ namespace main
 			}	
 		}
 
+		public void LogData(Transform transform, bool collided = false)
+		{
+			//Ignore this for now.
+		}
 	}
 }

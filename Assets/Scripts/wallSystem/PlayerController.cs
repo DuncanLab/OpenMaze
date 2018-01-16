@@ -1,6 +1,7 @@
 ﻿using System;
 using data;
 using main;
+using trial;
 using UnityEngine;
 using UnityEngine.UI;
 using DS = data.DataSingleton;
@@ -81,7 +82,8 @@ namespace wallSystem
 		private void OnTriggerEnter(Collider other)
 		{
 			if (!other.gameObject.CompareTag("Pickup")) return;
-			E.Get().CurrTrial.LogData(transform, true);
+			E.Get().LogData(transform, true);
+			E.Get().CurrTrial.Register();
 			GetComponent<AudioSource> ().PlayOneShot (_gen.GetWaveSrc (), 1);
 			Destroy (other.gameObject);
 			_playingSound = true;
@@ -114,19 +116,20 @@ namespace wallSystem
 		private void Update()
 		{
 
-			if (_playingSound)
+			 
+			if (_currDelay < _waitTime)
+			{
+				var angle = 360f * _currDelay / _waitTime + _iniRotation - transform.rotation.eulerAngles.y;
+				transform.Rotate(new Vector3(0, angle, 0));
+			}
+			else if (_playingSound)
 			{
 				if (!GetComponent<AudioSource>().isPlaying)
 				{
 					//We finish it here
 					E.Get().CurrTrial.Progress();
 				}
-			} 
-			else if (_currDelay < _waitTime)
-			{
-				var angle = 360f * _currDelay / _waitTime + _iniRotation - transform.rotation.eulerAngles.y;
-				transform.Rotate(new Vector3(0, angle, 0));
-			} 
+			}
 			else
 			{
 				if (!_reset)
@@ -137,7 +140,7 @@ namespace wallSystem
 					          "EnvironmentType, Sides, targetFound, pickupType, targetX, targetY");
 				}
 				ComputeMovement();
-				E.Get().CurrTrial.LogData(transform);
+				E.Get().LogData(transform);
 			}
 			_currDelay += Time.deltaTime;
 

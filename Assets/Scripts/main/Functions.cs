@@ -7,10 +7,11 @@ namespace main
 {
     public class Functions
     {
-        public static bool CheckFoodThresholdPercentage(Data.BlockData bd, TrialProgress tp)
+        public static bool CheckFoodThresholdPercentage(TrialProgress tp)
         {
-
-            return false;
+            Debug.Log((DateTime.Now - tp.StartTime).TotalSeconds);
+             
+            return tp.Num3D < 5;
         }
     }
 }

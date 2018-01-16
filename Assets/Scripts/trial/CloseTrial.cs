@@ -1,4 +1,5 @@
-﻿using data;
+﻿using System;
+using data;
 using UnityEngine;
 
 namespace trial
@@ -10,12 +11,15 @@ namespace trial
     {
         public CloseTrial(int blockId, int trialId) : base(blockId, trialId)
         {
+
         }
 
-        public override void LogData(Transform t, bool collided = false)
+        public override void PreEntry(TrialProgress t)
         {
-            throw new System.NotImplementedException();
+            base.PreEntry(t);
+            Debug.Log("In close trial");
         }
+
 
         public override void Progress()
         {

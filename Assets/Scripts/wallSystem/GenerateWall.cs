@@ -32,7 +32,9 @@ namespace wallSystem
 
 			SetupColours ();
 			GenerateWalls();
+			
 			GenerateCheckerBoard();
+			
 			GeneratePillars();
 		}
 

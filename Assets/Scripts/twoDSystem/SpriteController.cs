@@ -16,7 +16,7 @@ namespace twoDSystem
 
 		// Update is called once per frame
 		private void Update () {
-			E.Get().CurrTrial.LogData(transform);
+//			E.Get().CurrTrial.LogData(transform);
 
 //			if (Input.GetKeyDown(KeyCode.Space))
 //				E.Get().Progress();
