@@ -11,7 +11,7 @@ namespace wallSystem
 	public class PickupGenerator : MonoBehaviour {
 		private List<GameObject> _destroy;
 		private Text _goalText;
-		
+		private Text _countdownText;
 
 		private static Data.Point ReadFromExternal(string inputFile){
 			var p = new Process
@@ -54,6 +54,7 @@ namespace wallSystem
 
 		}
 
+		
 		// Use this for initialization
 		private void Start () {	
 		
@@ -62,9 +63,11 @@ namespace wallSystem
 			_destroy = new List<GameObject>(); //This initializes the food object destroy list
 			var p = new Data.Point{X = 0, Y = 0};
 			_goalText = GameObject.Find("Goal").GetComponent<Text>();
+			_countdownText = GameObject.Find("CountDown").GetComponent<Text>();
 			var l = E.Get().CurrTrial.Value.Pickups ?? new List<int> {E.Get().CurrTrial.Value.PickupType};
 			foreach (var val in l)
 			{
+				_countdownText.text = "";
 				if (val == 0)
 				{
 					_goalText.text = "Explore";
@@ -79,6 +82,8 @@ namespace wallSystem
 				//And this section sets the text.
 				_goalText.text = item.Tag;
 				_goalText.color = Data.GetColour(item.Color);
+				_countdownText.color = Data.GetColour(item.Color);
+				_countdownText.text = "FOUND: " + E.Get().CurrTrial.TrialProgress.Num3D;
 
 				if (l.Count == 1 && val < 0)
 					return;
@@ -113,6 +118,8 @@ namespace wallSystem
 
 		}
 
+
+ 
 		//And here we destroy all the food.
 		private void OnDestroy()
 		{

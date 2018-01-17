@@ -1,6 +1,7 @@
 ﻿using data;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace trial
 {
@@ -28,7 +29,11 @@ namespace trial
 
         public override void Notify()
         {
+            var text = GameObject.Find("CountDown").GetComponent<Text>();
+            
             TrialProgress.NumSuccess++;
+            text.text = "FOUND: " + TrialProgress.NumSuccess;
+
         }
     }
 }
