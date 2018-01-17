@@ -2,6 +2,7 @@
 using System.Reflection;
 using data;
 using main;
+using NUnit.Framework;
 using UnityEngine;
 using DS = data.DataSingleton;
 namespace trial
@@ -12,7 +13,7 @@ namespace trial
         //These two fields register the current block and trial ID in the dataSingleton
         public int BlockID;
 
-        protected int TrialID;
+        public int TrialID;
 
         public TrialProgress TrialProgress;
 
@@ -45,11 +46,11 @@ namespace trial
 
 
 
-        public virtual void PreEntry(TrialProgress t)
+        public virtual void PreEntry(TrialProgress t, bool first = true)
         {
             //Prentry into the next trial
             Debug.Log("Entering trial: " + TrialID);
-            if (head == this)
+            if (head == this && first)
             {
                 Debug.Log(string.Format("Entered Block: {0} at time: {1}", BlockID,  DateTime.Now));
                 t = new TrialProgress ();
@@ -66,7 +67,7 @@ namespace trial
         }
         
         //Function for stuff to know that things have happened
-        public virtual void Register()
+        public virtual void Notify()
         {
             
         }
@@ -91,15 +92,14 @@ namespace trial
                     var result = (bool) func.Invoke(null, new object[] {TrialProgress});
                     if (result)
                     {
-                        head.PreEntry(TrialProgress);
                         Loader.Get().CurrTrial = head;
+                        head.PreEntry(TrialProgress, false);
                         return;
                     }
                 }
                 
             } 
             Loader.Get().CurrTrial = next;
-
             next.PreEntry(TrialProgress);
             
             

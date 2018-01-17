@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Diagnostics;
 using data;
+using main;
 
 namespace trial
 {
     public class TrialProgress
     {
         public AbstractTrial PreviousTrial;
-        public int NumProgressed;
+        public float NumProgressed;
         public DateTime StartTime;
-        public int NumSuccess;
+        public float NumSuccess;
 
         public TrialProgress()
         {
@@ -19,6 +20,11 @@ namespace trial
             NumProgressed = 0;
         }
 
-        public int Num3D { get; set; }
+
+        public AbstractTrial getCurrTrial()
+        {
+            return Loader.Get().CurrTrial;
+        }
+        public float Num3D { get; set; }
     }
 }

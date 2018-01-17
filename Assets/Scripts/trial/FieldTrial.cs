@@ -15,7 +15,7 @@ namespace trial
         //Here we construct the entire linked list structure.
         public FieldTrial(InputField [] fields) : base(-1, -1)
         {
-            
+            TrialProgress = new TrialProgress();
             _fields = fields;
             GenerateTrials();
         }
@@ -106,16 +106,12 @@ namespace trial
             
         }
 
-        
+
         public override void Progress()
         {
             
-            next.PreEntry(new TrialProgress()); //We don't have any data on the current trail from the loading screen   
             Loader.Get().CurrTrial = next;
-            
+            next.PreEntry(TrialProgress);
         }
-        
-        
-        
     }
 }

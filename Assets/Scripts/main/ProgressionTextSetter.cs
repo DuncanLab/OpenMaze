@@ -12,6 +12,7 @@ namespace main
 
 		public void Start()
 		{
+			Debug.Log(E.Get().CurrTrial.TrialID);
 			var filePath = C.InputDirectory + E.Get().CurrTrial.Value.FileLocation;
 			GetComponent<RawImage>().texture = Img2Sprite.LoadTexture(filePath);
 		}		

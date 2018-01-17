@@ -17,9 +17,9 @@ namespace trial
 
 
 
-        public override void PreEntry(TrialProgress t)
+        public override void PreEntry(TrialProgress t, bool first = true)
         {
-            base.PreEntry(t);
+            base.PreEntry(t, first);
             SceneManager.LoadScene(Constants.LoadingScreen);
             
         }

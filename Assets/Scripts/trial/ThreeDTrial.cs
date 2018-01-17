@@ -13,19 +13,20 @@ namespace trial
             
         }
 
-        public override void PreEntry(TrialProgress t)
+        public override void PreEntry(TrialProgress t, bool first = true)
         {
-            base.PreEntry(t);
+            base.PreEntry(t, first);
             SceneManager.LoadScene(Value.EnvironmentType);
         }
 
         public override void Progress()
         {
-            base.Progress();
             TrialProgress.Num3D++;
+
+            base.Progress();
         }
 
-        public override void Register()
+        public override void Notify()
         {
             TrialProgress.NumSuccess++;
         }

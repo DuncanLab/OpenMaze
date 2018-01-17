@@ -1,4 +1,5 @@
 ﻿using data;
+using main;
 using NUnit.Framework.Constraints;
 using UnityEngine;
 using UnityEngine.Purchasing.Extension;
@@ -75,12 +76,20 @@ namespace trial
             currentTrial.next = trueNext;
         }
 
-        public override void PreEntry(TrialProgress t)
+        public override void PreEntry(TrialProgress t, bool first = true)
         {
-            base.PreEntry(t);
+            base.PreEntry(t, first);
             GenerateTrials();
             Progress();
 
+        }
+        
+        
+        public override void Progress()
+        {
+            
+            Loader.Get().CurrTrial = next;
+            next.PreEntry(TrialProgress);
         }
 
         
