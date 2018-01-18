@@ -87,7 +87,7 @@ namespace trial
                 if (blockData.EndFunction != null)
                 {
                     
-                    var tmp = blockData.EndFunction;
+                    var tmp = blockData.EndFunction;    
                     var func = typeof(Functions).GetMethod(tmp, BindingFlags.Static | BindingFlags.Public);
                     var result = (bool) func.Invoke(null, new object[] {TrialProgress});
                     if (result)

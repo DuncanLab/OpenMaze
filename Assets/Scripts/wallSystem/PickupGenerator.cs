@@ -11,7 +11,7 @@ namespace wallSystem
 	public class PickupGenerator : MonoBehaviour {
 		private List<GameObject> _destroy;
 		private Text _goalText;
-		private Text _countdownText;
+		
 
 		private static Data.Point ReadFromExternal(string inputFile){
 			var p = new Process
@@ -44,7 +44,7 @@ namespace wallSystem
 				UnityEngine.Debug.Log("PYTHON FILE ERROR!");
 				return new Data.Point{X = 5, Y = 5};
 			}
-			
+		
 			var arr = line.Split (',');
 			return new Data.Point
 			{
@@ -54,72 +54,61 @@ namespace wallSystem
 
 		}
 
-		
 		// Use this for initialization
 		private void Start () {	
 		
 			var gen = GameObject.Find("WallCreator").GetComponent<GenerateGenerateWall>();
 
 			_destroy = new List<GameObject>(); //This initializes the food object destroy list
-			var p = new Data.Point{X = 0, Y = 0};
+
 			_goalText = GameObject.Find("Goal").GetComponent<Text>();
-			_countdownText = GameObject.Find("CountDown").GetComponent<Text>();
-			var l = E.Get().CurrTrial.Value.Pickups ?? new List<int> {E.Get().CurrTrial.Value.PickupType};
-			foreach (var val in l)
+
+			var val = E.Get().CurrTrial.Value.PickupType;
+			if (val == 0)
 			{
-				_countdownText.text = "";
-				if (val == 0)
-				{
-					_goalText.text = "Explore";
-					_goalText.color = Color.white;
-					return;
-				}
-				var item = DS.GetData().PickupItems[Mathf.Abs(val) - 1];
-				gen.SetWaveSrc(item.SoundLocation);
+				_goalText.text = "Explore";
+				_goalText.color = Color.white;
+				return;
+			} 
+			var item = DS.GetData ().PickupItems [Mathf.Abs(val) - 1];
+			gen.SetWaveSrc (item.SoundLocation);
+			
+        
+			//Here is the text to determine the type of food that exists here
 
-				//Here is the text to determine the type of food that exists here
+			//And this section sets the text.
+			_goalText.text = item.Tag;
+			_goalText.color = Data.GetColour(item.Color);
 
-				//And this section sets the text.
-				_goalText.text = item.Tag;
-				_goalText.color = Data.GetColour(item.Color);
-				_countdownText.color = Data.GetColour(item.Color);
-				_countdownText.text = "FOUND: " + E.Get().CurrTrial.TrialProgress.Num3D;
-
-				if (l.Count == 1 && val < 0)
-					return;
-
-				p = item.Loc != null ?  new Data.Point{X=item.Loc[0], Y = item.Loc[1]} : ReadFromExternal(item.PythonFile);
-				var prefab = (GameObject) Resources.Load("prefabs/" + item.PrefabName, typeof(GameObject));
-				prefab.AddComponent<RotateBlock>();
-
-
-
-
-				var obj = Instantiate(prefab);
-				
-				
-				if (val < 0)
-				{
-					obj.GetComponent<Collider>().enabled = false;
-				}
-				
-				E.LogData("Target Location, " + p.X + ", " + p.Y);
-				obj.transform.localScale = new Vector3(1, 1, 1) * item.Size;
-				obj.transform.position = new Vector3(p.X, prefab.GetComponent<Renderer>().bounds.size.y / 2, p.Y);
-
-				var color = Data.GetColour(item.Color);
-				obj.GetComponent<Renderer>().material.color = color;
-				obj.GetComponent<Renderer>().enabled = E.Get().CurrTrial.Value.PickupVisible == 1;
-
-
-				_destroy.Add(obj);
-			}
+			if (val < 0)
+				return;
+			
+		
+		
+			var p =  ReadFromExternal (item.PythonFile);
 			GameObject.Find("FirstPerson").GetComponent<PlayerController>().ExternalStart(p.X, p.Y);
+			
+			var prefab = (GameObject)Resources.Load("prefabs/" + item.PrefabName, typeof(GameObject));
+			prefab.AddComponent<RotateBlock>();
+			
+			
+			
+			
+			var obj = Instantiate (prefab);
+	
+			E.LogData("Target Location, " + p.X + ", " + p.Y);
+			obj.transform.localScale = new Vector3 (1, 1, 1) * item.Size;
+			obj.transform.position = new Vector3 (p.X, prefab.GetComponent<Renderer>().bounds.size.y/2, p.Y);
 
+			var color = Data.GetColour (item.Color);
+			obj.GetComponent<Renderer>().material.color = color;
+			obj.GetComponent<Renderer>().enabled = E.Get().CurrTrial.Value.PickupVisible == 1;
+		
+
+			_destroy.Add (obj);
+	
 		}
 
-
- 
 		//And here we destroy all the food.
 		private void OnDestroy()
 		{
