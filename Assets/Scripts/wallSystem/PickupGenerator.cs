@@ -35,13 +35,13 @@ namespace wallSystem
 			
 			while (!p.StandardError.EndOfStream) {
 				var outputLine = p.StandardError.ReadLine ();
-				UnityEngine.Debug.Log (outputLine);
+				UnityEngine.Debug.LogError(outputLine);
 
 			}
 
 			if (line == null)
 			{
-				UnityEngine.Debug.Log("PYTHON FILE ERROR!");
+				UnityEngine.Debug.LogError("PYTHON FILE ERROR!");
 				return new Data.Point{X = 5, Y = 5};
 			}
 		
@@ -96,7 +96,6 @@ namespace wallSystem
 			
 			var obj = Instantiate (prefab);
 	
-			E.LogData("Target Location, " + p.X + ", " + p.Y);
 			obj.transform.localScale = new Vector3 (1, 1, 1) * item.Size;
 			obj.transform.position = new Vector3 (p.X, prefab.GetComponent<Renderer>().bounds.size.y/2, p.Y);
 

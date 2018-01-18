@@ -93,14 +93,15 @@ namespace trial
             if (Input.GetKey(KeyCode.Space))
             {
                 
-                Loader.LogData("", false);
-
+                //Sets the output file name as the desired one.
                 foreach (var textBox in _fields)
                 {
                     var arr = textBox.transform.GetComponentsInChildren<Text>();
-                    Loader.LogData(arr[0].text + ": " + arr[1].text);
                     DS.GetData().CharacterData.OutputFile = arr[1].text + "_" + DS.GetData().CharacterData.OutputFile;
                 }
+                
+                Loader.LogFirst();
+
                 Progress();
             }
             

@@ -7,7 +7,7 @@ using DS = data.DataSingleton;
 
 namespace main
 {
-    //Return true to continue
+    //Return true to repeat
     public class Functions
     {
         // ReSharper disable once UnusedMember.Global
@@ -15,7 +15,7 @@ namespace main
         public static bool CheckFoodThresholdPercentage(TrialProgress tp)
         {
 
-            var curr = tp.getCurrTrial();
+            var curr = TrialProgress.GetCurrTrial();
             
             
             
@@ -34,7 +34,7 @@ namespace main
             
             
             
-            return tp.NumSuccess / tp.Num3D < percent || tp.Num3D < num;
+            return tp.NumSuccess / tp.Num3D > percent && tp.Num3D > num;
         }
     }
 }

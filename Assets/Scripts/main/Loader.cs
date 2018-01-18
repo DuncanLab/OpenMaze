@@ -46,9 +46,24 @@ namespace main
 			CurrTrial.Update(Time.deltaTime);
 		}
 
-		public static void LogData(string s, bool append = true)
+
+
+		public static void LogFirst()
 		{
-			using (var writer = new StreamWriter ("Assets/OutputFiles~/" + DS.GetData ().CharacterData.OutputFile, append))
+			using (var writer = new StreamWriter ("Assets/OutputFiles~/" + DS.GetData ().CharacterData.OutputFile, false))
+			{
+				writer.Write (
+					"Trial Number, Time (seconds), X, Y, Angle, Environment Type, Sides, TargetFound, PickupType, " +
+					"TargetX, TargetY, LastX, LastY BlockID, TrialID, Subject, Delay, 2D, Visible, UpArrow, DownArrow, LeftArrow, RightArrow, Space, " 
+				+ "\n");
+				writer.Flush ();
+				writer.Close();
+			}	
+		}
+
+		public static void LogData(TrialProgress s, float timestamp, Transform t, int targetFound = 0)
+		{
+			using (var writer = new StreamWriter ("Assets/OutputFiles~/" + DS.GetData ().CharacterData.OutputFile, true))
 			{
 				writer.Write (s + "\n");
 				writer.Flush ();
@@ -56,9 +71,5 @@ namespace main
 			}	
 		}
 
-		public void LogData(Transform transform, bool collided = false)
-		{
-			//Ignore this for now.
-		}
 	}
 }

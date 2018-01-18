@@ -58,12 +58,17 @@ namespace trial
             _runningTime = 0;
 
             TrialProgress = t;
-            t.NumProgressed++;
+            t.TrialNumber++;
         }
 
         public virtual void Update(float deltaTime)
         {
             _runningTime += deltaTime;
+        }
+
+        public void ResetTime()
+        {
+            _runningTime = 0;
         }
         
         //Function for stuff to know that things have happened

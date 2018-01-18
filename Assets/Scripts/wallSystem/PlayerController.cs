@@ -44,6 +44,7 @@ namespace wallSystem
 
 			_currDelay = 0;
 			_iniRotation = Random.Range (0, 360);
+			
 			transform.Rotate (new Vector3 (0, _iniRotation, 0));
 			_controller = GetComponent<CharacterController>();
 			_gen = GameObject.Find("WallCreator").GetComponent<GenerateGenerateWall>();
@@ -64,7 +65,7 @@ namespace wallSystem
 					var mag = v - new Vector2(pickX, pickY);
 					if (mag.magnitude > DS.GetData().CharacterData.DistancePickup)
 					{
-						transform.position = new Vector3(v.x, transform.position.y, v.y);
+						transform.position = new Vector3(v.x,DS.GetData().CharacterData.Height, v.y);
 						break;
 					}
 
@@ -73,7 +74,7 @@ namespace wallSystem
 			else
 			{
 				var p = DS.GetData().CharacterData.CharacterStartPos;
-				transform.position = new Vector3(p.X, transform.position.y, p.Y);
+				transform.position = new Vector3(p.X, DS.GetData().CharacterData.Height, p.Y);
 			}
 		}
 		
@@ -82,7 +83,6 @@ namespace wallSystem
 		private void OnTriggerEnter(Collider other)
 		{
 			if (!other.gameObject.CompareTag("Pickup")) return;
-			E.Get().LogData(transform, true);
 			E.Get().CurrTrial.Notify();
 			GetComponent<AudioSource> ().PlayOneShot (_gen.GetWaveSrc (), 1);
 			Destroy (other.gameObject);
@@ -136,11 +136,9 @@ namespace wallSystem
 				{
 					Cam.transform.Rotate (DS.GetData().CharacterData.CamRotation, 0, 0);
 					_reset = true;
-					E.LogData("Trial Number, time (seconds), x, y, angle,  " +
-					          "EnvironmentType, Sides, targetFound, pickupType, targetX, targetY");
 				}
+				TrialProgress.GetCurrTrial().ResetTime();
 				ComputeMovement();
-				E.Get().LogData(transform);
 			}
 			_currDelay += Time.deltaTime;
 
