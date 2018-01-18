@@ -99,6 +99,12 @@ namespace trial
                     var arr = textBox.transform.GetComponentsInChildren<Text>();
                     DS.GetData().CharacterData.OutputFile = arr[1].text + "_" + DS.GetData().CharacterData.OutputFile;
                 }
+                var str  = _fields[0].transform.GetComponentsInChildren<Text>();
+                TrialProgress.Subject = str[1].text;
+                
+                str = _fields[2].transform.GetComponentsInChildren<Text>();
+                TrialProgress.Delay = str[1].text;
+                
                 
                 Loader.LogFirst();
 

@@ -34,7 +34,7 @@ namespace main
             
             
             
-            return tp.NumSuccess / tp.Num3D > percent && tp.Num3D > num;
+            return tp.NumSuccess / tp.Num3D < percent || tp.Num3D < num;
         }
     }
 }

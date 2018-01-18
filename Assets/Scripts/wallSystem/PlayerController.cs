@@ -57,6 +57,8 @@ namespace wallSystem
 
 		public void ExternalStart(float pickX, float pickY)
 		{
+			TrialProgress.GetCurrTrial().TrialProgress.TargetX = pickX;
+			TrialProgress.GetCurrTrial().TrialProgress.TargetY = pickY;			
 			if (E.Get().CurrTrial.Value.RandomLoc == 1)
 			{
 				while (true)
@@ -87,6 +89,12 @@ namespace wallSystem
 			GetComponent<AudioSource> ().PlayOneShot (_gen.GetWaveSrc (), 1);
 			Destroy (other.gameObject);
 			_playingSound = true;
+			E.LogData(
+				TrialProgress.GetCurrTrial().TrialProgress, 
+				TrialProgress.GetCurrTrial().GetRunningTime(),
+				transform,
+				1
+			);
 
 		}
 
@@ -115,7 +123,7 @@ namespace wallSystem
 
 		private void Update()
 		{
-
+	
 			 
 			if (_currDelay < _waitTime)
 			{
@@ -136,12 +144,16 @@ namespace wallSystem
 				{
 					Cam.transform.Rotate (DS.GetData().CharacterData.CamRotation, 0, 0);
 					_reset = true;
+					TrialProgress.GetCurrTrial().ResetTime();
 				}
-				TrialProgress.GetCurrTrial().ResetTime();
 				ComputeMovement();
+				E.LogData(
+					TrialProgress.GetCurrTrial().TrialProgress, 
+					TrialProgress.GetCurrTrial().GetRunningTime(),
+					transform
+				);
 			}
 			_currDelay += Time.deltaTime;
-
 		}
 		
 

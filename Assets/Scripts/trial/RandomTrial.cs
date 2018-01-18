@@ -19,6 +19,7 @@ namespace trial
         //We are gonna generate all the trials here.
         private void GenerateTrials()
         {
+            Debug.Log("GenerateTrial");
             AbstractTrial currentTrial = this;
             var trueNext = next;
             int i = BlockID;
@@ -72,7 +73,7 @@ namespace trial
 
                 tCnt++;
             }
-                
+            
             currentTrial.next = trueNext;
         }
 

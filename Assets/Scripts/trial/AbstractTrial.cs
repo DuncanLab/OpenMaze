@@ -53,12 +53,13 @@ namespace trial
             if (head == this && first)
             {
                 Debug.Log(string.Format("Entered Block: {0} at time: {1}", BlockID,  DateTime.Now));
-                t = new TrialProgress ();
+                t.ResetOngoing();
             }
             _runningTime = 0;
-
+            
+            t.TrialNumber++;            
+            
             TrialProgress = t;
-            t.TrialNumber++;
         }
 
         public virtual void Update(float deltaTime)
@@ -84,6 +85,7 @@ namespace trial
             Debug.Log("Progressing...");
             //Exiting current trial
             TrialProgress.PreviousTrial = this; 
+            
 
             var blockData = DS.GetData().BlockList[BlockID];
             //Data on how to choose the next trial will be selected here.
@@ -95,6 +97,7 @@ namespace trial
                     var tmp = blockData.EndFunction;    
                     var func = typeof(Functions).GetMethod(tmp, BindingFlags.Static | BindingFlags.Public);
                     var result = (bool) func.Invoke(null, new object[] {TrialProgress});
+                    
                     if (result)
                     {
                         Loader.Get().CurrTrial = head;
@@ -109,6 +112,10 @@ namespace trial
             
             
         }
-        
+
+        public float GetRunningTime()
+        {
+            return _runningTime;
+        }
     }
 }

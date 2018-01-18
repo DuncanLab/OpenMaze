@@ -1,4 +1,6 @@
-﻿namespace trial
+﻿using JetBrains.Annotations;
+
+namespace trial
 {
     public abstract class TimeoutableTrial : AbstractTrial
     {
@@ -15,6 +17,7 @@
         public override void Update(float deltaTime)
         {
             base.Update(deltaTime);
+            
             if (_runningTime > _threshHold)
             {
                 Progress();

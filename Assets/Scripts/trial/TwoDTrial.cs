@@ -14,6 +14,16 @@ namespace trial
         public override void PreEntry(TrialProgress t, bool first = true)
         {
             base.PreEntry(t, first);
+            t.EnvironmentType = Value.EnvironmentType;
+            t.Sides = Value.Sides;
+            t.BlockID = BlockID;
+            t.TrialID = TrialID;
+            t.TwoDim = Value.TwoDimensional;
+            t.Visible = Value.PickupVisible;
+            t.LastX = t.TargetX;
+            t.LastY = t.TargetY;
+            t.TargetX = 0;
+            t.TargetY = 0;
             SceneManager.LoadScene(Value.EnvironmentType);
         }
 

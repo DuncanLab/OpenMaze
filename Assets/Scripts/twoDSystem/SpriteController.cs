@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Runtime.InteropServices;
+using trial;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using wallSystem;
@@ -16,11 +17,6 @@ namespace twoDSystem
 
 		// Update is called once per frame
 		private void Update () {
-//			E.Get().CurrTrial.LogData(transform);
-
-//			if (Input.GetKeyDown(KeyCode.Space))
-//				E.Get().Progress();
-//			
 			//This calculates the current amount of rotation frame rate independent
 			var rotation = Input.GetAxis("Horizontal") * DS.GetData().CharacterData.RotationSpeed * Time.deltaTime;
 
@@ -43,6 +39,11 @@ namespace twoDSystem
 				GetComponent<CharacterController>().Move(trans);
 			}
 			
+			E.LogData(
+				TrialProgress.GetCurrTrial().TrialProgress, 
+				TrialProgress.GetCurrTrial().GetRunningTime(),
+				transform
+			);
 			
 			
 			transform.Rotate(0, 0, -rotation);

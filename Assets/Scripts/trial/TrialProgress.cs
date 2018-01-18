@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using data;
+using JetBrains.Annotations;
 using main;
 
 namespace trial
@@ -17,16 +18,16 @@ namespace trial
         public int EnvironmentType;
         public int Sides;
         public int PickupType;
-        public int TargetX;
-        public int TargetY;
+        public float TargetX;
+        public float TargetY;
         public int BlockID;
         public int TrialID;
         public string Subject;
         public string Delay;
         public int TwoDim;
         public int Visible;
-        public int LastX;
-        public int LastY;
+        public float LastX;
+        public float LastY;
         
         
         public TrialProgress()
@@ -43,5 +44,11 @@ namespace trial
             return Loader.Get().CurrTrial;
         }
 
+        public void ResetOngoing()
+        {
+            NumSuccess = 0;
+            Num3D = 0;
+            TrialNumber = -1;
+        }
     }
 }
