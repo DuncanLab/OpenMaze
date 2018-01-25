@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Runtime.InteropServices;
 using trial;
 using UnityEngine;
@@ -21,31 +22,18 @@ namespace twoDSystem
 			var rotation = Input.GetAxis("Horizontal") * DS.GetData().CharacterData.RotationSpeed * Time.deltaTime;
 
 
-			var currAngle = transform.rotation.eulerAngles.y;
+			//This calculates the forward speed frame rate independent
+			var moveDirection = new Vector3(0, Input.GetAxis("Vertical"), 0);
+			moveDirection = transform.TransformDirection(moveDirection);
+			moveDirection *= DS.GetData().CharacterData.MovementSpeed;
 
-			var a1 = G.Sin(currAngle);
-			var a2 = G.Cos(currAngle);
-		
-		
-			var trans = new Vector3(a1, 0, a2);
-			trans = trans.normalized * DS.GetData().CharacterData.MovementSpeed * Time.deltaTime;
-		
-			
 			//Here is the movement system
 			const double tolerance = 0.0001;
-			if (Mathf.Abs(rotation) < tolerance && (Input.GetKey(KeyCode.UpArrow) ||	 Input.GetKey(KeyCode.DownArrow)))
-			{
-				if (Input.GetKey(KeyCode.DownArrow)) trans *= -1;
-				GetComponent<CharacterController>().Move(trans);
-			}
-			
-			E.LogData(
-				TrialProgress.GetCurrTrial().TrialProgress, 
-				TrialProgress.GetCurrTrial().GetRunningTime(),
-				transform
-			);
-			
-			
+
+			//we move iff rotation is 0
+			if (Math.Abs(Mathf.Abs(rotation)) < tolerance)
+				GetComponent<CharacterController>().Move(moveDirection * Time.deltaTime);
+
 			transform.Rotate(0, 0, -rotation);
 
 

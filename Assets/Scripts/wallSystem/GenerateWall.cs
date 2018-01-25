@@ -80,10 +80,11 @@ namespace wallSystem
 		//This function generates the checkerboard. We can modify the size of this later.
 		private void GenerateCheckerBoard()
 		{
+			int val = E.Get().CurrTrial.Value.Radius * 2;
 			//Quite simply, this is a 2d for loop
-			for (var i = -20; i < 20; i += 2)
+			for (var i = -val; i < val; i += 2)
 			{
-				for (var j = -20; j < 20; j += 1)
+				for (var j = -val; j < val; j += 1)
 				{
 					var tile = Instantiate(
 						Wall, 
@@ -107,8 +108,8 @@ namespace wallSystem
 
 			//This sets the initial angle to the one given in the preset
 			float currentAngle = 0;
-		
 
+			GameObject.Find("Ground").transform.localScale *= E.Get().CurrTrial.Value.Radius / 10f;
 			//Here we interate through all the sides
 			for (var i = 0; i < E.Get().CurrTrial.Value.Sides; i++)
 			{

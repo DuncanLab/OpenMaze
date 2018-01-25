@@ -90,7 +90,7 @@ namespace trial
         {
             base.Update(deltaTime);
 
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Joystick1Button0))
             {
                 
                 //Sets the output file name as the desired one.

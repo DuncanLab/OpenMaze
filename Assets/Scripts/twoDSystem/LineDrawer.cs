@@ -13,7 +13,7 @@ namespace twoDSystem
 		private void Start()
 		{
 			GameObject.Find("CountDown").GetComponent<Text>().text = "";
-			
+
 			var goalText = GameObject.Find("Goal").GetComponent<Text>();
 			goalText.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 30);
 			goalText.text = E.Get().CurrTrial.Value.Header ?? "Test";
@@ -21,6 +21,7 @@ namespace twoDSystem
 			
 			GenerateWalls();
 			var previousTrial = E.Get().CurrTrial.TrialProgress.PreviousTrial;
+			GameObject.Find("Plane").transform.localScale *= previousTrial.Value.Radius / 10f;
 
 			foreach (var p in DS.GetData().Pillars)
 			{

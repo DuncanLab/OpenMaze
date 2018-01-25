@@ -82,6 +82,7 @@ namespace trial
         //Essentially, here we load
         public virtual void Progress()
         {
+            
             Debug.Log("Progressing...");
             //Exiting current trial
             TrialProgress.PreviousTrial = this; 

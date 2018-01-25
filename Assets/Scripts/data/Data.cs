@@ -13,6 +13,7 @@ namespace data
 	[Serializable]
 	public class Data
 	{
+		public int OutputTimesPerSecond;
 		//This is the object (defined below) which contains all data available for the main player
 		public Character CharacterData;
 	

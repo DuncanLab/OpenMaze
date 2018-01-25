@@ -32,7 +32,7 @@ namespace trial
         public override void Update(float deltaTime)
         {
             base.Update(deltaTime);
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Joystick1Button0))
             {
                 Progress();
             }
