@@ -1,5 +1,6 @@
 ﻿using data;
 using UnityEngine;
+using UnityEngine.UI;
 using wallSystem;
 using E = main.Loader;
 using DS = data.DataSingleton;
@@ -11,11 +12,20 @@ namespace twoDSystem
 
 		private void Start()
 		{
+			GameObject.Find("CountDown").GetComponent<Text>().text = "";
+			
+			var goalText = GameObject.Find("Goal").GetComponent<Text>();
+			goalText.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 30);
+			goalText.text = E.Get().CurrTrial.Value.Header ?? "Test";
+			goalText.color = Color.black;
+			
 			GenerateWalls();
 			var previousTrial = E.Get().CurrTrial.TrialProgress.PreviousTrial;
 
 			foreach (var p in DS.GetData().Pillars)
 			{
+				
+				
 				var cylin = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 			
 				cylin.transform.position = new Vector3(p.X, 4.5F, p.Y);

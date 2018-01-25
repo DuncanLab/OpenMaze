@@ -54,7 +54,8 @@ namespace main
 			{
 				writer.Write (
 					"Trial Number, Time (seconds), X, Y, Angle, Environment Type, Sides, TargetFound, PickupType, " +
-					"TargetX, TargetY, LastX, LastY, BlockID, TrialID, Subject, Delay, 2D, Visible, UpArrow, DownArrow, LeftArrow, RightArrow, Space" 
+					"TargetX, TargetY, LastX, LastY, BlockID, TrialID, Subject, Delay, 2D, Visible, UpArrow, DownArrow," +
+					" LeftArrow, RightArrow, Space"
 				+ "\n");
 				writer.Flush ();
 				writer.Close();
@@ -68,12 +69,12 @@ namespace main
 
 				string str = string.Format(
 					"{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, " +
-					"{12}, {13}, {14}, {15}, {16}, {17}, {18}, {19}, {20}, {21}, {22}, {23}", 
+					"{12}, {13}, {14}, {15}, {16}, {17}, {18}, {19}, {20}, {21}, {22}, {23}, {24}, {25}", 
 					s.TrialNumber, timestamp, t.position.x, t.position.z, t.eulerAngles.y, s.EnvironmentType, s.Sides,
 					targetFound, s.PickupType, s.TargetX, s.TargetY, s.LastX, s.LastY, s.BlockID, s.TrialID, 
 					s.Subject, s.Delay, s.TwoDim, s.Visible, Input.GetKey(KeyCode.UpArrow) ? 1 : 0, 
 					Input.GetKey(KeyCode.DownArrow) ? 1 : 0, Input.GetKey(KeyCode.LeftArrow) ? 1 : 0, Input.GetKey(KeyCode.RightArrow) ? 1 : 0,
-					Input.GetKey(KeyCode.Space) ? 1 : 0);
+					Input.GetKey(KeyCode.Space) ? 1 : 0, s.SessionID, s.Note);
 				writer.Write (str + "\n");
 				writer.Flush ();
 				writer.Close();

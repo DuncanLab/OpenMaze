@@ -28,8 +28,9 @@ namespace trial
         public int Visible;
         public float LastX;
         public float LastY;
-        
-        
+        public float SessionID;
+
+
         public TrialProgress()
         {
             StartTime = DateTime.Now;
@@ -37,6 +38,8 @@ namespace trial
             Num3D = 0;
             TrialNumber = 0;
         }
+
+        public string Note { get; set; }
 
 
         public static AbstractTrial GetCurrTrial()

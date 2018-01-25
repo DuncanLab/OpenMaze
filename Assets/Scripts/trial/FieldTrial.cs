@@ -106,6 +106,16 @@ namespace trial
                 TrialProgress.Delay = str[1].text;
                 
                 
+                
+                str = _fields[1].transform.GetComponentsInChildren<Text>();
+                TrialProgress.Subject = str[1].text;
+                
+                
+                str = _fields[3].transform.GetComponentsInChildren<Text>();
+                TrialProgress.Note = str[1].text;
+                
+                
+                
                 Loader.LogFirst();
 
                 Progress();

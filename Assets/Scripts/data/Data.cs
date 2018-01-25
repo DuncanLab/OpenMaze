@@ -72,8 +72,7 @@ namespace data
 			public string PillarColor; //Color of the pillars
 			public int RandomLoc; //Whether or not the pickup has a random loaction
 			public int PickupVisible; //Visibility of the pickup
-			public string Note; //Note outputted out of the trial.
-			public List<int> Pickups;
+			public string Header; //Note outputted out of the trial.
 		}
 
 

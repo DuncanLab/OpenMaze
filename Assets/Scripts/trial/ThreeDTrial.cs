@@ -17,6 +17,7 @@ namespace trial
         public override void PreEntry(TrialProgress t, bool first = true)
         {
             base.PreEntry(t, first);
+            t.PickupType = Value.PickupType;
             t.EnvironmentType = Value.EnvironmentType;
             t.Sides = Value.Sides;
             t.BlockID = BlockID;
@@ -39,10 +40,8 @@ namespace trial
 
         public override void Notify()
         {
-            var text = GameObject.Find("CountDown").GetComponent<Text>();
             
             TrialProgress.NumSuccess++;
-            text.text = "FOUND: " + TrialProgress.NumSuccess;
 
         }
     }

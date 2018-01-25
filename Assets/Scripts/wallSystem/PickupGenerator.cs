@@ -10,7 +10,6 @@ namespace wallSystem
 {
 	public class PickupGenerator : MonoBehaviour {
 		private List<GameObject> _destroy;
-		private Text _goalText;
 		
 
 		private static Data.Point ReadFromExternal(string inputFile){
@@ -61,13 +60,14 @@ namespace wallSystem
 
 			_destroy = new List<GameObject>(); //This initializes the food object destroy list
 
-			_goalText = GameObject.Find("Goal").GetComponent<Text>();
+			var goalText = GameObject.Find("Goal").GetComponent<Text>();
+			goalText.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 30);
 
 			var val = E.Get().CurrTrial.Value.PickupType;
 			if (val == 0)
 			{
-				_goalText.text = "Explore";
-				_goalText.color = Color.white;
+				goalText.text = E.Get().CurrTrial.Value.Header ?? "Explore";
+				goalText.color = Color.white;
 				return;
 			} 
 			var item = DS.GetData ().PickupItems [Mathf.Abs(val) - 1];
@@ -77,8 +77,8 @@ namespace wallSystem
 			//Here is the text to determine the type of food that exists here
 
 			//And this section sets the text.
-			_goalText.text = item.Tag;
-			_goalText.color = Data.GetColour(item.Color);
+			goalText.text = E.Get().CurrTrial.Value.Header ?? item.Tag;
+			goalText.color = Data.GetColour(item.Color);
 
 			if (val < 0)
 				return;
