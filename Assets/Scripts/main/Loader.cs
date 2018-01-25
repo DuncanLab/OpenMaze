@@ -55,7 +55,7 @@ namespace main
 				writer.Write (
 					"Trial Number, Time (seconds), X, Y, Angle, Environment Type, Sides, TargetFound, PickupType, " +
 					"TargetX, TargetY, LastX, LastY, BlockID, TrialID, Subject, Delay, 2D, Visible, UpArrow, DownArrow," +
-					" LeftArrow, RightArrow, Space"
+					" LeftArrow, RightArrow, Space, Session, Note"
 				+ "\n");
 				writer.Flush ();
 				writer.Close();

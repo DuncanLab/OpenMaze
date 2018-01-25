@@ -108,7 +108,7 @@ namespace trial
                 
                 
                 str = _fields[1].transform.GetComponentsInChildren<Text>();
-                TrialProgress.Subject = str[1].text;
+                TrialProgress.SessionID = str[1].text;
                 
                 
                 str = _fields[3].transform.GetComponentsInChildren<Text>();
