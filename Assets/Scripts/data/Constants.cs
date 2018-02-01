@@ -2,7 +2,7 @@
 //A class containing all of the useful constants to be used throughout the program
 namespace data
 {
-     public class Constants
+     public static class Constants
      {
           //The input directory for the game (we can adjust this for shipment later)
           public const string InputDirectory = "Assets/InputFiles~/";
@@ -24,7 +24,5 @@ namespace data
 
      
           //Here we initialize a private constructor to prevent initialization of this class
-          private Constants(){}
-
      }
 }

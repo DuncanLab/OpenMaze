@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using data;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.UI;
 using DS = data.DataSingleton;
@@ -96,13 +98,19 @@ namespace wallSystem
 			
 			var obj = Instantiate (prefab);
 	
-			obj.transform.localScale = new Vector3 (1, 1, 1) * item.Size;
-			obj.transform.position = new Vector3 (p.X, prefab.GetComponent<Renderer>().bounds.size.y/2, p.Y);
-
+			obj.transform.localScale *= item.Size;
+			obj.transform.position = new Vector3 (p.X, 0.5f, p.Y);
+			
 			var color = Data.GetColour (item.Color);
-			obj.GetComponent<Renderer>().material.color = color;
-			obj.GetComponent<Renderer>().enabled = E.Get().CurrTrial.Value.PickupVisible == 1;
-		
+			try
+			{
+				obj.GetComponent<Renderer>().material.color = color;
+				obj.GetComponent<Renderer>().enabled = E.Get().CurrTrial.Value.PickupVisible == 1;
+			}
+			catch (Exception _)
+			{
+				print("Visibility not working");	
+			}
 
 			_destroy.Add (obj);
 	
