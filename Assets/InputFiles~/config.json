@@ -1,4 +1,5 @@
-    {
+{
+    "OutputTimesPerSecond": 30,
     "InstructionFile": "Instructions.xml",
     "WallHeight" : 3,
     "CharacterData": {
@@ -6,7 +7,7 @@
         "Height": 0.5,
         "MovementSpeed": 10.0,
         "RotationSpeed": 100.0,
-        "TimeToRotate": 1,
+        "TimeToRotate": 5,
         "OutputFile": "out.csv",
         "CharacterBound": 0.5,
         "DistancePickup": 2,
@@ -14,31 +15,23 @@
         "CharacterStartPos" : {"X" : 0, "Y" : 0}
     },
     
-    "BlockOrder" : [1],
+    "BlockOrder" : [0],
     
     "BlockList" : [
-        {
-            "BlockName" : "TEST1",
-            "Notes" : "TEST NOTE",
-
-            "EndFunction" : "CheckFoodThresholdPercentage",
-            "EndGoal" : "0 5",
-
-            "TrialOrder" : [
-                0, 2, 3
-            ]  
-        },
+      
          {
             
               "BlockName" : "TEST1",
               "Notes" : "TEST NOTE",
-              "EndGoal" : "0 5",
+                "EndFunction" : "CheckFoodThresholdPercentage",
+
+              "EndGoal" : "0 2",
               "TrialOrder": [
-                 0, -1
+                 0, 2, 3
                 ],
               "Replacement" : 1,
               "RandomTrialType" : [
-                {"RandomGroup": [0, 2]}
+                {"RandomGroup": [0, 2, 3]}
               ]
         }
  
@@ -54,20 +47,22 @@
             "TimeAllotted": -1
         },
         {
+            "Header": "Test-header",
             "Index": 4,
         	"EnvironmentType": 2,
         	"Sides": 40,
         	"Color": "00ff00",
         	"PillarColor" : "00ff00",
-        	"Radius": 10,
+        	"Radius": 50,
         	"InitialAngle" : 0,
         	"PickupType" : 1,
         	"TimeAllotted" : 10,
             "PickupVisible" : 1,
-        	"RandomLoc" : 0,
-        	"Pickups" : [1]
+        	"RandomLoc" : 0
         },
          {
+            "Header": "Test-header 2D",
+          
             "TwoDimensional" : 1,
             "EnvironmentType" : 4,
             "TimeAllotted" : 10
