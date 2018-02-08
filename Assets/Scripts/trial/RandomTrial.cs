@@ -10,7 +10,7 @@ namespace trial
     public class RandomTrial : AbstractTrial
     {
 
-
+        private static int _numGenerated;
 
         public RandomTrial(int blockId, int trialId) : base(blockId, trialId)
         {
@@ -21,11 +21,10 @@ namespace trial
         {
             Debug.Log("GenerateTrial");
             AbstractTrial currentTrial = this;
-            var trueNext = next;
-            int i = BlockID;
+            var i = BlockID;
             var block = DS.GetData().BlockList[i];
-            int n = block.RandomTrialType.Count;
-            int randomSelection = Random.Range(0, n);
+            var n = block.RandomTrialType.Count;
+            var randomSelection = Random.Range(0, n);
 
             var d = block.RandomTrialType[randomSelection];
 
@@ -33,9 +32,19 @@ namespace trial
             {
                 block.RandomTrialType.Remove(d);
             }
+            Debug.Log("RANDOM TRIAL CREATION");
+
+            while (_numGenerated > 0)
+            {
+                next = next.next;
+
+                _numGenerated--;
+            }
             
-            int tCnt = 0;
-            foreach (int j in d.RandomGroup)
+            var trueNext = next;
+            
+            var tCnt = 0;
+            foreach (var j in d.RandomGroup)
             {
                 //Here we decide what each trial is, I guess we could do this with a function map, but later. 
                 //here we have a picture as a trial.
@@ -70,7 +79,7 @@ namespace trial
                 currentTrial.next = t;
                 
                 currentTrial = currentTrial.next;
-
+                _numGenerated++;
                 tCnt++;
             }
             

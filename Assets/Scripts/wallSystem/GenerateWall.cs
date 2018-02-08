@@ -80,7 +80,7 @@ namespace wallSystem
 		//This function generates the checkerboard. We can modify the size of this later.
 		private void GenerateCheckerBoard()
 		{
-			int val = E.Get().CurrTrial.Value.Radius * 2;
+			var val = E.Get().CurrTrial.Value.Radius * 2;
 			//Quite simply, this is a 2d for loop
 			for (var i = -val; i < val; i += 2)
 			{

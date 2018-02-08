@@ -7,7 +7,7 @@
         "Height": 0.5,
         "MovementSpeed": 10.0,
         "RotationSpeed": 100.0,
-        "TimeToRotate": 5,
+        "TimeToRotate": 0.5,
         "OutputFile": "out.csv",
         "CharacterBound": 0.5,
         "DistancePickup": 2,
@@ -27,11 +27,11 @@
 
               "EndGoal" : "0 2",
               "TrialOrder": [
-                 0, 2, 3
+                 -1
                 ],
               "Replacement" : 1,
               "RandomTrialType" : [
-                {"RandomGroup": [0, 2, 3]}
+                {"RandomGroup": [2]}
               ]
         }
  
@@ -89,7 +89,7 @@
             "SoundLocation": "eat",
             "PythonFile": "Example.py",
             "Size": 1.0,
-            "PrefabName": "phone",
+            "PrefabName": "Pickup",
             "Loc": [5, 5]
         },
         {

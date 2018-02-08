@@ -26,8 +26,8 @@ namespace main
 
             var percentAndK = bd.EndGoal.Split(' ');
 
-            float percent = float.Parse(percentAndK[0]);
-            float num = float.Parse(percentAndK[1]);
+            var percent = float.Parse(percentAndK[0]);
+            var num = float.Parse(percentAndK[1]);
             Debug.Log(string.Format(
                 "TargetPercentage: {0}, Actual: {1}, NumTrial: {2}", 
                 percent, tp.NumSuccess/tp.Num3D, tp.Num3D));

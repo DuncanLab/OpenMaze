@@ -26,14 +26,14 @@ namespace trial
         private void GenerateTrials()
         {
             AbstractTrial currentTrial = this;
-            foreach (int i in DS.GetData().BlockOrder)
+            foreach (var i in DS.GetData().BlockOrder)
             {
                 var block = DS.GetData().BlockList[i];
-                bool newBlock = true;
+                var newBlock = true;
                 AbstractTrial currHead = null;
                 
-                int tCnt = 0;
-                foreach (int j in block.TrialOrder)
+                var tCnt = 0;
+                foreach (var j in block.TrialOrder)
                 {
                     AbstractTrial t;
 

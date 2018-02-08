@@ -29,7 +29,14 @@ namespace trial
 
         protected float _runningTime;
 
-        
+        private void PrintSubsequentTrials()
+        {
+            var curr = this;
+            while (next != null)
+            {
+                
+            }
+        }
         
         protected AbstractTrial(int blockId, int trialId)
         {
@@ -97,7 +104,9 @@ namespace trial
                     
                     var tmp = blockData.EndFunction;    
                     var func = typeof(Functions).GetMethod(tmp, BindingFlags.Static | BindingFlags.Public);
-                    var result = (bool) func.Invoke(null, new object[] {TrialProgress});
+                    
+                    
+                    var result = func != null && (bool) func.Invoke(null, new object[] {TrialProgress});
                     
                     if (result)
                     {

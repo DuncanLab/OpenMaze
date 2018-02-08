@@ -16,7 +16,7 @@ public class GenerateMazeFromFile : MonoBehaviour {
 		public float TileWidth;
 		public List<string> Map;
 	}
-	
+		
 	// Use this for initialization
 	private void Start ()
 	{
