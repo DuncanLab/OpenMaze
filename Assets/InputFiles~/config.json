@@ -49,6 +49,34 @@
         {
             "Header": "Test-header",
             "Index": 4,
+            "EnvironmentType": 2,
+            "TimeAllotted" : 10,
+            "Map":{
+                "TopLeft": [-10.0, 10.0],
+                "TileWidth": 1,
+                "Color": "0000ff",
+                "Map":
+                ["wwwwwwwwwwwwwwwwwwww",
+                 "w000000000000000000w",
+                 "w000000000000000000w",
+                 "w000000000020000000w",
+                 "w000000000000000000w",
+                 "w000000300000000000w",
+                 "w000000000000000000w",
+                 "w000000000100000000w",
+                 "w000000000000000000w",
+                 "w000000000000000000w",
+                 "w000000000000000000w",
+                 "w000000000000000000w",
+                 "w000000000000000000w",
+                 "wwwwwwwwwwwwwwwwwwww"
+                ]
+            }
+        },
+
+        {
+            "Header": "Test-header",
+            "Index": 4,
         	"EnvironmentType": 2,
         	"Sides": 40,
         	"Color": "00ff00",
@@ -85,12 +113,12 @@
     "PickupItems": [
         {
             "Tag": "Food",
-            "Color": "ff0000",
+            "Color": "ffffff",
             "SoundLocation": "eat",
             "PythonFile": "Example.py",
             "Size": 1.0,
-            "PrefabName": "Pickup",
-            "Loc": [5, 5]
+            "PrefabName": "2DImageDisplayer",
+            "ImageLoc" : "sprite.png"
         },
         {
             "Tag": "Water",
@@ -98,8 +126,7 @@
             "SoundLocation": "drink",
             "PythonFile": "Example.py",
             "Size": 1.0,
-            "PrefabName": "Pickup",
-            "Loc": [5, -5]
+            "PrefabName": "Pickup"
         },
         {
             "Tag": "Money",
@@ -107,9 +134,7 @@
             "SoundLocation": "money",
             "PythonFile": "Example.py",
             "Size": 1.0,
-            "PrefabName": "Pickup",
-            "Loc": [-5, 5]
-
+            "PrefabName": "Pickup"
         }
     ],
     "Pillars": [
