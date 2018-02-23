@@ -64,8 +64,8 @@ namespace wallSystem
 				while (true)
 				{
 					var v = Random.insideUnitCircle * E.Get().CurrTrial.Value.Radius * DS.GetData().CharacterData.CharacterBound;
-					var mag = v - new Vector2(pickX, pickY);
-					if (mag.magnitude > DS.GetData().CharacterData.DistancePickup)
+					var mag = Vector3.Distance(v, new Vector2(pickX, pickY));
+					if (mag > DS.GetData().CharacterData.DistancePickup)
 					{
 						transform.position = new Vector3(v.x,DS.GetData().CharacterData.Height, v.y);
 						break;

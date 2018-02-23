@@ -25,18 +25,13 @@ namespace trial
         public Data.Trial Value;
         
         //This points to the next trial
+        // ReSharper disable once InconsistentNaming
         public AbstractTrial next;
 
         protected float _runningTime;
 
-        private void PrintSubsequentTrials()
-        {
-            var curr = this;
-            while (next != null)
-            {
-                
-            }
-        }
+        
+        
         
         protected AbstractTrial(int blockId, int trialId)
         {
@@ -47,7 +42,7 @@ namespace trial
             
             if (!(blockId == -1 || trialId == -1))
                 Value = DataSingleton.GetData().TrialData[trialId];
-
+    
         }
 
 
@@ -100,7 +95,7 @@ namespace trial
             if (isTail)
             {
                 if (blockData.EndFunction != null)
-                {
+                {    
                     
                     var tmp = blockData.EndFunction;    
                     var func = typeof(Functions).GetMethod(tmp, BindingFlags.Static | BindingFlags.Public);

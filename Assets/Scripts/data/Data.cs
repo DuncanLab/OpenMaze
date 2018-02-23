@@ -74,6 +74,7 @@ namespace data
 			public int RandomLoc; //Whether or not the pickup has a random loaction
 			public int PickupVisible; //Visibility of the pickup
 			public string Header; //Note outputted out of the trial.
+			public MazeData Map;
 		}
 
 
@@ -89,7 +90,7 @@ namespace data
 			public string PythonFile; //The python file that will generate the position
 			public float Size; //The size of the object
 			public string PrefabName; //The name of the prefab object
-			public List<int> Loc;
+			public string ImageLoc;
 		}
 
 
@@ -140,7 +141,15 @@ namespace data
 		}
 	
 		//=========================== END OF JSON FIELDS ==========================================
-
+		
+		[Serializable]
+		public class MazeData
+		{
+			public List<float> TopLeft;
+			public float TileWidth;
+			public List<string> Map;
+			public string Color;
+		}
 
 		//This function converts the hex value to Colour.
 		public static Color GetColour(string hex)

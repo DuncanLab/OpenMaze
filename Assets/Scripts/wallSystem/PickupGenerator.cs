@@ -27,7 +27,7 @@ namespace wallSystem
 					CreateNoWindow = true
 				}
 			};
-			p.Start ();
+ 			p.Start ();
 			p.StandardInput.Write(JsonUtility.ToJson(E.Get().CurrTrial.Value) +"\n");
 
 			p.WaitForExit ();
@@ -90,14 +90,15 @@ namespace wallSystem
 			var p =  ReadFromExternal (item.PythonFile);
 			GameObject.Find("FirstPerson").GetComponent<PlayerController>().ExternalStart(p.X, p.Y);
 			
+			
+			
+			
 			var prefab = (GameObject)Resources.Load("prefabs/" + item.PrefabName, typeof(GameObject));
-			prefab.AddComponent<RotateBlock>();
-			
-			
-			
 			
 			var obj = Instantiate (prefab);
-	
+			if (!item.PrefabName.Equals("2DImageDisplayer"))
+				obj.AddComponent<RotateBlock>();
+			
 			obj.transform.localScale *= item.Size;
 			obj.transform.position = new Vector3 (p.X, 0.5f, p.Y);
 			

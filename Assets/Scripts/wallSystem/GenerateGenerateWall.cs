@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using System.Security.Cryptography;
+using data;
+using UnityEngine;
 using UnityEngine.UI;
 
-
+using E = main.Loader;
 //This script is the Generate (GenerateWall) script
 //This is essentially the god class, the backbone of the project.
 namespace wallSystem
@@ -9,6 +11,7 @@ namespace wallSystem
 	public class GenerateGenerateWall : MonoBehaviour {
 		//-------------------------- Fields -------------------------------------
 		public GameObject Create; //This is the prefab of the GenerateWall object.
+		public GameObject GenerateMazeFromFile;
 		public Camera Cam;		  //This is the main camera of the player.
 		public Text Timer;		  //This exists as the timer text.
 		public GameObject Player;
@@ -57,8 +60,7 @@ namespace wallSystem
 		// Use this for initialization
 		private void Start () {
 			Create.transform.position = Vector3.zero;
-			_currCreate = Instantiate(Create);
-
+			_currCreate = Instantiate(E.Get().CurrTrial.Value.Map == null ? Create : GenerateMazeFromFile);
 		}
 
 
