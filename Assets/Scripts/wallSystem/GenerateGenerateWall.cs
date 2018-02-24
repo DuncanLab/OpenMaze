@@ -60,7 +60,7 @@ namespace wallSystem
 		// Use this for initialization
 		private void Start () {
 			Create.transform.position = Vector3.zero;
-			_currCreate = Instantiate(E.Get().CurrTrial.Value.Map == null ? Create : GenerateMazeFromFile);
+			_currCreate = Instantiate(E.Get().CurrTrial.Value.Sides == 0 ?  GenerateMazeFromFile : Create);
 		}
 
 
