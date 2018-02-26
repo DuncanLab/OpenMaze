@@ -34,7 +34,10 @@ public class GenerateMazeFromFile : MonoBehaviour {
 					obj.transform.position = new Vector3(x, DS.GetData().WallHeight * 0.5f, y);
 					
 				}
-
+				else if (col == 's')
+				{
+					GameObject.Find("FirstPerson").transform.position = new Vector3(x, DS.GetData().CharacterData.Height, y);
+				}
 				else if (col != '0')
 				{
 					var val = col - '0'; 
@@ -49,6 +52,7 @@ public class GenerateMazeFromFile : MonoBehaviour {
 					obj.transform.position = new Vector3 (x, 0.5f, y);
 			
 				}
+				
 				
 				x += m.TileWidth;
 

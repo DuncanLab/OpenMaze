@@ -21,7 +21,7 @@
             float max = Mathf.Min(spriteTexture.width, spriteTexture.height);
             
             var newSprite = 
-                Sprite.Create(spriteTexture, new Rect(0, 0, spriteTexture.width, spriteTexture.height), new Vector2(0, 0), max, 0 , spriteType);
+                Sprite.Create(spriteTexture, new Rect(0, 0, spriteTexture.width, spriteTexture.height), new Vector2(spriteTexture.width/2.0f/max, 0), max, 0 , spriteType);
  
             return newSprite;
         }

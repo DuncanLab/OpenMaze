@@ -24,7 +24,7 @@ public class LookAtUser : MonoBehaviour
 
 		_player = GameObject.Find("FirstPerson");
 		var pic = Img2Sprite.LoadNewSprite(C.InputDirectory + sprite);
-
+		print(pic.pivot);
 		GetComponent<SpriteRenderer>().sprite = pic;
 	}
 	
@@ -32,7 +32,10 @@ public class LookAtUser : MonoBehaviour
 	private void Update ()
 	{
 		var origin = transform.position - _player.transform.position;
-		var a = Mathf.Rad2Deg * Mathf.Atan(origin.normalized.x / origin.normalized.z);
+		origin = origin.normalized;
+		
+		var a = Mathf.Rad2Deg * Mathf.Atan2(origin.x, origin.z);
+ 
 		transform.rotation = Quaternion.Euler(0, a, 0);		
 	}
 }
