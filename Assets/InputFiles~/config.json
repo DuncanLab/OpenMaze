@@ -27,7 +27,7 @@
 
               "EndGoal" : "0 2",
               "TrialOrder": [
-                 2, 3
+                 3
                 ],
               "Replacement" : 1,
               "RandomTrialType" : [
@@ -57,7 +57,7 @@
                 "Color": "0000ff",
                 "Map":
                 ["wwwwwwwwwwwwwwwwwwww",
-                 "ws00000000000000000w",
+                 "ws00000000s00000000w",
                  "w000000000000000000w",
                  "w000000000000000000w",
                  "w000000000000000000w",
@@ -66,7 +66,7 @@
                  "w000000000100000000w",
                  "w000000000000000000w",
                  "w000000000000000000w",
-                 "w000000000000000000w",
+                 "w000000000000200000w",
                  "w000000000000000000w",
                  "w000000000000000000w",
                  "wwwwwwwwwwwwwwwwwwww"
@@ -83,10 +83,12 @@
         	"PillarColor" : "00ff00",
         	"Radius": 50,
         	"InitialAngle" : 0,
-        	"PickupType" : 1,
-        	"TimeAllotted" : 10,
+        	"TimeAllotted" : 100,
             "PickupVisible" : 1,
-        	"RandomLoc" : 0
+        	"RandomLoc" : 0,
+            "ActivePickups" : [1, 2],
+            "InactivePickups" : [3],
+            "Quota": 2
         },
          {
             "Header": "Test-header 2D",
@@ -113,7 +115,7 @@
     "PickupItems": [
         {
             "Tag": "Food",
-            "Color": "ffffff",
+            "Color": "ff0000",
             "SoundLocation": "eat",
             "PythonFile": "Example.py",
             "Size": 1.0,
@@ -124,7 +126,7 @@
             "Tag": "Water",
             "Color": "0000ff",
             "SoundLocation": "drink",
-            "PythonFile": "Example.py",
+            "PythonFile": "ex2.py",
             "Size": 1.0,
             "PrefabName": "Pickup"
         },
@@ -132,7 +134,7 @@
             "Tag": "Money",
             "Color": "00ff00",
             "SoundLocation": "money",
-            "PythonFile": "Example.py",
+            "PythonFile": "ex3.py",
             "Size": 1.0,
             "PrefabName": "Pickup"
         }

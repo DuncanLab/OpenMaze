@@ -65,56 +65,63 @@ namespace wallSystem
 			var goalText = GameObject.Find("Goal").GetComponent<Text>();
 			goalText.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 30);
 
-			var val = E.Get().CurrTrial.Value.PickupType;
-			if (val == 0)
+
+			var l1 = E.Get().CurrTrial.Value.ActivePickups;
+			var l2 = E.Get().CurrTrial.Value.InactivePickups;
+			
+			var hashset = new HashSet<int>(l2);
+			
+			
+			var merged = new List<int>();
+			merged.AddRange(l1);
+			merged.AddRange(l2);
+
+
+			foreach (var val in merged)
 			{
-				goalText.text = E.Get().CurrTrial.Value.Header ?? "Explore";
+			
+				var item = DS.GetData().PickupItems[Mathf.Abs(val) - 1];
+				gen.SetWaveSrc(item.SoundLocation);
+
+
+				//Here is the text to determine the type of food that exists here
+
+				//And this section sets the text.
+				goalText.text = E.Get().CurrTrial.Value.Header;
 				goalText.color = Color.white;
-				return;
-			} 
-			var item = DS.GetData ().PickupItems [Mathf.Abs(val) - 1];
-			gen.SetWaveSrc (item.SoundLocation);
-			
-        
-			//Here is the text to determine the type of food that exists here
 
-			//And this section sets the text.
-			goalText.text = E.Get().CurrTrial.Value.Header ?? item.Tag;
-			goalText.color = Data.GetColour(item.Color);
 
-			if (val < 0)
-				return;
-			
-		
-		
-			var p =  ReadFromExternal (item.PythonFile);
-			GameObject.Find("FirstPerson").GetComponent<PlayerController>().ExternalStart(p.X, p.Y);
-			
-			
-			
-			
-			var prefab = (GameObject)Resources.Load("prefabs/" + item.PrefabName, typeof(GameObject));
-			
-			var obj = Instantiate (prefab);
-			if (!item.PrefabName.Equals("2DImageDisplayer"))
-				obj.AddComponent<RotateBlock>();
-			
-			obj.transform.localScale *= item.Size;
-			obj.transform.position = new Vector3 (p.X, 0.5f, p.Y);
-			
-			var color = Data.GetColour (item.Color);
-			try
-			{
-				obj.GetComponent<Renderer>().material.color = color;
-				obj.GetComponent<Renderer>().enabled = E.Get().CurrTrial.Value.PickupVisible == 1;
+
+				var p = ReadFromExternal(item.PythonFile);
+
+				print(p);
+
+
+				var prefab = (GameObject) Resources.Load("prefabs/" + item.PrefabName, typeof(GameObject));
+
+				var obj = Instantiate(prefab);
+				if (!item.PrefabName.Equals("2DImageDisplayer"))
+					obj.AddComponent<RotateBlock>();
+
+				obj.transform.localScale *= item.Size;
+				obj.transform.position = new Vector3(p.X, 0.5f, p.Y);
+
+				var color = Data.GetColour(item.Color);
+				try
+				{
+					obj.GetComponent<Renderer>().material.color = color;
+					obj.GetComponent<Renderer>().enabled = E.Get().CurrTrial.Value.PickupVisible == 1;
+					obj.GetComponent<Collider>().enabled = !hashset.Contains(val);
+				}
+				catch (Exception _)
+				{
+					print("Visibility not working");
+				}
+
+				_destroy.Add(obj);
 			}
-			catch (Exception _)
-			{
-				print("Visibility not working");	
-			}
+			GameObject.Find("FirstPerson").GetComponent<PlayerController>().ExternalStart(0, 0);
 
-			_destroy.Add (obj);
-	
 		}
 
 		//And here we destroy all the food.

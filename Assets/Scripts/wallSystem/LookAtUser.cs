@@ -14,18 +14,8 @@ public class LookAtUser : MonoBehaviour
 	// Use this for initialization
 	private void Start ()
 	{
-		var val = E.Get().CurrTrial.Value.PickupType;
-		if (val == 0)
-		{
-			val++;
-		}
-		var item = DS.GetData ().PickupItems [Mathf.Abs(val) - 1];
-		var sprite = item.ImageLoc;
-
 		_player = GameObject.Find("FirstPerson");
-		var pic = Img2Sprite.LoadNewSprite(C.InputDirectory + sprite);
-		print(pic.pivot);
-		GetComponent<SpriteRenderer>().sprite = pic;
+
 	}
 	
 	// Update is called once per frame

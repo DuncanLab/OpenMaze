@@ -85,9 +85,17 @@ namespace wallSystem
 		private void OnTriggerEnter(Collider other)
 		{
 			if (!other.gameObject.CompareTag("Pickup")) return;
-			E.Get().CurrTrial.Notify();
+
+			print(E.Get().CurrTrial.Value.Quota);
+			
+			
+
+
 			GetComponent<AudioSource> ().PlayOneShot (_gen.GetWaveSrc (), 1);
 			Destroy (other.gameObject);
+			if (--E.Get().CurrTrial.Value.Quota > 0) return;
+			E.Get().CurrTrial.Notify();
+
 			_playingSound = true;
 			E.LogData(
 				TrialProgress.GetCurrTrial().TrialProgress, 

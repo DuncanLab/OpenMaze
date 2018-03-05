@@ -75,6 +75,9 @@ namespace data
 			public int PickupVisible; //Visibility of the pickup
 			public string Header; //Note outputted out of the trial.
 			public MazeData Map;
+			public List<int> ActivePickups;
+			public List<int> InactivePickups;
+			public int Quota;
 		}
 
 

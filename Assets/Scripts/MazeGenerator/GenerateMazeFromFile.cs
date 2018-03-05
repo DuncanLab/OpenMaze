@@ -46,12 +46,22 @@ public class GenerateMazeFromFile : MonoBehaviour {
 					
 					var obj = Instantiate (prefab);
 					if (!item.PrefabName.Equals("2DImageDisplayer"))
+					{
 						obj.AddComponent<RotateBlock>();
+						obj.GetComponent<Renderer>().material.color = Data.GetColour(item.Color);
+
+											
+					}
 			
 					obj.transform.localScale *= item.Size;
 					obj.transform.position = new Vector3 (x, 0.5f, y);
-			
+					var sprite = item.ImageLoc;
+
+					var pic = Img2Sprite.LoadNewSprite(Constants.InputDirectory + sprite);
+					print(pic.pivot);
+					GetComponent<SpriteRenderer>().sprite = pic;
 				}
+			
 				
 				
 				x += m.TileWidth;
