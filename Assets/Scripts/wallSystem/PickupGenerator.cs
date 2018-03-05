@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using data;
+using NUnit.Framework.Interfaces;
 using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,6 +16,7 @@ namespace wallSystem
 		
 
 		private static Data.Point ReadFromExternal(string inputFile){
+			
 			var p = new Process
 			{
 				StartInfo = new ProcessStartInfo("python",
@@ -89,11 +91,19 @@ namespace wallSystem
 				//And this section sets the text.
 				goalText.text = E.Get().CurrTrial.Value.Header;
 				goalText.color = Color.white;
+				Data.Point p;
 
+				if (item.PickupLocation == null)
+				{
+					p = ReadFromExternal(item.PythonFile);
+					
+				}
+				else
+				{
+					p = new Data.Point{X=item.PickupLocation[0], Y = item.PickupLocation[1]};
+				}
 
-
-				var p = ReadFromExternal(item.PythonFile);
-
+				
 				print(p);
 
 

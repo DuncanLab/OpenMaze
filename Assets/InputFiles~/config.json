@@ -117,7 +117,7 @@
             "Tag": "Food",
             "Color": "ff0000",
             "SoundLocation": "eat",
-            "PythonFile": "Example.py",
+            "PickupLocation": [5, 5],
             "Size": 1.0,
             "PrefabName": "2DImageDisplayer",
             "ImageLoc" : "sprite.png"
@@ -126,15 +126,16 @@
             "Tag": "Water",
             "Color": "0000ff",
             "SoundLocation": "drink",
-            "PythonFile": "ex2.py",
+            "PickupLocation": [5, -5],
             "Size": 1.0,
             "PrefabName": "Pickup"
         },
         {
             "Tag": "Money",
             "Color": "00ff00",
+            "PickupLocation": [-5, -5],
+
             "SoundLocation": "money",
-            "PythonFile": "ex3.py",
             "Size": 1.0,
             "PrefabName": "Pickup"
         }

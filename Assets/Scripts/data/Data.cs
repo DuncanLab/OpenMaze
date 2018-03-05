@@ -94,6 +94,8 @@ namespace data
 			public float Size; //The size of the object
 			public string PrefabName; //The name of the prefab object
 			public string ImageLoc;
+			public List<int> PickupLocation;
+
 		}
 
 
