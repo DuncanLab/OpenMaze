@@ -58,8 +58,7 @@ public class GenerateMazeFromFile : MonoBehaviour {
 					var sprite = item.ImageLoc;
 
 					var pic = Img2Sprite.LoadNewSprite(Constants.InputDirectory + sprite);
-					print(pic.pivot);
-					GetComponent<SpriteRenderer>().sprite = pic;
+					obj.GetComponent<SpriteRenderer>().sprite = pic;
 				}
 			
 				

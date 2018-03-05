@@ -115,6 +115,12 @@ namespace wallSystem
 
 				obj.transform.localScale *= item.Size;
 				obj.transform.position = new Vector3(p.X, 0.5f, p.Y);
+				var sprite = item.ImageLoc;
+				if (sprite != null)
+				{
+					var pic = Img2Sprite.LoadNewSprite(Constants.InputDirectory + sprite);
+					obj.GetComponent<SpriteRenderer>().sprite = pic;
+				}
 
 				var color = Data.GetColour(item.Color);
 				try
