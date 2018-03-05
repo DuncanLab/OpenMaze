@@ -36,7 +36,7 @@ namespace wallSystem
 		private bool _playingSound;
 		
 		private bool _reset;
-
+		private int localQuota;
 		
 		private void Start()
 		{
@@ -51,6 +51,7 @@ namespace wallSystem
 			Cam.transform.Rotate (-DS.GetData().CharacterData.CamRotation, 0, 0);
 			_waitTime = DS.GetData().CharacterData.TimeToRotate;
 			_reset = false;
+			localQuota = E.Get().CurrTrial.Value.Quota;
 
 		}
 
@@ -86,14 +87,13 @@ namespace wallSystem
 		{
 			if (!other.gameObject.CompareTag("Pickup")) return;
 
-			print(E.Get().CurrTrial.Value.Quota);
 			
 			
 
 
 			GetComponent<AudioSource> ().PlayOneShot (_gen.GetWaveSrc (), 1);
 			Destroy (other.gameObject);
-			if (--E.Get().CurrTrial.Value.Quota > 0) return;
+			if (--localQuota > 0) return;
 			E.Get().CurrTrial.Notify();
 
 			_playingSound = true;
