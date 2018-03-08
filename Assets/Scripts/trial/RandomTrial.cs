@@ -1,8 +1,6 @@
 ﻿using data;
 using main;
-using NUnit.Framework.Constraints;
 using UnityEngine;
-using UnityEngine.Purchasing.Extension;
 using DS = data.DataSingleton;
 
 namespace trial

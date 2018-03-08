@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using data;
 using twoDSystem;
 using UnityEngine;
 using E = main.Loader;
 using DS = data.DataSingleton;
-using Point = data.Data.Point;
 
 //This is a wall spawner object that will
 //generate the walls of the game at the start.
@@ -35,7 +35,7 @@ namespace wallSystem
 			
 			GenerateCheckerBoard();
 			
-			GeneratePillars();
+			GenerateLandmarks();
 		}
 
 		//This is called when the object is destroyed by Generate Generate Wall. Here we destroy
@@ -61,17 +61,38 @@ namespace wallSystem
 		}
 
 
-		private void GeneratePillars()
+		private void GenerateLandmarks()
 		{
-			foreach (var p in DS.GetData().Pillars)
+			foreach (var p in E.Get().CurrTrial.Value.LandMarks)
 			{
-				var cylin = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-			
-				cylin.transform.position = new Vector3(p.X, 0, p.Y);
-				cylin.transform.localScale = new Vector3(p.Radius, p.Height, p.Radius);
-				cylin.GetComponent<Renderer>().material.color = Data.GetColour(E.Get().CurrTrial.Value.PillarColor);
+				var d =DS.GetData().Landmarks[p - 1];
+
+				var landmark = (GameObject)Instantiate(Resources.Load("Prefabs/" + d.PrefabName));
 				
-				_created.Add(cylin);
+			
+				landmark.transform.localScale = new Vector3(d.Length, d.Height, d.Width);
+				try
+				{
+					landmark.transform.position = new Vector3(d.LandmarkLocation[0], d.LandmarkLocation[1], d.LandmarkLocation[2]);
+				}
+				catch (Exception _)
+				{
+					landmark.transform.position = new Vector3(d.LandmarkLocation[0], d.LandmarkLocation[1], 0.5f);
+					
+				}
+
+				landmark.transform.Rotate(new Vector3(0, 1, 0), d.InitialRotation);
+				
+				
+				landmark.GetComponent<Renderer>().material.color = Data.GetColour(d.Color);
+				var sprite = d.ImageLoc;
+				if (sprite != null)
+				{
+					var pic = Img2Sprite.LoadNewSprite(Constants.InputDirectory + sprite);
+					landmark.GetComponent<SpriteRenderer>().sprite = pic;
+				}
+
+				_created.Add(landmark);
 			}
 		}
 	

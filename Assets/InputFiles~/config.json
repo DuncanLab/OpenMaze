@@ -4,7 +4,7 @@
     "WallHeight" : 3,
     "CharacterData": {
         "CamRotation": 10.0,
-        "Height": 0.5,
+        "Height": 5,
         "MovementSpeed": 10.0,
         "RotationSpeed": 100.0,
         "TimeToRotate": 0.5,
@@ -12,7 +12,7 @@
         "CharacterBound": 0.5,
         "DistancePickup": 2,
         "PickupRotationSpeed" : 1,
-        "CharacterStartPos" : {"X" : 0, "Y" : 0}
+        "CharacterStartPos" : [0, 0]
     },
     
     "BlockOrder" : [0],
@@ -88,6 +88,7 @@
         	"RandomLoc" : 0,
             "ActivePickups" : [1, 2],
             "InactivePickups" : [3],
+            "LandMarks" :[1, 2],
             "Quota": 2
         },
          {
@@ -115,7 +116,7 @@
     "PickupItems": [
         {
             "Tag": "Food",
-            "Color": "ff0000",
+            "Color": "ffffff",
             "SoundLocation": "eat",
             "PickupLocation": [5, 5],
             "Size": 1.0,
@@ -133,25 +134,33 @@
         {
             "Tag": "Money",
             "Color": "00ff00",
-            "PickupLocation": [-5, -5],
+            "PickupLocation": [-5, -5, 2],
 
             "SoundLocation": "money",
             "Size": 1.0,
             "PrefabName": "Pickup"
         }
     ],
-    "Pillars": [
+    "Landmarks": [
         {
-            "X": 0.0,
-            "Y": 10.0,
-            "Radius": 1.0,
-            "Height": 10.0
+            "LandmarkLocation": [5, 5, 0],
+            "Length": 1.0,
+            "Width": 1.0,
+            "Height": 5.0,
+            "PrefabName": "Cube",
+            "Color": "ff0000",
+            "InitialAngle": 50
+
         },
-        {
-            "X": 0.0,
-            "Y": -10.0,
-            "Radius": 1.0,
-            "Height": 10.0
+           {
+            "LandmarkLocation": [5, 5, 10],
+            "Length": 1.0,
+            "Width": 1.0,
+            "Height": 5.0,
+            "PrefabName": "2DImageDisplayer",
+            "ImageLoc" : "sprite.png",
+            "Color": "ffff00"
+
         }
     ]
 }

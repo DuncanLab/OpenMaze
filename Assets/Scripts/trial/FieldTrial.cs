@@ -17,7 +17,6 @@ namespace trial
         {
             TrialProgress = new TrialProgress();
             _fields = fields;
-            GenerateTrials();
         }
 
         
@@ -93,13 +92,16 @@ namespace trial
             if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Joystick1Button0))
             {
                 
+                var str = _fields[4].transform.GetComponentsInChildren<Text>();
+                Loader.ExternalActivation(str[1].text);
+                
                 //Sets the output file name as the desired one.
                 foreach (var textBox in _fields)
                 {
                     var arr = textBox.transform.GetComponentsInChildren<Text>();
                     DS.GetData().CharacterData.OutputFile = arr[1].text + "_" + DS.GetData().CharacterData.OutputFile;
                 }
-                var str  = _fields[0].transform.GetComponentsInChildren<Text>();
+                str  = _fields[0].transform.GetComponentsInChildren<Text>();
                 TrialProgress.Subject = str[1].text;
                 
                 str = _fields[2].transform.GetComponentsInChildren<Text>();
@@ -115,7 +117,8 @@ namespace trial
                 TrialProgress.Note = str[1].text;
                 
                 
-                
+                GenerateTrials();
+
                 Loader.LogFirst();
 
                 Progress();

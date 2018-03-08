@@ -77,7 +77,10 @@ namespace wallSystem
 			else
 			{
 				var p = DS.GetData().CharacterData.CharacterStartPos;
-				transform.position = new Vector3(p.X, DS.GetData().CharacterData.Height, p.Y);
+				transform.position = new Vector3(p[0], 0.5f, p[1]);
+				var v = Cam.transform.position;
+				v.y = DS.GetData().CharacterData.Height;
+				Cam.transform.position = v;
 			}
 		}
 		
@@ -86,9 +89,6 @@ namespace wallSystem
 		private void OnTriggerEnter(Collider other)
 		{
 			if (!other.gameObject.CompareTag("Pickup")) return;
-
-			
-			
 
 
 			GetComponent<AudioSource> ().PlayOneShot (_gen.GetWaveSrc (), 1);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Xml;
 using UnityEngine;
 using UnityStandardAssets.ImageEffects;
@@ -21,7 +22,7 @@ namespace data
 		public List<PickupItem> PickupItems;
 	
 		//This is a list of the pillar objects
-		public List<Pillar> Pillars;
+		public List<LandMark> Landmarks;
 
 		
 		//This list contains all pre-defined trials.
@@ -43,7 +44,6 @@ namespace data
 			public string EndGoal; //percentage ___SPACE___ number. This is very arbitrary.
 			public string EndFunction; //The function name (if not present, we assume its always true)
 
-			
 			public string BlockName; //Name (outputed at the end of the Block)
 			public string Notes; //Notes about the given block
 			public int Replacement; //Integer value representing replacement
@@ -70,13 +70,13 @@ namespace data
 			public int Radius; //Radius of the walls
 			public int PickupType; //Pickup type associated with the block
 			public int TimeAllotted; //Allotted amount of time
-			public string PillarColor; //Color of the pillars
 			public int RandomLoc; //Whether or not the pickup has a random loaction
 			public int PickupVisible; //Visibility of the pickup
 			public string Header; //Note outputted out of the trial.
 			public MazeData Map;
 			public List<int> ActivePickups;
 			public List<int> InactivePickups;
+			public List<int> LandMarks;
 			public int Quota;
 		}
 
@@ -85,7 +85,6 @@ namespace data
 		[Serializable]
 		public class PickupItem
 		{
-			public int Count; //The number of Pickup Items to generate
 			//In general this will always be one unless necessary to implement in the future.
 			public string Tag; //The name of the pickup item
 			public string Color; //The colour in Hex without #
@@ -94,8 +93,8 @@ namespace data
 			public float Size; //The size of the object
 			public string PrefabName; //The name of the prefab object
 			public string ImageLoc;
-			public List<int> PickupLocation;
-
+			public List<float> PickupLocation;
+ 	
 		}
 
 
@@ -103,46 +102,35 @@ namespace data
 		public class Character
 		{
 			public float CamRotation; //This is the rotation of the initial pan of the field
-			public float Height; //The height of the camera
 			public float MovementSpeed; //The movespeed of the character
 			public float RotationSpeed; //The rotation speed of the character
 			public int TimeToRotate; //How long the delay can last in the rotation
 			public string OutputFile; //The output file of the character's movements during an experiment
-			public Point CharacterStartPos; //The start position of the character (usually 0, 0)
+			public List<float> CharacterStartPos; //The start position of the character (usually 0, 0)
 			public float CharacterBound;
 			public float PickupRotationSpeed;
 
-			
+			public float Height;
+
 			public float DistancePickup;
 		}
 
 
-		[Serializable]
-		public class Point //A serializable 2d point class.
-		{
-			public float X; //x value
-			public float Y; //y value
-
-			public Vector3 GetVector3()
-			{
-				return new Vector3(X, 0.2f, Y);
-			}
-
-			public override string ToString(){
-				return "(" + X + ", " + Y + ")";
-			}
-
-		}
+	
 
 		//This is essentially a pillar object.
 		//Fields are pretty obvious.
 		[Serializable]
-		public class Pillar
+		public class LandMark
 		{
-			public float X;
-			public float Y;
-			public float Radius;
+			public List<float> LandmarkLocation;
+			public float Length;
+			public float Width;
 			public float Height;
+			public string PrefabName;
+			public string Color;
+			public string ImageLoc;
+			public float InitialRotation { get; set; }
 		}
 	
 		//=========================== END OF JSON FIELDS ==========================================
@@ -167,6 +155,13 @@ namespace data
 			}
 			return new Color(l[0], l[1], l[2]);
 
+		}
+
+		public class Point
+		{
+			public float X { get; set; }
+			public float Y { get; set; }
+			public float Z { get; set; }
 		}
 	}
 }

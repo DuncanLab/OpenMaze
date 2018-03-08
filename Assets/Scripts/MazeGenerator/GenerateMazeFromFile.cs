@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Security.Cryptography;
 using data;
-using UnityEditor;
 using UnityEngine;
 using wallSystem;
 using Debug = UnityEngine.Debug;
@@ -36,7 +35,7 @@ public class GenerateMazeFromFile : MonoBehaviour {
 				}
 				else if (col == 's')
 				{
-					GameObject.Find("FirstPerson").transform.position = new Vector3(x, DS.GetData().CharacterData.Height, y);
+					GameObject.Find("FirstPerson").GetComponent<PlayerController>().ExternalStart(x, y);
 				}
 				else if (col != '0')
 				{

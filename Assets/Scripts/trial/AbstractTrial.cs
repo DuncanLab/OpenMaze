@@ -2,7 +2,6 @@
 using System.Reflection;
 using data;
 using main;
-using NUnit.Framework;
 using UnityEngine;
 using DS = data.DataSingleton;
 namespace trial
@@ -37,12 +36,12 @@ namespace trial
         {
             BlockID = blockId;
             TrialID = trialId;
-            
+
+
+            if (blockId == -1 || trialId == -1) return;
             if (DataSingleton.GetData().BlockList.Count == 0) throw new Exception("No trial in block");
-            
-            if (!(blockId == -1 || trialId == -1))
-                Value = DataSingleton.GetData().TrialData[trialId];
-    
+
+            Value = DataSingleton.GetData().TrialData[trialId];
         }
 
 

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using data;
+﻿using System.IO;
 using trial;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DS = data.DataSingleton;
 using C = data.Constants;
@@ -31,15 +26,15 @@ namespace main
 		
 		private void Start () {
 			DontDestroyOnLoad(this);
-			var inputFile = EditorUtility.OpenFilePanel("Choose Input File", "", "");
-			
-			
-			
-			DS.Load (inputFile);
-			Directory.CreateDirectory(C.OutputDirectory);
 			CurrTrial = new FieldTrial(Fields);
 		}
 
+
+		public static void ExternalActivation(string inputFile)
+		{
+			DS.Load (inputFile);
+			Directory.CreateDirectory(C.OutputDirectory);
+		}
 
 		private void Update()
 		{

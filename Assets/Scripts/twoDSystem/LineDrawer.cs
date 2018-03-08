@@ -23,18 +23,6 @@ namespace twoDSystem
 			var previousTrial = E.Get().CurrTrial.TrialProgress.PreviousTrial;
 			GameObject.Find("Plane").transform.localScale *= previousTrial.Value.Radius / 10f;
 
-			foreach (var p in DS.GetData().Pillars)
-			{
-				
-				
-				var cylin = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-			
-				cylin.transform.position = new Vector3(p.X, 4.5F, p.Y);
-				cylin.transform.localScale = new Vector3(p.Radius, 1F, p.Radius);
-				cylin.GetComponent<Renderer>().material.color = Data.GetColour(previousTrial.Value.PillarColor);
-				cylin.GetComponent<Renderer>().material.color = Color.black;
-			}
-
 		}
 
 		

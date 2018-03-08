@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using data;
-using NUnit.Framework.Interfaces;
-using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.UI;
 using DS = data.DataSingleton;
@@ -100,7 +98,15 @@ namespace wallSystem
 				}
 				else
 				{
-					p = new Data.Point{X=item.PickupLocation[0], Y = item.PickupLocation[1]};
+					try
+					{
+						p = new Data.Point {X = item.PickupLocation[0], Y = item.PickupLocation[1], Z = item.PickupLocation[2]};
+					}
+					catch (Exception _)
+					{
+						p = new Data.Point {X = item.PickupLocation[0], Y = item.PickupLocation[1], Z = 0.5f};
+						
+					}
 				}
 
 				
@@ -114,7 +120,7 @@ namespace wallSystem
 					obj.AddComponent<RotateBlock>();
 
 				obj.transform.localScale *= item.Size;
-				obj.transform.position = new Vector3(p.X, 0.5f, p.Y);
+				obj.transform.position = new Vector3(p.X, p.Z, p.Y);
 				var sprite = item.ImageLoc;
 				if (sprite != null)
 				{
