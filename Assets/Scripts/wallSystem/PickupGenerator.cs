@@ -66,21 +66,22 @@ namespace wallSystem
 			goalText.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 30);
 
 
-			var l1 = E.Get().CurrTrial.Value.ActivePickups;
-			var l2 = E.Get().CurrTrial.Value.InactivePickups;
-			
+			var l1 = E.Get().CurrTrial.Value.ActiveGoals;
+			var l2 = E.Get().CurrTrial.Value.InactiveGoals;
+			var l3 = E.Get().CurrTrial.Value.ActiveInvisibleGoals;
 			var hashset = new HashSet<int>(l2);
-			
+			var hashset2 = new HashSet<int>(l3);
 			
 			var merged = new List<int>();
 			merged.AddRange(l1);
 			merged.AddRange(l2);
+			merged.AddRange(l3);
 
 
 			foreach (var val in merged)
 			{
 			
-				var item = DS.GetData().PickupItems[Mathf.Abs(val) - 1];
+				var item = DS.GetData().Goals[Mathf.Abs(val) - 1];
 				gen.SetWaveSrc(item.SoundLocation);
 
 
@@ -91,7 +92,7 @@ namespace wallSystem
 				goalText.color = Color.white;
 				Data.Point p;
 
-				if (item.PickupLocation == null)
+				if (item.Location == null)
 				{
 					p = ReadFromExternal(item.PythonFile);
 					
@@ -100,23 +101,22 @@ namespace wallSystem
 				{
 					try
 					{
-						p = new Data.Point {X = item.PickupLocation[0], Y = item.PickupLocation[1], Z = item.PickupLocation[2]};
+						p = new Data.Point {X = item.Location[0], Y = item.Location[2], Z = item.Location[1]};
 					}
 					catch (Exception _)
 					{
-						p = new Data.Point {X = item.PickupLocation[0], Y = item.PickupLocation[1], Z = 0.5f};
+						p = new Data.Point {X = item.Location[0], Y = 0.5f, Z = item.Location[1]};
 						
 					}
 				}
 
 				
-				print(p);
 
 
-				var prefab = (GameObject) Resources.Load("prefabs/" + item.PrefabName, typeof(GameObject));
+				var prefab = (GameObject) Resources.Load("prefabs/" + item.Type, typeof(GameObject));
 
 				var obj = Instantiate(prefab);
-				if (!item.PrefabName.Equals("2DImageDisplayer"))
+				if (!item.Type.Equals("2DImageDisplayer"))
 					obj.AddComponent<RotateBlock>();
 
 				obj.transform.localScale *= item.Size;
@@ -132,7 +132,7 @@ namespace wallSystem
 				try
 				{
 					obj.GetComponent<Renderer>().material.color = color;
-					obj.GetComponent<Renderer>().enabled = E.Get().CurrTrial.Value.PickupVisible == 1;
+					obj.GetComponent<Renderer>().enabled = !hashset2.Contains(val);
 					obj.GetComponent<Collider>().enabled = !hashset.Contains(val);
 				}
 				catch (Exception _)

@@ -29,22 +29,23 @@ public class GenerateMazeFromFile : MonoBehaviour {
 				{
 					var obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
 					obj.GetComponent<Renderer>().sharedMaterial.color = Data.GetColour(m.Color);
-					obj.transform.localScale = new Vector3(m.TileWidth, DS.GetData().WallHeight, m.TileWidth);
-					obj.transform.position = new Vector3(x, DS.GetData().WallHeight * 0.5f, y);
+					obj.transform.localScale = new Vector3(m.TileWidth, L.Get().CurrTrial.Value.WallHeight, m.TileWidth);
+					obj.transform.position = new Vector3(x, L.Get().CurrTrial.Value.WallHeight * 0.5f, y);
 					
 				}
 				else if (col == 's')
 				{
+					Debug.Log(x + " " + y);
 					GameObject.Find("FirstPerson").GetComponent<PlayerController>().ExternalStart(x, y);
 				}
 				else if (col != '0')
 				{
 					var val = col - '0'; 
-					var item = DS.GetData ().PickupItems [val - 1];
-					var prefab = (GameObject)Resources.Load("prefabs/" + item.PrefabName, typeof(GameObject));
+					var item = DS.GetData ().Goals [val - 1];
+					var prefab = (GameObject)Resources.Load("prefabs/" + item.Type, typeof(GameObject));
 					
 					var obj = Instantiate (prefab);
-					if (!item.PrefabName.Equals("2DImageDisplayer"))
+					if (!item.Type.Equals("2DImageDisplayer"))
 					{
 						obj.AddComponent<RotateBlock>();
 						obj.GetComponent<Renderer>().material.color = Data.GetColour(item.Color);

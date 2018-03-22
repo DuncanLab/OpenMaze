@@ -30,10 +30,12 @@ namespace main
 		}
 
 
-		public static void ExternalActivation(string inputFile)
+		public static bool ExternalActivation(string inputFile)
 		{
+			if (!inputFile.Contains(".json")) return false;
 			DS.Load (inputFile);
 			Directory.CreateDirectory(C.OutputDirectory);
+			return true;
 		}
 
 		private void Update()
@@ -45,7 +47,7 @@ namespace main
 
 		public static void LogFirst()
 		{
-			using (var writer = new StreamWriter ("Assets/OutputFiles~/" + DS.GetData ().CharacterData.OutputFile, false))
+			using (var writer = new StreamWriter ("Assets/OutputFiles~/" + DS.GetData ().OutputFile, false))
 			{
 				writer.Write (
 					"Trial Number, Time (seconds), X, Y, Angle, Environment Type, Sides, TargetFound, PickupType, " +
@@ -63,7 +65,7 @@ namespace main
 		{
 			if (_timer > 1f / (DS.GetData().OutputTimesPerSecond == 0 ? 1000 : DS.GetData().OutputTimesPerSecond) || targetFound == 1)
 			{
-				using (var writer = new StreamWriter("Assets/OutputFiles~/" + DS.GetData().CharacterData.OutputFile, true))
+				using (var writer = new StreamWriter("Assets/OutputFiles~/" + DS.GetData().OutputFile, true))
 				{
 
 					var str = string.Format(

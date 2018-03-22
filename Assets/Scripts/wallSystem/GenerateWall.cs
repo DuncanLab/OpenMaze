@@ -32,9 +32,20 @@ namespace wallSystem
 
 			SetupColours ();
 			GenerateWalls();
-			
-			GenerateCheckerBoard();
-			
+			if (E.Get().CurrTrial.Value.GroundType.Equals("Checker"))
+				GenerateCheckerBoard();
+			else if (E.Get().CurrTrial.Value.GroundType.Equals("Solid"))
+			{
+				var col = Data.GetColour(E.Get().CurrTrial.Value.GroundColor);
+
+				GameObject.Find("Ground").GetComponent<Renderer>().material.color = col;
+			}
+			else
+			{
+				GameObject.Find("Ground").GetComponent<Renderer>().enabled = false;
+
+			}
+
 			GenerateLandmarks();
 		}
 
@@ -53,7 +64,7 @@ namespace wallSystem
 		//Here we setup the colours. This is done as a gradient utilizing data given from input.json
 		private void SetupColours(){
 
-			var col = Data.GetColour(E.Get().CurrTrial.Value.Color);
+			var col = Data.GetColour(E.Get().CurrTrial.Value.WallColor);
 			//And here we set the color of the wall prefab to the appropriate color
 			Wall.GetComponent<Renderer>().sharedMaterial.color = col;
 
@@ -67,17 +78,17 @@ namespace wallSystem
 			{
 				var d =DS.GetData().Landmarks[p - 1];
 
-				var landmark = (GameObject)Instantiate(Resources.Load("Prefabs/" + d.PrefabName));
+				var landmark = (GameObject)Instantiate(Resources.Load("Prefabs/" + d.Type));
 				
 			
 				landmark.transform.localScale = new Vector3(d.Length, d.Height, d.Width);
 				try
 				{
-					landmark.transform.position = new Vector3(d.LandmarkLocation[0], d.LandmarkLocation[1], d.LandmarkLocation[2]);
+					landmark.transform.position = new Vector3(d.Location[0], d.Location[1], d.Location[2]);
 				}
 				catch (Exception _)
 				{
-					landmark.transform.position = new Vector3(d.LandmarkLocation[0], d.LandmarkLocation[1], 0.5f);
+					landmark.transform.position = new Vector3(d.Location[0], d.Location[1], 0.5f);
 					
 				}
 
@@ -102,16 +113,20 @@ namespace wallSystem
 		private void GenerateCheckerBoard()
 		{
 			var val = E.Get().CurrTrial.Value.Radius * 2;
+			var col = Data.GetColour(E.Get().CurrTrial.Value.GroundColor);
+
 			//Quite simply, this is a 2d for loop
 			for (var i = -val; i < val; i += 2)
 			{
 				for (var j = -val; j < val; j += 1)
 				{
+
 					var tile = Instantiate(
 						Wall, 
 						new Vector3((0.5f + i + j % 2), 0.001f, (0.5f + j)), //With a one offset
 						Quaternion.identity
 					);
+					tile.GetComponent<Renderer>().material.color = col;
 
 					tile.transform.localScale = new Vector3(1, 0.001f, 1);
 					_created.Add(tile);
@@ -147,13 +162,13 @@ namespace wallSystem
 			
 				//Here we create the wall
 				var obj = Instantiate(Wall,
-					new Vector3(x, DS.GetData().WallHeight/2, y),
+					new Vector3(x, E.Get().CurrTrial.Value.WallHeight/2, y),
 					Quaternion.identity
 				);
 
 
 				//So we add 10 because the end user won't be able to notice it anyways
-				obj.transform.localScale = new Vector3(length + 10, DS.GetData().WallHeight, 0.5f);
+				obj.transform.localScale = new Vector3(length + 10, E.Get().CurrTrial.Value.WallHeight, 0.5f);
 
 				//This rotates the walls by the current angle + 90
 				obj.transform.Rotate(Quaternion.Euler(0, - currentAngle - 90, 0).eulerAngles);

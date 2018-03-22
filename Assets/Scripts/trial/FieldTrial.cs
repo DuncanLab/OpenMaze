@@ -1,8 +1,13 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
+using System.Runtime.InteropServices.ComTypes;
 using data;
+using Gaia.FullSerializer;
 using main;
 using UnityEngine;
 using UnityEngine.UI;
+using Debug = UnityEngine.Debug;
 using DS = data.DataSingleton;
 
 namespace trial
@@ -15,8 +20,42 @@ namespace trial
         //Here we construct the entire linked list structure.
         public FieldTrial(InputField [] fields) : base(-1, -1)
         {
+            
             TrialProgress = new TrialProgress();
             _fields = fields;
+
+            while (true)
+            {
+                var p = new Process
+                {
+                    StartInfo = new ProcessStartInfo("python",
+                        "Assets/InputFiles~/directory_picker.py")
+                    {
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true,
+                        RedirectStandardInput = true,
+                        UseShellExecute = false,
+                        CreateNoWindow = true
+                    }
+                };
+                p.Start();
+
+                p.WaitForExit();
+
+                if (p.ExitCode != 0)
+                {
+                    Debug.LogError("WRONG PYTHON VERSION FOR THE CONFIGURATION FILE!!!!!!");
+                }
+
+
+                var line = p.StandardOutput.ReadLine();
+                if (Loader.ExternalActivation(line))
+                    break;
+            }
+
+            TrialProgress = new TrialProgress();
+            _fields = fields;
+            
         }
 
         
@@ -27,43 +66,45 @@ namespace trial
             AbstractTrial currentTrial = this;
             foreach (var i in DS.GetData().BlockOrder)
             {
-                var block = DS.GetData().BlockList[i];
+                var l = i - 1;
+                var block = DS.GetData().BlockList[l];
                 var newBlock = true;
                 AbstractTrial currHead = null;
                 
                 var tCnt = 0;
                 foreach (var j in block.TrialOrder)
                 {
+                    var k = j - 1;
                     AbstractTrial t;
 
                     //Here we decide what each trial is, I guess we could do this with a function map, but later. 
                     //here we have a picture as a trial.
-                    if (j < 0)
+                    if (k < 0)
                     {
-                        t = new RandomTrial(i, j);
+                        t = new RandomTrial(l, k);
                     }
                     else
                     {
-                        var trialData = DS.GetData().TrialData[j];
+                        var trialData = DS.GetData().TrialData[k];
 
                         //Control flow here is for deciding what Trial gets spat out from the config
 
                         if (trialData.FileLocation != null)
                         {
                             Debug.Log("Creating new Loading Screen Trial");
-                            t = new LoadingScreenTrial(i, j);
+                            t = new LoadingScreenTrial(l, k);
                         }
                         else if (trialData.TwoDimensional == 1)
                         {
                             Debug.Log("Creating new 2D Screen Trial");
 
-                            t = new TwoDTrial(i, j);
+                            t = new TwoDTrial(l, k);
                         }
                         else
                         {
                             Debug.Log("Creating new 3D Screen Trial");
 
-                            t = new ThreeDTrial(i, j);
+                            t = new ThreeDTrial(l, k);
                         }
                     }
                     if (newBlock) currHead = t;
@@ -88,20 +129,18 @@ namespace trial
         public override void Update(float deltaTime)
         {
             base.Update(deltaTime);
-
+        
             if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Joystick1Button0))
             {
                 
-                var str = _fields[4].transform.GetComponentsInChildren<Text>();
-                Loader.ExternalActivation(str[1].text);
                 
                 //Sets the output file name as the desired one.
                 foreach (var textBox in _fields)
                 {
                     var arr = textBox.transform.GetComponentsInChildren<Text>();
-                    DS.GetData().CharacterData.OutputFile = arr[1].text + "_" + DS.GetData().CharacterData.OutputFile;
+                    DS.GetData().OutputFile = arr[1].text + "_" + DS.GetData().OutputFile;
                 }
-                str  = _fields[0].transform.GetComponentsInChildren<Text>();
+                var str  = _fields[0].transform.GetComponentsInChildren<Text>();
                 TrialProgress.Subject = str[1].text;
                 
                 str = _fields[2].transform.GetComponentsInChildren<Text>();

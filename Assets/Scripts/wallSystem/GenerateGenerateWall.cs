@@ -36,7 +36,7 @@ namespace wallSystem
 
 			var wavSrc = "Audio\\" + file;
 
-			_audioClip = Resources.Load(wavSrc) as AudioClip;
+			_audioClip = Resources.Load<AudioClip>(wavSrc);
 		}
 
 		public AudioClip GetWaveSrc()

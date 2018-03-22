@@ -17,9 +17,10 @@ namespace data
 		public int OutputTimesPerSecond;
 		//This is the object (defined below) which contains all data available for the main player
 		public Character CharacterData;
-	
+		public string OutputFile; //The output file of the character's movements during an experiment
+
 		//This is a LIST of the different types of pickup items that are defiend below
-		public List<PickupItem> PickupItems;
+		public List<Goal> Goals;
 	
 		//This is a list of the pillar objects
 		public List<LandMark> Landmarks;
@@ -28,8 +29,6 @@ namespace data
 		//This list contains all pre-defined trials.
 		public List<Trial> TrialData;
 
-		//This is the wall height
-		public float WallHeight;
 
 		//Array of blocks
 		public List<BlockData> BlockList;
@@ -62,28 +61,32 @@ namespace data
 		[Serializable]
 		public class Trial
 		{
+			public int TimeToRotate; //How long the delay can last in the rotatio
+			public float WallHeight;			//This is the wall height
 			public int TwoDimensional; //Set to true iff trial is two dimensional
 			public string FileLocation; //Is not null iff FileLocation exists (Image for 1D trials)
 			public int EnvironmentType; //This is the environment type referenced.
 			public int Sides; //Number of sides present in the trial.
-			public string Color; //HEX color of the walls
+			public string WallColor; //HEX color of the walls
 			public int Radius; //Radius of the walls
-			public int PickupType; //Pickup type associated with the block
 			public int TimeAllotted; //Allotted amount of time
 			public int RandomLoc; //Whether or not the pickup has a random loaction
-			public int PickupVisible; //Visibility of the pickup
 			public string Header; //Note outputted out of the trial.
 			public MazeData Map;
-			public List<int> ActivePickups;
-			public List<int> InactivePickups;
+			public string GroundType;
+			public string GroundColor;
+			public List<int> ActiveInvisibleGoals;
+			public List<int> ActiveGoals;
+			public List<int> InactiveGoals;
 			public List<int> LandMarks;
 			public int Quota;
+			public List<float> CharacterStartPos; //The start position of the character (usually 0, 0)
 		}
-
+ 	
 
 		//This is the given PickupItem. Note that in the JSON, this is contained with an ARRAY
 		[Serializable]
-		public class PickupItem
+		public class Goal
 		{
 			//In general this will always be one unless necessary to implement in the future.
 			public string Tag; //The name of the pickup item
@@ -91,9 +94,9 @@ namespace data
 			public string SoundLocation; //The file path of the sound
 			public string PythonFile; //The python file that will generate the position
 			public float Size; //The size of the object
-			public string PrefabName; //The name of the prefab object
+			public string Type; //The name of the prefab object
 			public string ImageLoc;
-			public List<float> PickupLocation;
+			public List<float> Location;
  	
 		}
 
@@ -101,14 +104,9 @@ namespace data
 		[Serializable]	
 		public class Character
 		{
-			public float CamRotation; //This is the rotation of the initial pan of the field
 			public float MovementSpeed; //The movespeed of the character
 			public float RotationSpeed; //The rotation speed of the character
-			public int TimeToRotate; //How long the delay can last in the rotation
-			public string OutputFile; //The output file of the character's movements during an experiment
-			public List<float> CharacterStartPos; //The start position of the character (usually 0, 0)
-			public float CharacterBound;
-			public float PickupRotationSpeed;
+			public float GoalRotationSpeed;
 
 			public float Height;
 
@@ -123,11 +121,11 @@ namespace data
 		[Serializable]
 		public class LandMark
 		{
-			public List<float> LandmarkLocation;
+			public List<float> Location;
 			public float Length;
 			public float Width;
 			public float Height;
-			public string PrefabName;
+			public string Type;
 			public string Color;
 			public string ImageLoc;
 			public float InitialRotation { get; set; }

@@ -19,7 +19,6 @@ namespace trial
             t.BlockID = BlockID;
             t.TrialID = TrialID;
             t.TwoDim = Value.TwoDimensional;
-            t.Visible = Value.PickupVisible;
             t.LastX = t.TargetX;
             t.LastY = t.TargetY;
             t.TargetX = 0;
