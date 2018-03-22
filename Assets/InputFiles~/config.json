@@ -1,21 +1,13 @@
 {
     "OutputTimesPerSecond": 30,
-    "InstructionFile": "Instructions.xml",
-    "WallHeight" : 3,
     "CharacterData": {
-        "CamRotation": 10.0,
         "Height": 5,
         "MovementSpeed": 10.0,
         "RotationSpeed": 100.0,
-        "TimeToRotate": 0.5,
-        "OutputFile": "out.csv",
-        "CharacterBound": 0.5,
-        "DistancePickup": 2,
-        "PickupRotationSpeed" : 1,
-        "CharacterStartPos" : [0, 0]
+        "DistancePickup": 2
     },
-    
-    "BlockOrder" : [0],
+    "OutputFile": "temp.csv",
+    "BlockOrder" : [1],
     
     "BlockList" : [
       
@@ -47,117 +39,79 @@
             "TimeAllotted": -1
         },
         {
-            "Header": "Test-header",
-            "Index": 4,
-            "EnvironmentType": 2,
-            "TimeAllotted" : 1000000,
-            "Map":{
-                "TopLeft": [-10.0, 10.0],
-                "TileWidth": 1,
-                "Color": "0000ff",
-                "Map":
-                ["wwwwwwwwwwwwwwwwwwww",
-                 "ws00000000s00000000w",
-                 "w000000000000000000w",
-                 "w000000000000000000w",
-                 "w000000000000000000w",
-                 "w000000000000000000w",
-                 "w000000000000000000w",
-                 "w000000000100000000w",
-                 "w000000000000000000w",
-                 "w000000000000000000w",
-                 "w000000000000200000w",
-                 "w000000000000000000w",
-                 "w000000000000000000w",
-                 "wwwwwwwwwwwwwwwwwwww"
-                ]
-            }
-        },
 
-        {
+            "CharacterStartPos" : [0, 0],
+            "WallHeight" : 3,
+            "TimeToRotate": 0.5,
             "Header": "Test-header",
             "Index": 4,
         	"EnvironmentType": 2,
         	"Sides": 40,
-        	"Color": "00ff00",
-        	"PillarColor" : "00ff00",
+        	"WallColor": "00ff00",
+            "FloorType": "",
+            "_TODOOO===_TYPE_OF_FLOORS": ["Invisible", "Checker", "Solid"],
+            "GroundType": "Solid",
+            "GroundColor": "ffffff",
         	"Radius": 50,
         	"InitialAngle" : 0,
         	"TimeAllotted" : 100,
-            "PickupVisible" : 1,
         	"RandomLoc" : 0,
             "ActivePickups" : [1, 2],
             "InactivePickups" : [3],
             "LandMarks" :[1, 2],
             "Quota": 2
-        },
-         {
-            "Header": "Test-header 2D",
-          
-            "TwoDimensional" : 1,
-            "EnvironmentType" : 4,
-            "TimeAllotted" : 10
-        },       
-        {
-            "Index": 2,
-            "EnvironmentType": 0,
-            "Sides": 5,
-            "Color": "ff0000",
-        	"PillarColor" : "00ff00",
-            "Radius": 10,
-            "InitialAngle" : 0,
-            "PickupType" : 2,
-            "TimeAllotted" : 10,
-            "PickupVisible" : 0,
-            "RandomLoc" : 0
-        }
-        
+        }        
     ],
-    "PickupItems": [
+    "Goals": [
         {
             "Tag": "Food",
             "Color": "ffffff",
             "SoundLocation": "eat",
-            "PickupLocation": [5, 5],
+            "Location": [5, 5],
+            "GoalRotationSpeed" : 1,
+
             "Size": 1.0,
-            "PrefabName": "2DImageDisplayer",
+            "Type": "2DImageDisplayer",
             "ImageLoc" : "sprite.png"
         },
         {
+            "GoalRotationSpeed" : 1,
             "Tag": "Water",
             "Color": "0000ff",
             "SoundLocation": "drink",
-            "PickupLocation": [5, -5],
+            "Location": [5, -5],
             "Size": 1.0,
-            "PrefabName": "Pickup"
+            "Type": "Pickup"
         },
         {
+            "GoalRotationSpeed" : 1,
+
             "Tag": "Money",
             "Color": "00ff00",
-            "PickupLocation": [-5, -5, 2],
+            "Location": [-5, -5, 2],
 
             "SoundLocation": "money",
             "Size": 1.0,
-            "PrefabName": "Pickup"
+            "Type": "Pickup"
         }
     ],
     "Landmarks": [
         {
-            "LandmarkLocation": [5, 5, 0],
+            "Location": [5, 5, 0],
             "Length": 1.0,
             "Width": 1.0,
             "Height": 5.0,
-            "PrefabName": "Cube",
+            "Type": "Cube",
             "Color": "ff0000",
             "InitialAngle": 50
 
         },
            {
-            "LandmarkLocation": [5, 5, 10],
+            "Location": [5, 5, 10],
             "Length": 1.0,
             "Width": 1.0,
             "Height": 5.0,
-            "PrefabName": "2DImageDisplayer",
+            "Type": "2DImageDisplayer",
             "ImageLoc" : "sprite.png",
             "Color": "ffff00"
 
