@@ -4,7 +4,8 @@
         "Height": 5,
         "MovementSpeed": 10.0,
         "RotationSpeed": 100.0,
-        "DistancePickup": 2
+        "DistancePickup": 2,
+        "GoalRotationSpeed": 1
     },
     "OutputFile": "temp.csv",
     "BlockOrder" : [1],
@@ -56,8 +57,9 @@
         	"InitialAngle" : 0,
         	"TimeAllotted" : 100,
         	"RandomLoc" : 0,
-            "ActivePickups" : [1, 2],
-            "InactivePickups" : [3],
+            "ActiveGoals" : [1],
+            "InvisibleGoals" : [3],
+            "InactiveGoals" : [2],
             "LandMarks" :[1, 2],
             "Quota": 2
         }        
@@ -68,14 +70,12 @@
             "Color": "ffffff",
             "SoundLocation": "eat",
             "Location": [5, 5],
-            "GoalRotationSpeed" : 1,
 
             "Size": 1.0,
             "Type": "2DImageDisplayer",
             "ImageLoc" : "sprite.png"
         },
         {
-            "GoalRotationSpeed" : 1,
             "Tag": "Water",
             "Color": "0000ff",
             "SoundLocation": "drink",
@@ -84,7 +84,6 @@
             "Type": "Pickup"
         },
         {
-            "GoalRotationSpeed" : 1,
 
             "Tag": "Money",
             "Color": "00ff00",
