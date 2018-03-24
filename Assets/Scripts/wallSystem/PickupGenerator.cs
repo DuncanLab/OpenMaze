@@ -68,7 +68,7 @@ namespace wallSystem
 
 			var l1 = E.Get().CurrTrial.Value.ActiveGoals;
 			var l2 = E.Get().CurrTrial.Value.InactiveGoals;
-			var l3 = E.Get().CurrTrial.Value.ActiveInvisibleGoals;
+			var l3 = E.Get().CurrTrial.Value.InvisibleGoals;
 			var hashset = new HashSet<int>(l2);
 			var hashset2 = new HashSet<int>(l3);
 			

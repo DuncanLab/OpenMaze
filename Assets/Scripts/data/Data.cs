@@ -73,9 +73,9 @@ namespace data
 			public int RandomLoc; //Whether or not the pickup has a random loaction
 			public string Header; //Note outputted out of the trial.
 			public MazeData Map;
-			public string GroundType;
+			public int GroundType;
 			public string GroundColor;
-			public List<int> ActiveInvisibleGoals;
+			public List<int> InvisibleGoals;
 			public List<int> ActiveGoals;
 			public List<int> InactiveGoals;
 			public List<int> LandMarks;

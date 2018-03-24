@@ -32,9 +32,9 @@ namespace wallSystem
 
 			SetupColours ();
 			GenerateWalls();
-			if (E.Get().CurrTrial.Value.GroundType.Equals("Checker"))
+			if (E.Get().CurrTrial.Value.GroundType == 2)
 				GenerateCheckerBoard();
-			else if (E.Get().CurrTrial.Value.GroundType.Equals("Solid"))
+			else if (E.Get().CurrTrial.Value.GroundType == 1)
 			{
 				var col = Data.GetColour(E.Get().CurrTrial.Value.GroundColor);
 
