@@ -145,7 +145,7 @@ namespace wallSystem
 			//This sets the initial angle to the one given in the preset
 			float currentAngle = 0;
 
-			GameObject.Find("Ground").transform.localScale *= E.Get().CurrTrial.Value.Radius / 10f;
+			GameObject.Find("Ground").transform.localScale *= E.Get().CurrTrial.Value.Radius / 20f;
 			//Here we interate through all the sides
 			for (var i = 0; i < E.Get().CurrTrial.Value.Sides; i++)
 			{
