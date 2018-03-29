@@ -15,7 +15,8 @@ namespace trial
         }
 
         public override void PreEntry(TrialProgress t, bool first = true)
-        {
+        {   
+            //Sets the field of the preentry
             base.PreEntry(t, first);
             t.EnvironmentType = Value.EnvironmentType;
             t.Sides = Value.Sides;

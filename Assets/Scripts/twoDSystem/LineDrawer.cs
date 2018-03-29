@@ -6,6 +6,7 @@ using E = main.Loader;
 using DS = data.DataSingleton;
 namespace twoDSystem
 {
+	//See generatewall but more ghetto
 	public class LineDrawer : MonoBehaviour
 	{
 		public GameObject Wall;

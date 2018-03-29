@@ -31,7 +31,9 @@ namespace trial
                 block.RandomTrialType.Remove(d);
             }
             Debug.Log("RANDOM TRIAL CREATION");
-
+            
+            
+            //Need this to remove the previously generated random trials.
             while (_numGenerated > 0)
             {
                 next = next.next;

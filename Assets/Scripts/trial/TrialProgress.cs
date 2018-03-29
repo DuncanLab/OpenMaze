@@ -6,6 +6,7 @@ using main;
 
 namespace trial
 {
+    //The is a data container that pumps data forward through the trials.
     public class TrialProgress
     {
         public AbstractTrial PreviousTrial;

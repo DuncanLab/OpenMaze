@@ -18,7 +18,7 @@ public class GenerateMazeFromFile : MonoBehaviour {
 		var m = L.Get().CurrTrial.Value.Map;
 		var y = m.TopLeft[1];
 		
-
+		//Goes through each map and initializes it based on stuff.
 		foreach (var row in m.Map)
 		{
 			var x = m.TopLeft[0];
@@ -36,7 +36,7 @@ public class GenerateMazeFromFile : MonoBehaviour {
 				else if (col == 's')
 				{
 					Debug.Log(x + " " + y);
-					GameObject.Find("FirstPerson").GetComponent<PlayerController>().ExternalStart(x, y);
+					GameObject.Find("FirstPerson").GetComponent<PlayerController>().ExternalStart(x, y, true);
 				}
 				else if (col != '0')
 				{

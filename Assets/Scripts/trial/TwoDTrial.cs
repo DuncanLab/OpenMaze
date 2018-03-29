@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 namespace trial
 {
+    //This is a two dimensional trial
     public class TwoDTrial : TimeoutableTrial
     {
         public TwoDTrial(int blockId, int trialId) : base(blockId, trialId)

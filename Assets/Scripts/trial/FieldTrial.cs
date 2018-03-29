@@ -23,7 +23,8 @@ namespace trial
             
             TrialProgress = new TrialProgress();
             _fields = fields;
-
+            
+            //This block of code basically calls the directory picker to select the configuration file.
             while (true)
             {
                 var p = new Process
@@ -129,7 +130,7 @@ namespace trial
         public override void Update(float deltaTime)
         {
             base.Update(deltaTime);
-        
+            //Sets the data.
             if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Joystick1Button0))
             {
                 

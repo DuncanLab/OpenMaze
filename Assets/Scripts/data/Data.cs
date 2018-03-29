@@ -72,14 +72,14 @@ namespace data
 			public int TimeAllotted; //Allotted amount of time
 			public int RandomLoc; //Whether or not the pickup has a random loaction
 			public string Header; //Note outputted out of the trial.
-			public MazeData Map;
-			public int GroundType;
-			public string GroundColor;
-			public List<int> InvisibleGoals;
-			public List<int> ActiveGoals;
-			public List<int> InactiveGoals;
-			public List<int> LandMarks;
-			public int Quota;
+			public MazeData Map; //The Map saved mazedata
+			public int GroundType; //The type of the ground [0, 1, 2]
+			public string GroundColor; //Colour of the ground
+			public List<int> InvisibleGoals; //The goal that are active and invisible
+			public List<int> ActiveGoals; //Goals that are active and visible
+			public List<int> InactiveGoals; //Goals that are visible but inactive
+			public List<int> LandMarks; //List of all land marks
+			public int Quota; //The quota that the person needs to pick up before the next trial is switched too
 			public List<float> CharacterStartPos; //The start position of the character (usually 0, 0)
 		}
  	
@@ -95,8 +95,8 @@ namespace data
 			public string PythonFile; //The python file that will generate the position
 			public float Size; //The size of the object
 			public string Type; //The name of the prefab object
-			public string ImageLoc;
-			public List<float> Location;
+			public string ImageLoc; //The location of the image file associated with the goal
+			public List<float> Location; //The location of the goal (MAY BE [X, Y, Z] OR [X, Y])
  	
 		}
 
@@ -106,11 +106,9 @@ namespace data
 		{
 			public float MovementSpeed; //The movespeed of the character
 			public float RotationSpeed; //The rotation speed of the character
-			public float GoalRotationSpeed;
-
-			public float Height;
-
-			public float DistancePickup;
+			public float GoalRotationSpeed; //The rotation speed of the goals
+			public float Height; //The height of the character
+			public float DistancePickup; //The min distance of the pickup to the character
 		}
 
 
@@ -121,26 +119,26 @@ namespace data
 		[Serializable]
 		public class LandMark
 		{
-			public List<float> Location;
+			public List<float> Location; //Location of the landmarkk
 			public float Length;
 			public float Width;
-			public float Height;
+			public float Height; //These should be obvious...
 			public string Type;
-			public string Color;
-			public string ImageLoc;
-			public float InitialRotation { get; set; }
+			public string Color; //Color as a hex value
+			public string ImageLoc; //The location (for 2Dimagedisplayer)
+			public float InitialRotation { get; set; } 
 		}
 	
-		//=========================== END OF JSON FIELDS ==========================================
 		
 		[Serializable]
 		public class MazeData
 		{
-			public List<float> TopLeft;
+			public List<float> TopLeft; //The top left of the maze
 			public float TileWidth;
 			public List<string> Map;
 			public string Color;
 		}
+		//=========================== END OF JSON FIELDS ==========================================
 
 		//This function converts the hex value to Colour.
 		public static Color GetColour(string hex)

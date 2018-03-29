@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using data;
 using main;
 using trial;
@@ -55,8 +56,8 @@ namespace wallSystem
 
 		}
 
-
-		public void ExternalStart(float pickX, float pickY)
+		//Start the character. //If init from maze, this allows "s" to determine the start position
+		public void ExternalStart(float pickX, float pickY, bool maze = false)
 		{
 			TrialProgress.GetCurrTrial().TrialProgress.TargetX = pickX;
 			TrialProgress.GetCurrTrial().TrialProgress.TargetY = pickY;			
@@ -81,6 +82,8 @@ namespace wallSystem
 			else
 			{
 				var p = E.Get().CurrTrial.Value.CharacterStartPos;
+				if (maze)
+					p = new List<float>() {pickX, pickY};
 				transform.position = new Vector3(p[0], 0.5f, p[1]);
 				var v = Cam.transform.position;
 				v.y = DS.GetData().CharacterData.Height;
@@ -132,16 +135,18 @@ namespace wallSystem
 			transform.Rotate(0, rotation, 0);
 
 		}
-
+	
+		
 		private void Update()
 		{
 	
-			 
+			 //This first block is for the initial rotation of the character
 			if (_currDelay < _waitTime)
 			{
 				var angle = 360f * _currDelay / _waitTime + _iniRotation - transform.rotation.eulerAngles.y;
 				transform.Rotate(new Vector3(0, angle, 0));
 			}
+			//We need to not continue if there is audio playing, so we just pause here.
 			else if (_playingSound)
 			{
 				if (!GetComponent<AudioSource>().isPlaying)
@@ -151,13 +156,16 @@ namespace wallSystem
 				}
 			}
 			else
-			{
+			{	
+				//This section rotates the camera (potentiall up 15 degrees), basically deprecated code.
 				if (!_reset)
 				{
 					Cam.transform.Rotate (0, 0, 0);
 					_reset = true;
 					TrialProgress.GetCurrTrial().ResetTime();
 				}
+				
+				//Move the character.
 				ComputeMovement();
 				E.LogData(
 					TrialProgress.GetCurrTrial().TrialProgress, 

@@ -9,7 +9,7 @@ namespace main
 {
 	public class ProgressionTextSetter : MonoBehaviour
 	{
-
+		//Sets the image of the loading screen.
 		public void Start()
 		{
 			Debug.Log("Entering Loading Screen: " + E.Get().CurrTrial.TrialID);

@@ -14,22 +14,28 @@ namespace main
 	/// </summary>
 	public class Loader : MonoBehaviour
 	{
+		
+		//Singleton function
 		public static Loader Get()
 		{
 			return GameObject.Find("Loader").GetComponent<Loader>();
 		}
-		public InputField[] Fields;
-
+		public InputField[] Fields; //These are an array of the fields given from the field trials
+	
+		private static float _timer = 0;
+		
+		//An "abstract trial". Classic polymorphism.
 		public AbstractTrial CurrTrial;
 
 		
-		
+		//Unity method
 		private void Start () {
 			DontDestroyOnLoad(this);
 			CurrTrial = new FieldTrial(Fields);
+			//Initialize the default field trial, see this later.
 		}
 
-
+		//This function initializes the Data.singleton files
 		public static bool ExternalActivation(string inputFile)
 		{
 			if (!inputFile.Contains(".json")) return false;
@@ -44,7 +50,7 @@ namespace main
 		}
 
 
-
+		//The top of the csv
 		public static void LogFirst()
 		{
 			using (var writer = new StreamWriter ("Assets/OutputFiles~/" + DS.GetData ().OutputFile, false))
@@ -59,8 +65,7 @@ namespace main
 			}	
 		}
 
-		private static float _timer = 0;
-		
+		//Logs the data out to the csv.
 		public static void LogData(TrialProgress s, float timestamp, Transform t, int targetFound = 0)
 		{
 			if (_timer > 1f / (DS.GetData().OutputTimesPerSecond == 0 ? 1000 : DS.GetData().OutputTimesPerSecond) || targetFound == 1)

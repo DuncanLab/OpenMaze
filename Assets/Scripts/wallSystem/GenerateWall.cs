@@ -71,7 +71,7 @@ namespace wallSystem
 			
 		}
 
-
+		//Generates the landmarks, pretty similar to the data in pickup.
 		private void GenerateLandmarks()
 		{
 			foreach (var p in E.Get().CurrTrial.Value.LandMarks)
