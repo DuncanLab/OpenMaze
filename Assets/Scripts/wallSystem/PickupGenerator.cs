@@ -71,6 +71,7 @@ namespace wallSystem
 			var l3 = E.Get().CurrTrial.Value.InvisibleGoals;
 			var hashset = new HashSet<int>(l2);
 			var hashset2 = new HashSet<int>(l3);
+			var hashset3 = new HashSet<int>(l1);
 			
 			var merged = new List<int>();
 			merged.AddRange(l1);
@@ -134,6 +135,10 @@ namespace wallSystem
 					obj.GetComponent<Renderer>().material.color = color;
 					obj.GetComponent<Renderer>().enabled = !hashset2.Contains(val);
 					obj.GetComponent<Collider>().enabled = !hashset.Contains(val);
+					if (hashset3.Contains(val))
+					{
+						obj.tag = "Pickup";
+					}
 				}
 				catch (Exception _)
 				{
