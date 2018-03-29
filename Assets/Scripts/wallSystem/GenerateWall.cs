@@ -139,6 +139,8 @@ namespace wallSystem
 		//This function creates the walls
 		private void GenerateWalls()
 		{
+			if ((int)E.Get().CurrTrial.Value.WallHeight == 0) return;
+
 			//This computes the current interior angle of the given side.
 			var interiorAngle = 360f / E.Get().CurrTrial.Value.Sides; //This is, of course, given as 360 / num sides
 
@@ -159,10 +161,10 @@ namespace wallSystem
 				//Desealing some stuff. so, bad.
 				var length = 2 * E.Get().CurrTrial.Value.Radius * Tan(180f / E.Get().CurrTrial.Value.Sides);
 				
-			
+				
 				//Here we create the wall
 				var obj = Instantiate(Wall,
-					new Vector3(x, E.Get().CurrTrial.Value.WallHeight/2, y),
+					new Vector3(x, E.Get().CurrTrial.Value.WallHeight/2 - .1f, y),
 					Quaternion.identity
 				);
 
