@@ -126,7 +126,7 @@ namespace data
 			public string Type;
 			public string Color; //Color as a hex value
 			public string ImageLoc; //The location (for 2Dimagedisplayer)
-			public float InitialRotation { get; set; } 
+			public int InitialRotation;
 		}
 	
 		

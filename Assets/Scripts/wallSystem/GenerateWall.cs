@@ -84,14 +84,15 @@ namespace wallSystem
 				landmark.transform.localScale = new Vector3(d.Length, d.Height, d.Width);
 				try
 				{
-					landmark.transform.position = new Vector3(d.Location[0], d.Location[1], d.Location[2]);
+					landmark.transform.position = new Vector3(d.Location[0], d.Location[2], d.Location[1]);
 				}
 				catch (Exception _)
 				{
-					landmark.transform.position = new Vector3(d.Location[0], d.Location[1], 0.5f);
+					landmark.transform.position = new Vector3(d.Location[0], 0.5f, d.Location[1]);
 					
 				}
 
+				print(d.InitialRotation);
 				landmark.transform.Rotate(new Vector3(0, 1, 0), d.InitialRotation);
 				
 				

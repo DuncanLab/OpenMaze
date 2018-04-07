@@ -1,7 +1,7 @@
 {
     "OutputTimesPerSecond": 30,
     "CharacterData": {
-        "Height": 5,
+        "Height": 0.5,
         "MovementSpeed": 10.0,
         "RotationSpeed": 100.0,
         "DistancePickup": 2,
@@ -43,24 +43,20 @@
 
             "CharacterStartPos" : [0, 0],
             "WallHeight" : 3,
-            "TimeToRotate": 0.5,
+            "TimeToRotate": 0.1,
             "Header": "Test-header",
             "Index": 4,
         	"EnvironmentType": 2,
         	"Sides": 40,
         	"WallColor": "00ff00",
-            "FloorType": "",
-            "_TODOOO===_TYPE_OF_FLOORS": ["Invisible", "Checker", "Solid"],
+            "FloorType": 0,
             "GroundType": "Solid",
             "GroundColor": "ffffff",
-        	"Radius": 50,
+        	"Radius": 10,
         	"InitialAngle" : 0,
-        	"TimeAllotted" : 100,
+        	"TimeAllotted" : 20,
         	"RandomLoc" : 0,
-            "ActiveGoals" : [1],
-            "InvisibleGoals" : [3],
-            "InactiveGoals" : [2],
-            "LandMarks" :[1, 2],
+            "LandMarks" : [1, 2],
             "Quota": 2
         }        
     ],
@@ -71,7 +67,7 @@
             "SoundLocation": "eat",
             "Location": [5, 5],
 
-            "Size": 1.0,
+            "Size": 5.0,
             "Type": "2DImageDisplayer",
             "ImageLoc" : "sprite.png"
         },
@@ -102,7 +98,17 @@
             "Height": 5.0,
             "Type": "Cube",
             "Color": "ff0000",
-            "InitialAngle": 50
+            "InitialRotation": 75
+
+        },
+        {
+            "Location": [5, -5, 0],
+            "Length": 1.0,
+            "Width": 1.0,
+            "Height": 5.0,
+            "Type": "Cube",
+            "Color": "ff0000",
+            "InitialRotation": 0
 
         },
            {
