@@ -81,9 +81,9 @@ namespace wallSystem
 
 			foreach (var val in merged)
 			{
-			
+
+				print(val);
 				var item = DS.GetData().Goals[Mathf.Abs(val) - 1];
-				gen.SetWaveSrc(item.SoundLocation);
 
 
 				//Here is the text to determine the type of food that exists here
@@ -120,8 +120,12 @@ namespace wallSystem
 				if (!item.Type.Equals("2DImageDisplayer"))
 					obj.AddComponent<RotateBlock>();
 
+				obj.AddComponent<PickupSound>();
+
+				obj.GetComponent<PickupSound>().Sound = Resources.Load<AudioClip>("Audio/" + item.SoundLocation);
+
 				obj.transform.localScale *= item.Size;
-				obj.transform.position = new Vector3(p.X, p.Z, p.Y);
+				obj.transform.position = new Vector3(p.X, p.Y, p.Z);
 				var sprite = item.ImageLoc;
 				if (sprite != null)
 				{

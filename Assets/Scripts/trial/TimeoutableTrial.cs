@@ -1,4 +1,6 @@
-﻿using JetBrains.Annotations;
+﻿using Gaia.FullSerializer;
+using JetBrains.Annotations;
+using UnityEngine;
 
 namespace trial
 {
@@ -20,6 +22,7 @@ namespace trial
             
             if (_runningTime > _threshHold)
             {
+                Debug.Log(_runningTime);
                 Progress();
             }
         }

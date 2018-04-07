@@ -11,7 +11,6 @@ namespace trial
         
         public ThreeDTrial(int blockId, int trialId) : base(blockId, trialId)
         {
-            
         }
 
         public override void PreEntry(TrialProgress t, bool first = true)
@@ -27,7 +26,10 @@ namespace trial
             t.LastY = t.TargetY;
             t.TargetX = 0;
             t.TargetY = 0;
+            _runningTime -= Value.TimeToRotate;
+
             SceneManager.LoadScene(Value.EnvironmentType);
+
         }
 
         public override void Progress()

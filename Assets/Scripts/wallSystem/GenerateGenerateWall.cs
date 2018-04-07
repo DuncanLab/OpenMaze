@@ -23,37 +23,15 @@ namespace wallSystem
 		private GameObject _currCreate; 
 	
 		//This is the current audioclip associated with the pickup item. This is retrived from the input.json file
-		private AudioClip _audioClip;
 	
 		//This is the current running timestamp that is outputted to the outputfile.
 		private float _timestamp;
 	
 		//------------------------------------------------------
 		//These two functions are getters and setters to the wave src file.	
-	
-		public void SetWaveSrc(string file)
-		{
 
-			var wavSrc = "Audio\\" + file;
 
-			_audioClip = Resources.Load<AudioClip>(wavSrc);
-		}
 
-		public AudioClip GetWaveSrc()
-		{
-			return _audioClip;
-		}
-
-		//-----------------------------This is the ResetCreate data structure----------------
-		public void ResetCreate()
-		{	
-			//We destroy the current currcreate object
-			Destroy(_currCreate);
-		
-			//And then we reinstantiate it
-			_currCreate = Instantiate(Create);
-		}
-	
 
 		//------------------- This is the inbuilt unity functions
 

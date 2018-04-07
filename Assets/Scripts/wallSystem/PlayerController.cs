@@ -97,8 +97,8 @@ namespace wallSystem
 		{
 			if (!other.gameObject.CompareTag("Pickup")) return;
 
-
-			GetComponent<AudioSource> ().PlayOneShot (_gen.GetWaveSrc (), 1);
+			
+			GetComponent<AudioSource> ().PlayOneShot (other.gameObject.GetComponent<PickupSound>().Sound, 10);
 			Destroy (other.gameObject);
 			if (--localQuota > 0) return;
 			E.Get().CurrTrial.Notify();
