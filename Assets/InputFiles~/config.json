@@ -56,7 +56,6 @@
         	"InitialAngle" : 0,
         	"TimeAllotted" : 20,
         	"RandomLoc" : 0,
-            "LandMarks" : [1, 2],
             "Quota": 2
         }        
     ],
@@ -66,8 +65,9 @@
             "Color": "ffffff",
             "SoundLocation": "eat",
             "Location": [5, 5],
-
-            "Size": 5.0,
+            "Length": 2,
+            "Width": 2,
+            "Height": 2,
             "Type": "2DImageDisplayer",
             "ImageLoc" : "sprite.png"
         },
@@ -75,18 +75,22 @@
             "Tag": "Water",
             "Color": "0000ff",
             "SoundLocation": "drink",
+            
             "Location": [5, -5],
-            "Size": 1.0,
-            "Type": "Pickup"
+            "Length": 2,
+            "Width": 2,
+            "Height": 2,
+            "Type": "Cube"
         },
         {
 
             "Tag": "Money",
             "Color": "00ff00",
             "Location": [-5, -5, 2],
-
+            "Length": 2,
+            "Width": 2,
+            "Height": 2,
             "SoundLocation": "money",
-            "Size": 1.0,
             "Type": "Pickup"
         }
     ],

@@ -41,12 +41,22 @@ namespace wallSystem
 		
 		private void Start()
 		{
+			var goalText = GameObject.Find("Goal").GetComponent<Text>();
+			goalText.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 30);
+
+			//And this section sets the text.
+			goalText.text = E.Get().CurrTrial.Value.Header;
+			goalText.color = Color.white;
+
+
+			
+			
 			Random.InitState(DateTime.Now.Millisecond);
 
 			_currDelay = 0;
-			_iniRotation = Random.Range (0, 360);
 			
-			transform.Rotate (new Vector3 (0, _iniRotation, 0));
+			transform.Rotate(0, E.Get().CurrTrial.Value.InitialAngle, 0, Space.World);
+
 			_controller = GetComponent<CharacterController>();
 			_gen = GameObject.Find("WallCreator").GetComponent<GenerateGenerateWall>();
 			Cam.transform.Rotate (0, 0, 0);
@@ -61,6 +71,7 @@ namespace wallSystem
 		{
 			TrialProgress.GetCurrTrial().TrialProgress.TargetX = pickX;
 			TrialProgress.GetCurrTrial().TrialProgress.TargetY = pickY;			
+
 			if (E.Get().CurrTrial.Value.RandomLoc == 1)
 			{
 				var i = 0;
@@ -90,7 +101,7 @@ namespace wallSystem
 				Cam.transform.position = v;
 			}
 		}
-		
+
 
 		//This is the collision system.
 		private void OnTriggerEnter(Collider other)

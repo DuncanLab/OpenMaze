@@ -81,6 +81,8 @@ namespace data
 			public List<int> LandMarks; //List of all land marks
 			public int Quota; //The quota that the person needs to pick up before the next trial is switched too
 			public List<float> CharacterStartPos; //The start position of the character (usually 0, 0)
+			public int InitialAngle;
+
 		}
  	
 
@@ -93,7 +95,9 @@ namespace data
 			public string Color; //The colour in Hex without #
 			public string SoundLocation; //The file path of the sound
 			public string PythonFile; //The python file that will generate the position
-			public float Size; //The size of the object
+			public float Length;
+			public float Width;
+			public float Height;
 			public string Type; //The name of the prefab object
 			public string ImageLoc; //The location of the image file associated with the goal
 			public List<float> Location; //The location of the goal (MAY BE [X, Y, Z] OR [X, Y])

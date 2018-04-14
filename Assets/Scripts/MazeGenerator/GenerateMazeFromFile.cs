@@ -52,8 +52,8 @@ public class GenerateMazeFromFile : MonoBehaviour {
 
 											
 					}
-			
-					obj.transform.localScale *= item.Size;
+					obj.transform.localScale = new Vector3(item.Length, item.Height, item.Width);
+
 					obj.transform.position = new Vector3 (x, 0.5f, y);
 					var sprite = item.ImageLoc;
 
@@ -64,7 +64,7 @@ public class GenerateMazeFromFile : MonoBehaviour {
 				
 				
 				x += m.TileWidth;
-
+	
 			}
 
 			y -= m.TileWidth;

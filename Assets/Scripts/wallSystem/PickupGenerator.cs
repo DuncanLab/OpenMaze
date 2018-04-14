@@ -62,35 +62,29 @@ namespace wallSystem
 
 			_destroy = new List<GameObject>(); //This initializes the food object destroy list
 
-			var goalText = GameObject.Find("Goal").GetComponent<Text>();
-			goalText.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 30);
-
-
-			var l1 = E.Get().CurrTrial.Value.ActiveGoals;
-			var l2 = E.Get().CurrTrial.Value.InactiveGoals;
-			var l3 = E.Get().CurrTrial.Value.InvisibleGoals;
-			var hashset = new HashSet<int>(l2);
-			var hashset2 = new HashSet<int>(l3);
-			var hashset3 = new HashSet<int>(l1);
+			
+			var activeGoals = E.Get().CurrTrial.Value.ActiveGoals;
+			var inactiveGoals = E.Get().CurrTrial.Value.InactiveGoals;
+			var invisibleGoals = E.Get().CurrTrial.Value.InvisibleGoals;
+			var inactiveSet = new HashSet<int>(inactiveGoals);
+			var invisibleSet = new HashSet<int>(invisibleGoals);
+			var activeSet = new HashSet<int>(activeGoals);
 			
 			var merged = new List<int>();
-			merged.AddRange(l1);
-			merged.AddRange(l2);
-			merged.AddRange(l3);
+			merged.AddRange(activeGoals);
+			merged.AddRange(inactiveGoals);
+			merged.AddRange(invisibleGoals);
 
 
 			foreach (var val in merged)
 			{
 
-				print(val);
 				var item = DS.GetData().Goals[Mathf.Abs(val) - 1];
 
 
 				//Here is the text to determine the type of food that exists here
 
-				//And this section sets the text.
-				goalText.text = E.Get().CurrTrial.Value.Header;
-				goalText.color = Color.white;
+			
 				Data.Point p;
 
 				if (item.Location == null)
@@ -124,7 +118,7 @@ namespace wallSystem
 
 				obj.GetComponent<PickupSound>().Sound = Resources.Load<AudioClip>("Audio/" + item.SoundLocation);
 
-				obj.transform.localScale *= item.Size;
+				obj.transform.localScale = new Vector3(item.Length, item.Height, item.Width);
 				obj.transform.position = new Vector3(p.X, p.Y, p.Z);
 				var sprite = item.ImageLoc;
 				if (sprite != null)
@@ -137,11 +131,12 @@ namespace wallSystem
 				try
 				{
 					obj.GetComponent<Renderer>().material.color = color;
-					obj.GetComponent<Renderer>().enabled = !hashset2.Contains(val);
-					obj.GetComponent<Collider>().enabled = !hashset.Contains(val);
-					if (hashset3.Contains(val) || hashset2.Contains(val))
+					obj.GetComponent<Renderer>().enabled = !invisibleSet.Contains(val);
+					obj.GetComponent<Collider>().enabled = !inactiveSet.Contains(val);
+					if (activeSet.Contains(val) || invisibleSet.Contains(val))
 					{
 						obj.tag = "Pickup";
+						obj.GetComponent<Collider>().isTrigger = true;
 					}
 				}
 				catch (Exception _)
