@@ -101,6 +101,8 @@ namespace data
 			public string Type; //The name of the prefab object
 			public string ImageLoc; //The location of the image file associated with the goal
 			public List<float> Location; //The location of the goal (MAY BE [X, Y, Z] OR [X, Y])
+			public int InitialRotation;
+
  	
 		}
 

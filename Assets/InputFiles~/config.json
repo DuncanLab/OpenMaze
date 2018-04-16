@@ -56,7 +56,8 @@
         	"InitialAngle" : 0,
         	"TimeAllotted" : 20,
         	"RandomLoc" : 0,
-            "Quota": 2
+            "Quota": 2,
+            "ActiveGoals": [2]
         }        
     ],
     "Goals": [
@@ -80,7 +81,9 @@
             "Length": 2,
             "Width": 2,
             "Height": 2,
-            "Type": "Cube"
+            "Type": "Cube",
+            "InitialRotation": 50
+
         },
         {
 

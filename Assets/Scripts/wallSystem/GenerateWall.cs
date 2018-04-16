@@ -92,7 +92,6 @@ namespace wallSystem
 					
 				}
 
-				print(d.InitialRotation);
 				landmark.transform.Rotate(new Vector3(0, 1, 0), d.InitialRotation);
 				
 				
