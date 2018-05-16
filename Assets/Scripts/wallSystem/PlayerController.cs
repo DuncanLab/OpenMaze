@@ -77,8 +77,9 @@ namespace wallSystem
 				var v = Random.insideUnitCircle * E.Get().CurrTrial.Value.Radius * 0.9f;
 				var mag = Vector3.Distance(v, new Vector2(pickX, pickY));
 				transform.position = new Vector3(v.x, 0.5f, v.y);
-				v.y = DS.GetData().CharacterData.Height;
-				Cam.transform.position = v;
+				var camPos = Cam.transform.position;
+				camPos.y = DS.GetData().CharacterData.Height;
+				Cam.transform.position = camPos;
 			}
 			else
 			{
@@ -86,9 +87,9 @@ namespace wallSystem
 				if (maze)
 					p = new List<float>() {pickX, pickY};
 				transform.position = new Vector3(p[0], 0.5f, p[1]);
-				var v = Cam.transform.position;
-				v.y = DS.GetData().CharacterData.Height;
-				Cam.transform.position = v;
+				var camPos = Cam.transform.position;
+				camPos.y = DS.GetData().CharacterData.Height;
+				Cam.transform.position = camPos;
 			}
 		}
 

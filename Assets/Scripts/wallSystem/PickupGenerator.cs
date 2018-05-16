@@ -76,7 +76,7 @@ namespace wallSystem
 			merged.AddRange(inactiveGoals);
 			merged.AddRange(invisibleGoals);
 
-
+			Data.Point p = new Data.Point{X = 0, Y = 0, Z = 0};
 			foreach (var val in merged)
 			{
 
@@ -86,7 +86,7 @@ namespace wallSystem
 				//Here is the text to determine the type of food that exists here
 
 			
-				Data.Point p;
+
 				
 				if (item.Location.Count == 0)
 				{
@@ -148,7 +148,7 @@ namespace wallSystem
 
 				_destroy.Add(obj);
 			}
-			GameObject.Find("FirstPerson").GetComponent<PlayerController>().ExternalStart(0, 0);
+			GameObject.Find("FirstPerson").GetComponent<PlayerController>().ExternalStart(p.X, p.Z);
 
 		}
 
