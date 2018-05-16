@@ -1,0 +1,102 @@
+
+
+{
+    "OutputTimesPerSecond": 30,
+    "CHARACTER DATA": "CHARACTER DATA----------*********-------------------CHARACTER DATA",
+    "CharacterData": {
+        "Height": 2,
+        "MovementSpeed": 10.0,
+        "RotationSpeed": 100.0,
+        "DistancePickup": 2,
+        "GoalRotationSpeed": 0
+    },
+
+"BLOCK DATA" : "BLOCK DATA---------------------*********--------------------BLOCK DATA",   
+   
+    "BlockOrder" : [1],
+    
+    "BlockList" : [
+        {
+            "BlockName" : "1 - 3dTrials",
+              "Notes" : "n/a",
+              "TrialOrder": [
+                 1
+                ]
+        }
+    ],
+
+"TRIAL DATA" : "TRIAL DATA--------------------*********------------------TRIAL DATA",
+    
+    "TrialData": [
+        {
+            "1" : "3D Trial 1",
+            "Index": 4,
+            "Header": "Header",
+            "TimeAllotted" : 10,
+            "EnvironmentType": 3,
+            "RandomLoc" : 0,
+            "CharacterStartPos" : [-40, 40],
+            "InitialAngle" : 0,
+            "TimeToRotate": 0.5,
+            "Sides": 4,
+            "Radius": 15,
+            "WallHeight" : 0,
+            "WallColor": "515A5A",
+            "GroundType": 0,
+            "GroundColor": "515A5A",
+            "ActiveGoals" : [],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 0,
+            "LandMarks" :[1]
+        }  
+    ],
+
+"GOAL DATA" : "GOAL DATA--------------------*********------------------GOAL DATA",
+
+    "Goals": [
+        {
+            "Goal 1" : "Red Goal",
+            "Type": "Pickup",
+            "Tag": "1",
+            "Color": "ff0000",
+            "Location": [8,0.5,8],
+            "Size": 1
+        }
+    ],
+
+"LANDMARK DATA" : "LANDMARK DATA----------*********------------------LANDMARK DATA",
+
+    "Landmarks": [
+        {
+            "Landmark 1" : "Red Sphere",
+            "Type": "Sphere",
+            "Color": "ff0000",
+            "Location": [0, 0, 0],
+            "Length": 10.0,
+            "Width": 10.0,
+            "Height": 10.0,
+            "InitialRotation": 0
+        },
+        {
+            "Landmark 2" : "Blue Sphere",
+            "Location": [0, 0, 10],
+            "Length": 10.0,
+            "Width": 10.0,
+            "Height": 10.0,
+            "Type": "Sphere",
+            "Color": "0000ff",
+            "InitialRotation": 0
+        },
+        {
+            "Landmark 3" : "Green Sphere",
+            "Location": [0, 10, 0],
+            "Length": 10.0,
+            "Width": 10.0,
+            "Height": 10.0,
+            "Type": "Sphere",
+            "Color": "00ff00",
+            "InitialRotation": 0
+        }
+    ]
+}

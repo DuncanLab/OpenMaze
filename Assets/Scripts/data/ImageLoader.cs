@@ -11,13 +11,17 @@
         // Usage from any other script:
         // MySprite = IMG2Sprite.instance.LoadNewSprite(FilePath, [PixelsPerUnit (optional)])
  
-        public static Sprite LoadNewSprite(string filePath, float pixelsPerUnit = 100.0f, SpriteMeshType spriteType = SpriteMeshType.Tight)
+        public static Sprite LoadNewSprite(string filePath, SpriteMeshType spriteType = SpriteMeshType.Tight)
         {
  
             // Load a PNG or JPG image from disk to a Texture2D, assign this texture to a new sprite and return its reference
-
+            
+            
             var spriteTexture = LoadTexture(filePath);
-            var newSprite = Sprite.Create(spriteTexture, new Rect(0, 0, spriteTexture.width, spriteTexture.height), new Vector2(0, 0), pixelsPerUnit, 0 , spriteType);
+            float max = Mathf.Min(spriteTexture.width, spriteTexture.height);
+            
+            var newSprite = 
+                Sprite.Create(spriteTexture, new Rect(0, 0, spriteTexture.width, spriteTexture.height), new Vector2(spriteTexture.width/2.0f/max, 0), max, 0 , spriteType);
  
             return newSprite;
         }

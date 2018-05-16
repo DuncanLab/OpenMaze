@@ -1,0 +1,116 @@
+{
+    "OutputTimesPerSecond": 30,
+    "CHARACTER DATA": "CHARACTER DATA----------*********-------------------CHARACTER DATA",
+    "CharacterData": {
+        "Height": 2,
+        "MovementSpeed": 10.0,
+        "RotationSpeed": 100.0,
+        "DistancePickup": 2
+    },
+
+"BLOCK DATA" : "BLOCK DATA---------------------*********--------------------BLOCK DATA",   
+   
+    "BlockOrder" : [1],
+    
+    "BlockList" : [
+        {
+            "BlockName" : "1 - Instructions",
+              "Notes" : "n/a",
+              "TrialOrder": [
+                 1, 2
+                ]
+        },
+        {
+            "BlockName" : "2 - 3D trials",
+              "Notes" : "n/a",
+              "TrialOrder": [
+                 4,4
+                ]
+        }
+    ],
+
+"TRIAL DATA" : "TRIAL DATA--------------------*********------------------TRIAL DATA",
+    
+    "TrialData": [
+        {
+            "1" : "Welcome",
+            "FileLocation": "Tutorial1/Welcome.png",
+            "TimeAllotted": -1
+        },
+        {
+            "2" : "Movement Instructions",
+            "FileLocation": "Tutorial1/mvinst.png",
+            "TimeAllotted": -1
+        },
+        {
+            "3" : "End Screen",
+            "FileLocation": "Tutorial1/End.png",
+            "TimeAllotted": -1
+        },
+        {
+            "4" : "3D Trial 1",
+            "Index": 4,
+            "Header": "Test-header",
+            "TimeAllotted" : 10,
+            "EnvironmentType": 2,
+            "RandomLoc" : 0,
+            "CharacterStartPos" : [0, 0],
+            "InitialAngle" : 0,
+            "TimeToRotate": 0.5,
+            "Sides": 40,
+            "Radius": 30,
+            "WallHeight" : 3,
+            "WallColor": "00ff00",
+            "GroundType": 2,
+            "GroundColor": "000000",
+            "ActiveGoals" : [],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 1,
+            "LandMarks" :[]
+        }  
+    ],
+
+"GOAL DATA" : "GOAL DATA--------------------*********------------------GOAL DATA",
+
+    "Goals": [
+        {
+            "Pickup 1" : "Orange Box",
+            "Type": "Pickup",
+            "Tag": "1",
+            "Color": "F26406",
+            "SoundLocation": "eat",
+            "Location": [10,15,0.5],
+            "Length": 1,
+            "Width": 1,
+            "Height": 1,
+            "GoalRotation": 0
+        } 
+    ],
+
+"LANDMARK DATA" : "LANDMARK DATA----------*********------------------LANDMARK DATA",
+
+    "Landmarks": [
+        {
+            "Landmark 1" : "Red Sphere",
+            "Location": [-60,-60, 15],
+            "Length": 30.0,
+            "Width": 45.0,
+            "Height": 30.0,
+            "Type": "Sphere",
+            "Color": "ff0000",
+            "InitialAngle": 50
+
+        },
+        {
+            "Landmark 2" : "Blue Cube",
+            "Location": [60,60,15],
+            "Length": 30.0,
+            "Width": 30.0,
+            "Height": 30.0,
+            "Type": "Cube",
+            "Color": "0000ff",
+            "InitialAngle": 50
+        }
+    ]
+}

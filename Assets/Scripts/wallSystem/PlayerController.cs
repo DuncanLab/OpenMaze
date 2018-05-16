@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using data;
 using main;
+using trial;
 using UnityEngine;
 using UnityEngine.UI;
 using DS = data.DataSingleton;
@@ -35,86 +37,83 @@ namespace wallSystem
 		private bool _playingSound;
 		
 		private bool _reset;
-
-		private bool _log;
+		private int localQuota;
 		
 		private void Start()
 		{
+			var goalText = GameObject.Find("Goal").GetComponent<Text>();
+			goalText.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 30);
+
+			//And this section sets the text.
+			goalText.text = E.Get().CurrTrial.Value.Header;
+			goalText.color = Color.white;
+
+
+			
+			
 			Random.InitState(DateTime.Now.Millisecond);
 
 			_currDelay = 0;
-			_iniRotation = Random.Range (0, 360);
-			transform.Rotate (new Vector3 (0, _iniRotation, 0));
+			
+			transform.Rotate(0, E.Get().CurrTrial.Value.InitialAngle, 0, Space.World);
+
 			_controller = GetComponent<CharacterController>();
 			_gen = GameObject.Find("WallCreator").GetComponent<GenerateGenerateWall>();
-			Cam.transform.Rotate (-DS.GetData().CharacterData.CamRotation, 0, 0);
-			_waitTime = DS.GetData().CharacterData.TimeToRotate;
+			Cam.transform.Rotate (0, 0, 0);
+			_waitTime = E.Get().CurrTrial.Value.TimeToRotate;
 			_reset = false;
-			_log = false;
+			localQuota = E.Get().CurrTrial.Value.Quota;
 
 		}
 
-
-		public void ExternalStart()
+		//Start the character. //If init from maze, this allows "s" to determine the start position
+		public void ExternalStart(float pickX, float pickY, bool maze = false)
 		{
+			TrialProgress.GetCurrTrial().TrialProgress.TargetX = pickX;
+			TrialProgress.GetCurrTrial().TrialProgress.TargetY = pickY;			
+
 			if (E.Get().CurrTrial.Value.RandomLoc == 1)
 			{
-				while (true)
-				{
-					var v = Random.insideUnitCircle * E.Get().CurrTrial.Value.Radius * DS.GetData().CharacterData.CharacterBound;
-					var mag = v - new Vector2(PickupGenerator.P.X, PickupGenerator.P.Y);
-					if (mag.magnitude > DS.GetData().CharacterData.DistancePickup)
-					{
-						transform.position = new Vector3(v.x, transform.position.y, v.y);
-						break;
-					}
-
-				}
+				var v = Random.insideUnitCircle * E.Get().CurrTrial.Value.Radius * 0.9f;
+				var mag = Vector3.Distance(v, new Vector2(pickX, pickY));
+				transform.position = new Vector3(v.x, 0.5f, v.y);
+				v.y = DS.GetData().CharacterData.Height;
+				Cam.transform.position = v;
 			}
 			else
 			{
-				var p = DS.GetData().CharacterData.CharacterStartPos;
-				transform.position = new Vector3(p.X, transform.position.y, p.Y);
+				var p = E.Get().CurrTrial.Value.CharacterStartPos;
+				if (maze)
+					p = new List<float>() {pickX, pickY};
+				transform.position = new Vector3(p[0], 0.5f, p[1]);
+				var v = Cam.transform.position;
+				v.y = DS.GetData().CharacterData.Height;
+				Cam.transform.position = v;
 			}
 		}
-		
-		private void LogData(bool collided)
-		{
-			var v = E.Get().CurrTrial.Value;
-			var line = E.Get().CurrTrial.Value.Note + ", "
-			              + E.Get().RunningTime + ", "
-			              + transform.position.x + ", "
-			              + transform.position.z + ", "
-			              + transform.rotation.eulerAngles.y + ", "
-			              + v.EnvironmentType + ", "
-			              + v.Sides + ", "
-			              + (collided ? 1 : 0) + ", "
-			              + v.PickupType + ", "
-			              + PickupGenerator.P.X + ", "
-			              + PickupGenerator.P.Y;
-			if (_log)
-				E.LogData(line);
-		}
+
 
 		//This is the collision system.
 		private void OnTriggerEnter(Collider other)
 		{
 			if (!other.gameObject.CompareTag("Pickup")) return;
-			BlockState.Found();
-			var text = GameObject.Find("CountDown").GetComponent<Text>();
-			text.text = "Found: " + BlockState.GetNumberItemsFound();
-			GetComponent<AudioSource> ().PlayOneShot (_gen.GetWaveSrc (), 1);
+
+			
+			GetComponent<AudioSource> ().PlayOneShot (other.gameObject.GetComponent<PickupSound>().Sound, 10);
 			Destroy (other.gameObject);
-			LogData(true);
+			if (--localQuota > 0) return;
+			E.Get().CurrTrial.Notify();
+
 			_playingSound = true;
-			_log = false;
+			E.LogData(
+				TrialProgress.GetCurrTrial().TrialProgress, 
+				TrialProgress.GetCurrTrial().GetRunningTime(),
+				transform,
+				1
+			);
 
 		}
 
-		private void LateUpdate(){
-			LogData(false);
-
-		}
 
 		private void ComputeMovement()
 		{
@@ -137,37 +136,45 @@ namespace wallSystem
 			transform.Rotate(0, rotation, 0);
 
 		}
-
+	
+		
 		private void Update()
 		{
-
-			if (_playingSound)
-			{
-				if (!GetComponent<AudioSource>().isPlaying)
-				{
-					E.Get().Progress();
-				}
-			} 
-			else if (_currDelay < _waitTime)
+	
+			 //This first block is for the initial rotation of the character
+			if (_currDelay < _waitTime)
 			{
 				var angle = 360f * _currDelay / _waitTime + _iniRotation - transform.rotation.eulerAngles.y;
 				transform.Rotate(new Vector3(0, angle, 0));
-			} 
-			else
+			}
+			//We need to not continue if there is audio playing, so we just pause here.
+			else if (_playingSound)
 			{
+				if (!GetComponent<AudioSource>().isPlaying)
+				{
+					//We finish it here
+					E.Get().CurrTrial.Progress();
+				}
+			}
+			else
+			{	
+				//This section rotates the camera (potentiall up 15 degrees), basically deprecated code.
 				if (!_reset)
 				{
-					E.Get().RunningTime = 0;
-					Cam.transform.Rotate (DS.GetData().CharacterData.CamRotation, 0, 0);
+					Cam.transform.Rotate (0, 0, 0);
 					_reset = true;
-					_log = true;
-					E.LogData("Trial Number, time (seconds), x, y, angle,  " +
-					          "EnvironmentType, Sides, targetFound, pickupType, targetX, targetY");
+					TrialProgress.GetCurrTrial().ResetTime();
 				}
+				
+				//Move the character.
 				ComputeMovement();
+				E.LogData(
+					TrialProgress.GetCurrTrial().TrialProgress, 
+					TrialProgress.GetCurrTrial().GetRunningTime(),
+					transform
+				);
 			}
 			_currDelay += Time.deltaTime;
-
 		}
 		
 

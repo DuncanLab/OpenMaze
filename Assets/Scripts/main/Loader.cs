@@ -1,181 +1,98 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using data;
-using UnityEditor;
+﻿using System.IO;
+using trial;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DS = data.DataSingleton;
 using C = data.Constants;
-using BS = main.BlockState;
 
 namespace main
 {
 
+	/// <inheritdoc />
 	/// <summary>
 	/// Main entry point of the app as well as the game object that stays alive for all scenes.
 	/// </summary>
 	public class Loader : MonoBehaviour
 	{
+		
+		//Singleton function
 		public static Loader Get()
 		{
 			return GameObject.Find("Loader").GetComponent<Loader>();
 		}
-
-		public InputField[] TextBoxes;
-		private bool _inputDone;
-
-		public LinkedListNode<Block> Blocks;
-		public LinkedListNode<Data.Trial> CurrTrial;
-		public float RunningTime;
-
-		public class LinkedListNode<T>
-		{
-			public T Value;
-			public LinkedListNode<T> Next;
-
-			
-		}	
+		public InputField[] Fields; //These are an array of the fields given from the field trials
+	
+		private static float _timer = 0;
 		
+		//An "abstract trial". Classic polymorphism.
+		public AbstractTrial CurrTrial;
+
 		
+		//Unity method
 		private void Start () {
 			DontDestroyOnLoad(this);
-			var inputFile = EditorUtility.OpenFilePanel("Choose Input File", "", "");
-			
-			
+			CurrTrial = new FieldTrial(Fields);
+			//Initialize the default field trial, see this later.
+		}
+
+		//This function initializes the Data.singleton files
+		public static bool ExternalActivation(string inputFile)
+		{
+			if (!inputFile.Contains(".json")) return false;
 			DS.Load (inputFile);
 			Directory.CreateDirectory(C.OutputDirectory);
-			
-		
-			
-			Blocks = new LinkedListNode<Block>();
-			CurrTrial = new LinkedListNode<Data.Trial>();
-			var temp = Blocks;
-			
-			
-			var cnt = 0;
-			foreach (var i in DS.GetData().BlockOrder)
-			{
-				temp.Value = new Block(DS.GetData().BlockList[i]);
-				if (cnt++ != DS.GetData().BlockOrder.Count - 1)
-					temp.Next = new LinkedListNode<Block>();
-				temp = temp.Next;
-			}
-
-			Blocks.Value.Log();
-			CurrTrial.Value = Blocks.Value.Peek();
-			_inputDone = false;
+			return true;
 		}
 
-		public void Progress()
+		private void Update()
 		{
-			if (Blocks == null)
-			{
-				return;
-			}
-			RunningTime = 0;
-	
-			if (Blocks.Value.Progress() == null)
-			{
-				Blocks = Blocks.Next;
-				if (Blocks == null) return;
-				BlockState.Reset();
-				Blocks.Value.Log();
-
-			}
-
-				
-				
-				
-			CurrTrial.Value = Blocks.Value.Peek();
-
-			
-			if (CurrTrial.Value.FileLocation != null)
-			{
-				SceneManager.LoadScene(C.LoadingScreen);
-			} else if (CurrTrial.Value.TwoDimensional == 1)
-			{
-				SceneManager.LoadScene(CurrTrial.Value.EnvironmentType + 4);
-			}
-			else
-			{
-					
-				foreach (var prop in typeof(Data.Trial).GetFields())
-				{
-					var s = prop.Name + ", " + prop.GetValue(CurrTrial.Value);
-					LogData(s);
-				}
-				SceneManager.LoadScene(CurrTrial.Value.EnvironmentType + 2);
-			}
-			
-		}
-		
-		private void LateUpdate()
-		{
-			if (_inputDone) //This is the beginning text field
-			{
-				HandleInput();
-				if (CheckTimeOut())
-				{
-					if (CurrTrial.Value.Color != null)
-						BlockState.Failed();
-						
-					Progress();
-				}
-				RunningTime += Time.deltaTime;
-				BS.Update(Time.deltaTime);
-			}
-			else
-			{
-				if (Input.GetKeyDown(KeyCode.Space))
-				{
-
-					foreach (var textBox in TextBoxes)
-					{
-						var arr = textBox.transform.GetComponentsInChildren<Text>();
-						LogData(arr[0].text + ": " + arr[1].text);
-						DS.GetData().CharacterData.OutputFile = arr[1].text + "_" + DS.GetData().CharacterData.OutputFile;
-					}				
-					
-					
-					
-					LogData("", false);
-
-					Blocks.Value.Log(); 
-
-					_inputDone = true;
-					SceneManager.LoadScene(1);
-				}
-			}
+			CurrTrial.Update(Time.deltaTime);
 		}
 
 
-		private bool CheckTimeOut()
+		//The top of the csv
+		public static void LogFirst()
 		{
-			return CurrTrial.Value.TimeAllotted > 0 
-			       && RunningTime > CurrTrial.Value.TimeAllotted;
-		}
-		
-		
-		private void HandleInput()
-		{
-			if (CurrTrial.Value.TimeAllotted > 0) return;
-
-			if (Input.GetKeyDown(KeyCode.Return) )
+			using (var writer = new StreamWriter ("Assets/OutputFiles~/" + DS.GetData ().OutputFile, false))
 			{
-				Progress();
-			}			
-		}
-
-		public static void LogData(string data, bool append = true)
-		{
-			using (var writer = new StreamWriter ("Assets/OutputFiles~/" + DS.GetData ().CharacterData.OutputFile, append))
-			{
-				writer.Write (data + "\n");
+				writer.Write (
+					"Trial Number, Time (seconds), X, Y, Angle, Environment Type, Sides, TargetFound, PickupType, " +
+					"TargetX, TargetY, LastX, LastY, BlockID, TrialID, Subject, Delay, 2D, Visible, UpArrow, DownArrow," +
+					" LeftArrow, RightArrow, Space, Session, Note"
+				+ "\n");
 				writer.Flush ();
 				writer.Close();
 			}	
 		}
-		
+
+		//Logs the data out to the csv.
+		public static void LogData(TrialProgress s, float timestamp, Transform t, int targetFound = 0)
+		{
+			if (_timer > 1f / (DS.GetData().OutputTimesPerSecond == 0 ? 1000 : DS.GetData().OutputTimesPerSecond) || targetFound == 1)
+			{
+				using (var writer = new StreamWriter("Assets/OutputFiles~/" + DS.GetData().OutputFile, true))
+				{
+
+					var str = string.Format(
+						"{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, " +
+						"{12}, {13}, {14}, {15}, {16}, {17}, {18}, {19}, {20}, {21}, {22}, {23}, {24}, {25}",
+						s.TrialNumber, timestamp, t.position.x, t.position.z, t.eulerAngles.y, s.EnvironmentType, s.Sides,
+						targetFound, s.PickupType, s.TargetX, s.TargetY, s.LastX, s.LastY, s.BlockID, s.TrialID,
+						s.Subject, s.Delay, s.TwoDim, s.Visible, Input.GetKey(KeyCode.UpArrow) ? 1 : 0,
+						Input.GetKey(KeyCode.DownArrow) ? 1 : 0, Input.GetKey(KeyCode.LeftArrow) ? 1 : 0,
+						Input.GetKey(KeyCode.RightArrow) ? 1 : 0,
+						Input.GetKey(KeyCode.Space) ? 1 : 0, s.SessionID, s.Note);
+					writer.Write(str + "\n");
+					writer.Flush();
+					writer.Close();
+				}
+
+				_timer = 0;
+			}
+
+			_timer += Time.deltaTime;
+
+		}
+
 	}
 }

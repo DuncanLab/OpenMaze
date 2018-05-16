@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using data;
 using twoDSystem;
 using UnityEngine;
 using E = main.Loader;
 using DS = data.DataSingleton;
-using Point = data.Data.Point;
 
 //This is a wall spawner object that will
 //generate the walls of the game at the start.
@@ -32,8 +32,21 @@ namespace wallSystem
 
 			SetupColours ();
 			GenerateWalls();
-			GenerateCheckerBoard();
-			GeneratePillars();
+			if (E.Get().CurrTrial.Value.GroundType == 2)
+				GenerateCheckerBoard();
+			else if (E.Get().CurrTrial.Value.GroundType == 1)
+			{
+				var col = Data.GetColour(E.Get().CurrTrial.Value.GroundColor);
+
+				GameObject.Find("Ground").GetComponent<Renderer>().material.color = col;
+			}
+			else
+			{
+				GameObject.Find("Ground").GetComponent<Renderer>().enabled = false;
+
+			}
+
+			GenerateLandmarks();
 		}
 
 		//This is called when the object is destroyed by Generate Generate Wall. Here we destroy
@@ -51,28 +64,46 @@ namespace wallSystem
 		//Here we setup the colours. This is done as a gradient utilizing data given from input.json
 		private void SetupColours(){
 
-			var col = Data.GetColour(E.Get().CurrTrial.Value.Color);
+			var col = Data.GetColour(E.Get().CurrTrial.Value.WallColor);
 			//And here we set the color of the wall prefab to the appropriate color
 			Wall.GetComponent<Renderer>().sharedMaterial.color = col;
-			WallPointContainer.WallColor = col;
 
 			
 		}
 
-
-		private void GeneratePillars()
+		//Generates the landmarks, pretty similar to the data in pickup.
+		private void GenerateLandmarks()
 		{
-			WallPointContainer.PillarColor = Data.GetColour(E.Get().CurrTrial.Value.PillarColor);
-			foreach (var p in DS.GetData().Pillars)
+			foreach (var p in E.Get().CurrTrial.Value.LandMarks)
 			{
-				var cylin = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-			
-				cylin.transform.position = new Vector3(p.X, 0, p.Y);
-				cylin.transform.localScale = new Vector3(p.Radius, p.Height, p.Radius);
-				cylin.GetComponent<Renderer>().material.color = Data.GetColour(E.Get().CurrTrial.Value.PillarColor);
+				var d =DS.GetData().Landmarks[p - 1];
+
+				var landmark = (GameObject)Instantiate(Resources.Load("Prefabs/" + d.Type));
 				
-				WallPointContainer.AddPillar(p);
-				_created.Add(cylin);
+			
+				landmark.transform.localScale = new Vector3(d.Length, d.Height, d.Width);
+				try
+				{
+					landmark.transform.position = new Vector3(d.Location[0], d.Location[2], d.Location[1]);
+				}
+				catch (Exception _)
+				{
+					landmark.transform.position = new Vector3(d.Location[0], 0.5f, d.Location[1]);
+					
+				}
+
+				landmark.transform.Rotate(new Vector3(0, 1, 0), d.InitialRotation);
+				
+				
+				landmark.GetComponent<Renderer>().material.color = Data.GetColour(d.Color);
+				var sprite = d.ImageLoc;
+				if (sprite != null)
+				{
+					var pic = Img2Sprite.LoadNewSprite(Constants.InputDirectory + sprite);
+					landmark.GetComponent<SpriteRenderer>().sprite = pic;
+				}
+
+				_created.Add(landmark);
 			}
 		}
 	
@@ -81,16 +112,21 @@ namespace wallSystem
 		//This function generates the checkerboard. We can modify the size of this later.
 		private void GenerateCheckerBoard()
 		{
+			var val = E.Get().CurrTrial.Value.Radius * 2;
+			var col = Data.GetColour(E.Get().CurrTrial.Value.GroundColor);
+
 			//Quite simply, this is a 2d for loop
-			for (var i = -20; i < 20; i += 2)
+			for (var i = -val; i < val; i += 2)
 			{
-				for (var j = -20; j < 20; j += 1)
+				for (var j = -val; j < val; j += 1)
 				{
+
 					var tile = Instantiate(
 						Wall, 
 						new Vector3((0.5f + i + j % 2), 0.001f, (0.5f + j)), //With a one offset
 						Quaternion.identity
 					);
+					tile.GetComponent<Renderer>().material.color = col;
 
 					tile.transform.localScale = new Vector3(1, 0.001f, 1);
 					_created.Add(tile);
@@ -103,15 +139,15 @@ namespace wallSystem
 		//This function creates the walls
 		private void GenerateWalls()
 		{
+			if ((int)E.Get().CurrTrial.Value.WallHeight == 0) return;
+
 			//This computes the current interior angle of the given side.
 			var interiorAngle = 360f / E.Get().CurrTrial.Value.Sides; //This is, of course, given as 360 / num sides
 
 			//This sets the initial angle to the one given in the preset
 			float currentAngle = 0;
-		
-			//This object is for 2D
-			WallPointContainer.Reset();
 
+			GameObject.Find("Ground").transform.localScale *= E.Get().CurrTrial.Value.Radius / 20f;
 			//Here we interate through all the sides
 			for (var i = 0; i < E.Get().CurrTrial.Value.Sides; i++)
 			{
@@ -124,18 +160,17 @@ namespace wallSystem
 				//Gaps appearing in large wall numbers
 				//Desealing some stuff. so, bad.
 				var length = 2 * E.Get().CurrTrial.Value.Radius * Tan(180f / E.Get().CurrTrial.Value.Sides);
-				WallPointContainer.Length = length;
-				WallPointContainer.Add(new Point{X = x, Y = y}, - currentAngle - 90);
-			
+				
+				
 				//Here we create the wall
 				var obj = Instantiate(Wall,
-					new Vector3(x, DS.GetData().WallHeight/2, y),
+					new Vector3(x, E.Get().CurrTrial.Value.WallHeight/2 - .1f, y),
 					Quaternion.identity
 				);
 
 
 				//So we add 10 because the end user won't be able to notice it anyways
-				obj.transform.localScale = new Vector3(length + 10, DS.GetData().WallHeight, 0.5f);
+				obj.transform.localScale = new Vector3(length + 10, E.Get().CurrTrial.Value.WallHeight, 0.5f);
 
 				//This rotates the walls by the current angle + 90
 				obj.transform.Rotate(Quaternion.Euler(0, - currentAngle - 90, 0).eulerAngles);

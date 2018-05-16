@@ -1,0 +1,77 @@
+
+
+{
+    "OutputTimesPerSecond": 30,
+    "CHARACTER DATA": "CHARACTER DATA----------*********-------------------CHARACTER DATA",
+    "CharacterData": {
+        "Height": 2,
+        "MovementSpeed": 10.0,
+        "RotationSpeed": 100.0,
+        "TimeToRotate": 0,
+        "DistancePickup": 2
+    },
+
+"BLOCK DATA" : "BLOCK DATA---------------------*********--------------------BLOCK DATA",   
+   
+    "BlockOrder" : [1],
+    
+    "BlockList" : [
+        {
+            "BlockName" : "1 - Instructions",
+              "Notes" : "n/a",
+              "TrialOrder": [
+                 1
+                ]
+        }
+
+    ],
+
+"TRIAL DATA" : "TRIAL DATA--------------------*********------------------TRIAL DATA",
+    
+    "TrialData": [
+        {
+            "1" : "Welcome",
+            "FileLocation": "Tutorial2/Welcome.png",
+            "TimeAllotted": -1
+        }
+
+    ],
+
+"GOAL DATA" : "GOAL DATA--------------------*********------------------GOAL DATA",
+
+    "Goals": [
+        {
+            "Pickup 1" : "Red Sphere",
+            "Type": "Pickup",
+            "Tag": "1",
+            "Color": "ffffff",
+            "SoundLocation": "eat",
+            "Location": [5,0,5],
+            "Size": 2
+        }    
+    ],
+
+"LANDMARK DATA" : "LANDMARK DATA----------*********------------------LANDMARK DATA",
+
+    "Landmarks": [
+        {
+            "Location": [5, 5, 5],
+            "Length": 3.0,
+            "Width": 3.0,
+            "Height": 3.0,
+            "Type": "Sphere",
+            "Color": "ffffff",
+            "InitialAngle": 50
+
+        },
+        {
+            "Location": [50,10,50],
+            "Length": 25.0,
+            "Width": 25.0,
+            "Height": 25.0,
+            "Type": "Cube",
+            "Color": "ff0000",
+            "InitialAngle": 50
+        }
+    ]
+}

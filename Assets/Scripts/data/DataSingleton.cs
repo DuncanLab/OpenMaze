@@ -1,4 +1,4 @@
-﻿using main;
+﻿	using main;
 using UnityEngine;
 using C = data.Constants;
 
@@ -21,7 +21,8 @@ namespace data
 	
 		//This function loads the file from a defacto loaction as shown below
 		public static void Load(string fileName){
-			var file = System.IO.File.ReadAllText(fileName);
+			var file = System.IO.File.ReadAllText( fileName);
+			
 			var temp = JsonUtility.FromJson<Data>(file);
 			_data = temp;
 		}
