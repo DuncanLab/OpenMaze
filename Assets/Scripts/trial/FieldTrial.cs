@@ -4,6 +4,7 @@ using System.IO;
 using System.Runtime.InteropServices.ComTypes;
 using data;
 using main;
+using SFB;
 using UnityEngine;
 using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
@@ -22,35 +23,15 @@ namespace trial
             
             TrialProgress = new TrialProgress();
             _fields = fields;
-            
+
             //This block of code basically calls the directory picker to select the configuration file.
             while (true)
             {
-                var p = new Process
-                {
-                    StartInfo = new ProcessStartInfo("python",
-                        "Assets/InputFiles~/directory_picker.py")
-                    {
-                        RedirectStandardOutput = true,
-                        RedirectStandardError = true,
-                        RedirectStandardInput = true,
-                        UseShellExecute = false,
-                        CreateNoWindow = true
-                    }
-                };
-                p.Start();
-
-                p.WaitForExit();
-
-                if (p.ExitCode != 0)
-                {
-                    Debug.LogError("WRONG PYTHON VERSION FOR THE CONFIGURATION FILE!!!!!!");
-                }
-
-
-                var line = p.StandardOutput.ReadLine();
-                if (Loader.ExternalActivation(line))
-                    break;
+                // Here we're using: https://github.com/gkngkc/UnityStandaloneFileBrowser because it was easier than rolling our own
+                string[] paths = StandaloneFileBrowser.OpenFilePanel("Choose configuration file", "./FullPilotConfigs", "", false);
+                // Need to slice the string because the API includes "file://"
+                string path = paths[0].Substring(7);
+                if (Loader.ExternalActivation(path)) break;
             }
 
             TrialProgress = new TrialProgress();
@@ -58,8 +39,7 @@ namespace trial
             
         }
 
-        
-        
+
         //We are gonna generate all the trials here.
         private void GenerateTrials()
         {
