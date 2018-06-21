@@ -13,7 +13,7 @@ namespace wallSystem
 	public class GenerateWall : MonoBehaviour {
 
 		//This is the wall prefab that represents the walls
-		public GameObject Wall;  
+		public GameObject Wall;
 		//This is object that generates pickups.
 		public GameObject Generator;
 
@@ -30,21 +30,24 @@ namespace wallSystem
 				obj
 			}; //The generator is immediately added to the list for destroed object
 
-			SetupColours ();
+			SetupColours();
 			GenerateWalls();
-			if (E.Get().CurrTrial.Value.GroundType == 2)
-				GenerateCheckerBoard();
-			else if (E.Get().CurrTrial.Value.GroundType == 1)
-			{
-				var col = Data.GetColour(E.Get().CurrTrial.Value.GroundColor);
 
-				GameObject.Find("Ground").GetComponent<Renderer>().material.color = col;
-			}
-			else
-			{
-				GameObject.Find("Ground").GetComponent<Renderer>().enabled = false;
+            if (E.Get().CurrTrial.Value.GroundTileSides == 2) throw new Exception("Can't have floor tiles with 2 sides!");
 
-			}
+            if (E.Get().CurrTrial.Value.GroundTileSides == 0)
+            {
+                GameObject.Find("Ground").GetComponent<Renderer>().enabled = false;
+            }
+            else if (E.Get().CurrTrial.Value.GroundTileSides == 1)
+            {
+                var col = Data.GetColour(E.Get().CurrTrial.Value.GroundColor);
+                GameObject.Find("Ground").GetComponent<Renderer>().material.color = col;
+            }
+            else
+            {
+                GenerateTileFloor();
+            }
 
 			GenerateLandmarks();
 		}
@@ -109,35 +112,66 @@ namespace wallSystem
 	
     
 
-		//This function generates the checkerboard. We can modify the size of this later.
-		private void GenerateCheckerBoard()
-		{
-			var val = E.Get().CurrTrial.Value.Radius * 2;
-			var col = Data.GetColour(E.Get().CurrTrial.Value.GroundColor);
+		//This function generates the tile floor. We can modify the size of this later.
+		private void GenerateTileFloor()
+        {
+            var val = E.Get().CurrTrial.Value.Radius * 2;
+            var numSides = E.Get().CurrTrial.Value.GroundTileSides;
+            var col = Data.GetColour(E.Get().CurrTrial.Value.GroundColor);
+            Mesh mesh = ConstructTileMesh(numSides);
 
-			//Quite simply, this is a 2d for loop
-			for (var i = -val; i < val; i += 2)
-			{
-				for (var j = -val; j < val; j += 1)
-				{
+            // Generate a grid of tiles
+            for (float i = -val; i < val; i += 2)
+            {
+                for (float j = -val; j < val; j += 2)
+                {
+                    var tile = Instantiate(Wall, new Vector3(i, 0.001f, j), Quaternion.identity);
+                    tile.GetComponent<MeshFilter>().mesh = mesh;
+                    tile.GetComponent<Renderer>().material.color = col;
+                    tile.transform.localScale = new Vector3(1, 0.001f, 1);
+                    // Use the rotate if the pattern looks off
+                    //tile.transform.Rotate(0, -45, 0);
+                    _created.Add(tile);
+                }
+            }
+        }
 
-					var tile = Instantiate(
-						Wall, 
-						new Vector3((0.5f + i + j % 2), 0.001f, (0.5f + j)), //With a one offset
-						Quaternion.identity
-					);
-					tile.GetComponent<Renderer>().material.color = col;
+        private static Mesh ConstructTileMesh(int numSides)
+        {
+            // Generate the vertices to be used for the mesh
+            Vector2[] vertices2D = new Vector2[numSides];
+            for (var i = 0; i < numSides; i++)
+            {
+                var x = 1 * Math.Cos(2 * Math.PI * i / numSides);
+                var y = 1 * Math.Sin(2 * Math.PI * i / numSides);
+                Vector2 tempVec = new Vector2((float)x, (float)y);
+                vertices2D[i] = tempVec;
+            }
 
-					tile.transform.localScale = new Vector3(1, 0.001f, 1);
-					_created.Add(tile);
-				}
-			}
+            // Use the triangulator to get indices for creating triangles
+            Triangulator tr = new Triangulator(vertices2D);
+            int[] indices = tr.Triangulate();
 
-		}
+            // Create the Vector3 vertices
+            Vector3[] vertices = new Vector3[vertices2D.Length];
+            for (int i = 0; i < vertices.Length; i++)
+            {
+                vertices[i] = new Vector3(vertices2D[i].x, 0, vertices2D[i].y);
+            }
+
+            Mesh mesh = new Mesh
+            {
+                vertices = vertices,
+                triangles = indices
+            };
+            mesh.RecalculateNormals();
+            mesh.RecalculateBounds();
+            return mesh;
+        }
 
 
-		//This function creates the walls
-		private void GenerateWalls()
+        //This function creates the walls
+        private void GenerateWalls()
 		{
 			if ((int)E.Get().CurrTrial.Value.WallHeight == 0) return;
 
