@@ -25,12 +25,22 @@ namespace SFB {
         [DllImport("StandaloneFileBrowser")]
         private static extern void DialogSaveFilePanelAsync(string title, string directory, string defaultName, string extension, AsyncCallback callback);
 
-        public string[] OpenFilePanel(string title, string directory, ExtensionFilter[] extensions, bool multiselect) {
+        // Replace characters that unity is not happy with
+        private static string ReplaceBrokenChars(string paths)
+        {
+            paths = paths.Replace("file://", "");
+            paths = paths.Replace("%20", " ");
+            return paths;
+        }
+
+        public string[] OpenFilePanel(string title, string directory, ExtensionFilter[] extensions, bool multiselect)
+        {
             var paths = Marshal.PtrToStringAnsi(DialogOpenFilePanel(
                 title,
                 directory,
                 GetFilterFromFileExtensionList(extensions),
                 multiselect));
+            paths = ReplaceBrokenChars(paths);
             return paths.Split((char)28);
         }
 
@@ -41,7 +51,9 @@ namespace SFB {
                 directory,
                 GetFilterFromFileExtensionList(extensions),
                 multiselect,
-                (string result) => { _openFileCb.Invoke(result.Split((char)28)); });
+                (string result) => {
+                    result = ReplaceBrokenChars(result);
+                    _openFileCb.Invoke(result.Split((char)28)); });
         }
 
         public string[] OpenFolderPanel(string title, string directory, bool multiselect) {
@@ -49,6 +61,7 @@ namespace SFB {
                 title,
                 directory,
                 multiselect));
+            paths = ReplaceBrokenChars(paths);
             return paths.Split((char)28);
         }
 
@@ -58,15 +71,18 @@ namespace SFB {
                 title,
                 directory,
                 multiselect,
-                (string result) => { _openFolderCb.Invoke(result.Split((char)28)); });
+                (string result) => {
+                    result = ReplaceBrokenChars(result);
+                    _openFolderCb.Invoke(result.Split((char)28)); });
         }
 
         public string SaveFilePanel(string title, string directory, string defaultName, ExtensionFilter[] extensions) {
-            return Marshal.PtrToStringAnsi(DialogSaveFilePanel(
+            var path = Marshal.PtrToStringAnsi(DialogSaveFilePanel(
                 title,
                 directory,
                 defaultName,
                 GetFilterFromFileExtensionList(extensions)));
+            return ReplaceBrokenChars(path);
         }
 
         public void SaveFilePanelAsync(string title, string directory, string defaultName, ExtensionFilter[] extensions, Action<string> cb) {
@@ -76,7 +92,9 @@ namespace SFB {
                 directory,
                 defaultName,
                 GetFilterFromFileExtensionList(extensions),
-                (string result) => { _saveFileCb.Invoke(result); });
+                (string result) => {
+                    result = ReplaceBrokenChars(result);
+                    _saveFileCb.Invoke(result); });
         }
 
         private static string GetFilterFromFileExtensionList(ExtensionFilter[] extensions) {

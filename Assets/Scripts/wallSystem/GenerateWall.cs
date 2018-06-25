@@ -117,8 +117,9 @@ namespace wallSystem
         {
             var val = E.Get().CurrTrial.Value.Radius * 2;
             var numSides = E.Get().CurrTrial.Value.GroundTileSides;
+            var tileSize = E.Get().CurrTrial.Value.GroundTileSize;
             var col = Data.GetColour(E.Get().CurrTrial.Value.GroundColor);
-            Mesh mesh = ConstructTileMesh(numSides);
+            Mesh mesh = ConstructTileMesh(numSides, tileSize);
 
             // Generate a grid of tiles
             for (float i = -val; i < val; i += 2)
@@ -136,14 +137,14 @@ namespace wallSystem
             }
         }
 
-        private static Mesh ConstructTileMesh(int numSides)
+        private static Mesh ConstructTileMesh(int numSides, double tileSize)
         {
             // Generate the vertices to be used for the mesh
             Vector2[] vertices2D = new Vector2[numSides];
             for (var i = 0; i < numSides; i++)
             {
-                var x = 1 * Math.Cos(2 * Math.PI * i / numSides);
-                var y = 1 * Math.Sin(2 * Math.PI * i / numSides);
+                var x = tileSize * Math.Cos(2 * Math.PI * i / numSides);
+                var y = tileSize * Math.Sin(2 * Math.PI * i / numSides);
                 Vector2 tempVec = new Vector2((float)x, (float)y);
                 vertices2D[i] = tempVec;
             }

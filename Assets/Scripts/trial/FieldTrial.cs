@@ -28,19 +28,8 @@ namespace trial
             while (true)
             {
                 // Here we're using: https://github.com/gkngkc/UnityStandaloneFileBrowser because it was easier than rolling our own
-                string[] paths = StandaloneFileBrowser.OpenFilePanel("Choose configuration file", "./FullPilotConfigs", "", false);
-                
-                string path = "";
-                if (Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.WindowsEditor)
-                {
-                    path = paths[0];
-                }
-
-                // if it's not windows we need to slice the string because the API includes "file://"
-                else
-                {
-                    path = paths[0].Substring(7);
-                }
+                string[] paths = StandaloneFileBrowser.OpenFilePanel("Choose configuration file", "FullPilotConfigs", "", false);
+                string path = paths[0];
                 if (Loader.ExternalActivation(path)) break;
             }
 

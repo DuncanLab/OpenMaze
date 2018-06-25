@@ -74,6 +74,7 @@ namespace data
 			public string Header; //Note outputted out of the trial.
 			public MazeData Map; //The Map saved mazedata
 			public int GroundTileSides; // Number of sides on the ground pattern shapes - 0 for no tiles, 1 for solid color.
+            public double GroundTileSize; // Relative size of the floor tiles - Range from 0 to 1
 			public string GroundColor; //Colour of the ground
 			public List<int> InvisibleGoals; //The goal that are active and invisible
 			public List<int> ActiveGoals; //Goals that are active and visible
