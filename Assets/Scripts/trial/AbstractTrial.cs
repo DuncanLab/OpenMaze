@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using data;
 using main;
@@ -13,6 +14,8 @@ namespace trial
         public int BlockID;
 
         public int TrialID;
+
+        public bool isSuccessful;
 
         public TrialProgress TrialProgress;
 
@@ -37,6 +40,7 @@ namespace trial
             BlockID = blockId;
             TrialID = trialId;
 
+            isSuccessful = false;
 
             if (blockId == -1 || trialId == -1) return;
             if (DataSingleton.GetData().BlockList.Count == 0) throw new Exception("No trial in block");
@@ -55,6 +59,7 @@ namespace trial
             {
                 Debug.Log(string.Format("Entered Block: {0} at time: {1}", BlockID,  DateTime.Now));
                 t.ResetOngoing();
+                t.successes = new List<int>();
             }
             _runningTime = 0;
             

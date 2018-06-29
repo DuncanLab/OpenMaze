@@ -1,4 +1,5 @@
-﻿using data;
+﻿using System.Collections.Generic;
+using data;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -22,7 +23,7 @@ namespace trial
             t.BlockID = BlockID;
             t.TrialID = TrialID;
             t.TwoDim = Value.TwoDimensional;
-            t.LastX = t.TargetX;
+            t.LastX = t.TargetX;    
             t.LastY = t.TargetY;
             t.TargetX = 0;
             t.TargetY = 0;
@@ -36,13 +37,23 @@ namespace trial
         {
             TrialProgress.Num3D++;
 
+            // If we are progressing without a success, record the failure
+            // as a zero, otherwise record a 1.
+            if (isSuccessful) {
+                TrialProgress.successes.Add(1);
+            } else {
+                TrialProgress.successes.Add(0);
+            }
+
+            isSuccessful = false;
             base.Progress();
         }
 
         public override void Notify()
         {
-            
+            // Record that this particular trial was a success
             TrialProgress.NumSuccess++;
+            isSuccessful = true;
 
         }
     }

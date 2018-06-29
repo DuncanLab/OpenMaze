@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using data;
 using JetBrains.Annotations;
@@ -13,8 +14,8 @@ namespace trial
         public DateTime StartTime;
         public float NumSuccess;
         public float Num3D;
-        
-        
+        public List<int> successes;
+
         public int TrialNumber;
         public int EnvironmentType;
         public int Sides;

@@ -89,7 +89,7 @@ namespace trial
                     if (newBlock) currHead = t;
                     
                     
-                    t.isTail = tCnt == block.TrialOrder.Count - 1;
+                     t.isTail = tCnt == block.TrialOrder.Count - 1;
                     t.head = currHead;
                     
                     currentTrial.next = t;
