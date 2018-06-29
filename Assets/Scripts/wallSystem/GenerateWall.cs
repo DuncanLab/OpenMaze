@@ -6,8 +6,9 @@ using UnityEngine;
 using E = main.Loader;
 using DS = data.DataSingleton;
 
-//This is a wall spawner object that will
-//generate the walls of the game at the start.
+// This is a wall, floor and landmark spawner object that will
+// generate these objects based on settings from the config file at the start
+// of the trial.
 namespace wallSystem
 {
 	public class GenerateWall : MonoBehaviour {
@@ -35,18 +36,18 @@ namespace wallSystem
 
             if (E.Get().CurrTrial.Value.GroundTileSides == 2) throw new Exception("Can't have floor tiles with 2 sides!");
 
-            if (E.Get().CurrTrial.Value.GroundTileSides == 0)
+            if (E.Get().CurrTrial.Value.GroundColor == null)
             {
                 GameObject.Find("Ground").GetComponent<Renderer>().enabled = false;
             }
-            else if (E.Get().CurrTrial.Value.GroundTileSides == 1)
+            else if (E.Get().CurrTrial.Value.GroundTileSides > 2)
             {
-                var col = Data.GetColour(E.Get().CurrTrial.Value.GroundColor);
-                GameObject.Find("Ground").GetComponent<Renderer>().material.color = col;
+                GenerateTileFloor();
             }
             else
             {
-                GenerateTileFloor();
+                var col = Data.GetColour(E.Get().CurrTrial.Value.GroundColor);
+                GameObject.Find("Ground").GetComponent<Renderer>().material.color = col;
             }
 
 			GenerateLandmarks();
@@ -116,8 +117,10 @@ namespace wallSystem
 		private void GenerateTileFloor()
         {
             var val = E.Get().CurrTrial.Value.Radius * 2;
-            var numSides = E.Get().CurrTrial.Value.GroundTileSides;
-            var tileSize = E.Get().CurrTrial.Value.GroundTileSize;
+
+            // Setup the polygon mesh (using sensible defaults).
+            int numSides = E.Get().CurrTrial.Value.GroundTileSides == 0 ? 4 : E.Get().CurrTrial.Value.GroundTileSides;
+            double tileSize = E.Get().CurrTrial.Value.GroundTileSize == 0.0 ? 1.0 : E.Get().CurrTrial.Value.GroundTileSize;
             var col = Data.GetColour(E.Get().CurrTrial.Value.GroundColor);
             Mesh mesh = ConstructTileMesh(numSides, tileSize);
 
