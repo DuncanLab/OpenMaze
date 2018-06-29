@@ -74,12 +74,24 @@ namespace wallSystem
 
 			if (E.Get().CurrTrial.Value.RandomLoc == 1)
 			{
-				var v = Random.insideUnitCircle * E.Get().CurrTrial.Value.Radius * 0.9f;
-				var mag = Vector3.Distance(v, new Vector2(pickX, pickY));
-				transform.position = new Vector3(v.x, 0.5f, v.y);
-				var camPos = Cam.transform.position;
-				camPos.y = DS.GetData().CharacterData.Height;
-				Cam.transform.position = camPos;
+                // Try to randomly place the character, checking for proximity
+                // to the pickup location
+                var i = 0;
+                while (i++ < 100)
+                {
+                    var v = Random.insideUnitCircle * E.Get().CurrTrial.Value.Radius * 0.9f;
+                    var mag = Vector3.Distance(v, new Vector2(pickX, pickY));
+                    if (mag > DS.GetData().CharacterData.DistancePickup)
+                    {
+                        transform.position = new Vector3(v.x, 0.5f, v.y);
+                        var camPos = Cam.transform.position;
+                        camPos.y = DS.GetData().CharacterData.Height;
+                        Cam.transform.position = camPos;
+                        break;
+                    }
+                }
+                Debug.LogError("Could not randomly place player. Probably due to" +
+                               " a pick up location setting");
 			}
 			else
 			{
