@@ -87,7 +87,7 @@ namespace wallSystem
                         var camPos = Cam.transform.position;
                         camPos.y = DS.GetData().CharacterData.Height;
                         Cam.transform.position = camPos;
-                        break;
+                        return;
                     }
                 }
                 Debug.LogError("Could not randomly place player. Probably due to" +
