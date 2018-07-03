@@ -69,6 +69,7 @@ cmake-build-debug/
 
 # IntelliJ
 /out/
+.idea
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
@@ -88,3 +89,6 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 .idea/vcs.xml
+
+# MAC OSX
+.DS_Store
