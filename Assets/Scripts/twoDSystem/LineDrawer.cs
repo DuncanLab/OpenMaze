@@ -4,6 +4,10 @@ using UnityEngine.UI;
 using wallSystem;
 using E = main.Loader;
 using DS = data.DataSingleton;
+using System;
+using System.Collections.Generic;
+
+// TODO : Refactor this class and GenerateWall to use the same functions
 namespace twoDSystem
 {
 	//See generatewall but more ghetto
@@ -11,23 +15,40 @@ namespace twoDSystem
 	{
 		public GameObject Wall;
 
-		private void Start()
+        //This is the list of objects that LineDrawer has created
+        //We need to keep track of this in order to properly garbage collect
+        private List<GameObject> _created;
+
+        private void Start()
 		{
-			GameObject.Find("CountDown").GetComponent<Text>().text = "";
+            _created = new List<GameObject>();
+
+            GameObject.Find("CountDown").GetComponent<Text>().text = "";
 
 			var goalText = GameObject.Find("Goal").GetComponent<Text>();
 			goalText.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 30);
 			goalText.text = E.Get().CurrTrial.Value.Header ?? "Test";
 			goalText.color = Color.black;
 			
-			GenerateWalls();
+			Generate2dWalls();
+            Generate2dLandmarks();
 			var previousTrial = E.Get().CurrTrial.TrialProgress.PreviousTrial;
 			GameObject.Find("Plane").transform.localScale *= previousTrial.Value.Radius / 10f;
 
 		}
 
-		
-		private void GenerateWalls()
+        // This is called when the object is destroyed. Here we destroy
+        // all objects that were created by this object. This is done so the game doesn't lag to hell.
+        private void OnDestroy()
+        {
+            foreach (var obj in _created)
+            {
+                Destroy(obj);
+            }
+        }
+
+
+        private void Generate2dWalls()
 		{
 			var previousTrial = E.Get().CurrTrial.TrialProgress.PreviousTrial;
 			//This computes the current interior angle of the given side.
@@ -64,12 +85,49 @@ namespace twoDSystem
 				//This rotates the walls by the current angle + 90
 				obj.transform.Rotate(Quaternion.Euler(0, - currentAngle - 90, 0).eulerAngles);
 
-				//And we add the wall to the created list as to remove it later
+                //And we add the wall to the created list as to remove it later
+                _created.Add(obj);
 
 				//And of course we increment the interior angle.
 				currentAngle += interiorAngle;
 			}
 		}
-		
-	}
+
+        //Generates the landmarks, pretty similar to the data in pickup.
+        private void Generate2dLandmarks()
+        {
+            foreach (var p in E.Get().CurrTrial.TrialProgress.PreviousTrial.Value.LandMarks)
+            {
+                var d = DS.GetData().Landmarks[p - 1];
+
+                var landmark = (GameObject)Instantiate(Resources.Load("Prefabs/" + d.Type));
+
+
+                landmark.transform.localScale = new Vector3(d.Length, d.Height, d.Width);
+                try
+                {
+                    landmark.transform.position = new Vector3(d.Location[0], d.Location[2], d.Location[1]);
+                }
+                catch (Exception _)
+                {
+                    landmark.transform.position = new Vector3(d.Location[0], 0.5f, d.Location[1]);
+
+                }
+
+                landmark.transform.Rotate(new Vector3(0, 1, 0), d.InitialRotation);
+
+
+                landmark.GetComponent<Renderer>().material.color = Data.GetColour(d.Color);
+                var sprite = d.ImageLoc;
+                if (sprite != null)
+                {
+                    var pic = Img2Sprite.LoadNewSprite(Constants.InputDirectory + sprite);
+                    landmark.GetComponent<SpriteRenderer>().sprite = pic;
+                }
+
+                _created.Add(landmark);
+            }
+        }
+
+    }
 }
