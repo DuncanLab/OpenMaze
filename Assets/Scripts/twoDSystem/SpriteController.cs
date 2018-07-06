@@ -13,14 +13,10 @@ namespace twoDSystem
 {
 	public class SpriteController : MonoBehaviour
 	{
-
-
-
 		// Update is called once per frame
 		private void Update () {
 			//This calculates the current amount of rotation frame rate independent
 			var rotation = Input.GetAxis("Horizontal") * DS.GetData().CharacterData.RotationSpeed * Time.deltaTime;
-
 
 			//This calculates the forward speed frame rate independent
 			var moveDirection = new Vector3(0, Input.GetAxis("Vertical"), 0);
@@ -35,8 +31,6 @@ namespace twoDSystem
 				GetComponent<CharacterController>().Move(moveDirection * Time.deltaTime);
 
 			transform.Rotate(0, 0, -rotation);
-
-
 		}
 	}
 
