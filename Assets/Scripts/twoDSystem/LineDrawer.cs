@@ -47,7 +47,6 @@ namespace twoDSystem
             }
         }
 
-
         private void Generate2dWalls()
 		{
 			var previousTrial = E.Get().CurrTrial.TrialProgress.PreviousTrial;
@@ -74,10 +73,9 @@ namespace twoDSystem
 			
 				//Here we create the wall
 				var obj = Instantiate(Wall,
-					new Vector3(x, 0.1F, y),
+					new Vector3(x, 0.001F, y),
 					Quaternion.identity
 				);
-
 
 				//So we add 10 because the end user won't be able to notice it anyways
 				obj.transform.localScale = new Vector3(length, 4F, 0.5f);
@@ -102,7 +100,6 @@ namespace twoDSystem
 
                 var landmark = (GameObject)Instantiate(Resources.Load("Prefabs/" + d.Type));
 
-
                 landmark.transform.localScale = new Vector3(d.Length, d.Height, d.Width);
                 try
                 {
@@ -115,7 +112,6 @@ namespace twoDSystem
                 }
 
                 landmark.transform.Rotate(new Vector3(0, 1, 0), d.InitialRotation);
-
 
                 landmark.GetComponent<Renderer>().material.color = Data.GetColour(d.Color);
                 var sprite = d.ImageLoc;
