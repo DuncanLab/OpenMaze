@@ -1,26 +1,31 @@
-﻿# Open Maze
-> This is a simulation of the [Morris Maze experiment](https://en.wikipedia.org/wiki/Morris_water_navigation_task) written mostly in Unity C#
-with statistic calculations done in Python.
+<h1 align="center">Open Maze</h1>
+<p align="center"><img src="https://i.imgur.com/M1Ep92b.png"></p>
+<p align="center">A simulation of the <a href="https://en.wikipedia.org/wiki/Morris_water_navigation_task">Morris Maze experiment</a> written mostly in Unity C#
+with statistic calculations done in Python.</p>
+
+<p align="center">
+<a href="LICENSE"><img src="https://img.shields.io/github/license/DuncanLab/OpenMaze.svg"></a>
+<a href="https://github.com/DuncanLab/OpenMaze/releases"><img src="https://img.shields.io/github/release/DuncanLab/OpenMaze.svg"></a>
 
 ## Getting Started
 
 ### Prerequisites
-
-- Your PC must meet the minimum requirements to run Unity, found [here](https://unity3d.com/unity/system-requirements)
+- Unity 2017.x or above.
+- Your PC must meet the minimum requirements to run Unity, found [here](https://unity3d.com/unity/system-requirements).
 - Mac OSX or Windows 10 are preferred, but the project should still behave normally on most Linux distros.
 
 ### Installation
 To use this software in your experiments you will need to download the
-following software packages: **Unity, Open Maze, Sublime Text/Text editor of choice**
+following software packages: **Unity, Open Maze, Sublime Text/Text editor of choice**.
 
 1. Download and Install Unity
-   1. Go to: https://store.unity.com/download?ref=personal
-   2. Follow Installation instructions for your specific computer
+   1. Go to: https://store.unity.com/download?ref=personal.
+   2. Follow Installation instructions for your specific computer.
    3. Open the Unity application and create an account or login.
 
 2. Download Open Maze Software
-   1. Go to https://github.com/DuncanLab/OpenMaze (you're already here!)
-   2. In the grey dropdown on the left side of the page called 'branch' make sure
+   1. Go to https://github.com/DuncanLab/OpenMaze (you're already here!).
+   2. In the grey dropdown on the left side of the page called 'branch' make sure.
       that **master** is selected. Alternatively, checkout the [releases section](https://github.com/DuncanLab/OpenMaze/releases)
       for the latest release.
    3. Now, click the green button on the right hand side called **Clone or
@@ -63,18 +68,14 @@ https://duncanlab.github.io/OpenMazeSite
 
 1. Fork it (<https://github.com/DuncanLab/OpenMaze/fork>) *This step is optional if you have been
 granted push access already*.
-2. Create your feature branch (`git checkout -b feature/fooBar`)
-3. Commit your changes (`git commit -am 'Add some fooBar'`)
-4. Push to the branch (`git push origin feature/fooBar`)
-5. Create a new [Pull Request](https://github.com/DuncanLab/OpenMaze/pulls)
+2. Create your feature branch (`git checkout -b feature/fooBar`).
+3. Commit your changes (`git commit -am 'Add some fooBar'`).
+4. Push to the branch (`git push origin feature/fooBar`).
+5. Create a new [Pull Request](https://github.com/DuncanLab/OpenMaze/pulls).
 
 ## Versioning
 
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [releases on this repository](https://github.com/DuncanLab/OpenMaze/releases).
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
 
 ## Acknowledgments
 
