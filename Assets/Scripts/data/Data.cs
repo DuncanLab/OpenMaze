@@ -48,6 +48,8 @@ namespace data
 			public int Replacement; //Integer value representing replacement
 			public List<RandomData>	 RandomTrialType; //Array that contains all the possible random values
 			public List<int> TrialOrder; //Trial order (-1 means random)
+
+            public bool ShowCount; // Whether or not to displaay the number of successful trials
 		}
 		[Serializable]
 		public class RandomData
