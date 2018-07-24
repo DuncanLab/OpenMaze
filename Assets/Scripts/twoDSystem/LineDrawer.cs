@@ -26,7 +26,7 @@ namespace twoDSystem
             GameObject.Find("CountDown").GetComponent<Text>().text = "";
 
 			var goalText = GameObject.Find("Goal").GetComponent<Text>();
-			goalText.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 30);
+			goalText.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 40);
 			goalText.text = E.Get().CurrTrial.Value.Header ?? "Test";
 			goalText.color = Color.black;
 			
