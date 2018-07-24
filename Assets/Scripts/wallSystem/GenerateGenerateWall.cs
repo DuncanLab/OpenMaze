@@ -39,7 +39,7 @@ namespace wallSystem
 
             if (DS.GetData().BlockList[currBlockId].ShowCount)
             {
-                Timer.text = "Pickups found: " + E.Get().CurrTrial.TrialProgress.NumSuccess;
+                Timer.text = "Objects found: " + E.Get().CurrTrial.TrialProgress.NumSuccess;
             }
         }
     }
