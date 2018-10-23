@@ -72,7 +72,6 @@ namespace data
 			public string WallColor; //HEX color of the walls
 			public int Radius; //Radius of the walls
 			public int TimeAllotted; //Allotted amount of time
-			public int RandomLoc; //Whether or not the pickup has a random loaction
 			public string Header; //Note outputted out of the trial.
 			public MazeData Map; //The Map saved mazedata
 			public int GroundTileSides; // Number of sides on the ground pattern shapes - 0 for no tiles, 1 for solid color.
@@ -84,8 +83,7 @@ namespace data
 			public List<int> LandMarks; //List of all land marks
 			public int Quota; //The quota that the person needs to pick up before the next trial is switched too
 			public List<float> CharacterStartPos; //The start position of the character (usually 0, 0)
-			public int InitialAngle;
-
+            public float CharacterStartAngle; // The starting angle of the character (in degrees).
 		}
  	
 

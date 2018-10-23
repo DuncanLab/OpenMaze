@@ -42,20 +42,24 @@ namespace wallSystem
 		private void Start()
 		{
 			var goalText = GameObject.Find("Goal").GetComponent<Text>();
-			goalText.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 30);
+			goalText.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 40);
 
 			//And this section sets the text.
 			goalText.text = E.Get().CurrTrial.Value.Header;
 			goalText.color = Color.white;
-
-
-			
 			
 			Random.InitState(DateTime.Now.Millisecond);
 
 			_currDelay = 0;
+
+            // Choose a random starting angle if the value is not set in config
+            if (E.Get().CurrTrial.Value.CharacterStartAngle == -1) {
+                _iniRotation = Random.Range(0, 360);
+            } else {
+                _iniRotation = E.Get().CurrTrial.Value.CharacterStartAngle;
+            }
 			
-			transform.Rotate(0, E.Get().CurrTrial.Value.InitialAngle, 0, Space.World);
+            transform.Rotate(0, _iniRotation, 0, Space.World);
 
 			_controller = GetComponent<CharacterController>();
 			_gen = GameObject.Find("WallCreator").GetComponent<GenerateGenerateWall>();
@@ -70,9 +74,10 @@ namespace wallSystem
 		public void ExternalStart(float pickX, float pickY, bool maze = false)
 		{
 			TrialProgress.GetCurrTrial().TrialProgress.TargetX = pickX;
-			TrialProgress.GetCurrTrial().TrialProgress.TargetY = pickY;			
+			TrialProgress.GetCurrTrial().TrialProgress.TargetY = pickY;
 
-			if (E.Get().CurrTrial.Value.RandomLoc == 1)
+            // No start pos specified so make it random.
+            if (E.Get().CurrTrial.Value.CharacterStartPos.Count == 0)
 			{
                 // Try to randomly place the character, checking for proximity
                 // to the pickup location
