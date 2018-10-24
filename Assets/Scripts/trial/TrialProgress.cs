@@ -14,7 +14,9 @@ namespace trial
         public DateTime StartTime;
         public float NumSuccess;
         public float Num3D;
-        public List<int> successes;
+
+        public List<int> successes; // Whether a trial was a success or not (1 or 0).
+        public int[] NumCollectedPerBlock; // Number of goals during each block.
 
         public int TrialNumber;
         public int EnvironmentType;

@@ -1,8 +1,8 @@
-﻿using System;
+﻿using data;
+using main;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
-using data;
-using main;
 using UnityEngine;
 using DS = data.DataSingleton;
 namespace trial
@@ -17,24 +17,26 @@ namespace trial
 
         public bool isSuccessful;
 
+        public int NumCollected; // The number of goals collected for this trial
+
         public TrialProgress TrialProgress;
 
         //This points to the start of the block of trials (if present)
         public AbstractTrial head;
 
         public bool isTail;
-        
+
         public Data.Trial Value;
-        
+
         //This points to the next trial
         // ReSharper disable once InconsistentNaming
         public AbstractTrial next;
 
         protected float _runningTime;
 
-        
-        
-        
+
+
+
         protected AbstractTrial(int blockId, int trialId)
         {
             BlockID = blockId;
@@ -57,14 +59,16 @@ namespace trial
             Debug.Log("Entering trial: " + TrialID);
             if (head == this && first)
             {
-                Debug.Log(string.Format("Entered Block: {0} at time: {1}", BlockID,  DateTime.Now));
+                Debug.Log(string.Format("Entered Block: {0} at time: {1}", BlockID, DateTime.Now));
                 t.ResetOngoing();
                 t.successes = new List<int>();
+                int NumBlocks = DS.GetData().BlockList.Count;
+                t.NumCollectedPerBlock = new int[NumBlocks];
             }
             _runningTime = 0;
-            
-            t.TrialNumber++;            
-            
+
+            t.TrialNumber++;
+
             TrialProgress = t;
         }
 
@@ -77,36 +81,36 @@ namespace trial
         {
             _runningTime = 0;
         }
-        
+
         //Function for stuff to know that things have happened
         public virtual void Notify()
         {
-            
+
         }
-        
-        
+
+
         //Essentially, here we load
         public virtual void Progress()
         {
-            
+
             Debug.Log("Progressing...");
             //Exiting current trial
-            TrialProgress.PreviousTrial = this; 
-            
+            TrialProgress.PreviousTrial = this;
+
 
             var blockData = DS.GetData().BlockList[BlockID];
             //Data on how to choose the next trial will be selected here.
             if (isTail)
             {
                 if (blockData.EndFunction != null)
-                {    
-                    
-                    var tmp = blockData.EndFunction;    
+                {
+
+                    var tmp = blockData.EndFunction;
                     var func = typeof(Functions).GetMethod(tmp, BindingFlags.Static | BindingFlags.Public);
-                    
-                    
-                    var result = func != null && (bool) func.Invoke(null, new object[] {TrialProgress});
-                    
+
+
+                    var result = func != null && (bool)func.Invoke(null, new object[] { TrialProgress });
+
                     if (result)
                     {
                         Loader.Get().CurrTrial = head;
@@ -114,12 +118,12 @@ namespace trial
                         return;
                     }
                 }
-                
-            } 
+
+            }
             Loader.Get().CurrTrial = next;
             next.PreEntry(TrialProgress);
-            
-            
+
+
         }
 
         public float GetRunningTime()
