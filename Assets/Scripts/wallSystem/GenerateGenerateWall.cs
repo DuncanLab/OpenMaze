@@ -46,7 +46,7 @@ namespace wallSystem
             }
             else if (DS.GetData().BlockList[currBlockId].ShowCollectedPerBlock)
             {
-                Timer.text = "Goals found this block: " + DS.GetData().BlockList[currBlockId].NumCollectedThisBlock;
+                Timer.text = "Goals found this block: " + E.Get().CurrTrial.TrialProgress.NumCollectedPerBlock[currBlockId];
             }
         }
     }

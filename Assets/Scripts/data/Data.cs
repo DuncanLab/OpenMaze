@@ -46,8 +46,6 @@ namespace data
             public List<RandomData> RandomTrialType; //Array that contains all the possible random values
             public List<int> TrialOrder; //Trial order (-1 means random)
 
-            public int NumCollectedThisBlock; // Number of goals collected during the current block.
-
             public bool ShowNumSuccessfulTrials; // Whether or not to display the number of successful trials
             public bool ShowCollectedPerTrial; // Whether or not to display the amount of goals/pickups collected (resets each trial)
             public bool ShowCollectedPerBlock; // Whether or not to display the amount of goals/pickups collected (resets each block)

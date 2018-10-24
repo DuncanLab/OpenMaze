@@ -121,7 +121,11 @@ namespace wallSystem
             GetComponent<AudioSource>().PlayOneShot(other.gameObject.GetComponent<PickupSound>().Sound, 10);
             Destroy(other.gameObject);
 
-            DS.GetData().BlockList[TrialProgress.GetCurrTrial().BlockID].NumCollectedThisBlock++;
+            // Tally the number collected per current block
+            int BlockID = TrialProgress.GetCurrTrial().BlockID;
+            int currCount = TrialProgress.GetCurrTrial().TrialProgress.NumCollectedPerBlock[BlockID];
+            TrialProgress.GetCurrTrial().TrialProgress.NumCollectedPerBlock[BlockID] = currCount++;
+
             TrialProgress.GetCurrTrial().NumCollected++;
             E.LogData(
                 TrialProgress.GetCurrTrial().TrialProgress,

@@ -62,6 +62,8 @@ namespace trial
                 Debug.Log(string.Format("Entered Block: {0} at time: {1}", BlockID, DateTime.Now));
                 t.ResetOngoing();
                 t.successes = new List<int>();
+                int NumBlocks = DS.GetData().BlockList.Count;
+                t.NumCollectedPerBlock = new int[NumBlocks];
             }
             _runningTime = 0;
 
