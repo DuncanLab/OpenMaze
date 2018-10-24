@@ -1,84 +1,85 @@
 ﻿using System;
 using System.Collections.Generic;
-using data;
-using main;
 using trial;
 using UnityEngine;
 using UnityEngine.UI;
 using DS = data.DataSingleton;
-using Random = UnityEngine.Random;
 using E = main.Loader;
-using C = data.Constants;
+using Random = UnityEngine.Random;
 //This class is the primary player script.
 //This allows us to move around essentially.
 namespace wallSystem
 {
-	public class PlayerController : MonoBehaviour {
-   
-		public Camera Cam;
-		private GenerateGenerateWall _gen;
-    
-    
-		//The stream writer that writes data out to an output file.
-		private string _outDir;
+    public class PlayerController : MonoBehaviour
+    {
 
-		//This is the character controller system used for collision
-		private CharacterController _controller;
+        public Camera Cam;
+        private GenerateGenerateWall _gen;
 
-		//The initial move direction is static zero.
-		private Vector3 _moveDirection = Vector3.zero;
 
-		private float _currDelay;
-	
-		private float _iniRotation;
+        //The stream writer that writes data out to an output file.
+        private readonly string _outDir;
 
-		private float _waitTime;
+        //This is the character controller system used for collision
+        private CharacterController _controller;
 
-		private bool _playingSound;
-		
-		private bool _reset;
-		private int localQuota;
-		
-		private void Start()
-		{
-			var goalText = GameObject.Find("Goal").GetComponent<Text>();
-			goalText.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 40);
+        //The initial move direction is static zero.
+        private Vector3 _moveDirection = Vector3.zero;
 
-			//And this section sets the text.
-			goalText.text = E.Get().CurrTrial.Value.Header;
-			goalText.color = Color.white;
-			
-			Random.InitState(DateTime.Now.Millisecond);
+        private float _currDelay;
 
-			_currDelay = 0;
+        private float _iniRotation;
+
+        private float _waitTime;
+
+        private bool _playingSound;
+
+        private bool _reset;
+        private int localQuota;
+
+        private void Start()
+        {
+            var goalText = GameObject.Find("Goal").GetComponent<Text>();
+            goalText.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 40);
+
+            //And this section sets the text.
+            goalText.text = E.Get().CurrTrial.Value.Header;
+            goalText.color = Color.white;
+
+            Random.InitState(DateTime.Now.Millisecond);
+
+            _currDelay = 0;
 
             // Choose a random starting angle if the value is not set in config
-            if (E.Get().CurrTrial.Value.CharacterStartAngle == -1) {
+            if (E.Get().CurrTrial.Value.CharacterStartAngle == -1)
+            {
                 _iniRotation = Random.Range(0, 360);
-            } else {
+            }
+            else
+            {
                 _iniRotation = E.Get().CurrTrial.Value.CharacterStartAngle;
             }
-			
+
             transform.Rotate(0, _iniRotation, 0, Space.World);
 
-			_controller = GetComponent<CharacterController>();
-			_gen = GameObject.Find("WallCreator").GetComponent<GenerateGenerateWall>();
-			Cam.transform.Rotate (0, 0, 0);
-			_waitTime = E.Get().CurrTrial.Value.TimeToRotate;
-			_reset = false;
-			localQuota = E.Get().CurrTrial.Value.Quota;
+            _controller = GetComponent<CharacterController>();
+            _gen = GameObject.Find("WallCreator").GetComponent<GenerateGenerateWall>();
+            Cam.transform.Rotate(0, 0, 0);
+            _waitTime = E.Get().CurrTrial.Value.TimeToRotate;
+            _reset = false;
+            localQuota = E.Get().CurrTrial.Value.Quota;
 
-		}
+        }
 
-		//Start the character. //If init from maze, this allows "s" to determine the start position
-		public void ExternalStart(float pickX, float pickY, bool maze = false)
-		{
-			TrialProgress.GetCurrTrial().TrialProgress.TargetX = pickX;
-			TrialProgress.GetCurrTrial().TrialProgress.TargetY = pickY;
+        //Start the character. //If init from maze, this allows "s" to determine the start position
+        public void ExternalStart(float pickX, float pickY, bool maze = false)
+        {
+            TrialProgress.GetCurrTrial().TrialProgress.TargetX = pickX;
+            TrialProgress.GetCurrTrial().TrialProgress.TargetY = pickY;
 
             // No start pos specified so make it random.
             if (E.Get().CurrTrial.Value.CharacterStartPos.Count == 0)
-			{
+            {
                 // Try to randomly place the character, checking for proximity
                 // to the pickup location
                 var i = 0;
@@ -97,104 +98,114 @@ namespace wallSystem
                 }
                 Debug.LogError("Could not randomly place player. Probably due to" +
                                " a pick up location setting");
-			}
-			else
-			{
-				var p = E.Get().CurrTrial.Value.CharacterStartPos;
-				if (maze)
-					p = new List<float>() {pickX, pickY};
-				transform.position = new Vector3(p[0], 0.5f, p[1]);
-				var camPos = Cam.transform.position;
-				camPos.y = DS.GetData().CharacterData.Height;
-				Cam.transform.position = camPos;
-			}
-		}
+            }
+            else
+            {
+                var p = E.Get().CurrTrial.Value.CharacterStartPos;
+                if (maze)
+                    p = new List<float>() { pickX, pickY };
+                transform.position = new Vector3(p[0], 0.5f, p[1]);
+                var camPos = Cam.transform.position;
+                camPos.y = DS.GetData().CharacterData.Height;
+                Cam.transform.position = camPos;
+            }
+        }
 
 
-		//This is the collision system.
-		private void OnTriggerEnter(Collider other)
-		{
-			if (!other.gameObject.CompareTag("Pickup")) return;
-
-			
-			GetComponent<AudioSource> ().PlayOneShot (other.gameObject.GetComponent<PickupSound>().Sound, 10);
-			Destroy (other.gameObject);
-			if (--localQuota > 0) return;
-			E.Get().CurrTrial.Notify();
-
-			_playingSound = true;
-			E.LogData(
-				TrialProgress.GetCurrTrial().TrialProgress, 
-				TrialProgress.GetCurrTrial().GetRunningTime(),
-				transform,
-				1
-			);
-
-		}
+        //This is the collision system.
+        private void OnTriggerEnter(Collider other)
+        {
+            if (!other.gameObject.CompareTag("Pickup")) return;
 
 
-		private void ComputeMovement()
-		{
-			//This calculates the current amount of rotation frame rate independent
-			var rotation = Input.GetAxis("Horizontal") * DS.GetData().CharacterData.RotationSpeed * Time.deltaTime;
+            GetComponent<AudioSource>().PlayOneShot(other.gameObject.GetComponent<PickupSound>().Sound, 10);
+            Destroy(other.gameObject);
+
+            DS.GetData().BlockList[TrialProgress.GetCurrTrial().BlockID].NumCollectedThisBlock++;
+            TrialProgress.GetCurrTrial().NumCollected++;
+            E.LogData(
+                TrialProgress.GetCurrTrial().TrialProgress,
+                TrialProgress.GetCurrTrial().GetRunningTime(),
+                transform,
+                1
+            );
+
+            if (--localQuota > 0) return;
+
+            E.Get().CurrTrial.Notify();
+
+            _playingSound = true;
+            E.LogData(
+                TrialProgress.GetCurrTrial().TrialProgress,
+                TrialProgress.GetCurrTrial().GetRunningTime(),
+                transform,
+                1
+            );
+        }
 
 
-			//This calculates the forward speed frame rate independent
-			_moveDirection = new Vector3(0, 0, Input.GetAxis("Vertical"));
-			_moveDirection = transform.TransformDirection(_moveDirection);
-			_moveDirection *= DS.GetData().CharacterData.MovementSpeed;
+        private void ComputeMovement()
+        {
+            //This calculates the current amount of rotation frame rate independent
+            var rotation = Input.GetAxis("Horizontal") * DS.GetData().CharacterData.RotationSpeed * Time.deltaTime;
 
-			//Here is the movement system
-			const double tolerance = 0.0001;
 
-			//we move iff rotation is 0
-			if (Math.Abs(Mathf.Abs(rotation)) < tolerance)
-				_controller.Move(_moveDirection * Time.deltaTime);
+            //This calculates the forward speed frame rate independent
+            _moveDirection = new Vector3(0, 0, Input.GetAxis("Vertical"));
+            _moveDirection = transform.TransformDirection(_moveDirection);
+            _moveDirection *= DS.GetData().CharacterData.MovementSpeed;
 
-			transform.Rotate(0, rotation, 0);
+            //Here is the movement system
+            const double tolerance = 0.0001;
 
-		}
-	
-		
-		private void Update()
-		{
-	
-			 //This first block is for the initial rotation of the character
-			if (_currDelay < _waitTime)
-			{
-				var angle = 360f * _currDelay / _waitTime + _iniRotation - transform.rotation.eulerAngles.y;
-				transform.Rotate(new Vector3(0, angle, 0));
-			}
-			//We need to not continue if there is audio playing, so we just pause here.
-			else if (_playingSound)
-			{
-				if (!GetComponent<AudioSource>().isPlaying)
-				{
-					//We finish it here
-					E.Get().CurrTrial.Progress();
-				}
-			}
-			else
-			{	
-				//This section rotates the camera (potentiall up 15 degrees), basically deprecated code.
-				if (!_reset)
-				{
-					Cam.transform.Rotate (0, 0, 0);
-					_reset = true;
-					TrialProgress.GetCurrTrial().ResetTime();
-				}
-				
-				//Move the character.
-				ComputeMovement();
-				E.LogData(
-					TrialProgress.GetCurrTrial().TrialProgress, 
-					TrialProgress.GetCurrTrial().GetRunningTime(),
-					transform
-				);
-			}
-			_currDelay += Time.deltaTime;
-		}
-		
+            //we move iff rotation is 0
+            if (Math.Abs(Mathf.Abs(rotation)) < tolerance)
+                _controller.Move(_moveDirection * Time.deltaTime);
 
-	}
+            transform.Rotate(0, rotation, 0);
+
+        }
+
+
+        private void Update()
+        {
+
+            //This first block is for the initial rotation of the character
+            if (_currDelay < _waitTime)
+            {
+                var angle = 360f * _currDelay / _waitTime + _iniRotation - transform.rotation.eulerAngles.y;
+                transform.Rotate(new Vector3(0, angle, 0));
+            }
+            //We need to not continue if there is audio playing, so we just pause here.
+            else if (_playingSound)
+            {
+                if (!GetComponent<AudioSource>().isPlaying)
+                {
+                    //We finish it here
+                    E.Get().CurrTrial.Progress();
+                }
+            }
+            else
+            {
+                //This section rotates the camera (potentiall up 15 degrees), basically deprecated code.
+                if (!_reset)
+                {
+                    Cam.transform.Rotate(0, 0, 0);
+                    _reset = true;
+                    TrialProgress.GetCurrTrial().ResetTime();
+                }
+
+                //Move the character.
+                ComputeMovement();
+                E.LogData(
+                    TrialProgress.GetCurrTrial().TrialProgress,
+                    TrialProgress.GetCurrTrial().GetRunningTime(),
+                    transform
+                );
+            }
+            _currDelay += Time.deltaTime;
+        }
+
+
+    }
 }
