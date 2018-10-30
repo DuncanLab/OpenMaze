@@ -39,12 +39,19 @@ namespace wallSystem
 
         private void Start()
         {
-            var goalText = GameObject.Find("Goal").GetComponent<Text>();
-            goalText.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 40);
+            try
+            {
+                var goalText = GameObject.Find("Goal").GetComponent<Text>();
+                goalText.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 40);
 
-            //And this section sets the text.
-            goalText.text = E.Get().CurrTrial.Value.Header;
-            goalText.color = Color.white;
+                //And this section sets the text.
+                goalText.text = E.Get().CurrTrial.Value.Header;
+                goalText.color = Color.white;
+            }
+            catch (NullReferenceException e)
+            {
+                Debug.LogWarning("Goal object not set: running an instructional trial");
+            }
 
             Random.InitState(DateTime.Now.Millisecond);
 
@@ -62,9 +69,16 @@ namespace wallSystem
 
             transform.Rotate(0, _iniRotation, 0, Space.World);
 
-            _controller = GetComponent<CharacterController>();
-            _gen = GameObject.Find("WallCreator").GetComponent<GenerateGenerateWall>();
-            Cam.transform.Rotate(0, 0, 0);
+            try
+            {
+                _controller = GetComponent<CharacterController>();
+                _gen = GameObject.Find("WallCreator").GetComponent<GenerateGenerateWall>();
+                Cam.transform.Rotate(0, 0, 0);
+            }
+            catch (NullReferenceException e)
+            {
+                Debug.LogWarning("Can't set controller object: running an instructional trial");
+            }
             _waitTime = E.Get().CurrTrial.Value.TimeToRotate;
             _reset = false;
             localQuota = E.Get().CurrTrial.Value.Quota;
@@ -173,8 +187,7 @@ namespace wallSystem
 
         private void Update()
         {
-
-            //This first block is for the initial rotation of the character
+            // This first block is for the initial rotation of the character
             if (_currDelay < _waitTime)
             {
                 var angle = 360f * _currDelay / _waitTime + _iniRotation - transform.rotation.eulerAngles.y;
@@ -200,7 +213,15 @@ namespace wallSystem
                 }
 
                 //Move the character.
-                ComputeMovement();
+                try
+                {
+                    ComputeMovement();
+                }
+                catch (MissingComponentException e)
+                {
+                    Debug.LogWarning("Skipping movement calc: instructional trial");
+                }
+
                 E.LogData(
                     TrialProgress.GetCurrTrial().TrialProgress,
                     TrialProgress.GetCurrTrial().GetRunningTime(),
