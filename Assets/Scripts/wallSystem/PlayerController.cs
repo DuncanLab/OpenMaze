@@ -123,8 +123,7 @@ namespace wallSystem
 
             // Tally the number collected per current block
             int BlockID = TrialProgress.GetCurrTrial().BlockID;
-            int currCount = TrialProgress.GetCurrTrial().TrialProgress.NumCollectedPerBlock[BlockID];
-            TrialProgress.GetCurrTrial().TrialProgress.NumCollectedPerBlock[BlockID] = currCount++;
+            TrialProgress.GetCurrTrial().TrialProgress.NumCollectedPerBlock[BlockID]++;
 
             TrialProgress.GetCurrTrial().NumCollected++;
             E.LogData(
