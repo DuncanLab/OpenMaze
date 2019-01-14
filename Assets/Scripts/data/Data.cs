@@ -11,12 +11,15 @@ namespace data
     [Serializable]
     public class Data
     {
+        // bool that determines whether or not to turn on timing code to verify accuracy of tests. 
+        public bool TimingVerification; 
+        // how often data is outputted. 
         public int OutputTimesPerSecond;
         //This is the object (defined below) which contains all data available for the main player
         public Character CharacterData;
         public string OutputFile; //The output file of the character's movements during an experiment
 
-        //This is a LIST of the different types of pickup items that are defiend below
+        //This is a LIST of the different types of pickup items that are defined below
         public List<Goal> Goals;
 
         //This is a list of the pillar objects
@@ -62,8 +65,8 @@ namespace data
         [Serializable]
         public class Trial
         {
-            public int TimeToRotate; //How long the delay can last in the rotatio
-            public float WallHeight;            //This is the wall height
+            public int TimeToRotate; //How long the delay can last in the rotation
+            public float WallHeight;  //This is the wall height
             public int TwoDimensional; //Set to true iff trial is two dimensional
             public string FileLocation; //Is not null iff FileLocation exists (Image for 1D trials)
             public int EnvironmentType; //This is the environment type referenced.
@@ -110,7 +113,7 @@ namespace data
         [Serializable]
         public class Character
         {
-            public float MovementSpeed; //The movespeed of the character
+            public float MovementSpeed; //The movement speed of the character
             public float RotationSpeed; //The rotation speed of the character
             public float GoalRotationSpeed; //The rotation speed of the goals
             public float Height; //The height of the character
@@ -125,7 +128,7 @@ namespace data
         [Serializable]
         public class LandMark
         {
-            public List<float> Location; //Location of the landmarkk
+            public List<float> Location; //Location of the landmark
             public float Length;
             public float Width;
             public float Height; //These should be obvious...

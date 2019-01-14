@@ -57,7 +57,7 @@ namespace main
 			using (var writer = new StreamWriter ("Assets/OutputFiles~/" + DS.GetData ().OutputFile, false))
 			{
 				writer.Write (
-                    "Trial Number, Time Since Experiement Start (Seconds), Time Since Trial Start (seconds), X, Y, Angle, Environment Type, Sides, TargetFound, PickupType, " +
+                    "Trial Number, Time Since Experiment Start (Seconds), Time Since Trial Start (seconds), X, Y, Angle, Environment Type, Sides, TargetFound, PickupType, " +
 					"TargetX, TargetY, LastX, LastY, BlockID, TrialID, Subject, Delay, 2D, Visible, UpArrow, DownArrow," +
 					" LeftArrow, RightArrow, Space, Session, Note"
 				+ "\n");
