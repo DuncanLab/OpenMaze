@@ -45,6 +45,26 @@ namespace wallSystem
             //And this section sets the text.
             goalText.text = E.Get().CurrTrial.Value.Header;
             goalText.color = Color.white;
+            
+            // testing for timing settings. 
+            Debug.Log("Timing Status: " + data.DataSingleton.GetData().TimingVerification);
+            
+            var timingBox = GameObject.Find("TimingUnit").GetComponent<Graphic>();
+            timingBox.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 100);
+            
+            if (data.DataSingleton.GetData().TimingVerification)
+            {
+                timingBox.enabled = true;
+                timingBox.color = Color.black;
+
+            }
+            else
+            {
+                timingBox.enabled = false;
+
+            }
+            
+            
 
             Random.InitState(DateTime.Now.Millisecond);
 

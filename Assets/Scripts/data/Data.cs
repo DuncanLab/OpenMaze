@@ -11,8 +11,8 @@ namespace data
     [Serializable]
     public class Data
     {
-        // bool that determines whether or not to turn on timing code to verify accuracy of tests. 
-        public bool TimingVerification; 
+        public bool TimingVerification; // whether or not to turn on timing diagnostics
+
         // how often data is outputted. 
         public int OutputTimesPerSecond;
         //This is the object (defined below) which contains all data available for the main player

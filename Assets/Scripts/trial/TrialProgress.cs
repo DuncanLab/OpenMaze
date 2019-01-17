@@ -20,6 +20,7 @@ namespace trial
 
         public int TrialNumber;
         public int EnvironmentType;
+        public bool TimingVerification; // timing diagnostics boolean
         public int Sides;
         public int PickupType;
         public float TargetX;
