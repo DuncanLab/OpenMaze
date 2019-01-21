@@ -49,14 +49,15 @@ namespace wallSystem
             // testing for timing settings. 
             Debug.Log("Timing Status: " + data.DataSingleton.GetData().TimingVerification);
             
+            // set properties of timing box
             var timingBox = GameObject.Find("TimingUnit").GetComponent<Graphic>();
             timingBox.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 100);
             
+            // if timing diagnostics are turned on then timing square will initialize with each scene. 
             if (data.DataSingleton.GetData().TimingVerification)
             {
                 timingBox.enabled = true;
                 timingBox.color = Color.black;
-
             }
             else
             {

@@ -13,6 +13,8 @@ namespace data
     {
         public bool TimingVerification; // whether or not to turn on timing diagnostics
 
+        public int TrialInitialValue; // value from which trials start incrementing in the config file. 
+
         // how often data is outputted. 
         public int OutputTimesPerSecond;
         //This is the object (defined below) which contains all data available for the main player
