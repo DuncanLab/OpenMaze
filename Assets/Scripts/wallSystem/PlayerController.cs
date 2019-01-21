@@ -57,7 +57,15 @@ namespace wallSystem
             if (data.DataSingleton.GetData().TimingVerification)
             {
                 timingBox.enabled = true;
-                timingBox.color = Color.black;
+                if (data.DataSingleton.GetData().TrialInitialValue % 2 == 0)
+                {
+                    timingBox.color = Color.black;
+                }
+                else
+                {
+                    timingBox.color = Color.white;
+                }
+               
             }
             else
             {
