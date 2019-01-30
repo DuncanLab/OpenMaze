@@ -16,6 +16,7 @@ namespace wallSystem
         public GameObject Player;
 
         public int currBlockId; // The id of the current block being tested.
+        public int currTrialId; // The id of the current trial being tested.
 
         //current generate wall object that exists. This is intrinsically different from 
         //the Create object as that is a prefab while this is the instance.
@@ -35,6 +36,7 @@ namespace wallSystem
         {
 
             currBlockId = E.Get().CurrTrial.BlockID;
+            currTrialId = E.Get().CurrTrial.TrialID;
 
             if (DS.GetData().BlockList[currBlockId].ShowNumSuccessfulTrials)
             {
@@ -44,7 +46,7 @@ namespace wallSystem
             {
                 Timer.text = "Goals found this trial: " + E.Get().CurrTrial.NumCollected;
             }
-            else if (DS.GetData().BlockList[currBlockId].ShowCollectedPerBlock)
+            else if (DS.GetData().TrialData[currTrialId].ShowCollectedPerBlock)
             {
                 Timer.text = "Goals found this block: " + E.Get().CurrTrial.TrialProgress.NumCollectedPerBlock[currBlockId];
             }
