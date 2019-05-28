@@ -1,9 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
-using System.Runtime.InteropServices.ComTypes;
-using data;
-using main;
+﻿using main;
 using SFB;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,11 +11,11 @@ namespace trial
     public class FieldTrial : AbstractTrial
     {
         private readonly InputField[] _fields;
-        
+
         //Here we construct the entire linked list structure.
-        public FieldTrial(InputField [] fields) : base(-1, -1)
+        public FieldTrial(InputField[] fields) : base(-1, -1)
         {
-            
+
             TrialProgress = new TrialProgress();
             _fields = fields;
 
@@ -35,7 +30,7 @@ namespace trial
 
             TrialProgress = new TrialProgress();
             _fields = fields;
-            
+
         }
 
 
@@ -49,7 +44,7 @@ namespace trial
                 var block = DS.GetData().BlockList[l];
                 var newBlock = true;
                 AbstractTrial currHead = null;
-                
+
                 var tCnt = 0;
                 foreach (var j in block.TrialOrder)
                 {
@@ -70,8 +65,8 @@ namespace trial
 
                         if (trialData.FileLocation != null)
                         {
-                            Debug.Log("Creating new Loading Screen Trial");
-                            t = new LoadingScreenTrial(l, k);
+                            Debug.Log("Creating new Instructional Trial");
+                            t = new InstructionalTrial(l, k);
                         }
                         else if (trialData.TwoDimensional == 1)
                         {
@@ -87,23 +82,23 @@ namespace trial
                         }
                     }
                     if (newBlock) currHead = t;
-                    
-                    
-                     t.isTail = tCnt == block.TrialOrder.Count - 1;
+
+
+                    t.isTail = tCnt == block.TrialOrder.Count - 1;
                     t.head = currHead;
-                    
+
                     currentTrial.next = t;
-                    
+
                     currentTrial = currentTrial.next;
 
                     newBlock = false;
                     tCnt++;
                 }
-                
+
                 currentTrial.next = new CloseTrial(-1, -1);
             }
         }
-        
+
 
         public override void Update(float deltaTime)
         {
@@ -111,43 +106,43 @@ namespace trial
             //Sets the data.
             if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Joystick1Button0))
             {
-                
-                
+
+
                 //Sets the output file name as the desired one.
                 foreach (var textBox in _fields)
                 {
                     var arr = textBox.transform.GetComponentsInChildren<Text>();
                     DS.GetData().OutputFile = arr[1].text + "_" + DS.GetData().OutputFile;
                 }
-                var str  = _fields[0].transform.GetComponentsInChildren<Text>();
+                var str = _fields[0].transform.GetComponentsInChildren<Text>();
                 TrialProgress.Subject = str[1].text;
-                
+
                 str = _fields[2].transform.GetComponentsInChildren<Text>();
                 TrialProgress.Delay = str[1].text;
-                
-                
-                
+
+
+
                 str = _fields[1].transform.GetComponentsInChildren<Text>();
                 TrialProgress.SessionID = str[1].text;
-                
-                
+
+
                 str = _fields[3].transform.GetComponentsInChildren<Text>();
                 TrialProgress.Note = str[1].text;
-                
-                
+
+
                 GenerateTrials();
 
                 Loader.LogFirst();
 
                 Progress();
             }
-            
+
         }
 
 
         public override void Progress()
         {
-            
+
             Loader.Get().CurrTrial = next;
             next.PreEntry(TrialProgress);
         }

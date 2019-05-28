@@ -29,6 +29,7 @@ namespace trial
         public string Subject;
         public string Delay;
         public int TwoDim;
+        public int Instructional;
         public int Visible;
         public float LastX;
         public float LastY;
