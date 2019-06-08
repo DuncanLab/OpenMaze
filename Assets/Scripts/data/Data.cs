@@ -11,12 +11,17 @@ namespace data
     [Serializable]
     public class Data
     {
+        public bool TimingVerification; // whether or not to turn on timing diagnostics
+
+        public int TrialInitialValue; // value from which trials start incrementing in the config file. 
+
+        // how often data is outputted. 
         public int OutputTimesPerSecond;
         //This is the object (defined below) which contains all data available for the main player
         public Character CharacterData;
         public string OutputFile; //The output file of the character's movements during an experiment
 
-        //This is a LIST of the different types of pickup items that are defiend below
+        //This is a LIST of the different types of pickup items that are defined below
         public List<Goal> Goals;
 
         //This is a list of the pillar objects
@@ -62,11 +67,15 @@ namespace data
         [Serializable]
         public class Trial
         {
-            public int TimeToRotate; //How long the delay can last in the rotatio
+            public int TimeToRotate; //How long the delay can last in the rotation
             public float WallHeight; //This is the wall height
             public int TwoDimensional; //Set to 1 iff trial is two dimensional
             public int Instructional; //Set to 1 iff trial is instructional
-            public string FileLocation; //Is not null iff FileLocation exists (Instructional for 1D trials)
+            public string FileLocation; //Is not null iff FileLocation exists (Image for 1D trials)
+            public int TimeToRotate; //How long the delay can last in the rotation
+            public float WallHeight;  //This is the wall height
+            public int TwoDimensional; //Set to true iff trial is two dimensional
+            public string FileLocation; //Is not null iff FileLocation exists (Image for 1D trials)
             public int EnvironmentType; //This is the environment type referenced.
             public int Sides; //Number of sides present in the trial.
             public string WallColor; //HEX color of the walls
@@ -111,7 +120,7 @@ namespace data
         [Serializable]
         public class Character
         {
-            public float MovementSpeed; //The movespeed of the character
+            public float MovementSpeed; //The movement speed of the character
             public float RotationSpeed; //The rotation speed of the character
             public float GoalRotationSpeed; //The rotation speed of the goals
             public float Height; //The height of the character
@@ -126,7 +135,7 @@ namespace data
         [Serializable]
         public class LandMark
         {
-            public List<float> Location; //Location of the landmarkk
+            public List<float> Location; //Location of the landmark
             public float Length;
             public float Width;
             public float Height; //These should be obvious...

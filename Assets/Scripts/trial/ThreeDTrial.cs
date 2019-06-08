@@ -18,6 +18,7 @@ namespace trial
         {   
             //Sets the field of the preentry
             base.PreEntry(t, first);
+            t.TimingVerification = data.DataSingleton.GetData().TimingVerification; // timing diagnostics
             t.EnvironmentType = Value.EnvironmentType;
             t.Sides = Value.Sides;
             t.BlockID = BlockID;

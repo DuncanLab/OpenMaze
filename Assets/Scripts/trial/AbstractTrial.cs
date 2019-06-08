@@ -68,7 +68,12 @@ namespace trial
             _runningTime = 0;
 
             t.TrialNumber++;
-
+            
+            Debug.Log("Current Trial Increment: " + data.DataSingleton.GetData().TrialInitialValue);
+            
+            // increment the trial sequence value
+            data.DataSingleton.GetData().TrialInitialValue++;
+            
             TrialProgress = t;
         }
 
