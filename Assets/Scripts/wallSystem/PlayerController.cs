@@ -12,10 +12,8 @@ namespace wallSystem
 {
     public class PlayerController : MonoBehaviour
     {
-
         public Camera Cam;
         private GenerateGenerateWall _gen;
-
 
         //The stream writer that writes data out to an output file.
         private readonly string _outDir;
@@ -44,36 +42,35 @@ namespace wallSystem
                 var goalText = GameObject.Find("Goal").GetComponent<Text>();
                 goalText.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 40);
 
-            //And this section sets the text.
-            goalText.text = E.Get().CurrTrial.Value.Header;
-            goalText.color = Color.white;
-            
-            // testing for timing settings. 
-            Debug.Log("Timing Status: " + data.DataSingleton.GetData().TimingVerification);
-            
-            // set properties of timing box
-            var timingBox = GameObject.Find("TimingUnit").GetComponent<Graphic>();
-            timingBox.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 100);
-            
-            // if timing diagnostics are turned on then timing square will initialize with each scene. 
-            if (data.DataSingleton.GetData().TimingVerification)
-            {
-                timingBox.enabled = true;
-                if (data.DataSingleton.GetData().TrialInitialValue % 2 == 0)
+                //And this section sets the text.
+                goalText.text = E.Get().CurrTrial.Value.Header;
+                goalText.color = Color.white;
+
+                // testing for timing settings. 
+                Debug.Log("Timing Status: " + data.DataSingleton.GetData().TimingVerification);
+
+                // set properties of timing box
+                var timingBox = GameObject.Find("TimingUnit").GetComponent<Graphic>();
+                timingBox.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 100);
+
+                // if timing diagnostics are turned on then timing square will initialize with each scene. 
+                if (data.DataSingleton.GetData().TimingVerification)
                 {
-                    timingBox.color = Color.black;
+                    timingBox.enabled = true;
+                    if (data.DataSingleton.GetData().TrialInitialValue % 2 == 0)
+                    {
+                        timingBox.color = Color.black;
+                    }
+                    else
+                    {
+                        timingBox.color = Color.white;
+                    }
                 }
                 else
                 {
-                    timingBox.color = Color.white;
-                }
-               
-            }
-            else
-            {
-                timingBox.enabled = false;
+                    timingBox.enabled = false;
 
-            }
+                }
             }
             catch (NullReferenceException e)
             {

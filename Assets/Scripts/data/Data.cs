@@ -72,10 +72,6 @@ namespace data
             public int TwoDimensional; //Set to 1 iff trial is two dimensional
             public int Instructional; //Set to 1 iff trial is instructional
             public string FileLocation; //Is not null iff FileLocation exists (Image for 1D trials)
-            public int TimeToRotate; //How long the delay can last in the rotation
-            public float WallHeight;  //This is the wall height
-            public int TwoDimensional; //Set to true iff trial is two dimensional
-            public string FileLocation; //Is not null iff FileLocation exists (Image for 1D trials)
             public int EnvironmentType; //This is the environment type referenced.
             public int Sides; //Number of sides present in the trial.
             public string WallColor; //HEX color of the walls
