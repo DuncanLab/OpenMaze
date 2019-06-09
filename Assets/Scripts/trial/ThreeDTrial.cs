@@ -1,21 +1,15 @@
-﻿using System.Collections.Generic;
-using data;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+﻿using UnityEngine.SceneManagement;
 
 namespace trial
 {
     public class ThreeDTrial : TimeoutableTrial
     {
-        
-        
         public ThreeDTrial(int blockId, int trialId) : base(blockId, trialId)
         {
         }
 
         public override void PreEntry(TrialProgress t, bool first = true)
-        {   
+        {
             //Sets the field of the preentry
             base.PreEntry(t, first);
             t.TimingVerification = data.DataSingleton.GetData().TimingVerification; // timing diagnostics
@@ -24,14 +18,14 @@ namespace trial
             t.BlockID = BlockID;
             t.TrialID = TrialID;
             t.TwoDim = Value.TwoDimensional;
-            t.LastX = t.TargetX;    
+            t.Instructional = 0;
+            t.LastX = t.TargetX;
             t.LastY = t.TargetY;
             t.TargetX = 0;
             t.TargetY = 0;
             _runningTime -= Value.TimeToRotate;
 
             SceneManager.LoadScene(Value.EnvironmentType);
-
         }
 
         public override void Progress()
@@ -40,12 +34,14 @@ namespace trial
 
             // If we are progressing without a success, record the failure
             // as a zero, otherwise record a 1.
-            if (isSuccessful) {
+            if (isSuccessful)
+            {
                 TrialProgress.successes.Add(1);
-            } else {
+            }
+            else
+            {
                 TrialProgress.successes.Add(0);
             }
-
             isSuccessful = false;
             base.Progress();
         }
