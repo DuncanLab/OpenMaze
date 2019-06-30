@@ -1,6 +1,4 @@
-﻿using UnityEngine.SceneManagement;
-
-namespace trial
+﻿namespace trial
 {
     public class ThreeDTrial : TimeoutableTrial
     {
@@ -10,7 +8,9 @@ namespace trial
 
         public override void PreEntry(TrialProgress t, bool first = true)
         {
-            //Sets the field of the preentry
+            LoadNextSceneWithTimer(Value.EnvironmentType);
+
+            // Sets the field of the preentry
             base.PreEntry(t, first);
             t.TimingVerification = data.DataSingleton.GetData().TimingVerification; // timing diagnostics
             t.EnvironmentType = Value.EnvironmentType;
@@ -24,8 +24,6 @@ namespace trial
             t.TargetX = 0;
             t.TargetY = 0;
             _runningTime -= Value.TimeToRotate;
-
-            SceneManager.LoadScene(Value.EnvironmentType);
         }
 
         public override void Progress()

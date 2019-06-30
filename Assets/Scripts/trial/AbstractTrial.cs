@@ -1,9 +1,11 @@
-﻿using data;
-using main;
-using System;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using data;
+using main;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using DS = data.DataSingleton;
 namespace trial
 {
@@ -34,9 +36,6 @@ namespace trial
 
         protected float _runningTime;
 
-
-
-
         protected AbstractTrial(int blockId, int trialId)
         {
             BlockID = blockId;
@@ -49,9 +48,6 @@ namespace trial
 
             Value = DataSingleton.GetData().TrialData[trialId];
         }
-
-
-
 
         public virtual void PreEntry(TrialProgress t, bool first = true)
         {
@@ -68,12 +64,12 @@ namespace trial
             _runningTime = 0;
 
             t.TrialNumber++;
-            
+
             Debug.Log("Current Trial Increment: " + data.DataSingleton.GetData().TrialInitialValue);
-            
+
             // increment the trial sequence value
             data.DataSingleton.GetData().TrialInitialValue++;
-            
+
             TrialProgress = t;
         }
 
@@ -93,7 +89,6 @@ namespace trial
 
         }
 
-
         //Essentially, here we load
         public virtual void Progress()
         {
@@ -101,7 +96,6 @@ namespace trial
             Debug.Log("Progressing...");
             //Exiting current trial
             TrialProgress.PreviousTrial = this;
-
 
             var blockData = DS.GetData().BlockList[BlockID];
             //Data on how to choose the next trial will be selected here.
@@ -112,7 +106,6 @@ namespace trial
 
                     var tmp = blockData.EndFunction;
                     var func = typeof(Functions).GetMethod(tmp, BindingFlags.Static | BindingFlags.Public);
-
 
                     var result = func != null && (bool)func.Invoke(null, new object[] { TrialProgress });
 
@@ -127,13 +120,35 @@ namespace trial
             }
             Loader.Get().CurrTrial = next;
             next.PreEntry(TrialProgress);
-
-
         }
 
         public float GetRunningTime()
         {
             return _runningTime;
+        }
+
+        protected void LoadNextSceneWithTimer(int environmentType)
+        {
+            Loader.Get().StartCoroutine(LoadNextAsyncScene(environmentType));
+        }
+
+        private IEnumerator LoadNextAsyncScene(int environmentType)
+        {
+            AsyncOperation op = SceneManager.LoadSceneAsync(environmentType);
+
+            // Wait until the specified timeout to load the scene
+            var timer = 0.0f;
+            var delayAmount = 5.0f;
+
+            while (timer < delayAmount)
+            {
+                timer += Time.deltaTime;
+                op.allowSceneActivation = false;
+                yield return null;
+            }
+
+            op.allowSceneActivation = true;
+            yield return null;
         }
     }
 }
