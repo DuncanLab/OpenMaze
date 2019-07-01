@@ -138,9 +138,8 @@ namespace trial
 
             // Wait until the specified timeout to load the scene
             var timer = 0.0f;
-            var delayAmount = 5.0f;
 
-            while (timer < delayAmount)
+            while (timer < DataSingleton.GetData().TrialLoadingDelay)
             {
                 timer += Time.deltaTime;
                 op.allowSceneActivation = false;
