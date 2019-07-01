@@ -61,8 +61,9 @@ namespace trial
             base.Update(deltaTime);
 
             var trialEndKeyCode = Value.TrialEndKey;
+            var ignoreUserInputDelay = DataSingleton.GetData().IgnoreUserInputDelay;
 
-            if (!String.IsNullOrEmpty(trialEndKeyCode) && Input.GetKey(trialEndKeyCode.ToLower()) && (_runningTime > Constants.IgnoreUserInputDelay))
+            if (!String.IsNullOrEmpty(trialEndKeyCode) && Input.GetKey(trialEndKeyCode.ToLower()) && (_runningTime > ignoreUserInputDelay))
             {
                 Debug.Log(_runningTime);
                 Progress();

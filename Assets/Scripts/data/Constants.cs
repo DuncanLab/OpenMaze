@@ -17,7 +17,5 @@ namespace data
         public const int JungleTerrain = 3;
         public const int LoadingScreen = 1;
         public const int City2D = 5;
-
-        public const float IgnoreUserInputDelay = 5.0f;
     }
 }

@@ -15,7 +15,11 @@ namespace data
 
         // The amount of delay (in seconds) before a trial loads in. This value is used to 
         // ensure a consitent loading time between trials.
-        public float TrialLoadingDelay;
+        public float TrialLoadingDelay = 3.0f;
+
+        // The amount of time at the beginning of a trial when user input is ignore. This value
+        // is used to avoid the user accidentally ending the trial by pressing the key pre-maturely.
+        public float IgnoreUserInputDelay = 1.0f;
 
         // how often data is outputted. 
         public int OutputTimesPerSecond;
