@@ -146,7 +146,8 @@
             "1" : "Welcome",
             "Instructional": 1,
             "FileLocation": "Welcome.png",
-            "TimeAllotted": -1
+            "TimeAllotted": -1,
+            "TrialEndKey": "X"
         },
         {
             "2" : "Movement Instructions",
@@ -158,13 +159,15 @@
             "3" : "2D",
             "Instructional": 1,
             "FileLocation": "2D.png",
-            "TimeAllotted": -1
+            "TimeAllotted": -1,
+            "TrialEndKey": "X"
         },
         {
             "4" : "Ready",
             "Instructional": 1,
             "FileLocation": "Ready.png",
-            "TimeAllotted": -1
+            "TimeAllotted": -1,
+            "TrialEndKey": "X"
         },
         {
             "5" : "Questions",
@@ -260,7 +263,7 @@
             "20" : "City - Circle - Free",
             "Index": 0,
             "Header": "Explore!",
-            "TimeAllotted" : 10,
+            "TimeAllotted" : 20,
             "EnvironmentType": 3,
             "CharacterStartPos" : [0, 0],
             "TimeToRotate": 5,
@@ -275,7 +278,8 @@
             "InvisibleGoals" : [],
             "InactiveGoals" : [],
             "Quota": 0,
-            "LandMarks" :[1,2]
+            "LandMarks" :[1,2],
+            "TrialEndKey": "G"
         },
         {
             "21" : "City - Circle - Practice Invisible",

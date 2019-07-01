@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using data;
+using UnityEngine;
 
 namespace trial
 {
@@ -30,8 +32,12 @@ namespace trial
         public override void Update(float deltaTime)
         {
             base.Update(deltaTime);
-            if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Joystick1Button0))
+
+            var trialEndKeyCode = Value.TrialEndKey;
+
+            if (!String.IsNullOrEmpty(trialEndKeyCode) && Input.GetKey(trialEndKeyCode.ToLower()) && (_runningTime > Constants.IgnoreUserInputDelay))
             {
+                Debug.Log(_runningTime);
                 Progress();
             }
         }

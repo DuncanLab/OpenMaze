@@ -1,4 +1,5 @@
-﻿using data;
+﻿using System;
+using data;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -20,12 +21,21 @@ namespace trial
             SceneManager.LoadScene(Constants.LoadingScreen);
         }
 
-        //Code for a trial to continue
         public override void Update(float deltaTime)
         {
             base.Update(deltaTime);
-            if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Joystick1Button0))
+
+            // Default to space key
+            var trialEndKeyCode = "space";
+
+            if (!String.IsNullOrEmpty(Value.TrialEndKey))
             {
+                trialEndKeyCode = Value.TrialEndKey.ToLower();
+            }
+
+            if (Input.GetKey(trialEndKeyCode))
+            {
+                Debug.Log(_runningTime);
                 Progress();
             }
         }

@@ -77,6 +77,7 @@ namespace data
             public string WallColor; //HEX color of the walls
             public int Radius; //Radius of the walls
             public int TimeAllotted; //Allotted amount of time
+            public string TrialEndKey; // The key press which will end the current trial.
             public string Header; //Note outputted out of the trial.
             public MazeData Map; //The Map saved mazedata
             public int GroundTileSides; // Number of sides on the ground pattern shapes - 0 for no tiles, 1 for solid color.

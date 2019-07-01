@@ -1,4 +1,8 @@
-﻿namespace trial
+﻿using System;
+using data;
+using UnityEngine;
+
+namespace trial
 {
     public class ThreeDTrial : TimeoutableTrial
     {
@@ -50,6 +54,19 @@
             TrialProgress.NumSuccess++;
             isSuccessful = true;
 
+        }
+
+        public override void Update(float deltaTime)
+        {
+            base.Update(deltaTime);
+
+            var trialEndKeyCode = Value.TrialEndKey;
+
+            if (!String.IsNullOrEmpty(trialEndKeyCode) && Input.GetKey(trialEndKeyCode.ToLower()) && (_runningTime > Constants.IgnoreUserInputDelay))
+            {
+                Debug.Log(_runningTime);
+                Progress();
+            }
         }
     }
 }
