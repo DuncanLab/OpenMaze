@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using data;
-using JetBrains.Annotations;
 using main;
 
 namespace trial
@@ -34,6 +31,8 @@ namespace trial
         public float LastX;
         public float LastY;
         public string SessionID;
+
+        public bool isLoaded = false;
 
 
         public TrialProgress()

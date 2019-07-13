@@ -135,6 +135,7 @@ namespace trial
         private IEnumerator LoadNextAsyncScene(int environmentType)
         {
             AsyncOperation op = SceneManager.LoadSceneAsync(environmentType);
+            TrialProgress.isLoaded = false;
 
             // Wait until the specified timeout to load the scene
             var timer = 0.0f;
@@ -147,6 +148,7 @@ namespace trial
             }
 
             op.allowSceneActivation = true;
+            TrialProgress.isLoaded = true;
             yield return null;
         }
     }

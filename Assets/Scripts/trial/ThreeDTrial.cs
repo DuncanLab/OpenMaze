@@ -12,7 +12,6 @@ namespace trial
 
         public override void PreEntry(TrialProgress t, bool first = true)
         {
-            LoadNextSceneWithTimer(Value.EnvironmentType);
 
             // Sets the field of the preentry
             base.PreEntry(t, first);
@@ -28,6 +27,8 @@ namespace trial
             t.TargetX = 0;
             t.TargetY = 0;
             _runningTime -= Value.TimeToRotate;
+
+            LoadNextSceneWithTimer(Value.EnvironmentType);
         }
 
         public override void Progress()

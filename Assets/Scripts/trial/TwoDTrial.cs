@@ -13,7 +13,6 @@ namespace trial
 
         public override void PreEntry(TrialProgress t, bool first = true)
         {
-            LoadNextSceneWithTimer(Value.EnvironmentType);
 
             base.PreEntry(t, first);
             t.EnvironmentType = Value.EnvironmentType;
@@ -26,6 +25,8 @@ namespace trial
             t.LastY = t.TargetY;
             t.TargetX = 0;
             t.TargetY = 0;
+
+            LoadNextSceneWithTimer(Value.EnvironmentType);
         }
 
         //Code for a trial to continue

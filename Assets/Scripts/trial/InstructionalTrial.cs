@@ -19,6 +19,7 @@ namespace trial
             t.BlockID = BlockID;
             t.Instructional = Value.Instructional;
             SceneManager.LoadScene(Constants.LoadingScreen);
+            t.isLoaded = true;
         }
 
         public override void Update(float deltaTime)
