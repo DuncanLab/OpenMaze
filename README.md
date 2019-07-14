@@ -66,16 +66,35 @@ https://duncanlab.github.io/OpenMazeSite
 
 ## Contributing
 
+If you plan on contributing then please make sure you have the latest version of OpenMaze on your machine and are able to edit the underlying code. While any text editor works for this step, we recommend you use [Rider](https://www.jetbrains.com/rider/) from jetbrains since Unity and C# integrations are provided that make the project much easier to work with. 
+
 1. Fork it (<https://github.com/DuncanLab/OpenMaze/fork>) *This step is optional if you have been
 granted push access already*.
 2. Create your feature branch (`git checkout -b feature/fooBar`).
-3. Commit your changes (`git commit -am 'Add some fooBar'`).
+3. Commit your changes (`git commit -am 'Added some amazing features'`).
 4. Push to the branch (`git push origin feature/fooBar`).
 5. Create a new [Pull Request](https://github.com/DuncanLab/OpenMaze/pulls).
 
 ## Versioning
 
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [releases on this repository](https://github.com/DuncanLab/OpenMaze/releases).
+
+## Authors
+
+### Current project maintainers: 
+
+Please feel free to reach out to current project maintainers for help working with OpenMaze.
+
+* **Kyle Nealy** - *Project Owner* - [GitHub](https://github.com/kbnealy)
+* **Alex Gordienko** - *Contributor* - [GitHub](https://github.com/AlexGordienko)
+* **Cody Howarth** - *Contributor* - [GitHub](https://github.com/codyhowarth)
+
+See also the list of [contributors](https://github.com/DuncanLab/OpenMaze/wiki/Contributors) who participated in this project.
+
+## License
+
+This project is licensed under the MIT License.
+
 
 ## Acknowledgments
 
