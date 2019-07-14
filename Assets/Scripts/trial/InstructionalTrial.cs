@@ -15,6 +15,7 @@ namespace trial
         public override void PreEntry(TrialProgress t, bool first = true)
         {
             base.PreEntry(t, first);
+            t.TimingVerification = data.DataSingleton.GetData().TimingVerification; // timing diagnostics
             t.TrialID = TrialID;
             t.BlockID = BlockID;
             t.Instructional = Value.Instructional;
