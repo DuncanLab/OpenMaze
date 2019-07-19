@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using main;
 
 namespace trial
@@ -8,7 +7,7 @@ namespace trial
     public class TrialProgress
     {
         public AbstractTrial PreviousTrial;
-        public DateTime StartTime;
+        public float TimeSinceExperimentStart;
         public float NumSuccess;
         public float Num3D;
 
@@ -37,7 +36,6 @@ namespace trial
 
         public TrialProgress()
         {
-            StartTime = DateTime.Now;
             TrialNumber = -1;
             Num3D = 0;
             TrialNumber = 0;

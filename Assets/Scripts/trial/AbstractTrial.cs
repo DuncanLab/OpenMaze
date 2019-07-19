@@ -61,7 +61,6 @@ namespace trial
                 int NumBlocks = DS.GetData().BlockList.Count;
                 t.NumCollectedPerBlock = new int[NumBlocks];
             }
-            _runningTime = 0;
 
             t.TrialNumber++;
 
@@ -70,11 +69,18 @@ namespace trial
             // increment the trial sequence value
             data.DataSingleton.GetData().TrialInitialValue++;
 
+            if (t.TrialNumber == 1)
+            {
+                t.TimeSinceExperimentStart = 0.0f;
+            }
+
+            _runningTime = 0;
             TrialProgress = t;
         }
 
         public virtual void Update(float deltaTime)
         {
+            TrialProgress.TimeSinceExperimentStart += deltaTime;
             _runningTime += deltaTime;
         }
 

@@ -222,10 +222,9 @@ namespace wallSystem
                 }
 
                 E.LogData(
-                    TrialProgress.GetCurrTrial().TrialProgress,
-                    TrialProgress.GetCurrTrial().GetRunningTime(),
-                    transform
-                );
+                  TrialProgress.GetCurrTrial().TrialProgress,
+                  TrialProgress.GetCurrTrial().GetRunningTime(),
+                  transform);
             }
             _currDelay += Time.deltaTime;
         }

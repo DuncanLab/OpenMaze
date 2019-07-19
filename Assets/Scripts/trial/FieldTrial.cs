@@ -15,8 +15,6 @@ namespace trial
         //Here we construct the entire linked list structure.
         public FieldTrial(InputField[] fields) : base(-1, -1)
         {
-
-            TrialProgress = new TrialProgress();
             _fields = fields;
 
             //This block of code basically calls the directory picker to select the configuration file.

@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using trial;
 using UnityEngine;
 using UnityEngine.UI;
@@ -70,10 +69,6 @@ namespace main
             {
                 using (var writer = new StreamWriter("Assets/OutputFiles~/" + DS.GetData().OutputFile, true))
                 {
-                    TimeSpan timeSinceExperimentStart = DateTime.Now - s.StartTime;
-                    double sinceStart = timeSinceExperimentStart.TotalSeconds;
-
-
                     var trialIdStr = s.TrialID.ToString();
 
                     // If we're in a loading delay period we want to output that
@@ -83,11 +78,10 @@ namespace main
                         trialIdStr = "Loading Delay";
                     }
 
-
                     var str = string.Format(
                         "{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, " +
                         "{12}, {13}, {14}, {15}, {16}, {17}, {18}, {19}, {20}, {21}, {22}, {23}, {24}, {25}, {26}",
-                        data.DataSingleton.GetData().TrialInitialValue, s.TrialNumber, sinceStart, timestamp, t.position.x, t.position.z, t.eulerAngles.y, s.EnvironmentType, s.Sides,
+                        data.DataSingleton.GetData().TrialInitialValue, s.TrialNumber, s.TimeSinceExperimentStart, timestamp, t.position.x, t.position.z, t.eulerAngles.y, s.EnvironmentType, s.Sides,
                         targetFound, s.PickupType, s.TargetX, s.TargetY, s.LastX, s.LastY, s.BlockID, trialIdStr,
                         s.Subject, s.Delay, s.TwoDim, s.Instructional, s.Visible, Input.GetKey(KeyCode.UpArrow) ? 1 : 0,
                         Input.GetKey(KeyCode.DownArrow) ? 1 : 0, Input.GetKey(KeyCode.LeftArrow) ? 1 : 0,
