@@ -86,6 +86,10 @@ namespace trial
 
         public void ResetTime()
         {
+            if (TrialProgress.TrialNumber == 1)
+            {
+                TrialProgress.TimeSinceExperimentStart = 0.0f;
+            }
             _runningTime = 0;
         }
 
@@ -150,11 +154,13 @@ namespace trial
             {
                 timer += Time.deltaTime;
                 op.allowSceneActivation = false;
+                _runningTime = 0;
                 yield return null;
             }
 
             op.allowSceneActivation = true;
             TrialProgress.isLoaded = true;
+            _runningTime = 0;
             yield return null;
         }
     }
