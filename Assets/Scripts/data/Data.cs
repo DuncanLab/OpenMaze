@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace data
 {
@@ -61,8 +62,8 @@ namespace data
         [Serializable]
         public class Trial
         {
-            public int TimeToRotate; //How long the delay can last in the rotatio
-            public float WallHeight;            //This is the wall height
+            public int TimeToRotate; //How long the delay can last in the rotation
+            public float WallHeight;  //This is the wall height
             public int TwoDimensional; //Set to true iff trial is two dimensional
             public string FileLocation; //Is not null iff FileLocation exists (Image for 1D trials)
             public int EnvironmentType; //This is the environment type referenced.
@@ -80,8 +81,8 @@ namespace data
             public List<int> InactiveGoals; //Goals that are visible but inactive
             public List<int> LandMarks; //List of all land marks
             public int Quota; //The quota that the person needs to pick up before the next trial is switched too
-            public List<float> CharacterStartPos; //The start position of the character (usually 0, 0)
-            public float CharacterStartAngle; // The starting angle of the character (in degrees).
+            [FormerlySerializedAs("CharacterStartPos")] public List<float> StartPosition; //The start position of the character (usually 0, 0) "[-1]" will give a random starting location. FormSer for backward compatibility.
+            [FormerlySerializedAs("CharacterStartAngle")] public float StartFacing; // The starting angle of the character (in degrees).
 
             public bool ShowCollectedPerBlock; // Whether or not to display the amount of goals/pickups collected (resets each block)
         }

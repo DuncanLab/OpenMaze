@@ -51,13 +51,13 @@ namespace wallSystem
             _currDelay = 0;
 
             // Choose a random starting angle if the value is not set in config
-            if (E.Get().CurrTrial.Value.CharacterStartAngle == -1)
+            if (E.Get().CurrTrial.Value.StartFacing == -1)
             {
                 _iniRotation = Random.Range(0, 360);
             }
             else
             {
-                _iniRotation = E.Get().CurrTrial.Value.CharacterStartAngle;
+                _iniRotation = E.Get().CurrTrial.Value.StartFacing;
             }
 
             transform.Rotate(0, _iniRotation, 0, Space.World);
@@ -77,8 +77,8 @@ namespace wallSystem
             TrialProgress.GetCurrTrial().TrialProgress.TargetX = pickX;
             TrialProgress.GetCurrTrial().TrialProgress.TargetY = pickY;
 
-            // No start pos specified so make it random.
-            if (E.Get().CurrTrial.Value.CharacterStartPos.Count == 0)
+            // If no StartPos specified so make it random OR if StartPos is "-1"
+            if ((E.Get().CurrTrial.Value.StartPosition.Count == 0) || (E.Get().CurrTrial.Value.StartPosition.Count == 1 && E.Get().CurrTrial.Value.StartPosition[0] == -1))
             {
                 // Try to randomly place the character, checking for proximity
                 // to the pickup location
@@ -101,7 +101,7 @@ namespace wallSystem
             }
             else
             {
-                var p = E.Get().CurrTrial.Value.CharacterStartPos;
+                var p = E.Get().CurrTrial.Value.StartPosition;
                 if (maze)
                     p = new List<float>() { pickX, pickY };
                 transform.position = new Vector3(p[0], 0.5f, p[1]);
