@@ -57,7 +57,6 @@ namespace data
 
             public bool ShowNumSuccessfulTrials; // Whether or not to display the number of successful trials
             public bool ShowCollectedPerTrial; // Whether or not to display the amount of goals/pickups collected (resets each trial)
-            public bool ShowCollectedPerBlock; // Whether or not to display the amount of goals/pickups collected (resets each block)
         }
 
         [Serializable]
@@ -92,6 +91,8 @@ namespace data
             public int Quota; // The quota that the person needs to pick up before the next trial is switched too
             public List<float> CharacterStartPos; //The start position of the character (usually 0, 0)
             public float CharacterStartAngle; // The starting angle of the character (in degrees).
+
+            public bool ShowCollectedPerBlock; // Whether or not to display the amount of goals/pickups collected (resets each block)
         }
 
         // This is the given PickupItem. Note that in the JSON, this is contained with an ARRAY
