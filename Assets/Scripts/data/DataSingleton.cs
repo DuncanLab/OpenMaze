@@ -19,7 +19,7 @@ namespace data
 		}
 
 	
-		//This function loads the file from a defacto loaction as shown below
+		//This function loads the file from a defacto location as shown below
 		public static void Load(string fileName){
 			var file = System.IO.File.ReadAllText( fileName);
 			

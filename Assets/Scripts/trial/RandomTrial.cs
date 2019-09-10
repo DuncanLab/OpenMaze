@@ -56,7 +56,7 @@ namespace trial
                 if (trialData.FileLocation != null)
                 {
                     Debug.Log("Creating new Loading Screen Trial");
-                    t = new LoadingScreenTrial(i, j-1);
+                    t = new InstructionalTrial(i, j-1);
                 }
                 else if (trialData.TwoDimensional == 1)
                 {
