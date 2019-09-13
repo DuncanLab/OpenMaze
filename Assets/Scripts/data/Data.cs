@@ -125,7 +125,7 @@ namespace data
         [Serializable]
         public class LandMark
         {
-            public List<float> Location; //Location of the landmarkk
+            public List<float> Location; //Location of the landmark
             public float Length;
             public float Width;
             public float Height; //These should be obvious...
