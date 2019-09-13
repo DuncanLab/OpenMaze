@@ -1,5 +1,7 @@
 {
     "OutputTimesPerSecond": 30,
+    "TrialLoadingDelay": 5.0,
+    "IgnoreUserInputDelay": 5.0,
     "CHARACTER DATA": "CHARACTER DATA----------*********-------------------CHARACTER DATA",
     "CharacterData": {
         "Height": 2,
@@ -144,91 +146,112 @@
     "TrialData": [
         {
             "1" : "Welcome",
+            "Instructional": 1,
             "FileLocation": "Welcome.png",
-            "TimeAllotted": -1
+            "TimeAllotted": -1,
+            "TrialEndKey": "X"
         },
         {
             "2" : "Movement Instructions",
+            "Instructional": 1,
             "FileLocation": "Movement.png",
             "TimeAllotted": -1
         },
         {
             "3" : "2D",
+            "Instructional": 1,
             "FileLocation": "2D.png",
-            "TimeAllotted": -1
+            "TimeAllotted": -1,
+            "TrialEndKey": "X"
         },
         {
             "4" : "Ready",
+            "Instructional": 1,
             "FileLocation": "Ready.png",
-            "TimeAllotted": -1
+            "TimeAllotted": -1,
+            "TrialEndKey": "X"
         },
         {
             "5" : "Questions",
+            "Instructional": 1,
             "FileLocation": "Questions.png",
             "TimeAllotted": -1
         },
         {
             "6" : "Notify",
+            "Instructional": 1,
             "FileLocation": "Notify.png",
             "TimeAllotted": -1
         },
         {
             "7" : "Trials",
+            "Instructional": 1,
             "FileLocation": "Trials.png",
             "TimeAllotted": -1
         },
         {
             "8" : "Sound",
+            "Instructional": 1,
             "FileLocation": "Sound.png",
             "TimeAllotted": -1
         },
         {
             "9" : "Hidden",
+            "Instructional": 1,
             "FileLocation": "hidden.png",
             "TimeAllotted": -1
         },
         {
             "10" : "Criterion",
+            "Instructional": 1,
             "FileLocation": "Criterion.png",
             "TimeAllotted": -1
         },
         {
             "11" : "End",
+            "Instructional": 1,
             "FileLocation": "End.png",
             "TimeAllotted": -1
         },
         {
             "12" : "food",
+            "Instructional": 1,
             "FileLocation": "food.png",
             "TimeAllotted": 1
         },
         {
             "13" : "water",
+            "Instructional": 1,
             "FileLocation": "water.png",
             "TimeAllotted": 1
         },
         {
             "14" : "money",
+            "Instructional": 1,
             "FileLocation": "money.png",
             "TimeAllotted": 1
         },
         {
             "15" : "learn food",
+            "Instructional": 1,
             "FileLocation": "learnfood.png",
             "TimeAllotted": -1
         },
         {
             "16" : "learn water",
+            "Instructional": 1,
             "FileLocation": "learnwater.png",
             "TimeAllotted": -1
         },
         {
             "17" : "learn money",
+            "Instructional": 1,
             "FileLocation": "learnmoney.png",
             "TimeAllotted": -1
         },
         {
             "18" : "Break",
+            "Instructional": 1,
             "FileLocation": "Break.png",
             "TimeAllotted": -1
         },
@@ -242,7 +265,7 @@
             "20" : "City - Circle - Free",
             "Index": 0,
             "Header": "Explore!",
-            "TimeAllotted" : 10,
+            "TimeAllotted" : 20,
             "EnvironmentType": 3,
             "CharacterStartPos" : [0, 0],
             "TimeToRotate": 5,
@@ -257,7 +280,8 @@
             "InvisibleGoals" : [],
             "InactiveGoals" : [],
             "Quota": 0,
-            "LandMarks" :[1,2]
+            "LandMarks" :[1,2],
+            "TrialEndKey": "G"
         },
         {
             "21" : "City - Circle - Practice Invisible",
