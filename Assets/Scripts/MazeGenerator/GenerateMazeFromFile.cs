@@ -52,7 +52,8 @@ public class GenerateMazeFromFile : MonoBehaviour {
 
 											
 					}
-					obj.transform.localScale = new Vector3(item.Length, item.Height, item.Width);
+					// length, height, width
+					obj.transform.localScale = new Vector3(item.Scale[0], item.Scale[2], item.Scale[1]);
 
 					obj.transform.position = new Vector3 (x, 0.5f, y);
 					var sprite = item.ImageLoc;

@@ -91,7 +91,7 @@ namespace wallSystem
 
 
 
-                if (item.Location.Count == 0)
+                if (item.Position.Count == 0)
                 {
                     p = ReadFromExternal(item.PythonFile);
 
@@ -100,11 +100,11 @@ namespace wallSystem
                 {
                     try
                     {
-                        p = new Data.Point { X = item.Location[0], Y = item.Location[2], Z = item.Location[1] };
+                        p = new Data.Point { X = item.Position[0], Y = item.Position[2], Z = item.Position[1] };
                     }
                     catch (Exception _)
                     {
-                        p = new Data.Point { X = item.Location[0], Y = 0.5f, Z = item.Location[1] };
+                        p = new Data.Point { X = item.Position[0], Y = 0.5f, Z = item.Position[1] };
 
                     }
                 }
@@ -117,13 +117,14 @@ namespace wallSystem
                 var obj = Instantiate(prefab);
                 if (!item.Type.Equals("2DImageDisplayer"))
                     obj.AddComponent<RotateBlock>();
-                obj.transform.Rotate(new Vector3(0, 1, 0), item.InitialRotation);
+                obj.transform.Rotate(item.Rotation[0], item.Rotation[1], item.Rotation[2]);
 
                 obj.AddComponent<PickupSound>();
 
                 obj.GetComponent<PickupSound>().Sound = Resources.Load<AudioClip>("Audio/" + item.SoundLocation);
 
-                obj.transform.localScale = new Vector3(item.Length, item.Height, item.Width);
+                // length, height, width
+                obj.transform.localScale = new Vector3(item.Scale[0], item.Scale[2], item.Scale[1]);
                 obj.transform.position = new Vector3(p.X, p.Y, p.Z);
                 var sprite = item.ImageLoc;
                 if (sprite != null)
