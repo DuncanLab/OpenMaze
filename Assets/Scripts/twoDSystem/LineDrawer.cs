@@ -100,18 +100,17 @@ namespace twoDSystem
 
                 var landmark = (GameObject)Instantiate(Resources.Load("Prefabs/" + d.Type));
 
-                landmark.transform.localScale = new Vector3(d.Length, d.Height, d.Width);
+                landmark.transform.localScale = new Vector3(d.Scale[0], d.Scale[2], d.Scale[1]);
                 try
                 {
-                    landmark.transform.position = new Vector3(d.Location[0], d.Location[2], d.Location[1]);
+                    landmark.transform.position = new Vector3(d.Position[0], d.Position[2], d.Position[1]);
                 }
                 catch (Exception _)
                 {
-                    landmark.transform.position = new Vector3(d.Location[0], 0.5f, d.Location[1]);
+                    landmark.transform.position = new Vector3(d.Position[0], 0.5f, d.Position[1]);
 
                 }
-
-                landmark.transform.Rotate(new Vector3(0, 1, 0), d.InitialRotation);
+	            landmark.transform.Rotate(d.Rotation[0], d.Rotation[1], d.Rotation[2]);
 
                 landmark.GetComponent<Renderer>().material.color = Data.GetColour(d.Color);
                 var sprite = d.ImageLoc;

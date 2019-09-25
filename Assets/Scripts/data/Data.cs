@@ -128,14 +128,12 @@ namespace data
         [Serializable]
         public class LandMark
         {
-            public List<float> Location; // Location of the landmark
-            public float Length;
-            public float Width;
-            public float Height;
+            [FormerlySerializedAs("Location")] public List<float> Position; // Location of the landmark
+            public List<float> Scale; // [length,width,height]
             public string Type;
             public string Color; // Color as a hex value
             public string ImageLoc; // The location (for 2Dimagedisplayer)
-            public int InitialRotation;
+            public List<int> Rotation; // [x,y,z] 
         }
 
         [Serializable]
