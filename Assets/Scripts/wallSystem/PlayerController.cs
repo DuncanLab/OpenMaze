@@ -99,7 +99,7 @@ namespace wallSystem
                 var i = 0;
                 while (i++ < 100)
                 {
-                    var v = Random.insideUnitCircle * E.Get().CurrTrial.Value.Radius * 0.9f;
+                    var v = Random.insideUnitCircle * DS.GetData().Arenas[E.Get().CurrTrial.Value.Scene - 1].Radius * 0.9f;
                     var mag = Vector3.Distance(v, new Vector2(pickX, pickY));
                     if (mag > DS.GetData().CharacterData.DistancePickup)
                     {

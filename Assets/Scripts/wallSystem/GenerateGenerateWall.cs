@@ -29,7 +29,8 @@ namespace wallSystem
         private void Start()
         {
             Create.transform.position = Vector3.zero;
-            _currCreate = Instantiate(E.Get().CurrTrial.Value.Sides == 0 ? GenerateMazeFromFile : Create);
+            // _currCreate = Instantiate(E.Get().CurrTrial.Value.Sides == 0 ? GenerateMazeFromFile : Create);
+            _currCreate = Instantiate(DS.GetData().Arenas[E.Get().CurrTrial.Value.Scene - 1].Sides == 0 ? GenerateMazeFromFile : Create);
         }
 
         private void Update()

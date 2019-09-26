@@ -1,6 +1,7 @@
 ﻿using System;
 using data;
 using UnityEngine;
+using DS = data.DataSingleton;
 
 namespace trial
 {
@@ -17,7 +18,8 @@ namespace trial
             base.PreEntry(t, first);
             t.TimingVerification = data.DataSingleton.GetData().TimingVerification; // timing diagnostics
             t.EnvironmentType = Value.EnvironmentType;
-            t.Sides = Value.Sides;
+            t.Sides = DS.GetData().Arenas[Value.Scene - 1].Sides;
+            // t.Sides = Value.Sides;
             t.BlockID = BlockID;
             t.TrialID = TrialID;
             t.TwoDim = Value.TwoDimensional;

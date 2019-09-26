@@ -1,0 +1,304 @@
+{
+  "OutputTimesPerSecond": 30,
+  "TrialLoadingDelay": 5.0,
+  "IgnoreUserInputDelay": 5.0,
+  "CHARACTER DATA": "CHARACTER DATA----------*********-------------------CHARACTER DATA",
+  "CharacterData": {
+    "Height": 2,
+    "MovementSpeed": 5.0,
+    "RotationSpeed": 75.0,
+    "DistancePickup": 2,
+    "GoalRotationSpeed": 0
+  },
+
+  "BLOCK DATA" : "BLOCK DATA---------------------*********--------------------BLOCK DATA",
+
+  "BlockOrder" : [1],
+
+  "BlockList" : [
+    {
+      "BlockName" : "1 - Instructions",
+      "Notes" : "n/a",
+      "TrialOrder": [
+        20, 21
+      ]
+    }
+  ],
+
+  "TRIAL DATA" : "TRIAL DATA--------------------*********------------------TRIAL DATA",
+
+  "TrialData": [
+    {
+      "1" : "Welcome",
+      "Instructional": 1,
+      "FileLocation": "Welcome.png",
+      "TimeAllotted": -1,
+      "TrialEndKey": "X"
+    },
+    {
+      "2" : "Movement Instructions",
+      "Instructional": 1,
+      "FileLocation": "Movement.png",
+      "TimeAllotted": -1
+    },
+    {
+      "3" : "2D",
+      "Instructional": 1,
+      "FileLocation": "2D.png",
+      "TimeAllotted": -1,
+      "TrialEndKey": "X"
+    },
+    {
+      "4" : "Ready",
+      "Instructional": 1,
+      "FileLocation": "Ready.png",
+      "TimeAllotted": -1,
+      "TrialEndKey": "X"
+    },
+    {
+      "5" : "Questions",
+      "Instructional": 1,
+      "FileLocation": "Questions.png",
+      "TimeAllotted": -1
+    },
+    {
+      "6" : "Notify",
+      "Instructional": 1,
+      "FileLocation": "Notify.png",
+      "TimeAllotted": -1
+    },
+    {
+      "7" : "Trials",
+      "Instructional": 1,
+      "FileLocation": "Trials.png",
+      "TimeAllotted": -1
+    },
+    {
+      "8" : "Sound",
+      "Instructional": 1,
+      "FileLocation": "Sound.png",
+      "TimeAllotted": -1
+    },
+    {
+      "9" : "Hidden",
+      "Instructional": 1,
+      "FileLocation": "hidden.png",
+      "TimeAllotted": -1
+    },
+    {
+      "10" : "Criterion",
+      "Instructional": 1,
+      "FileLocation": "Criterion.png",
+      "TimeAllotted": -1
+    },
+    {
+      "11" : "End",
+      "Instructional": 1,
+      "FileLocation": "End.png",
+      "TimeAllotted": -1
+    },
+    {
+      "12" : "food",
+      "Instructional": 1,
+      "FileLocation": "food.png",
+      "TimeAllotted": 1
+    },
+    {
+      "13" : "water",
+      "Instructional": 1,
+      "FileLocation": "water.png",
+      "TimeAllotted": 1
+    },
+    {
+      "14" : "money",
+      "Instructional": 1,
+      "FileLocation": "money.png",
+      "TimeAllotted": 1
+    },
+    {
+      "15" : "learn food",
+      "Instructional": 1,
+      "FileLocation": "learnfood.png",
+      "TimeAllotted": -1
+    },
+    {
+      "16" : "learn water",
+      "Instructional": 1,
+      "FileLocation": "learnwater.png",
+      "TimeAllotted": -1
+    },
+    {
+      "17" : "learn money",
+      "Instructional": 1,
+      "FileLocation": "learnmoney.png",
+      "TimeAllotted": -1
+    },
+    {
+      "18" : "Break",
+      "Instructional": 1,
+      "FileLocation": "Break.png",
+      "TimeAllotted": -1
+    },
+    {
+      "19": "City 2D----------------------------------------------------------------------------------------2D",
+      "TwoDimensional" : 1,
+      "EnvironmentType" : 5,
+      "TimeAllotted" : 100
+    },
+    {
+      "20" : "City - Circle - Free",
+      "Index": 0,
+      "Header": "Explore!",
+      "TimeAllotted" : 20,
+      "EnvironmentType": 3,
+      "CharacterStartPos" : [0, 0],
+      "TimeToRotate": 5,
+      "ActiveGoals" : [],
+      "InvisibleGoals" : [],
+      "InactiveGoals" : [],
+      "Scene" : 1,
+      "Quota": 0,
+      "LandMarks" :[1,2],
+      "TrialEndKey": "G"
+    },
+    {
+      "21" : "City - Circle - Practice Invisible",
+      "Index": 0,
+      "Header": "Find Food!",
+      "TimeAllotted" : 60,
+      "EnvironmentType": 3,
+      "CharacterStartPos" : [0, 0],
+      "TimeToRotate": 5,
+      "Scene" : 1,
+      "ActiveGoals" : [],
+      "InvisibleGoals" : [1],
+      "InactiveGoals" : [],
+      "Quota": 1,
+      "LandMarks" :[1,2]
+    },
+    {
+      "22" : "City - Circle - Food - Visible",
+      "Index": 0,
+      "Header": "Find Food!",
+      "TimeAllotted" : 10,
+      "EnvironmentType": 3,
+      "CharacterStartPos" : [0, 0],
+      "TimeToRotate": 5,
+      "Scene" : 1,
+      "GroundColor": "1B5E20",
+      "ActiveGoals" : [1],
+      "InvisibleGoals" : [],
+      "InactiveGoals" : [],
+      "Quota": 1,
+      "LandMarks" :[1,2]
+    },
+    {
+      "23" : "City - Circle - Food - invisible",
+      "Index": 0,
+      "Header": "Find Food!",
+      "TimeAllotted" : 15,
+      "EnvironmentType": 3,
+      "CharacterStartPos" : [0, 0],
+      "TimeToRotate": 5,
+      "Scene" : 2,
+      "ActiveGoals" : [],
+      "InvisibleGoals" : [1],
+      "InactiveGoals" : [],
+      "Quota": 1,
+      "LandMarks" :[1,2]
+    }
+  ],
+
+  "GOAL DATA" : "GOAL DATA--------------------*********------------------GOAL DATA",
+
+  "Goals": [
+    {
+      "Pickup 1" : "Food",
+      "Type": "Pickup",
+      "Tag": "1",
+      "Color": "ff0000",
+      "SoundLocation": "eat",
+      "PythonFile": "Food.py",
+      "Length": 1.5,
+      "Width": 1.5,
+      "Height": 1.5,
+      "InitialRotation": 0
+    },
+    {
+      "Pickup 2" : "Water",
+      "Type": "Pickup",
+      "Tag": "1",
+      "Color": "0000ff",
+      "SoundLocation": "drink",
+      "PythonFile": "Water.py",
+      "Length": 1.5,
+      "Width": 1.5,
+      "Height": 1.5,
+      "InitialRotation": 60
+    },
+    {
+      "Pickup 3" : "Money",
+      "Type": "Pickup",
+      "Tag": "1",
+      "Color": "00ff00",
+      "SoundLocation": "money",
+      "PythonFile": "Money.py",
+      "Length": 1.5,
+      "Width": 1.5,
+      "Height": 1.5,
+      "InitialRotation": 30
+    }
+  ],
+  
+  "ARENA DATA" : "ARENA DATA--------------------------------------",
+  
+  "Arenas": [
+    {
+      "Arena 1" : "Arena 1",
+      "Sides": 40,
+      "Radius": 15,
+      "WallHeight" : 2,
+      "WallColor": "1B5E20",
+      "GroundTileSides": 4,
+      "GroundTileSize": 1.0,
+      "GroundColor": "1B5E20"
+    },
+    {
+      "Arena 2" : "Arena 2",
+      "Sides": 4,
+      "Radius": 15,
+      "WallHeight" : 2,
+      "WallColor": "1B5E20",
+      "GroundTileSides": 4,
+      "GroundTileSize": 1.0,
+      "GroundColor": "1B5E20"
+    }
+  ],
+  
+
+  "LANDMARK DATA" : "LANDMARK DATA----------*********------------------LANDMARK DATA",
+
+  "Landmarks": [
+    {
+      "Landmark 1" : "Piller 1",
+      "Location": [0, 15, 0],
+      "Length": 1,
+      "Width": 1,
+      "Height": 10,
+      "Type": "Cylinder",
+      "Color": "E65100",
+      "InitialAngle": 50
+
+    },
+    {
+      "Landmark 2" : "Pillar 2",
+      "Location": [0, -15, 0],
+      "Length": 1,
+      "Width": 1,
+      "Height": 10,
+      "Type": "Cylinder",
+      "Color": "E65100",
+      "InitialAngle": 50
+    }
+  ]
+}

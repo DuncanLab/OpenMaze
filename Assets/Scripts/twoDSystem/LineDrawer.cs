@@ -33,7 +33,8 @@ namespace twoDSystem
 			Generate2dWalls();
             Generate2dLandmarks();
 			var previousTrial = E.Get().CurrTrial.TrialProgress.PreviousTrial;
-			GameObject.Find("Plane").transform.localScale *= previousTrial.Value.Radius / 10f;
+			// GameObject.Find("Plane").transform.localScale *= previousTrial.Value.Radius / 10f;
+			GameObject.Find("Plane").transform.localScale *= DS.GetData().Arenas[previousTrial.Value.Scene - 1].Radius / 10f;
 
 		}
 
@@ -51,25 +52,26 @@ namespace twoDSystem
 		{
 			var previousTrial = E.Get().CurrTrial.TrialProgress.PreviousTrial;
 			//This computes the current interior angle of the given side.
-			var interiorAngle = 360f / previousTrial.Value.Sides; //This is, of course, given as 360 / num sides
+			
+			//var interiorAngle = 360f / previousTrial.Value.Sides; //This is, of course, given as 360 / num sides
+			var interiorAngle = 360f / DS.GetData().Arenas[previousTrial.Value.Scene - 1].Sides; //This is, of course, given as 360 / num sides
 
 			//This sets the initial angle to the one given in the preset
 			float currentAngle = 0;
 		
 	
 			//Here we interate through all the sides
-			for (var i = 0; i < previousTrial.Value.Sides; i++)
+			for (var i = 0; i < DS.GetData().Arenas[previousTrial.Value.Scene - 1].Sides; i++)
 			{
 				//We compute the sin and cos of the current angle (essentially plotting points on a circle
-				var x = GenerateWall.Cos(currentAngle) * previousTrial.Value.Radius;
-				var y = GenerateWall.Sin(currentAngle) * previousTrial.Value.Radius;
+				var x = GenerateWall.Cos(currentAngle) * DS.GetData().Arenas[previousTrial.Value.Scene - 1].Radius;
+				var y = GenerateWall.Sin(currentAngle) * DS.GetData().Arenas[previousTrial.Value.Scene - 1].Radius;
 			
 				//This is theoreticially the perfect length of the wall. However, this causes a multitude of problems
 				//Such as:
 				//Gaps appearing in large wall numbers
 				//Desealing some stuff. so, bad.
-				var length = 2 * previousTrial.Value.Radius * GenerateWall.Tan(180f / previousTrial.Value.Sides);
-				
+				var length = 2 * DS.GetData().Arenas[previousTrial.Value.Scene - 1].Radius * GenerateWall.Tan(180f / DS.GetData().Arenas[previousTrial.Value.Scene - 1].Sides);
 			
 				//Here we create the wall
 				var obj = Instantiate(Wall,

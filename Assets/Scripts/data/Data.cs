@@ -15,7 +15,7 @@ namespace data
         public int TrialInitialValue;
 
         // The amount of delay (in seconds) before a trial loads in. This value is used to 
-        // ensure a consitent loading time between trials.
+        // ensure a consistent loading time between trials.
         public float TrialLoadingDelay = 3.0f;
 
         // The amount of time at the beginning of a trial when user input is ignore. This value
@@ -39,6 +39,9 @@ namespace data
 
         //This list contains all pre-defined trials.
         public List<Trial> TrialData;
+        
+        //List of all arenas
+        public List<Arena> Arenas;
 
         public List<BlockData> BlockList;
 
@@ -69,22 +72,16 @@ namespace data
         [Serializable]
         public class Trial
         {
+            public int Scene; // Specific scene that you are making use of.
             public int TimeToRotate; // How long the delay can last in the rotation
-            public float WallHeight; // This is the wall height
             public int TwoDimensional; // Set to 1 iff trial is two dimensional
             public int Instructional; // Set to 1 iff trial is instructional
             public string FileLocation; // Is not null iff FileLocation exists (Image for 1D trials)
             public int EnvironmentType; // This is the environment type referenced.
-            public int Sides; // Number of sides present in the trial.
-            public string WallColor; // HEX color of the walls
-            public int Radius; // Radius of the walls
             public int TimeAllotted; // Allotted amount of time
             public string TrialEndKey; // The key press which will end the current trial.
             public string Header; // Note outputted out of the trial.
             public MazeData Map; // The Map saved mazedata
-            public int GroundTileSides; // Number of sides on the ground pattern shapes - 0 for no tiles, 1 for solid color.
-            public double GroundTileSize; // Relative size of the floor tiles - Range from 0 to 1
-            public string GroundColor; // Colour of the ground
             public List<int> InvisibleGoals; //The goal that are active and invisible
             public List<int> ActiveGoals; //Goals that are active and visible
             public List<int> InactiveGoals; //Goals that are visible but inactive
@@ -92,7 +89,6 @@ namespace data
             public int Quota; //The quota that the person needs to pick up before the next trial is switched too
             [FormerlySerializedAs("CharacterStartPos")] public List<float> StartPosition; //The start position of the character (usually 0, 0) "[-1]" will give a random starting location. FormSer for backward compatibility.
             [FormerlySerializedAs("CharacterStartAngle")] public float StartFacing; // The starting angle of the character (in degrees).
-
             public bool ShowCollectedPerBlock; // Whether or not to display the amount of goals/pickups collected (resets each block)
         }
 
@@ -110,8 +106,6 @@ namespace data
             public string ImageLoc; // The location of the image file associated with the goal
             [FormerlySerializedAs("Location")] public List<float> Position; //The location of the goal (MAY BE [X, Y, Z] OR [X, Y])
             public List<int> Rotation; // [x,y,z] 
-
-
         }
 
         [Serializable]
@@ -122,6 +116,20 @@ namespace data
             public float GoalRotationSpeed; //The rotation speed of the goals
             public float Height; //The height of the character
             public float DistancePickup; //The min distance of the pickup to the character
+        }
+        
+        // This is an arena.
+        [Serializable]
+        public class Arena
+        {
+            public List<float> Position; // Location of the arena in [x,y,z]
+            public int Sides; // number of sides surrounding the arena
+            public int Radius; // size units of the arena floor
+            public int WallHeight; // units of wall height
+            public string WallColor; // hex for the color you want the wall to be
+            public string GroundColor; // hex for the color you want the ground to be
+            public int GroundTileSides; // Number of sides on the ground pattern shapes - 0 for no tiles, 1 for solid color.
+            public double GroundTileSize; // Relative size of the floor tiles - Range from 0 to 1
         }
 
         // This is a pillar object.

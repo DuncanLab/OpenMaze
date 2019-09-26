@@ -1,4 +1,4 @@
-﻿	using main;
+﻿using main;
 using UnityEngine;
 using C = data.Constants;
 
@@ -11,14 +11,10 @@ namespace data
 		//Our singleton instance
 		private static Data _data;
 
-
-		
-		
 		public static Data GetData(){
 			return _data;
 		}
 
-	
 		//This function loads the file from a defacto location as shown below
 		public static void Load(string fileName){
 			var file = System.IO.File.ReadAllText( fileName);

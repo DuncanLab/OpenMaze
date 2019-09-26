@@ -29,8 +29,8 @@ public class GenerateMazeFromFile : MonoBehaviour {
 				{
 					var obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
 					obj.GetComponent<Renderer>().sharedMaterial.color = Data.GetColour(m.Color);
-					obj.transform.localScale = new Vector3(m.TileWidth, L.Get().CurrTrial.Value.WallHeight, m.TileWidth);
-					obj.transform.position = new Vector3(x, L.Get().CurrTrial.Value.WallHeight * 0.5f, y);
+					obj.transform.localScale = new Vector3(m.TileWidth, DS.GetData().Arenas[L.Get().CurrTrial.Value.Scene - 1].WallHeight, m.TileWidth);
+					obj.transform.position = new Vector3(x, DS.GetData().Arenas[L.Get().CurrTrial.Value.Scene - 1].WallHeight * 0.5f, y);
 					
 				}
 				else if (col == 's')
