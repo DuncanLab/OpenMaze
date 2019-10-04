@@ -59,22 +59,24 @@ namespace trial
                     }
                     else
                     {
+                        Debug.Log("K VALUE");
+                        Debug.Log(k);
                         var trialData = DS.GetData().TrialData[k];
 
                         // Control flow here is for deciding what Trial gets spat out from the config
                         if (trialData.FileLocation != null)
                         {
-                            Debug.Log("Creating new Instructional Trial");
+                            // Debug.Log("Creating new Instructional Trial");
                             t = new InstructionalTrial(l, k);
                         }
                         else if (trialData.TwoDimensional == 1)
                         {
-                            Debug.Log("Creating new 2D Screen Trial");
+                            // Debug.Log("Creating new 2D Screen Trial");
                             t = new TwoDTrial(l, k);
                         }
                         else
                         {
-                            Debug.Log("Creating new 3D Screen Trial");
+                            // Debug.Log("Creating new 3D Screen Trial");
                             t = new ThreeDTrial(l, k);
                         }
                     }

@@ -85,7 +85,10 @@ namespace wallSystem
 
 				var landmark = (GameObject)Instantiate(Resources.Load("Prefabs/" + d.Type));
 				
-			
+				Debug.Log("D.SCALE");
+				Debug.Log(d.Scale[0]);
+				Debug.Log(d.Scale[1]);
+				Debug.Log(d.Scale[2]);
 				landmark.transform.localScale = new Vector3(d.Scale[0], d.Scale[2], d.Scale[1]);
 				try
 				{
@@ -117,7 +120,7 @@ namespace wallSystem
 		//This function generates the tile floor. We can modify the size of this later.
 		private void GenerateTileFloor()
         {
-            var val = DS.GetData().Arenas[E.Get().CurrTrial.Value.Scene + 1].Radius * 2;
+            var val = DS.GetData().Arenas[E.Get().CurrTrial.Value.Scene - 1].Radius * 2;
 
             // Setup the polygon mesh (using sensible defaults).
             int numSides = DS.GetData().Arenas[E.Get().CurrTrial.Value.Scene - 1].GroundTileSides == 0 ? 4 : DS.GetData().Arenas[E.Get().CurrTrial.Value.Scene - 1].GroundTileSides;
@@ -198,7 +201,9 @@ namespace wallSystem
 				//Such as:
 				//Gaps appearing in large wall numbers
 				//Desealing some stuff. so, bad.
-				var length = 2 * DS.GetData().Arenas[E.Get().CurrTrial.Value.Scene - 1].Radius * Tan(180f / DS.GetData().Arenas[E.Get().CurrTrial.Value.Scene + 1].Sides);
+				Debug.Log("SCENE VALUE");
+				Debug.Log(E.Get().CurrTrial.Value.Scene - 1);
+				var length = 2 * DS.GetData().Arenas[E.Get().CurrTrial.Value.Scene - 1].Radius * Tan(180f / DS.GetData().Arenas[E.Get().CurrTrial.Value.Scene - 1].Sides);
 				
 				
 				//Here we create the wall

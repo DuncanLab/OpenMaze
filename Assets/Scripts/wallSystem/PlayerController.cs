@@ -218,7 +218,7 @@ namespace wallSystem
                 }
                 catch (MissingComponentException e)
                 {
-                    Debug.LogWarning("Skipping movement calc: instructional trial");
+                    // Debug.LogWarning("Skipping movement calc: instructional trial");
                 }
 
                 E.LogData(

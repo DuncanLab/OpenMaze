@@ -13,14 +13,129 @@
 
   "BLOCK DATA" : "BLOCK DATA---------------------*********--------------------BLOCK DATA",
 
-  "BlockOrder" : [1],
+  "BlockOrder" : [1,2,3,4,5,6,7,8,9,10],
 
   "BlockList" : [
     {
       "BlockName" : "1 - Instructions",
       "Notes" : "n/a",
       "TrialOrder": [
-        20, 21
+        1, 2, 3, 4, 20, 19, 5
+      ]
+    },
+    {
+
+      "BlockName" : "2 - Practice Moving 3D-2D",
+      "Notes" : "TEST NOTE",
+      "TrialOrder": [
+        0, 0, 0, 0, 0, 0, 0, 0
+      ],
+      "Replacement" : 1,
+      "RandomTrialType" : [
+        {"RandomGroup": [20, 19]}
+      ]
+    },
+    {
+      "BlockName" : "3 - Practice Goals Visable invisible",
+      "Notes" : "n/a",
+      "TrialOrder": [
+        6, 7, 8, 4, 12, 22, 9, 12, 21, 5
+      ]
+    },
+    {
+      "BlockName" : "4 - Learn - Food - Visible",
+      "Notes" : "TEST NOTE",
+      "TrialOrder": [
+        15, 0, 0, 0, 0, 0, 0
+      ],
+      "Replacement" : 1,
+      "RandomTrialType" : [
+        {"RandomGroup": [12, 22, 12, 22, 19]}
+      ]
+    },
+    {
+      "BlockName" : "5 -  Learn - Food - invisible",
+      "Notes" : "TEST NOTE",
+      "TrialOrder": [
+        9, 0, 0, 0, 18
+      ],
+      "Replacement" : 1,
+      "RandomTrialType" : [
+        {"RandomGroup": [12, 23, 12, 23, 12, 23, 12, 23, 12, 23]}
+      ]
+    },
+    {
+      "BlockName" : "6 - Learn - Water - Visible",
+      "Notes" : "TEST NOTE",
+      "TrialOrder": [
+        16, 0, 0, 0, 0, 0, 0
+      ],
+      "Replacement" : 1,
+      "RandomTrialType" : [
+        {"RandomGroup": [13, 24, 13, 24, 19]}
+      ]
+    },
+    {
+      "BlockName" : "7 - Learn - Water - invisible",
+      "Notes" : "TEST NOTE",
+      "TrialOrder": [
+        9, 0, 0, 0, 18
+      ],
+      "Replacement" : 1,
+      "RandomTrialType" : [
+        {"RandomGroup": [13, 25, 13, 25, 13, 25, 13, 25, 13, 25]}
+      ]
+    },
+    {
+      "BlockName" : "8 - Learn - Money - Visible",
+      "Notes" : "TEST NOTE",
+      "TrialOrder": [
+        17, 0, 0, 0, 0, 0, 0
+      ],
+      "Replacement" : 1,
+      "RandomTrialType" : [
+        {"RandomGroup": [14, 26, 14, 26, 19]}
+      ]
+    },
+    {
+      "BlockName" : "9 - Learn  - Money - invisible",
+      "Notes" : "TEST NOTE",
+      "TrialOrder": [
+        9, 0, 0, 0, 18
+      ],
+      "Replacement" : 1,
+      "RandomTrialType" : [
+        {"RandomGroup": [14, 27, 14, 27, 14, 27, 14, 27, 14, 27]}
+      ]
+    },
+    {
+
+      "BlockName" : "10 - Practice all",
+      "Notes" : "TEST NOTE",
+      "TrialOrder": [
+        10, 12, 22, 14, 12, 22, 13, 13, 14,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 18,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 18,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 18,
+        11
+      ],
+      "Replacement" : 0,
+      "RandomTrialType" : [
+
+        {"RandomGroup": [12, 23]}, {"RandomGroup": [12, 23]}, {"RandomGroup": [12, 23]},
+        {"RandomGroup": [12, 23]}, {"RandomGroup": [12, 23]}, {"RandomGroup": [12, 23]},
+        {"RandomGroup": [12, 23]}, {"RandomGroup": [12, 23]}, {"RandomGroup": [12, 23]},
+        {"RandomGroup": [12, 23]}, {"RandomGroup": [12, 23]}, {"RandomGroup": [12, 23]},
+
+        {"RandomGroup": [13, 25]}, {"RandomGroup": [13, 25]}, {"RandomGroup": [13, 25]},
+        {"RandomGroup": [13, 25]}, {"RandomGroup": [13, 25]}, {"RandomGroup": [13, 25]},
+        {"RandomGroup": [13, 25]}, {"RandomGroup": [13, 25]}, {"RandomGroup": [13, 25]},
+        {"RandomGroup": [13, 25]}, {"RandomGroup": [13, 25]}, {"RandomGroup": [13, 25]},
+
+        {"RandomGroup": [14, 27]}, {"RandomGroup": [14, 27]}, {"RandomGroup": [14, 27]},
+        {"RandomGroup": [14, 27]}, {"RandomGroup": [14, 27]}, {"RandomGroup": [14, 27]},
+        {"RandomGroup": [14, 27]}, {"RandomGroup": [14, 27]}, {"RandomGroup": [14, 27]},
+        {"RandomGroup": [14, 27]}, {"RandomGroup": [14, 27]}, {"RandomGroup": [14, 27]}
       ]
     }
   ],
@@ -32,8 +147,7 @@
       "1" : "Welcome",
       "Instructional": 1,
       "FileLocation": "Welcome.png",
-      "TimeAllotted": -1,
-      "TrialEndKey": "X"
+      "TimeAllotted": -1
     },
     {
       "2" : "Movement Instructions",
@@ -45,15 +159,13 @@
       "3" : "2D",
       "Instructional": 1,
       "FileLocation": "2D.png",
-      "TimeAllotted": -1,
-      "TrialEndKey": "X"
+      "TimeAllotted": -1
     },
     {
       "4" : "Ready",
       "Instructional": 1,
       "FileLocation": "Ready.png",
-      "TimeAllotted": -1,
-      "TrialEndKey": "X"
+      "TimeAllotted": -1
     },
     {
       "5" : "Questions",
@@ -143,7 +255,7 @@
       "19": "City 2D----------------------------------------------------------------------------------------2D",
       "TwoDimensional" : 1,
       "EnvironmentType" : 5,
-      "TimeAllotted" : 100
+      "TimeAllotted" : 5
     },
     {
       "20" : "City - Circle - Free",
@@ -262,16 +374,6 @@
       "GroundTileSides": 4,
       "GroundTileSize": 1.0,
       "GroundColor": "1B5E20"
-    },
-    {
-      "Arena 2" : "Arena 2",
-      "Sides": 4,
-      "Radius": 15,
-      "WallHeight" : 2,
-      "WallColor": "1B5E20",
-      "GroundTileSides": 4,
-      "GroundTileSize": 1.0,
-      "GroundColor": "1B5E20"
     }
   ],
   
@@ -281,24 +383,20 @@
   "Landmarks": [
     {
       "Landmark 1" : "Piller 1",
-      "Location": [0, 15, 0],
-      "Length": 1,
-      "Width": 1,
-      "Height": 10,
+      "Position": [0, 15, 0],
+      "Scale": [1, 1, 1],
       "Type": "Cylinder",
       "Color": "E65100",
-      "InitialAngle": 50
+      "Rotation": [0,0,0]
 
     },
     {
       "Landmark 2" : "Pillar 2",
-      "Location": [0, -15, 0],
-      "Length": 1,
-      "Width": 1,
-      "Height": 10,
+      "Position": [0, -15, 0],
+      "Scale": [1, 1, 1],
       "Type": "Cylinder",
       "Color": "E65100",
-      "InitialAngle": 50
+      "Rotation": [0,0,0]
     }
   ]
 }
