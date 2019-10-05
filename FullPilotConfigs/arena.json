@@ -254,8 +254,8 @@
     {
       "19": "City 2D----------------------------------------------------------------------------------------2D",
       "TwoDimensional" : 1,
-      "EnvironmentType" : 5,
-      "TimeAllotted" : 5
+      "EnvironmentType" : 3,
+      "TimeAllotted" : 20
     },
     {
       "20" : "City - Circle - Free",
@@ -265,7 +265,7 @@
       "EnvironmentType": 3,
       "CharacterStartPos" : [0, 0],
       "TimeToRotate": 5,
-      "ActiveGoals" : [],
+      "ActiveGoals" : [1],
       "InvisibleGoals" : [],
       "InactiveGoals" : [],
       "Scene" : 1,
@@ -331,10 +331,9 @@
       "Color": "ff0000",
       "SoundLocation": "eat",
       "PythonFile": "Food.py",
-      "Length": 1.5,
-      "Width": 1.5,
-      "Height": 1.5,
-      "InitialRotation": 0
+      "Position": [0, 0, 0.5],
+      "Rotation": [0, 0, 0],
+      "Scale": [1, 1, 1]
     },
     {
       "Pickup 2" : "Water",
@@ -343,10 +342,9 @@
       "Color": "0000ff",
       "SoundLocation": "drink",
       "PythonFile": "Water.py",
-      "Length": 1.5,
-      "Width": 1.5,
-      "Height": 1.5,
-      "InitialRotation": 60
+      "Position": [0, 0, 0.5],
+      "Rotation": [0, 0, 0],
+      "Scale": [1, 1, 1]
     },
     {
       "Pickup 3" : "Money",
@@ -355,10 +353,9 @@
       "Color": "00ff00",
       "SoundLocation": "money",
       "PythonFile": "Money.py",
-      "Length": 1.5,
-      "Width": 1.5,
-      "Height": 1.5,
-      "InitialRotation": 30
+      "Position": [0, 0, 0.5],
+      "Rotation": [0, 0, 0],
+      "Scale": [1, 1, 1]
     }
   ],
   

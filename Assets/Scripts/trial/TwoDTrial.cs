@@ -17,6 +17,8 @@ namespace trial
 
             base.PreEntry(t, first);
             t.EnvironmentType = Value.EnvironmentType;
+            Debug.Log("VALUE.SCENE");
+            Debug.Log(Value.Scene-1);
             t.Sides = DS.GetData().Arenas[Value.Scene - 1].Sides;
             // t.Sides = Value.Sides;
             t.BlockID = BlockID;
