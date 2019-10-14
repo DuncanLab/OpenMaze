@@ -104,13 +104,38 @@ namespace data
             public string Color; // The colour in Hex without #
             public string SoundLocation; // The file path of the sound
             public string PythonFile; // The python file that will generate the position
-            public float Length;
-            public float Width;
-            public float Height;
             public string Type; // The name of the prefab object
             public string ImageLoc; // The location of the image file associated with the goal
-            public List<float> Location; // The location of the goal (MAY BE [X, Y, Z] OR [X, Y])
+
+            // Use list for serialization purposes
+            public List<float> Position;
+            public List<float> Rotation;
+            public List<float> Scale;
             public int InitialRotation;
+
+            public Vector3 PositionVector
+            {
+                get
+                {
+                    return Position.Count == 0 ? Vector3.zero : new Vector3(Position[0], Position[1], Position[2]);
+                }
+            }
+
+            public Vector3 RotationVector
+            {
+                get
+                {
+                    return Rotation.Count == 0 ? Vector3.zero : new Vector3(Rotation[0], Rotation[1], Rotation[2]);
+                }
+            }
+
+            public Vector3 ScaleVector
+            {
+                get
+                {
+                    return Scale.Count == 0 ? Vector3.zero : new Vector3(Scale[0], Scale[1], Scale[2]);
+                }
+            }
         }
 
         [Serializable]
