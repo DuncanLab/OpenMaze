@@ -152,14 +152,40 @@ namespace data
         [Serializable]
         public class LandMark
         {
-            public List<float> Location; // Location of the landmark
-            public float Length;
-            public float Width;
-            public float Height;
             public string Type;
             public string Color; // Color as a hex value
             public string ImageLoc; // The location (for 2Dimagedisplayer)
+
+            // Use list for serialization purposes
+            public List<float> Position;
+            public List<float> Rotation;
+            public List<float> Scale;
+
             public int InitialRotation;
+
+            public Vector3 PositionVector
+            {
+                get
+                {
+                    return Position.Count == 0 ? Vector3.zero : new Vector3(Position[0], Position[1], Position[2]);
+                }
+            }
+
+            public Vector3 RotationVector
+            {
+                get
+                {
+                    return Rotation.Count == 0 ? Vector3.zero : new Vector3(Rotation[0], Rotation[1], Rotation[2]);
+                }
+            }
+
+            public Vector3 ScaleVector
+            {
+                get
+                {
+                    return Scale.Count == 0 ? Vector3.zero : new Vector3(Scale[0], Scale[1], Scale[2]);
+                }
+            }
         }
 
         [Serializable]
