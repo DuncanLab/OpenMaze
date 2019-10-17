@@ -99,7 +99,8 @@ namespace wallSystem
                 var i = 0;
                 while (i++ < 100)
                 {
-                    var v = Random.insideUnitCircle * E.Get().CurrTrial.Value.Radius * 0.9f;
+                    var CurrentTrialRadius = DS.GetData().MazesDictionary[E.Get().CurrTrial.TrialProgress.CurrentMazeName].Radius;
+                    var v = Random.insideUnitCircle * CurrentTrialRadius * 0.9f;
                     var mag = Vector3.Distance(v, new Vector2(pickX, pickY));
                     if (mag > DS.GetData().CharacterData.DistancePickup)
                     {

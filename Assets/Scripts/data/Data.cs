@@ -33,11 +33,16 @@ namespace data
         //This is a LIST of the different types of pickup items that are defined below
         public List<Goal> Goals;
 
-        //This is a list of the pillar objects
+        // Runtime objects to load into the trials
         public List<LandMark> Landmarks;
 
-        //This list contains all pre-defined trials.
+        // Contains all pre-defined trials
         public List<Trial> TrialData;
+
+        // Contains all Maze config objects
+        public List<Maze> Mazes;
+
+        public Dictionary<string, Maze> MazesDictionary;
 
         public List<BlockData> BlockList;
 
@@ -69,30 +74,39 @@ namespace data
         public class Trial
         {
             public int TimeToRotate; // How long the delay can last in the rotation
-            public float WallHeight; // This is the wall height
             public int TwoDimensional; // Set to 1 iff trial is two dimensional
             public int Instructional; // Set to 1 iff trial is instructional
             public string FileLocation; // Is not null iff FileLocation exists (Image for 1D trials)
             public int EnvironmentType; // This is the environment type referenced.
-            public int Sides; // Number of sides present in the trial.
-            public string WallColor; // HEX color of the walls
-            public int Radius; // Radius of the walls
             public int TimeAllotted; // Allotted amount of time
             public string TrialEndKey; // The key press which will end the current trial.
             public string Header; // Note outputted out of the trial.
             public MazeData Map; // The Map saved mazedata
-            public int GroundTileSides; // Number of sides on the ground pattern shapes - 0 for no tiles, 1 for solid color.
-            public double GroundTileSize; // Relative size of the floor tiles - Range from 0 to 1
-            public string GroundColor; // Colour of the ground
             public List<int> InvisibleGoals; //The goal that are active and invisible
             public List<int> ActiveGoals; // Goals that are active and visible
             public List<int> InactiveGoals; // Goals that are visible but inactive
+            public string MazeName; // Name of the maze to load
             public List<int> LandMarks; // List of all land marks
             public int Quota; // The quota that the person needs to pick up before the next trial is switched too
             public List<float> CharacterStartPos; //The start position of the character (usually 0, 0)
             public float CharacterStartAngle; // The starting angle of the character (in degrees).
 
             public bool ShowCollectedPerBlock; // Whether or not to display the amount of goals/pickups collected (resets each block)
+        }
+
+        // Represents a Maze for the user. Mazes can be prebuilt; located in:
+        // Mazes can be 'Simple' with basic dimensions specified in the config file
+        [Serializable]
+        public class Maze
+        {
+            public string MazeName; // Must be unique
+            public int GroundTileSides; // Number of sides on the ground pattern shapes - 0 for no tiles, 1 for solid color.
+            public double GroundTileSize; // Relative size of the floor tiles - Range from 0 to 1
+            public string GroundColor; // Colour of the ground
+            public int Sides; // Number of sides present in the trial.
+            public string WallColor; // HEX color of the walls
+            public float WallHeight; // This is the wall height
+            public int Radius; // Radius of the walls
         }
 
         // This is the given PickupItem. Note that in the JSON, this is contained with an ARRAY

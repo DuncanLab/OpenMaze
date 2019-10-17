@@ -17,7 +17,7 @@ namespace trial
             base.PreEntry(t, first);
             t.TimingVerification = data.DataSingleton.GetData().TimingVerification; // timing diagnostics
             t.EnvironmentType = Value.EnvironmentType;
-            t.Sides = Value.Sides;
+            t.CurrentMazeName = Value.MazeName;
             t.BlockID = BlockID;
             t.TrialID = TrialID;
             t.TwoDim = Value.TwoDimensional;

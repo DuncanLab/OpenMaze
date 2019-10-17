@@ -14,7 +14,7 @@ public class GenerateMazeFromFile : MonoBehaviour
         var m = L.Get().CurrTrial.Value.Map;
         var y = m.TopLeft[1];
 
-        //Goes through each map and initializes it based on stuff.
+        // Goes through each map and initializes it based on stuff.
         foreach (var row in m.Map)
         {
             var x = m.TopLeft[0];
@@ -25,8 +25,8 @@ public class GenerateMazeFromFile : MonoBehaviour
                 {
                     var obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     obj.GetComponent<Renderer>().sharedMaterial.color = Data.GetColour(m.Color);
-                    obj.transform.localScale = new Vector3(m.TileWidth, L.Get().CurrTrial.Value.WallHeight, m.TileWidth);
-                    obj.transform.position = new Vector3(x, L.Get().CurrTrial.Value.WallHeight * 0.5f, y);
+                    obj.transform.localScale = new Vector3(m.TileWidth, L.Get().CurrTrial.maze.WallHeight, m.TileWidth);
+                    obj.transform.position = new Vector3(x, L.Get().CurrTrial.maze.WallHeight * 0.5f, y);
                 }
                 else if (col == 's')
                 {

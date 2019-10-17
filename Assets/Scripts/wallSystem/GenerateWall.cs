@@ -35,19 +35,19 @@ namespace wallSystem
             SetupColours();
             GenerateWalls();
 
-            if (E.Get().CurrTrial.Value.GroundTileSides == 2) throw new Exception("Can't have floor tiles with 2 sides!");
+            if (E.Get().CurrTrial.maze.GroundTileSides == 2) throw new Exception("Can't have floor tiles with 2 sides!");
 
-            if (E.Get().CurrTrial.Value.GroundColor == null)
+            if (E.Get().CurrTrial.maze.GroundColor == null)
             {
                 GameObject.Find("Ground").GetComponent<Renderer>().enabled = false;
             }
-            else if (E.Get().CurrTrial.Value.GroundTileSides > 2)
+            else if (E.Get().CurrTrial.maze.GroundTileSides > 2)
             {
                 GenerateTileFloor();
             }
             else
             {
-                var col = Data.GetColour(E.Get().CurrTrial.Value.GroundColor);
+                var col = Data.GetColour(E.Get().CurrTrial.maze.GroundColor);
                 GameObject.Find("Ground").GetComponent<Renderer>().material.color = col;
             }
 
@@ -67,7 +67,7 @@ namespace wallSystem
         // Here we setup the colours. This is done as a gradient utilizing data given from input.json
         private void SetupColours()
         {
-            var col = Data.GetColour(E.Get().CurrTrial.Value.WallColor);
+            var col = Data.GetColour(E.Get().CurrTrial.maze.WallColor);
             //And here we set the color of the wall prefab to the appropriate color
             Wall.GetComponent<Renderer>().sharedMaterial.color = col;
         }
@@ -108,12 +108,12 @@ namespace wallSystem
         // This function generates the tile floor. We can modify the size of this later.
         private void GenerateTileFloor()
         {
-            var val = E.Get().CurrTrial.Value.Radius * 2;
+            var val = E.Get().CurrTrial.maze.Radius * 2;
 
             // Setup the polygon mesh (using sensible defaults).
-            int numSides = E.Get().CurrTrial.Value.GroundTileSides == 0 ? 4 : E.Get().CurrTrial.Value.GroundTileSides;
-            double tileSize = E.Get().CurrTrial.Value.GroundTileSize == 0.0 ? 1.0 : E.Get().CurrTrial.Value.GroundTileSize;
-            var col = Data.GetColour(E.Get().CurrTrial.Value.GroundColor);
+            int numSides = E.Get().CurrTrial.maze.GroundTileSides == 0 ? 4 : E.Get().CurrTrial.maze.GroundTileSides;
+            double tileSize = E.Get().CurrTrial.maze.GroundTileSize == 0.0 ? 1.0 : E.Get().CurrTrial.maze.GroundTileSize;
+            var col = Data.GetColour(E.Get().CurrTrial.maze.GroundColor);
             Mesh mesh = ConstructTileMesh(numSides, tileSize);
 
             // Generate a grid of tiles
@@ -168,36 +168,36 @@ namespace wallSystem
         //This function creates the walls
         private void GenerateWalls()
         {
-            if ((int)E.Get().CurrTrial.Value.WallHeight == 0) return;
+            if ((int)E.Get().CurrTrial.maze.WallHeight == 0) return;
 
             //This computes the current interior angle of the given side.
-            var interiorAngle = 360f / E.Get().CurrTrial.Value.Sides; //This is, of course, given as 360 / num sides
+            var interiorAngle = 360f / E.Get().CurrTrial.maze.Sides; //This is, of course, given as 360 / num sides
 
             //This sets the initial angle to the one given in the preset
             float currentAngle = 0;
 
-            GameObject.Find("Ground").transform.localScale *= E.Get().CurrTrial.Value.Radius / 20f;
+            GameObject.Find("Ground").transform.localScale *= E.Get().CurrTrial.maze.Radius / 20f;
             //Here we interate through all the sides
-            for (var i = 0; i < E.Get().CurrTrial.Value.Sides; i++)
+            for (var i = 0; i < E.Get().CurrTrial.maze.Sides; i++)
             {
                 //We compute the sin and cos of the current angle (essentially plotting points on a circle
-                var x = Cos(currentAngle) * E.Get().CurrTrial.Value.Radius;
-                var y = Sin(currentAngle) * E.Get().CurrTrial.Value.Radius;
+                var x = Cos(currentAngle) * E.Get().CurrTrial.maze.Radius;
+                var y = Sin(currentAngle) * E.Get().CurrTrial.maze.Radius;
 
                 //This is theoreticially the perfect length of the wall. However, this causes a multitude of problems
                 //Such as:
                 //Gaps appearing in large wall numbers
                 //Desealing some stuff. so, bad.
-                var length = 2 * E.Get().CurrTrial.Value.Radius * Tan(180f / E.Get().CurrTrial.Value.Sides);
+                var length = 2 * E.Get().CurrTrial.maze.Radius * Tan(180f / E.Get().CurrTrial.maze.Sides);
 
                 //Here we create the wall
                 var obj = Instantiate(Wall,
-                    new Vector3(x, E.Get().CurrTrial.Value.WallHeight / 2 - .1f, y),
+                    new Vector3(x, E.Get().CurrTrial.maze.WallHeight / 2 - .1f, y),
                     Quaternion.identity
                 );
 
                 // So we add 10 because the end user won't be able to notice it anyways
-                obj.transform.localScale = new Vector3(length + 10, E.Get().CurrTrial.Value.WallHeight, 0.5f);
+                obj.transform.localScale = new Vector3(length + 10, E.Get().CurrTrial.maze.WallHeight, 0.5f);
 
                 // This rotates the walls by the current angle + 90
                 obj.transform.Rotate(Quaternion.Euler(0, -currentAngle - 90, 0).eulerAngles);
