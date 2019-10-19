@@ -117,7 +117,7 @@ namespace data
             // In general this will always be one unless necessary to implement in the future.
             public string Tag; // The name of the pickup item
             public string Color; // The colour in Hex without #
-            public string SoundLocation; // The file path of the sound
+            public string Sound; // The file path of the sound
             public string PythonFile; // The python file that will generate the position
             public string Type; // The name of the prefab object
             public string ImageLoc; // The location of the image file associated with the goal

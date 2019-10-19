@@ -109,7 +109,7 @@ namespace wallSystem
 
                 obj.AddComponent<PickupSound>();
 
-                obj.GetComponent<PickupSound>().Sound = Resources.Load<AudioClip>("Audio/" + item.SoundLocation);
+                obj.GetComponent<PickupSound>().Sound = Resources.Load<AudioClip>("Audio/" + item.Sound);
 
                 obj.transform.localScale = item.ScaleVector;
                 obj.transform.position = new Vector3(p.X, p.Y, p.Z);
