@@ -79,7 +79,7 @@ namespace wallSystem
             {
                 var d = DS.GetData().Landmarks[p - 1];
 
-                var landmark = (GameObject)Instantiate(Resources.Load("Prefabs/" + d.Type));
+                var landmark = (GameObject)Instantiate(Resources.Load("3D_Objects/" + d.Type));
 
                 landmark.transform.localScale = d.ScaleVector;
                 try
@@ -97,7 +97,7 @@ namespace wallSystem
                 var sprite = d.ImageLoc;
                 if (sprite != null)
                 {
-                    var pic = Img2Sprite.LoadNewSprite(Constants.InputDirectory + sprite);
+                    var pic = Img2Sprite.LoadNewSprite(DataSingleton.GetData().SpritesPath + sprite);
                     landmark.GetComponent<SpriteRenderer>().sprite = pic;
                 }
 

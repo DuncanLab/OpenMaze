@@ -1,12 +1,7 @@
-﻿
-//A class containing all of the useful constants to be used throughout the program
-namespace data
+﻿namespace data
 {
     public static class Constants
     {
-        //The input directory for the game (we can adjust this for shipment later)
-        public const string InputDirectory = "Assets/InputFiles~/";
-
         //This is where all of the output values are stored.
         public const string OutputDirectory = "Assets/Outputfiles~";
 

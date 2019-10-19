@@ -7,6 +7,10 @@ namespace data
     [Serializable]
     public class Data
     {
+        // File locations
+        public string SpritesPath = Application.dataPath + "/StreamingAssets/2D_Objects/";
+        public string PythonScriptsPath = Application.dataPath + "/StreamingAssets/PythonScripts/";
+
         // whether or not to turn on timing diagnostics
         public bool TimingVerification;
 

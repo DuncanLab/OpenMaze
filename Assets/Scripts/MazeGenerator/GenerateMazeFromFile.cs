@@ -37,7 +37,7 @@ public class GenerateMazeFromFile : MonoBehaviour
                 {
                     var val = col - '0';
                     var item = DS.GetData().Goals[val - 1];
-                    var prefab = (GameObject)Resources.Load("prefabs/" + item.Type, typeof(GameObject));
+                    var prefab = (GameObject)Resources.Load("3D_Objects/" + item.Type, typeof(GameObject));
 
                     var obj = Instantiate(prefab);
 
@@ -52,7 +52,7 @@ public class GenerateMazeFromFile : MonoBehaviour
                     obj.transform.position = new Vector3(x, 0.5f, y);
                     var sprite = item.ImageLoc;
 
-                    var pic = Img2Sprite.LoadNewSprite(Constants.InputDirectory + sprite);
+                    var pic = Img2Sprite.LoadNewSprite(DataSingleton.GetData().SpritesPath + sprite);
                     obj.GetComponent<SpriteRenderer>().sprite = pic;
                 }
 

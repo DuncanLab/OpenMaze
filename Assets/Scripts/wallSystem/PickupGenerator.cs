@@ -17,8 +17,7 @@ namespace wallSystem
         {
             var p = new Process
             {
-                StartInfo = new ProcessStartInfo("python",
-                    "Assets/InputFiles~/" + inputFile)
+                StartInfo = new ProcessStartInfo("python", DataSingleton.GetData().PythonScriptsPath + inputFile)
                 {
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
@@ -100,7 +99,7 @@ namespace wallSystem
                     }
                 }
 
-                var prefab = (GameObject)Resources.Load("prefabs/" + item.Type, typeof(GameObject));
+                var prefab = (GameObject)Resources.Load("3D_Objects/" + item.Type, typeof(GameObject));
 
                 var obj = Instantiate(prefab);
                 if (!item.Type.Equals("2DImageDisplayer"))
@@ -109,14 +108,14 @@ namespace wallSystem
 
                 obj.AddComponent<PickupSound>();
 
-                obj.GetComponent<PickupSound>().Sound = Resources.Load<AudioClip>("Audio/" + item.Sound);
+                obj.GetComponent<PickupSound>().Sound = Resources.Load<AudioClip>("Sounds/" + item.Sound);
 
                 obj.transform.localScale = item.ScaleVector;
                 obj.transform.position = new Vector3(p.X, p.Y, p.Z);
                 var sprite = item.ImageLoc;
                 if (sprite != null)
                 {
-                    var pic = Img2Sprite.LoadNewSprite(Constants.InputDirectory + sprite);
+                    var pic = Img2Sprite.LoadNewSprite(DataSingleton.GetData().SpritesPath + sprite);
                     obj.GetComponent<SpriteRenderer>().sprite = pic;
                 }
 
