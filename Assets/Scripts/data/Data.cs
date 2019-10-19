@@ -88,8 +88,8 @@ namespace data
             public string MazeName; // Name of the maze to load
             public List<int> LandMarks; // List of all land marks
             public int Quota; // The quota that the person needs to pick up before the next trial is switched too
-            public List<float> CharacterStartPos; //The start position of the character (usually 0, 0)
-            public float CharacterStartAngle; // The starting angle of the character (in degrees).
+            public List<float> StartPosition; //The start position of the character (usually 0, 0)
+            public float StartFacing; // The starting angle of the character (in degrees).
 
             public bool ShowCollectedPerBlock; // Whether or not to display the amount of goals/pickups collected (resets each block)
         }
