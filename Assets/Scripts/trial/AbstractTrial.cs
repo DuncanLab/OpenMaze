@@ -14,6 +14,8 @@ namespace trial
     //A central trial class 
     public abstract class AbstractTrial
     {
+        public long TrialStartTime;
+
         //These two fields register the current block and trial ID in the dataSingleton
         public int BlockID;
 
@@ -82,6 +84,8 @@ namespace trial
             {
                 t.TimeSinceExperimentStart = 0.0f;
             }
+
+            TrialStartTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
 
             _runningTime = 0;
             TrialProgress = t;

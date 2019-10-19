@@ -126,12 +126,10 @@ namespace wallSystem
             }
         }
 
-
-        //This is the collision system.
+        // This is the collision system.
         private void OnTriggerEnter(Collider other)
         {
             if (!other.gameObject.CompareTag("Pickup")) return;
-
 
             GetComponent<AudioSource>().PlayOneShot(other.gameObject.GetComponent<PickupSound>().Sound, 10);
             Destroy(other.gameObject);
@@ -143,7 +141,7 @@ namespace wallSystem
             TrialProgress.GetCurrTrial().NumCollected++;
             E.LogData(
                 TrialProgress.GetCurrTrial().TrialProgress,
-                TrialProgress.GetCurrTrial().GetRunningTime(),
+                TrialProgress.GetCurrTrial().TrialStartTime,
                 transform,
                 1
             );
@@ -155,12 +153,11 @@ namespace wallSystem
             _playingSound = true;
             E.LogData(
                 TrialProgress.GetCurrTrial().TrialProgress,
-                TrialProgress.GetCurrTrial().GetRunningTime(),
+                TrialProgress.GetCurrTrial().TrialStartTime,
                 transform,
                 1
             );
         }
-
 
         private void ComputeMovement()
         {
@@ -181,7 +178,6 @@ namespace wallSystem
                 _controller.Move(_moveDirection * Time.deltaTime);
 
             transform.Rotate(0, rotation, 0);
-
         }
 
 
@@ -222,10 +218,7 @@ namespace wallSystem
                     Debug.LogWarning("Skipping movement calc: instructional trial");
                 }
 
-                E.LogData(
-                  TrialProgress.GetCurrTrial().TrialProgress,
-                  TrialProgress.GetCurrTrial().GetRunningTime(),
-                  transform);
+                E.LogData(TrialProgress.GetCurrTrial().TrialProgress, TrialProgress.GetCurrTrial().TrialStartTime, transform);
             }
             _currDelay += Time.deltaTime;
         }
