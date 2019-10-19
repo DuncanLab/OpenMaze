@@ -117,9 +117,13 @@ namespace wallSystem
             Mesh mesh = ConstructTileMesh(numSides, tileSize);
 
             // Generate a grid of tiles
-            for (float i = -val; i < val; i += 2)
+            var xStart = E.Get().CurrTrial.maze.Position[0] - val;
+            var yStart = E.Get().CurrTrial.maze.Position[1] - val;
+            var xEnd = xStart + (val * 2);
+            var yEnd = yStart + (val * 2);
+            for (float i = xStart; i <= xEnd; i += 2)
             {
-                for (float j = -val; j < val; j += 2)
+                for (float j = yStart; j <= yEnd; j += 2)
                 {
                     var tile = Instantiate(Wall, new Vector3(i, 0.001f, j), Quaternion.identity);
                     tile.GetComponent<MeshFilter>().mesh = mesh;
@@ -165,7 +169,6 @@ namespace wallSystem
             return mesh;
         }
 
-        //This function creates the walls
         private void GenerateWalls()
         {
             if ((int)E.Get().CurrTrial.maze.WallHeight == 0) return;
@@ -177,12 +180,14 @@ namespace wallSystem
             float currentAngle = 0;
 
             GameObject.Find("Ground").transform.localScale *= E.Get().CurrTrial.maze.Radius / 20f;
+            GameObject.Find("Ground").transform.position = new Vector3(E.Get().CurrTrial.maze.Position[0], 0, E.Get().CurrTrial.maze.Position[1]);
+
             //Here we interate through all the sides
             for (var i = 0; i < E.Get().CurrTrial.maze.Sides; i++)
             {
                 //We compute the sin and cos of the current angle (essentially plotting points on a circle
-                var x = Cos(currentAngle) * E.Get().CurrTrial.maze.Radius;
-                var y = Sin(currentAngle) * E.Get().CurrTrial.maze.Radius;
+                var x = Cos(currentAngle) * E.Get().CurrTrial.maze.Radius + E.Get().CurrTrial.maze.Position[0];
+                var y = Sin(currentAngle) * E.Get().CurrTrial.maze.Radius + E.Get().CurrTrial.maze.Position[1];
 
                 //This is theoreticially the perfect length of the wall. However, this causes a multitude of problems
                 //Such as:

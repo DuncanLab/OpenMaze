@@ -100,13 +100,14 @@ namespace data
         public class Maze
         {
             public string MazeName; // Must be unique
+            public int Sides; // Number of sides present in the trial.
+            public int Radius; // Radius of the walls
+            public float WallHeight; // This is the wall height
+            public string WallColor; // HEX color of the walls
             public int GroundTileSides; // Number of sides on the ground pattern shapes - 0 for no tiles, 1 for solid color.
             public double GroundTileSize; // Relative size of the floor tiles - Range from 0 to 1
             public string GroundColor; // Colour of the ground
-            public int Sides; // Number of sides present in the trial.
-            public string WallColor; // HEX color of the walls
-            public float WallHeight; // This is the wall height
-            public int Radius; // Radius of the walls
+            public List<float> Position; // 2d position vector
         }
 
         // This is the given PickupItem. Note that in the JSON, this is contained with an ARRAY

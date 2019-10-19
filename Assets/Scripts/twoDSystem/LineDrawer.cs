@@ -11,7 +11,8 @@ using E = main.Loader;
 // TODO : Refactor this class and GenerateWall to use the same functions
 namespace twoDSystem
 {
-    //See generatewall but more ghetto
+    // See generatewall but more ghetto
+    // Attached to the 2DWallGen Object (in 2d scenes)
     public class LineDrawer : MonoBehaviour
     {
         public GameObject Wall;
@@ -47,6 +48,8 @@ namespace twoDSystem
             }
         }
 
+        // Generate walls based on the parameters of the previous maze
+        // TODO: Make 2d trials work with their own Mazes.
         private void Generate2dWalls()
         {
             var previousTrial = E.Get().CurrTrial.TrialProgress.PreviousTrial;
@@ -60,8 +63,8 @@ namespace twoDSystem
             for (var i = 0; i < previousTrial.maze.Sides; i++)
             {
                 //We compute the sin and cos of the current angle (essentially plotting points on a circle
-                var x = GenerateWall.Cos(currentAngle) * previousTrial.maze.Radius;
-                var y = GenerateWall.Sin(currentAngle) * previousTrial.maze.Radius;
+                var x = GenerateWall.Cos(currentAngle) * previousTrial.maze.Radius + previousTrial.maze.Position[0];
+                var y = GenerateWall.Sin(currentAngle) * previousTrial.maze.Radius + previousTrial.maze.Position[1];
 
                 //This is theoreticially the perfect length of the wall. However, this causes a multitude of problems
                 //Such as:
