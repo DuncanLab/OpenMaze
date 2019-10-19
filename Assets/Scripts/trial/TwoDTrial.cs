@@ -15,7 +15,7 @@ namespace trial
         {
 
             base.PreEntry(t, first);
-            t.EnvironmentType = Value.EnvironmentType;
+            t.EnvironmentType = Value.Scene;
             t.CurrentMazeName = Value.MazeName;
             t.BlockID = BlockID;
             t.TrialID = TrialID;
@@ -26,7 +26,7 @@ namespace trial
             t.TargetX = 0;
             t.TargetY = 0;
 
-            LoadNextSceneWithTimer(Value.EnvironmentType);
+            LoadNextSceneWithTimer(Value.Scene);
         }
 
         //Code for a trial to continue

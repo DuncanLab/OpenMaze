@@ -77,7 +77,7 @@ namespace data
             public int TwoDimensional; // Set to 1 iff trial is two dimensional
             public int Instructional; // Set to 1 iff trial is instructional
             public string FileLocation; // Is not null iff FileLocation exists (Image for 1D trials)
-            public int EnvironmentType; // This is the environment type referenced.
+            public int Scene; // This is the environment type referenced.
             public int TimeAllotted; // Allotted amount of time
             public string TrialEndKey; // The key press which will end the current trial.
             public string Header; // Note outputted out of the trial.
