@@ -1,0 +1,254 @@
+{
+    "OutputTimesPerSecond": 30,
+    "TrialLoadingDelay": 5.0,
+    "IgnoreUserInputDelay": 5.0,
+    "CHARACTER DATA": "CHARACTER DATA----------*********-------------------CHARACTER DATA",
+    "CharacterData": {
+        "Height": 2,
+        "MovementSpeed": 5.0,
+        "RotationSpeed": 75.0,
+        "DistancePickup": 2,
+        "GoalRotationSpeed": 0
+    },
+
+"BLOCK DATA" : "BLOCK DATA---------------------*********--------------------BLOCK DATA",   
+   
+    "BlockOrder" : [1,2,3],
+    
+    "BlockList" : [
+        {
+            "BlockName" : "1 - Starting Block",
+              "Notes" : "This is a standard block of trials.",
+              "TrialOrder": [
+                 6, 7,8,9
+                ]
+        },
+        {
+            
+              "BlockName" : "2 - Middle Block",
+              "Notes" : "This is a block of trials with replacement and randomness.",
+              "TrialOrder": [
+                1, 2, 3, 4, 5, 6, 7, 8, 9
+                ],
+              "Replacement" : 1,
+              "RandomTrialType" : [
+                {"RandomGroup": [8, 9, 10]}
+              ]
+        },
+        {
+            "BlockName" : "3 - End Block",
+            "Notes" : "This is the final block of trials in the experiment.",
+            "TrialOrder": [
+                1, 2, 3, 4, 5, 6, 7, 8, 9
+                ]
+        }
+    ],
+
+"TRIAL DATA" : "TRIAL DATA--------------------*********------------------TRIAL DATA",
+    
+    "TrialData": [
+        {
+            "1" : "Welcome",
+            "Instructional": 1,
+            "FileLocation": "Welcome.png",
+            "TimeAllotted": -1,
+            "TrialEndKey": "X"
+        },
+        {
+            "2" : "Movement Instructions",
+            "Instructional": 1,
+            "FileLocation": "Movement.png",
+            "TimeAllotted": -1
+        },
+        {
+            "3" : "2D",
+            "Instructional": 1,
+            "FileLocation": "2D.png",
+            "TimeAllotted": -1,
+            "TrialEndKey": "X"
+        },
+        {
+            "4" : "Ready",
+            "Instructional": 1,
+            "FileLocation": "Ready.png",
+            "TimeAllotted": -1,
+            "TrialEndKey": "X"
+        },
+        {
+            "5": "2D----------------------------------------------------------------------------------------2D",
+            "TwoDimensional" : 1,
+            "Scene" : 3,
+            "TimeAllotted" : 100,
+            "TrialEndKey": "G"
+        }, 
+        {
+            "6" : "3D - simple square - No Goals",
+            "Index": 0,
+            "Header": "Explore!",
+            "TimeAllotted" : 10,
+            "Scene": 2,
+            "StartPosition" : [0, 0],
+            "StartFacing" : 45,
+            "TimeToRotate": 0,
+            "ActiveGoals" : [],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "MazeName": "SimpleSquare",
+            "Quota": 0,
+            "LandMarks" :[1,2],
+            "TrialEndKey": "G"
+        },
+        {
+            "7" : "3D - SimpleSquare - Food - Visible Goals",
+            "Index": 0,
+            "Header": "Find Food!",
+            "TimeAllotted" : 10,
+            "Scene": 2,
+            "StartPosition" : [0, 0],
+            "StartFacing" : 45,
+            "TimeToRotate": 5,
+            "ActiveGoals" : [1,2],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "MazeName": "SimpleSquare",
+            "Quota": 2,
+            "LandMarks" :[1,2],
+            "TrialEndKey": "G"
+        },
+        {
+            "8" : "3D - SimpleCircle - Water - Visible Goals",
+            "Index": 0,
+            "Header": "Find Water!",
+            "TimeAllotted" : 10,
+            "Scene": 2,
+            "StartPosition" : [0, 0],
+            "StartFacing" : 45,
+            "TimeToRotate": 5,
+            "ActiveGoals" : [2],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "MazeName": "SimpleCircle",
+            "Quota": 2,
+            "LandMarks" :[1,2],
+            "TrialEndKey": "G"
+        },
+        {
+            "9" : "City - SimpleCircle - Money - Visible Goals",
+            "Index": 0,
+            "Header": "Find Money!",
+            "TimeAllotted" : 10,
+            "Scene": 2,
+            "StartPosition" : [0, 0],
+            "StartFacing" : 45,
+            "TimeToRotate": 5,
+            "ActiveGoals" : [3],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "MazeName": "SimpleSquare",
+            "Quota": 1,
+            "LandMarks" :[1,2],
+            "TrialEndKey": "G"
+        }  
+    ],
+
+"Maze DATA" : "Maze DATA--------------------*********------------------Maze DATA",
+
+    "Mazes": [
+        {
+            "MazeName": "SimpleSquare",
+            "Type": "Simple",
+            "Sides": 4,
+            "Radius": 30,
+            "WallHeight" : 5,
+            "WallColor": "1B5E40",
+            "GroundTileSides": 4,
+            "GroundTileSize": 0.5,
+            "GroundColor": "1B5E40",
+            "Position": [0, 0],
+            "InitialRotation": 0
+        },
+        {
+            "Type": "Prebuilt",
+            "PrefabName": "T-Maze",
+            "Position": [10, 10],
+            "InitialRotation": 0
+        },
+        {
+            "MazeName": "SimpleCircle",
+            "Type": "Simple",
+            "Sides": 40,
+            "Radius": 15,
+            "WallHeight" : 7,
+            "WallColor": "1B5E20",
+            "GroundTileSides": 4,
+            "GroundTileSize": 1.0,
+            "GroundColor": "1B5E20",
+            "Position": [10, 10],
+            "InitialRotation": 0
+        }  
+    ],
+
+"GOAL DATA" : "GOAL DATA--------------------*********------------------GOAL DATA",
+
+    "Goals": [
+        {
+            "Pickup 1" : "Food",
+            "Type": "Pickup",
+            "Tag": "1",
+            "Color": "ff0000",
+            "Sound": "eat",
+            "PythonFile": "Food.py",
+            "Position": [1, 2, 3],
+            "Rotation": [0, 0, 0],
+            "Scale": [1.5, 1.5, 1.5],
+            "InitialRotation": 0
+        },
+        {
+            "Pickup 2" : "Water",
+            "Type": "Pickup",
+            "Tag": "1",
+            "Color": "0000ff",
+            "Sound": "drink",
+            "PythonFile": "Water.py",
+            "Position": [0, 0, 0],
+            "Rotation": [0, 0, 0],
+            "Scale": [1.5, 1.5, 1.5],
+            "InitialRotation": 60
+        },
+        {
+            "Pickup 3" : "Money",
+            "Type": "Pickup",
+            "Tag": "1",
+            "Color": "00ff00",
+            "Sound": "money",
+            "PythonFile": "Money.py",
+            "Position": [0, 0, 0],
+            "Rotation": [0, 0, 0],
+            "Scale": [1.5, 1.5, 1.5],
+            "InitialRotation": 30
+        }  
+    ],
+
+"LANDMARK DATA" : "LANDMARK DATA----------*********------------------LANDMARK DATA",
+
+    "Landmarks": [
+        {
+            "Landmark 1" : "Piller 1",
+            "Type": "Cylinder",
+            "Color": "E65100",
+            "Position": [0, 0, 15],
+            "Rotation": [0, 0, 0],
+            "Scale": [1, 10, 1],
+            "InitialAngle": 50
+        },
+        {
+            "Landmark 2" : "Pillar 2",
+            "Type": "Cylinder",
+            "Color": "E65100",
+            "Position": [0, 0, -15],
+            "Rotation": [0, 0, 0],
+            "Scale": [1, 10, 1],
+            "InitialAngle": 50
+        }
+    ]
+}
