@@ -10,8 +10,8 @@ namespace data
         public long ExperimentStartTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
 
         // File locations
-        public string SpritesPath = Application.dataPath + "/StreamingAssets/2D_Objects/";
-        public string PythonScriptsPath = Application.dataPath + "/StreamingAssets/PythonScripts/";
+        public string SpritesPath = Application.dataPath + "/_ExperimentAssets/2D_Objects/";
+        public string PythonScriptsPath = Application.dataPath + "/_ExperimentAssets/PythonScripts/";
 
         // whether or not to turn on timing diagnostics
         public bool TimingVerification;
