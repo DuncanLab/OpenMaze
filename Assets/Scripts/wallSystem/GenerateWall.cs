@@ -96,7 +96,7 @@ namespace wallSystem
 
 
                 landmark.GetComponent<Renderer>().material.color = Data.GetColour(d.Color);
-                var sprite = d.ImageLoc;
+                var sprite = d.Image;
                 if (sprite != null)
                 {
                     var pic = Img2Sprite.LoadNewSprite(DataSingleton.GetData().SpritesPath + sprite);

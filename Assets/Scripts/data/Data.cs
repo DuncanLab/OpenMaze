@@ -126,7 +126,7 @@ namespace data
             public string Sound; // The file path of the sound
             public string PythonFile; // The python file that will generate the position
             public string Type; // The name of the prefab object
-            public string ImageLoc; // The location of the image file associated with the goal
+            public string Image; // The location of the image file associated with the goal
 
             // Use list for serialization purposes
             public List<float> Position;
@@ -175,7 +175,7 @@ namespace data
         {
             public string Type;
             public string Color; // Color as a hex value
-            public string ImageLoc; // The location (for 2Dimagedisplayer)
+            public string Image; // The location (for 2Dimagedisplayer)
 
             // Use list for serialization purposes
             public List<float> Position;
