@@ -104,8 +104,7 @@ namespace wallSystem
                 var obj = Instantiate(prefab);
                 if (!item.Type.Equals("2DImageDisplayer"))
                     obj.AddComponent<RotateBlock>();
-                obj.transform.Rotate(new Vector3(0, 1, 0), item.InitialRotation);
-
+                obj.transform.Rotate(item.RotationVector);
                 obj.AddComponent<PickupSound>();
 
                 obj.GetComponent<PickupSound>().Sound = Resources.Load<AudioClip>("Sounds/" + item.Sound);

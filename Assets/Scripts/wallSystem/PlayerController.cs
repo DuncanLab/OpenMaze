@@ -79,7 +79,7 @@ namespace wallSystem
             {
                 Debug.LogWarning("Can't set controller object: running an instructional trial");
             }
-            _waitTime = E.Get().CurrTrial.Value.TimeToRotate;
+            _waitTime = E.Get().CurrTrial.Value.Rotate;
             _reset = false;
             localQuota = E.Get().CurrTrial.Value.Quota;
 

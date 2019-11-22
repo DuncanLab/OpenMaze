@@ -26,7 +26,7 @@ namespace trial
             t.LastY = t.TargetY;
             t.TargetX = 0;
             t.TargetY = 0;
-            _runningTime -= Value.TimeToRotate;
+            _runningTime -= Value.Rotate;
 
             LoadNextSceneWithTimer(Value.Scene);
         }

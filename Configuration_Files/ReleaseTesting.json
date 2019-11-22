@@ -20,7 +20,7 @@
             "BlockName" : "1 - Starting Block",
               "Notes" : "This is a standard block of trials.",
               "TrialOrder": [
-                 1,6,2,7,8,2,9
+                 1,6,2,7,2,8,2,9
                 ]
         },
         {
@@ -51,14 +51,14 @@
             "1" : "Welcome",
             "Instructional": 1,
             "FileLocation": "Welcome.png",
-            "TimeAllotted": -1,
+            "TimeAllotted": 0,
             "TrialEndKey": "X"
         },
         {
-            "2" : "Movement Instructions",
+            "2" : "Fixation",
             "Instructional": 1,
             "FileLocation": "Fixation.png",
-            "TimeAllotted": -1,
+            "TimeAllotted": 0,
             "TrialEndKey": "X"
         },
         {
@@ -82,6 +82,71 @@
             "TimeAllotted" : 100,
             "TrialEndKey": "G"
         }, 
+        {
+            "6" : "3D - simple square - No Goals",
+            "Header": "Explore 1",
+            "TrialTime" : 400,
+            "Scene": 2,
+            "StartPosition" : [0,0],
+            "StartFacing" : -1,
+            "Rotate": 0,
+            "ActiveGoals" : [],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "MazeName": "SimpleSquare",
+            "Quota": 3,
+            "LandMarks" :[1,2,3],
+            "TrialEndKey": "G"
+        },
+        {
+            "7" : "3D - simple square - No Goals",
+            "Header": "Explore 2",
+            "TrialTime" : 4,
+            "Scene": 3,
+            "StartPosition" : [0,0],
+            "StartFacing" : -1,
+            "Rotate": 3,
+            "ActiveGoals" : [],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "MazeName": "SimpleSquare",
+            "Quota": 0,
+            "LandMarks" :[1,2],
+            "TrialEndKey": "G"
+        },
+        {
+            "8" : "3D - simple square - No Goals",
+            "Header": "Explore 3",
+            "TrialTime" : 3,
+            "Scene": 2,
+            "StartPosition" : [0,0],
+            "StartFacing" : -1,
+            "Rotate": 0,
+            "ActiveGoals" : [],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "MazeName": "SimpleSquare",
+            "Quota": 0,
+            "LandMarks" :[1,2],
+            "TrialEndKey": "G"
+        },
+        {
+            "8" : "3D - simple square - No Goals",
+            "Index": 0,
+            "Header": "Explore 3",
+            "TimeAllotted" : 5,
+            "Scene": 2,
+            "StartPosition" : [0, 0],
+            "StartFacing" : 270,
+            "TimeToRotate": 0,
+            "ActiveGoals" : [],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "MazeName": "SimpleSquare",
+            "Quota": 0,
+            "LandMarks" :[1,2],
+            "TrialEndKey": "G"
+        },
         {
             "6" : "3D - simple square - No Goals",
             "Index": 0,
@@ -152,6 +217,75 @@
         }  
     ],
 
+
+"GOAL DATA" : "GOAL DATA--------------------*********------------------GOAL DATA",
+
+    "Goals": [
+        {
+            "Pickup 1" : "Food",
+            "Type": "Cube",
+            "Tag": "1",
+            "Color": "ff0000",
+            "Sound": "eat",
+            "PythonFile": "Food.py",
+            "Position": [-10, 1, -12],
+            "Rotation": [30, 40, -30],
+            "Scale": [4, 2, 1]
+        },
+        {
+            "Pickup 2" : "Water",
+            "Type": "Cube",
+            "Tag": "1",
+            "Color": "0000ff",
+            "Sound": "drink",
+            "PythonFile": "Water.py",
+            "Position": [8, 2, -12],
+            "Rotation": [0, 0, 0],
+            "Scale": [6, 4, 1]
+        },
+        {
+            "Pickup 3" : "Money",
+            "Type": "Cube",
+            "Tag": "1",
+            "Color": "00ff00",
+            "Sound": "money",
+            "PythonFile": "Money.py",
+            "Position": [19, 1, 16],
+            "Rotation": [0, 90, 0],
+            "Scale": [4, 2, 1]
+        }  
+    ],
+
+"LANDMARK DATA" : "LANDMARK DATA----------*********------------------LANDMARK DATA",
+
+    "Landmarks": [
+        {
+            "Landmark 1" : "Piller 1",
+            "Type": "Cylinder",
+            "Color": "E65100",
+            "Position": [19, 1, 16],
+            "Rotation": [0, 90, 0],
+            "Scale": [4, 2, 1]
+        },
+        {
+            "Landmark 2" : "Pillar 2",
+            "Type": "Cylinder",
+            "Color": "E65100",
+            "Position": [8, 2, -12],
+            "Rotation": [0, 0, 0],
+            "Scale": [6, 4, 1]
+        },
+        {
+            "Landmark 2" : "Pillar 2",
+            "Type": "Cylinder",
+            "Color": "E65100",
+            "Position": [-10, 1, -12],
+            "Rotation": [30, 40, -30],
+            "Scale": [4, 2, 1]
+        }
+
+    ], 
+
 "Maze DATA" : "Maze DATA--------------------*********------------------Maze DATA",
 
     "Mazes": [
@@ -187,69 +321,5 @@
             "Position": [10, 10],
             "InitialRotation": 0
         }  
-    ],
-
-"GOAL DATA" : "GOAL DATA--------------------*********------------------GOAL DATA",
-
-    "Goals": [
-        {
-            "Pickup 1" : "Food",
-            "Type": "Pickup",
-            "Tag": "1",
-            "Color": "ff0000",
-            "Sound": "eat",
-            "PythonFile": "Food.py",
-            "Position": [1, 2, 3],
-            "Rotation": [0, 0, 0],
-            "Scale": [1.5, 1.5, 1.5],
-            "InitialRotation": 0
-        },
-        {
-            "Pickup 2" : "Water",
-            "Type": "Pickup",
-            "Tag": "1",
-            "Color": "0000ff",
-            "Sound": "drink",
-            "PythonFile": "Water.py",
-            "Position": [0, 0, 0],
-            "Rotation": [0, 0, 0],
-            "Scale": [1.5, 1.5, 1.5],
-            "InitialRotation": 60
-        },
-        {
-            "Pickup 3" : "Money",
-            "Type": "Pickup",
-            "Tag": "1",
-            "Color": "00ff00",
-            "Sound": "money",
-            "PythonFile": "Money.py",
-            "Position": [0, 0, 0],
-            "Rotation": [0, 0, 0],
-            "Scale": [1.5, 1.5, 1.5],
-            "InitialRotation": 30
-        }  
-    ],
-
-"LANDMARK DATA" : "LANDMARK DATA----------*********------------------LANDMARK DATA",
-
-    "Landmarks": [
-        {
-            "Landmark 1" : "Piller 1",
-            "Type": "Cylinder",
-            "Color": "E65100",
-            "Position": [0, 0, 15],
-            "Rotation": [0, 0, 0],
-            "Scale": [1, 10, 1],
-            "InitialAngle": 50
-        },
-        {
-            "Landmark 2" : "Pillar 2",
-            "Type": "Cylinder",
-            "Color": "E65100",
-            "Position": [0, 0, -15],
-            "Rotation": [0, 0, 0],
-            "Scale": [1, 10, 1],
-            "InitialAngle": 50
-        }
     ]
 }
