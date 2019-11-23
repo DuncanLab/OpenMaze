@@ -258,25 +258,28 @@
             "Pickup 3" : "Food Image",
             "Type": "2DImage",
             "Image": "Food.png",
+            "Color": "ffffff00",
             "Sound": "eat",
             "Position": [-10, 1, -12],
-            "Scale": [4, 2, 1]
+            "Scale": [2, 2, 2]
         },
         {
             "Pickup 4" : "Water Image",
             "Type": "2DImage",
             "Image": "Water.jpg",
+            "Color": "00ff00",
             "Sound": "drink",
             "Position": [8, 2, -12],
-            "Scale": [6, 4, 1]
+            "Scale": [2, 2, 2]
         },
         {
             "Pickup 5" : "Money Image",
             "Type": "2DImage",
             "Image": "Money.png",
             "Sound": "money",
+            "Color": "00ff00",
             "Position": [19, 1, 16],
-            "Scale": [4, 2, 1]
+            "Scale": [2, 2, 2]
         }  
     ],
 

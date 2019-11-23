@@ -114,7 +114,7 @@ namespace twoDSystem
                 landmark.transform.Rotate(new Vector3(0, 1, 0), d.InitialRotation);
 
                 landmark.GetComponent<Renderer>().material.color = Data.GetColour(d.Color);
-                var sprite = d.Image;
+                var sprite = d.ImageLoc;
                 if (sprite != null)
                 {
                     var pic = Img2Sprite.LoadNewSprite(DataSingleton.GetData().SpritesPath + sprite);

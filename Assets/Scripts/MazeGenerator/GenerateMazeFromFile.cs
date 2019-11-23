@@ -41,7 +41,7 @@ public class GenerateMazeFromFile : MonoBehaviour
 
                     var obj = Instantiate(prefab);
 
-                    if (!item.Type.Equals("2DImage"))
+                    if (!item.Type.Equals("2DImageDisplayer"))
                     {
                         obj.AddComponent<RotateBlock>();
                         obj.GetComponent<Renderer>().material.color = Data.GetColour(item.Color);

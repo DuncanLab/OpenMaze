@@ -10,8 +10,8 @@ namespace data
         public long ExperimentStartTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
 
         // File locations
-        public string SpritesPath = Application.dataPath + "/_ExperimentAssets/2D_Objects/";
-        public string PythonScriptsPath = Application.dataPath + "/_ExperimentAssets/PythonScripts/";
+        public string SpritesPath = Application.dataPath + "/StreamingAssets/2D_Objects/";
+        public string PythonScriptsPath = Application.dataPath + "/StreamingAssets/PythonScripts/";
 
         // whether or not to turn on timing diagnostics
         public bool TimingVerification;
@@ -175,7 +175,7 @@ namespace data
         {
             public string Type;
             public string Color; // Color as a hex value
-            public string Image; // The location (for 2Dimagedisplayer)
+            public string ImageLoc; // The location (for 2Dimagedisplayer)
 
             // Use list for serialization purposes
             public List<float> Position;
