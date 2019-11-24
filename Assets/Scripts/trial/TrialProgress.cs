@@ -16,7 +16,7 @@ namespace trial
         public int TrialNumber;
         public int EnvironmentType;
         public bool TimingVerification; // timing diagnostics boolean
-        public int Sides;
+        public string CurrentMazeName;
         public int PickupType;
         public float TargetX;
         public float TargetY;

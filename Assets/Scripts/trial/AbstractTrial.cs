@@ -6,12 +6,16 @@ using data;
 using main;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static data.Data;
 using DS = data.DataSingleton;
+
 namespace trial
 {
     //A central trial class 
     public abstract class AbstractTrial
     {
+        public long TrialStartTime;
+
         //These two fields register the current block and trial ID in the dataSingleton
         public int BlockID;
 
@@ -30,6 +34,8 @@ namespace trial
 
         public Data.Trial Value;
 
+        public Maze maze;
+
         //This points to the next trial
         // ReSharper disable once InconsistentNaming
         public AbstractTrial next;
@@ -47,6 +53,11 @@ namespace trial
             if (DataSingleton.GetData().BlockList.Count == 0) throw new Exception("No trial in block");
 
             Value = DataSingleton.GetData().TrialData[trialId];
+
+            if (!string.IsNullOrEmpty(Value.MazeName))
+            {
+                maze = DataSingleton.GetData().MazesDictionary[Value.MazeName];
+            }
         }
 
         public virtual void PreEntry(TrialProgress t, bool first = true)
@@ -73,6 +84,8 @@ namespace trial
             {
                 t.TimeSinceExperimentStart = 0.0f;
             }
+
+            TrialStartTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
 
             _runningTime = 0;
             TrialProgress = t;

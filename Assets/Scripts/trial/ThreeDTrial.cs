@@ -16,8 +16,8 @@ namespace trial
             // Sets the field of the preentry
             base.PreEntry(t, first);
             t.TimingVerification = data.DataSingleton.GetData().TimingVerification; // timing diagnostics
-            t.EnvironmentType = Value.EnvironmentType;
-            t.Sides = Value.Sides;
+            t.EnvironmentType = Value.Scene;
+            t.CurrentMazeName = Value.MazeName;
             t.BlockID = BlockID;
             t.TrialID = TrialID;
             t.TwoDim = Value.TwoDimensional;
@@ -28,7 +28,7 @@ namespace trial
             t.TargetY = 0;
             _runningTime -= Value.TimeToRotate;
 
-            LoadNextSceneWithTimer(Value.EnvironmentType);
+            LoadNextSceneWithTimer(Value.Scene);
         }
 
         public override void Progress()

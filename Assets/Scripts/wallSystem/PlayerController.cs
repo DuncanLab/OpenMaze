@@ -58,13 +58,13 @@ namespace wallSystem
             _currDelay = 0;
 
             // Choose a random starting angle if the value is not set in config
-            if (E.Get().CurrTrial.Value.CharacterStartAngle == -1)
+            if (E.Get().CurrTrial.Value.StartFacing == -1)
             {
                 _iniRotation = Random.Range(0, 360);
             }
             else
             {
-                _iniRotation = E.Get().CurrTrial.Value.CharacterStartAngle;
+                _iniRotation = E.Get().CurrTrial.Value.StartFacing;
             }
 
             transform.Rotate(0, _iniRotation, 0, Space.World);
@@ -92,14 +92,15 @@ namespace wallSystem
             TrialProgress.GetCurrTrial().TrialProgress.TargetY = pickY;
 
             // No start pos specified so make it random.
-            if (E.Get().CurrTrial.Value.CharacterStartPos.Count == 0)
+            if (E.Get().CurrTrial.Value.StartPosition.Count == 0)
             {
                 // Try to randomly place the character, checking for proximity
                 // to the pickup location
                 var i = 0;
                 while (i++ < 100)
                 {
-                    var v = Random.insideUnitCircle * E.Get().CurrTrial.Value.Radius * 0.9f;
+                    var CurrentTrialRadius = DS.GetData().MazesDictionary[E.Get().CurrTrial.TrialProgress.CurrentMazeName].Radius;
+                    var v = Random.insideUnitCircle * CurrentTrialRadius * 0.9f;
                     var mag = Vector3.Distance(v, new Vector2(pickX, pickY));
                     if (mag > DS.GetData().CharacterData.DistancePickup)
                     {
@@ -115,7 +116,7 @@ namespace wallSystem
             }
             else
             {
-                var p = E.Get().CurrTrial.Value.CharacterStartPos;
+                var p = E.Get().CurrTrial.Value.StartPosition;
                 if (maze)
                     p = new List<float>() { pickX, pickY };
                 transform.position = new Vector3(p[0], 0.5f, p[1]);
@@ -125,12 +126,10 @@ namespace wallSystem
             }
         }
 
-
-        //This is the collision system.
+        // This is the collision system.
         private void OnTriggerEnter(Collider other)
         {
             if (!other.gameObject.CompareTag("Pickup")) return;
-
 
             GetComponent<AudioSource>().PlayOneShot(other.gameObject.GetComponent<PickupSound>().Sound, 10);
             Destroy(other.gameObject);
@@ -142,7 +141,7 @@ namespace wallSystem
             TrialProgress.GetCurrTrial().NumCollected++;
             E.LogData(
                 TrialProgress.GetCurrTrial().TrialProgress,
-                TrialProgress.GetCurrTrial().GetRunningTime(),
+                TrialProgress.GetCurrTrial().TrialStartTime,
                 transform,
                 1
             );
@@ -154,12 +153,11 @@ namespace wallSystem
             _playingSound = true;
             E.LogData(
                 TrialProgress.GetCurrTrial().TrialProgress,
-                TrialProgress.GetCurrTrial().GetRunningTime(),
+                TrialProgress.GetCurrTrial().TrialStartTime,
                 transform,
                 1
             );
         }
-
 
         private void ComputeMovement()
         {
@@ -180,7 +178,6 @@ namespace wallSystem
                 _controller.Move(_moveDirection * Time.deltaTime);
 
             transform.Rotate(0, rotation, 0);
-
         }
 
 
@@ -221,10 +218,7 @@ namespace wallSystem
                     Debug.LogWarning("Skipping movement calc: instructional trial");
                 }
 
-                E.LogData(
-                  TrialProgress.GetCurrTrial().TrialProgress,
-                  TrialProgress.GetCurrTrial().GetRunningTime(),
-                  transform);
+                E.LogData(TrialProgress.GetCurrTrial().TrialProgress, TrialProgress.GetCurrTrial().TrialStartTime, transform);
             }
             _currDelay += Time.deltaTime;
         }

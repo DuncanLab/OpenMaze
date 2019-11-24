@@ -7,6 +7,12 @@ namespace data
     [Serializable]
     public class Data
     {
+        public long ExperimentStartTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+
+        // File locations
+        public string SpritesPath = Application.dataPath + "/StreamingAssets/2D_Objects/";
+        public string PythonScriptsPath = Application.dataPath + "/StreamingAssets/PythonScripts/";
+
         // whether or not to turn on timing diagnostics
         public bool TimingVerification;
 
@@ -33,11 +39,16 @@ namespace data
         //This is a LIST of the different types of pickup items that are defined below
         public List<Goal> Goals;
 
-        //This is a list of the pillar objects
+        // Runtime objects to load into the trials
         public List<LandMark> Landmarks;
 
-        //This list contains all pre-defined trials.
+        // Contains all pre-defined trials
         public List<Trial> TrialData;
+
+        // Contains all Maze config objects
+        public List<Maze> Mazes;
+
+        public Dictionary<string, Maze> MazesDictionary;
 
         public List<BlockData> BlockList;
 
@@ -69,30 +80,40 @@ namespace data
         public class Trial
         {
             public int TimeToRotate; // How long the delay can last in the rotation
-            public float WallHeight; // This is the wall height
             public int TwoDimensional; // Set to 1 iff trial is two dimensional
             public int Instructional; // Set to 1 iff trial is instructional
             public string FileLocation; // Is not null iff FileLocation exists (Image for 1D trials)
-            public int EnvironmentType; // This is the environment type referenced.
-            public int Sides; // Number of sides present in the trial.
-            public string WallColor; // HEX color of the walls
-            public int Radius; // Radius of the walls
+            public int Scene; // This is the environment type referenced.
             public int TimeAllotted; // Allotted amount of time
             public string TrialEndKey; // The key press which will end the current trial.
             public string Header; // Note outputted out of the trial.
             public MazeData Map; // The Map saved mazedata
-            public int GroundTileSides; // Number of sides on the ground pattern shapes - 0 for no tiles, 1 for solid color.
-            public double GroundTileSize; // Relative size of the floor tiles - Range from 0 to 1
-            public string GroundColor; // Colour of the ground
             public List<int> InvisibleGoals; //The goal that are active and invisible
             public List<int> ActiveGoals; // Goals that are active and visible
             public List<int> InactiveGoals; // Goals that are visible but inactive
+            public string MazeName; // Name of the maze to load
             public List<int> LandMarks; // List of all land marks
             public int Quota; // The quota that the person needs to pick up before the next trial is switched too
-            public List<float> CharacterStartPos; //The start position of the character (usually 0, 0)
-            public float CharacterStartAngle; // The starting angle of the character (in degrees).
+            public List<float> StartPosition; //The start position of the character (usually 0, 0)
+            public float StartFacing; // The starting angle of the character (in degrees).
 
             public bool ShowCollectedPerBlock; // Whether or not to display the amount of goals/pickups collected (resets each block)
+        }
+
+        // Represents a Maze for the user. Mazes can be prebuilt; located in:
+        // Mazes can be 'Simple' with basic dimensions specified in the config file
+        [Serializable]
+        public class Maze
+        {
+            public string MazeName; // Must be unique
+            public int Sides; // Number of sides present in the trial.
+            public int Radius; // Radius of the walls
+            public float WallHeight; // This is the wall height
+            public string WallColor; // HEX color of the walls
+            public int GroundTileSides; // Number of sides on the ground pattern shapes - 0 for no tiles, 1 for solid color.
+            public double GroundTileSize; // Relative size of the floor tiles - Range from 0 to 1
+            public string GroundColor; // Colour of the ground
+            public List<float> Position; // 2d position vector
         }
 
         // This is the given PickupItem. Note that in the JSON, this is contained with an ARRAY
@@ -102,15 +123,40 @@ namespace data
             // In general this will always be one unless necessary to implement in the future.
             public string Tag; // The name of the pickup item
             public string Color; // The colour in Hex without #
-            public string SoundLocation; // The file path of the sound
+            public string Sound; // The file path of the sound
             public string PythonFile; // The python file that will generate the position
-            public float Length;
-            public float Width;
-            public float Height;
             public string Type; // The name of the prefab object
             public string ImageLoc; // The location of the image file associated with the goal
-            public List<float> Location; // The location of the goal (MAY BE [X, Y, Z] OR [X, Y])
+
+            // Use list for serialization purposes
+            public List<float> Position;
+            public List<float> Rotation;
+            public List<float> Scale;
             public int InitialRotation;
+
+            public Vector3 PositionVector
+            {
+                get
+                {
+                    return Position.Count == 0 ? Vector3.zero : new Vector3(Position[0], Position[1], Position[2]);
+                }
+            }
+
+            public Vector3 RotationVector
+            {
+                get
+                {
+                    return Rotation.Count == 0 ? Vector3.zero : new Vector3(Rotation[0], Rotation[1], Rotation[2]);
+                }
+            }
+
+            public Vector3 ScaleVector
+            {
+                get
+                {
+                    return Scale.Count == 0 ? Vector3.zero : new Vector3(Scale[0], Scale[1], Scale[2]);
+                }
+            }
         }
 
         [Serializable]
@@ -127,14 +173,40 @@ namespace data
         [Serializable]
         public class LandMark
         {
-            public List<float> Location; // Location of the landmark
-            public float Length;
-            public float Width;
-            public float Height;
             public string Type;
             public string Color; // Color as a hex value
             public string ImageLoc; // The location (for 2Dimagedisplayer)
+
+            // Use list for serialization purposes
+            public List<float> Position;
+            public List<float> Rotation;
+            public List<float> Scale;
+
             public int InitialRotation;
+
+            public Vector3 PositionVector
+            {
+                get
+                {
+                    return Position.Count == 0 ? Vector3.zero : new Vector3(Position[0], Position[1], Position[2]);
+                }
+            }
+
+            public Vector3 RotationVector
+            {
+                get
+                {
+                    return Rotation.Count == 0 ? Vector3.zero : new Vector3(Rotation[0], Rotation[1], Rotation[2]);
+                }
+            }
+
+            public Vector3 ScaleVector
+            {
+                get
+                {
+                    return Scale.Count == 0 ? Vector3.zero : new Vector3(Scale[0], Scale[1], Scale[2]);
+                }
+            }
         }
 
         [Serializable]
