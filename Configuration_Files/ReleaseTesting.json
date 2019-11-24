@@ -90,10 +90,10 @@
             "StartPosition" : [0,0],
             "StartFacing" : -1,
             "Rotate": 0,
-            "ActiveGoals" : [4],
+            "ActiveGoals" : [4,5,6],
             "InvisibleGoals" : [],
             "InactiveGoals" : [],
-            "MazeName": "SimpleSquare",
+            "MazeName": "SimpleCircle",
             "Quota": 3,
             "LandMarks" :[],
             "TrialEndKey": "G"
@@ -101,7 +101,7 @@
         {
             "7" : "3D - simple square - No Goals",
             "Header": "Explore 2",
-            "TrialTime" : 4,
+            "TrialTime" : 40,
             "Scene": 3,
             "StartPosition" : [0,0],
             "StartFacing" : -1,
@@ -109,9 +109,9 @@
             "ActiveGoals" : [],
             "InvisibleGoals" : [],
             "InactiveGoals" : [],
-            "MazeName": "SimpleSquare",
+            "MazeName": "NoMaze",
             "Quota": 0,
-            "LandMarks" :[1,2],
+            "LandMarks" :[1,2,3],
             "TrialEndKey": "G"
         },
         {
@@ -125,7 +125,7 @@
             "ActiveGoals" : [],
             "InvisibleGoals" : [],
             "InactiveGoals" : [],
-            "MazeName": "SimpleSquare",
+            "MazeName": "NoMaze",
             "Quota": 0,
             "LandMarks" :[1,2],
             "TrialEndKey": "G"
@@ -142,7 +142,7 @@
             "ActiveGoals" : [],
             "InvisibleGoals" : [],
             "InactiveGoals" : [],
-            "MazeName": "SimpleSquare",
+            "MazeName": "NoMaze",
             "Quota": 0,
             "LandMarks" :[1,2],
             "TrialEndKey": "G"
@@ -159,7 +159,7 @@
             "ActiveGoals" : [],
             "InvisibleGoals" : [],
             "InactiveGoals" : [],
-            "MazeName": "SimpleSquare",
+            "MazeName": "NoMaze",
             "Quota": 0,
             "LandMarks" :[1,2],
             "TrialEndKey": "G"
@@ -176,7 +176,7 @@
             "ActiveGoals" : [1,2],
             "InvisibleGoals" : [],
             "InactiveGoals" : [],
-            "MazeName": "SimpleSquare",
+            "MazeName": "NoMaze",
             "Quota": 1,
             "LandMarks" :[1,2],
             "TrialEndKey": "G"
@@ -193,7 +193,7 @@
             "ActiveGoals" : [2],
             "InvisibleGoals" : [],
             "InactiveGoals" : [],
-            "MazeName": "SimpleCircle",
+            "MazeName": "NoMaze",
             "Quota": 2,
             "LandMarks" :[1,2],
             "TrialEndKey": "G"
@@ -210,7 +210,7 @@
             "ActiveGoals" : [3],
             "InvisibleGoals" : [],
             "InactiveGoals" : [],
-            "MazeName": "SimpleSquare",
+            "MazeName": "NoMaze",
             "Quota": 1,
             "LandMarks" :[1,2],
             "TrialEndKey": "G"
@@ -267,7 +267,7 @@
             "Pickup 4" : "Water Image",
             "Type": "2DImage",
             "Image": "Water.jpg",
-            "Color": "00ff00",
+            "Color": "ffffff00",
             "Sound": "drink",
             "Position": [8, 2, -12],
             "Scale": [2, 2, 2]
@@ -277,7 +277,7 @@
             "Type": "2DImage",
             "Image": "Money.png",
             "Sound": "money",
-            "Color": "00ff00",
+            "Color": "ffffff00",
             "Position": [19, 1, 16],
             "Scale": [2, 2, 2]
         }  
@@ -317,15 +317,15 @@
 
     "Mazes": [
         {
-            "MazeName": "SimpleSquare",
+            "MazeName": "NoMaze",
             "Type": "Simple",
             "Sides": 4,
-            "Radius": 30,
-            "WallHeight" : 5,
-            "WallColor": "1B5E40",
-            "GroundTileSides": 4,
-            "GroundTileSize": 0.5,
-            "GroundColor": "1B5E40",
+            "Radius": 1,
+            "WallHeight" : 0,
+            "WallColor": "ffffff",
+            "GroundTileSides": 0,
+            "GroundTileSize": 0,
+            "GroundColor": "ffffff",
             "Position": [0, 0],
             "InitialRotation": 0
         },
@@ -339,12 +339,12 @@
             "MazeName": "SimpleCircle",
             "Type": "Simple",
             "Sides": 40,
-            "Radius": 15,
-            "WallHeight" : 7,
-            "WallColor": "1B5E20",
-            "GroundTileSides": 4,
-            "GroundTileSize": 1.0,
-            "GroundColor": "1B5E20",
+            "Radius": 50,
+            "WallHeight" : 5,
+            "WallColor": "ffffff",
+            "GroundTileSides": 40,
+            "GroundTileSize": 0.5,
+            "GroundColor": "ffff00",
             "Position": [10, 10],
             "InitialRotation": 0
         }  
