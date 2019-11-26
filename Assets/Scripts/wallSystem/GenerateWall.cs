@@ -91,7 +91,9 @@ namespace wallSystem
                     landmark.transform.position = new Vector3(d.PositionVector.x, 0.5f, d.PositionVector.z);
                 }
 
-                landmark.transform.Rotate(new Vector3(0, 1, 0), d.InitialRotation);
+                //landmark.transform.Rotate(new Vector3(0, 1, 0), d.InitialRotation);
+                landmark.transform.Rotate(d.RotationVector);
+
 
                 landmark.GetComponent<Renderer>().material.color = Data.GetColour(d.Color);
                 var sprite = d.ImageLoc;

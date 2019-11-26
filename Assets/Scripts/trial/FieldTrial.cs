@@ -23,7 +23,7 @@ namespace trial
             while (true)
             {
                 // Here we're using: https://github.com/gkngkc/UnityStandaloneFileBrowser because it was easier than rolling our own
-                string[] paths = StandaloneFileBrowser.OpenFilePanel("Choose configuration file", "FullPilotConfigs", "", false);
+                string[] paths = StandaloneFileBrowser.OpenFilePanel("Choose configuration file", "Configuration_Files", "", false);
                 string path = paths[0];
                 if (Loader.ExternalActivation(path)) break;
             }

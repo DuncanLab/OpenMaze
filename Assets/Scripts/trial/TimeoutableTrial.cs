@@ -8,7 +8,7 @@ namespace trial
 
         protected TimeoutableTrial(int blockId, int trialId) : base(blockId, trialId)
         {
-            _threshHold = Value.TimeAllotted == -1 ? int.MaxValue : Value.TimeAllotted;
+            _threshHold = Value.TrialTime == -1 ? int.MaxValue : Value.TrialTime;
 
         }
 

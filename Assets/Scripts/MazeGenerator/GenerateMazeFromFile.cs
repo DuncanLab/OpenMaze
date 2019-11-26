@@ -50,7 +50,7 @@ public class GenerateMazeFromFile : MonoBehaviour
                     obj.transform.localScale = item.ScaleVector;
 
                     obj.transform.position = new Vector3(x, 0.5f, y);
-                    var sprite = item.ImageLoc;
+                    var sprite = item.Image;
 
                     var pic = Img2Sprite.LoadNewSprite(DataSingleton.GetData().SpritesPath + sprite);
                     obj.GetComponent<SpriteRenderer>().sprite = pic;

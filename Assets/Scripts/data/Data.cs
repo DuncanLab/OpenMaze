@@ -79,12 +79,12 @@ namespace data
         [Serializable]
         public class Trial
         {
-            public int TimeToRotate; // How long the delay can last in the rotation
+            public int Rotate; // How long the delay can last in the rotation
             public int TwoDimensional; // Set to 1 iff trial is two dimensional
             public int Instructional; // Set to 1 iff trial is instructional
             public string FileLocation; // Is not null iff FileLocation exists (Image for 1D trials)
             public int Scene; // This is the environment type referenced.
-            public int TimeAllotted; // Allotted amount of time
+            public int TrialTime; // Allotted amount of time
             public string TrialEndKey; // The key press which will end the current trial.
             public string Header; // Note outputted out of the trial.
             public MazeData Map; // The Map saved mazedata
@@ -94,8 +94,8 @@ namespace data
             public string MazeName; // Name of the maze to load
             public List<int> LandMarks; // List of all land marks
             public int Quota; // The quota that the person needs to pick up before the next trial is switched too
-            public List<float> StartPosition; //The start position of the character (usually 0, 0)
-            public float StartFacing; // The starting angle of the character (in degrees).
+            public List<float> StartPosition; //The start position of the character (usually 0, 0) If left empty (ie. "[]") start position is random
+            public float StartFacing; // The starting angle of the character (in degrees). if set to -1 start facing will be random
 
             public bool ShowCollectedPerBlock; // Whether or not to display the amount of goals/pickups collected (resets each block)
         }
@@ -126,7 +126,7 @@ namespace data
             public string Sound; // The file path of the sound
             public string PythonFile; // The python file that will generate the position
             public string Type; // The name of the prefab object
-            public string ImageLoc; // The location of the image file associated with the goal
+            public string Image; // The location of the image file associated with the goal
 
             // Use list for serialization purposes
             public List<float> Position;

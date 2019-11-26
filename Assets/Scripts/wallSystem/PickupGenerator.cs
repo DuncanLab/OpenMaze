@@ -102,17 +102,16 @@ namespace wallSystem
                 var prefab = (GameObject)Resources.Load("3D_Objects/" + item.Type, typeof(GameObject));
 
                 var obj = Instantiate(prefab);
-                if (!item.Type.Equals("2DImageDisplayer"))
+                if (!item.Type.Equals("2DImage"))
                     obj.AddComponent<RotateBlock>();
-                obj.transform.Rotate(new Vector3(0, 1, 0), item.InitialRotation);
-
+                obj.transform.Rotate(item.RotationVector);
                 obj.AddComponent<PickupSound>();
 
                 obj.GetComponent<PickupSound>().Sound = Resources.Load<AudioClip>("Sounds/" + item.Sound);
 
                 obj.transform.localScale = item.ScaleVector;
                 obj.transform.position = new Vector3(p.X, p.Y, p.Z);
-                var sprite = item.ImageLoc;
+                var sprite = item.Image;
                 if (sprite != null)
                 {
                     var pic = Img2Sprite.LoadNewSprite(DataSingleton.GetData().SpritesPath + sprite);
