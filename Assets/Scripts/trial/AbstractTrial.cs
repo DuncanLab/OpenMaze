@@ -62,15 +62,17 @@ namespace trial
             // unobtrusive, So the ground generates but nothing else.
             else
             {
-                maze = new Maze();
-                maze.WallHeight = 0;
-                maze.WallColor = "1B5E20";
-                maze.Sides = 4;
-                maze.GroundTileSides = 0;
-                maze.GroundTileSize = 0;
-                maze.GroundColor = null;
-                maze.Radius = 4;
-                maze.Position = new List<float> { 0, 0 };
+                maze = new Maze
+                {
+                    WallHeight = 0,
+                    WallColor = "1B5E20",
+                    Sides = 4,
+                    GroundTileSides = 0,
+                    GroundTileSize = 0,
+                    GroundColor = null,
+                    Radius = 4,
+                    Position = new List<float> { 0, 0 }
+                };
             }
         }
 
