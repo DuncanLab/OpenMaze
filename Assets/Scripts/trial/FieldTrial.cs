@@ -108,15 +108,15 @@ namespace trial
                 var sessionTextField = _fields[1].transform.GetComponentsInChildren<Text>()[1];
                 TrialProgress.SessionID = sessionTextField.text;
 
-                var delayTextField = _fields[2].transform.GetComponentsInChildren<Text>()[1];
-                TrialProgress.Delay = delayTextField.text;
+                var conditionTextField = _fields[2].transform.GetComponentsInChildren<Text>()[1];
+                TrialProgress.Condition = conditionTextField.text;
 
                 var noteTextField = _fields[3].transform.GetComponentsInChildren<Text>()[1];
                 TrialProgress.Note = noteTextField.text;
 
                 DS.GetData().OutputFile = TrialProgress.Subject + "_" +
                                           TrialProgress.SessionID + "_" +
-                                          TrialProgress.Delay + "_" +
+                                          TrialProgress.Condition + "_" +
                                           TrialProgress.Note + ".csv";
 
                 GenerateTrials();

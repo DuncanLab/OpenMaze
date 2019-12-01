@@ -23,7 +23,7 @@ namespace trial
         public int BlockID;
         public int TrialID;
         public string Subject;
-        public string Delay;
+        public string Condition;
         public int TwoDim;
         public int Instructional;
         public int Visible;
