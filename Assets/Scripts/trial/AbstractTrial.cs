@@ -58,6 +58,22 @@ namespace trial
             {
                 maze = DataSingleton.GetData().MazesDictionary[Value.MazeName];
             }
+            // If the user hasn't set a MazeName we want to set the Maze to be
+            // unobtrusive, So the ground generates but nothing else.
+            else
+            {
+                maze = new Maze
+                {
+                    WallHeight = 0,
+                    WallColor = "1B5E20",
+                    Sides = 4,
+                    GroundTileSides = 0,
+                    GroundTileSize = 0,
+                    GroundColor = null,
+                    Radius = 4,
+                    Position = new List<float> { 0, 0 }
+                };
+            }
         }
 
         public virtual void PreEntry(TrialProgress t, bool first = true)
