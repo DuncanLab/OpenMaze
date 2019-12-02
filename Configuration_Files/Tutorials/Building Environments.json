@@ -20,7 +20,7 @@
             "BlockName" : "1 - Starting Block",
               "Notes" : "This is a standard block of trials.",
               "TrialOrder": [
-                 1,3,2,4
+                 1,2,4,2,5,3
                 ]
         }
     ],
@@ -32,43 +32,50 @@
             "1" : "Welcome",
             "Instructional": 1,
             "FileLocation": "Welcome.png",
-            "TimeAllotted": 0,
-            "TrialEndKey": "X"
+            "TrialTime": -1,
+            "TrialEndKey": "Space"
         },
         {
-            "2" : "Fixation",
+            "2" : "Collect",
             "Instructional": 1,
-            "FileLocation": "Fixation.png",
-            "TimeAllotted": 0,
+            "FileLocation": "Collect.png",
+            "TrialTime": 0,
             "TrialEndKey": "X"
         },
         {
-            "3" : "3D - simple square - No Goals",
-            "Header": "Explore 1",
-            "TrialTime" : 10,
-            "Scene": 2,
-            "StartPosition" : [0,0],
-            "StartFacing" : 0,
-            "Rotate": 0,
-            "ActiveGoals" : [],
-            "InvisibleGoals" : [],
-            "InactiveGoals" : [],
-            "Quota": 0,
-            "LandMarks" :[],
+            "3" : "Finish",
+            "Instructional": 1,
+            "FileLocation": "Finish.png",
+            "TrialTime": 0,
             "TrialEndKey": "X"
         },
         {
             "4" : "3D - simple square - No Goals",
-            "Header": "Explore 2",
-            "TrialTime" : 40,
+            "Header": "Collect The Objects!",
+            "TrialTime" : 100,
             "Scene": 2,
             "StartPosition" : [0,0],
             "StartFacing" : 0,
             "Rotate": 0,
-            "ActiveGoals" : [],
+            "ActiveGoals" : [1,2,3],
             "InvisibleGoals" : [],
             "InactiveGoals" : [],
-            "Quota": 0,
+            "Quota": 3,
+            "LandMarks" :[],
+            "TrialEndKey": "X"
+        },
+        {
+            "5" : "3D - simple square - No Goals",
+            "Header": "Collect The Objects!",
+            "TrialTime" : 100,
+            "Scene": 3,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Rotate": 0,
+            "ActiveGoals" : [1,2,3],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 3,
             "LandMarks" :[],
             "TrialEndKey": "X"
         }
@@ -78,7 +85,33 @@
 "GOAL DATA" : "GOAL DATA--------------------*********------------------GOAL DATA",
 
     "Goals": [
- 
+        {
+            "Pickup 3" : "Food Image",
+            "Type": "2DImage",
+            "Image": "Food.png",
+            "Color": "ffffff00",
+            "Sound": "eat",
+            "Position": [-5, 1, -5],
+            "Scale": [2, 2, 2]
+        },
+        {
+            "Pickup 4" : "Water Image",
+            "Type": "2DImage",
+            "Image": "Water.png",
+            "Color": "ffffff00",
+            "Sound": "drink",
+            "Position": [5, 1, 5],
+            "Scale": [2, 2, 2]
+        },
+        {
+            "Pickup 5" : "Money Image",
+            "Type": "2DImage",
+            "Image": "Money.png",
+            "Sound": "money",
+            "Color": "ffffff00",
+            "Position": [5, 1, -5],
+            "Scale": [2, 2, 2]
+        } 
     ],
 
 "LANDMARK DATA" : "LANDMARK DATA----------*********------------------LANDMARK DATA",
@@ -91,18 +124,5 @@
 "Maze DATA" : "Maze DATA--------------------*********------------------Maze DATA",
 
     "Mazes": [
-        {
-            "MazeName": "NoMaze",
-            "Type": "Simple",
-            "Sides": 4,
-            "Radius": 30,
-            "WallHeight" : 0,
-            "WallColor": "ffffff",
-            "GroundTileSides": 0,
-            "GroundTileSize": 0,
-            "GroundColor": "ffffff",
-            "Position": [0, 0],
-            "InitialRotation": 0
-        }
     ]
 }
