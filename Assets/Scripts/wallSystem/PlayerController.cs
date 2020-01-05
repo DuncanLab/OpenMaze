@@ -187,6 +187,8 @@ namespace wallSystem
 
         private void Update()
         {
+            E.LogData(TrialProgress.GetCurrTrial().TrialProgress, TrialProgress.GetCurrTrial().TrialStartTime, transform);
+
             // This first block is for the initial rotation of the character
             if (_currDelay < _waitTime)
             {
@@ -222,7 +224,6 @@ namespace wallSystem
                     Debug.LogWarning("Skipping movement calc: instructional trial");
                 }
 
-                E.LogData(TrialProgress.GetCurrTrial().TrialProgress, TrialProgress.GetCurrTrial().TrialStartTime, transform);
             }
             _currDelay += Time.deltaTime;
         }

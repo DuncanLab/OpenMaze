@@ -8,8 +8,7 @@ namespace trial
 
         protected TimeoutableTrial(int blockId, int trialId) : base(blockId, trialId)
         {
-            _threshHold = trialData.TrialTime == -1 ? int.MaxValue : trialData.TrialTime;
-
+            _threshHold = trialData.TrialTime < 1 ? int.MaxValue : trialData.TrialTime;
         }
 
         //Code for a trial to continue

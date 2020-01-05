@@ -49,8 +49,7 @@ namespace main
             CurrTrial.Update(Time.deltaTime);
         }
 
-        //The top of the csv
-        public static void LogFirst()
+        public static void LogHeaders()
         {
             using (var writer = new StreamWriter("Assets/OutputFiles~/" + DS.GetData().OutputFile, false))
             {
@@ -64,10 +63,9 @@ namespace main
             }
         }
 
-        //Logs the data out to the csv.
         public static void LogData(TrialProgress s, long trialStartTime, Transform t, int targetFound = 0)
         {
-            if (_timer > 1f / (DS.GetData().OutputTimesPerSecond == 0 ? 1000 : DS.GetData().OutputTimesPerSecond) || targetFound == 1)
+            if (targetFound == 1 || _timer > 1f / (DS.GetData().OutputTimesPerSecond == 0 ? 1000 : DS.GetData().OutputTimesPerSecond))
             {
                 using (var writer = new StreamWriter("Assets/OutputFiles~/" + DS.GetData().OutputFile, true))
                 {

@@ -51,41 +51,41 @@
             "1" : "Welcome",
             "Instructional": 1,
             "FileLocation": "Welcome.png",
-            "TimeAllotted": -1,
+            "TrialTime": -1,
             "TrialEndKey": "X"
         },
         {
             "2" : "Movement Instructions",
             "Instructional": 1,
             "FileLocation": "Movement.png",
-            "TimeAllotted": -1
+            "TrialTime": -1
         },
         {
             "3" : "2D",
             "Instructional": 1,
             "FileLocation": "2D.png",
-            "TimeAllotted": -1,
+            "TrialTime": -1,
             "TrialEndKey": "X"
         },
         {
             "4" : "Ready",
             "Instructional": 1,
             "FileLocation": "Ready.png",
-            "TimeAllotted": -1,
+            "TrialTime": -1,
             "TrialEndKey": "X"
         },
         {
             "5": "2D----------------------------------------------------------------------------------------2D",
             "TwoDimensional" : 1,
             "Scene" : 3,
-            "TimeAllotted" : 100,
+            "TrialTime" : 100,
             "TrialEndKey": "G"
         }, 
         {
             "6" : "3D - simple square - No Goals",
             "Index": 0,
             "Header": "Explore!",
-            "TimeAllotted" : 10,
+            "TrialTime" : 10,
             "Scene": 2,
             "StartPosition" : [0, 0],
             "StartFacing" : 45,
@@ -102,7 +102,7 @@
             "7" : "3D - SimpleSquare - Food - Visible Goals",
             "Index": 0,
             "Header": "Find Food!",
-            "TimeAllotted" : 10,
+            "TrialTime" : 10,
             "Scene": 2,
             "StartPosition" : [0, 0],
             "StartFacing" : 45,
@@ -119,7 +119,7 @@
             "8" : "3D - SimpleCircle - Water - Visible Goals",
             "Index": 0,
             "Header": "Find Water!",
-            "TimeAllotted" : 10,
+            "TrialTime" : 10,
             "Scene": 2,
             "StartPosition" : [0, 0],
             "StartFacing" : 45,
@@ -136,7 +136,7 @@
             "9" : "City - SimpleCircle - Money - Visible Goals",
             "Index": 0,
             "Header": "Find Money!",
-            "TimeAllotted" : 10,
+            "TrialTime" : 10,
             "Scene": 2,
             "StartPosition" : [0, 0],
             "StartFacing" : 45,

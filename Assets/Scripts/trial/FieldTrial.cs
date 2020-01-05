@@ -121,7 +121,7 @@ namespace trial
 
                 GenerateTrials();
 
-                Loader.LogFirst();
+                Loader.LogHeaders();
 
                 Progress();
             }

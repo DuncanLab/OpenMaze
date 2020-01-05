@@ -154,104 +154,104 @@
         {
             "1" : "Welcome",
             "FileLocation": "Welcome.png",
-            "TimeAllotted": -1
+            "TrialTime": -1
         },
         {
             "2" : "Movement Instructions",
             "FileLocation": "Movement.png",
-            "TimeAllotted": -1
+            "TrialTime": -1
         },
         {
             "3" : "2D",
             "FileLocation": "2D.png",
-            "TimeAllotted": -1
+            "TrialTime": -1
         },
         {
             "4" : "Ready",
             "FileLocation": "Ready.png",
-            "TimeAllotted": -1
+            "TrialTime": -1
         },
         {
             "5" : "Questions",
             "FileLocation": "Questions.png",
-            "TimeAllotted": -1
+            "TrialTime": -1
         },
         {
             "6" : "Notify",
             "FileLocation": "Notify.png",
-            "TimeAllotted": -1
+            "TrialTime": -1
         },
         {
             "7" : "Trials",
             "FileLocation": "Trials.png",
-            "TimeAllotted": -1
+            "TrialTime": -1
         },
         {
             "8" : "Sound",
             "FileLocation": "Sound.png",
-            "TimeAllotted": -1
+            "TrialTime": -1
         },
         {
             "9" : "Hidden",
             "FileLocation": "hidden.png",
-            "TimeAllotted": -1
+            "TrialTime": -1
         },
         {
             "10" : "Criterion",
             "FileLocation": "Criterion.png",
-            "TimeAllotted": -1
+            "TrialTime": -1
         },
         {
             "11" : "End",
             "FileLocation": "End.png",
-            "TimeAllotted": -1
+            "TrialTime": -1
         },
         {
             "12" : "food",
             "FileLocation": "food.png",
-            "TimeAllotted": 1
+            "TrialTime": 1
         },
         {
             "13" : "water",
             "FileLocation": "water.png",
-            "TimeAllotted": 1
+            "TrialTime": 1
         },
         {
             "14" : "money",
             "FileLocation": "money.png",
-            "TimeAllotted": 1
+            "TrialTime": 1
         },
         {
             "15" : "learn food",
             "FileLocation": "learnfood.png",
-            "TimeAllotted": -1
+            "TrialTime": -1
         },
         {
             "16" : "learn water",
             "FileLocation": "learnwater.png",
-            "TimeAllotted": -1
+            "TrialTime": -1
         },
         {
             "17" : "learn money",
             "FileLocation": "learnmoney.png",
-            "TimeAllotted": -1
+            "TrialTime": -1
         },
         {
             "18" : "Break",
             "FileLocation": "Break.png",
-            "TimeAllotted": -1
+            "TrialTime": -1
         },
         {
             "19": "Jungle 2D----------------------------------------------------------------------------------------2D",
             "TwoDimensional" : 1,
             "EnvironmentType" : 5,
-            "TimeAllotted" : 100
+            "TrialTime" : 100
         }, 
         {
             "20" : "Free",
             "Index": 0,
             "Header": "Explore!",
-            "TimeAllotted" : 10,
+            "TrialTime" : 10,
             "EnvironmentType": 3,
             "CharacterStartPos" : [0, 0],
             "TimeToRotate": 5,
@@ -272,7 +272,7 @@
             "21" : "Practice Invisible",
             "Index": 0,
             "Header": "Find Food!",
-            "TimeAllotted" : 60,
+            "TrialTime" : 60,
             "EnvironmentType": 3,
             "CharacterStartPos" : [0, 0],
             "TimeToRotate": 5,
@@ -293,7 +293,7 @@
             "22" : "Food - Visible",
             "Index": 0,
             "Header": "Find Food!",
-            "TimeAllotted" : 10,
+            "TrialTime" : 10,
             "EnvironmentType": 3,
             "CharacterStartPos" : [0, 0],
             "TimeToRotate": 5,
@@ -314,7 +314,7 @@
             "23" : "Food - invisible",
             "Index": 0,
             "Header": "Find Food!",
-            "TimeAllotted" : 15,
+            "TrialTime" : 15,
             "EnvironmentType": 3,
             "CharacterStartPos" : [0, 0],
             "TimeToRotate": 5,
@@ -335,7 +335,7 @@
             "24" : "Water - Visible",
             "Index": 0,
             "Header": "Find Water!",
-            "TimeAllotted" : 10,
+            "TrialTime" : 10,
             "EnvironmentType": 3,
             "CharacterStartPos" : [0, 0],
             "TimeToRotate": 5,
@@ -356,7 +356,7 @@
             "25" : "Water - invisible",
             "Index": 0,
             "Header": "Find Water!",
-            "TimeAllotted" : 15,
+            "TrialTime" : 15,
             "EnvironmentType": 3,
             "CharacterStartPos" : [0, 0],
             "TimeToRotate": 5,
@@ -377,7 +377,7 @@
             "26" : "Money - Visible",
             "Index": 0,
             "Header": "Find Money!",
-            "TimeAllotted" : 10,
+            "TrialTime" : 10,
             "EnvironmentType": 3,
             "CharacterStartPos" : [0, 0],
             "TimeToRotate": 5,
@@ -398,7 +398,7 @@
             "27" : "Money - invisible",
             "Index": 0,
             "Header": "Find Money!",
-            "TimeAllotted" : 15,
+            "TrialTime" : 15,
             "EnvironmentType": 3,
             "CharacterStartPos" : [0, 0],
             "TimeToRotate": 5,
@@ -419,7 +419,7 @@
             "28" : "All - invisible Square",
             "Index": 0,
             "Header": "Find Money!",
-            "TimeAllotted" : 1,
+            "TrialTime" : 1,
             "EnvironmentType": 3,
             "RandomLoc" : 1,
             "TimeToRotate": 0,
@@ -440,7 +440,7 @@
             "29" : "All - invisible Circle",
             "Index": 0,
             "Header": "Find Money!",
-            "TimeAllotted" : 1,
+            "TrialTime" : 1,
             "EnvironmentType": 3,
             "RandomLoc" : 1,
             "TimeToRotate": 0,
