@@ -78,47 +78,59 @@ namespace wallSystem
             Data.Point p = new Data.Point { X = 0, Y = 0, Z = 0 };
             foreach (var val in merged)
             {
-                var item = DS.GetData().Goals[Mathf.Abs(val) - 1];
-                UnityEngine.Debug.Log(item);
+                var goalItem = DS.GetData().Goals[Mathf.Abs(val) - 1];
+                UnityEngine.Debug.Log(goalItem);
 
                 // Position is not set in the config file
-                if (item.Position.Count == 0)
+                if (goalItem.Position.Count == 0)
                 {
-                    p = ReadFromExternal(item.PythonFile);
+                    p = ReadFromExternal(goalItem.PythonFile);
                 }
                 else
                 {
                     try
                     {
-                        p = new Data.Point { X = item.PositionVector.x, Y = item.PositionVector.y, Z = item.PositionVector.z };
+                        p = new Data.Point { X = goalItem.PositionVector.x, Y = goalItem.PositionVector.y, Z = goalItem.PositionVector.z };
                     }
                     catch (Exception _)
                     {
-                        p = new Data.Point { X = item.PositionVector.x, Y = 0.5f, Z = item.PositionVector.z };
+                        p = new Data.Point { X = goalItem.PositionVector.x, Y = 0.5f, Z = goalItem.PositionVector.z };
 
                     }
                 }
 
-                var prefab = (GameObject)Resources.Load("3D_Objects/" + item.Type, typeof(GameObject));
+                GameObject prefab;
+                GameObject obj;
+                var spriteName = "";
 
-                var obj = Instantiate(prefab);
-                if (!item.Type.Equals("2DImage"))
-                    obj.AddComponent<RotateBlock>();
-                obj.transform.Rotate(item.RotationVector);
-                obj.AddComponent<PickupSound>();
-
-                obj.GetComponent<PickupSound>().Sound = Resources.Load<AudioClip>("Sounds/" + item.Sound);
-
-                obj.transform.localScale = item.ScaleVector;
-                obj.transform.position = new Vector3(p.X, p.Y, p.Z);
-                var sprite = item.Image;
-                if (sprite != null)
+                if (goalItem.Type.ToLower().Equals("3d"))
                 {
-                    var pic = Img2Sprite.LoadNewSprite(DataSingleton.GetData().SpritesPath + sprite);
+                    prefab = (GameObject)Resources.Load("3D_Objects/" + goalItem.Object, typeof(GameObject));
+                    obj = Instantiate(prefab);
+                    obj.AddComponent<RotateBlock>();
+                }
+                else
+                {
+                    // Load the "2D" prefab here, so we have the required components
+                    prefab = (GameObject)Resources.Load("3D_Objects/" + goalItem.Type.ToUpper(), typeof(GameObject));
+                    obj = Instantiate(prefab);
+                    spriteName = goalItem.Object;
+                }
+
+                obj.transform.Rotate(goalItem.RotationVector);
+                obj.transform.localScale = goalItem.ScaleVector;
+                obj.transform.position = new Vector3(p.X, p.Y, p.Z);
+
+                obj.AddComponent<PickupSound>();
+                obj.GetComponent<PickupSound>().Sound = Resources.Load<AudioClip>("Sounds/" + goalItem.Sound);
+
+                if (!string.IsNullOrEmpty(spriteName))
+                {
+                    var pic = Img2Sprite.LoadNewSprite(DataSingleton.GetData().SpritesPath + spriteName);
                     obj.GetComponent<SpriteRenderer>().sprite = pic;
                 }
 
-                var color = Data.GetColour(item.Color);
+                var color = Data.GetColour(goalItem.Color);
 
                 try
                 {

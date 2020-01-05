@@ -125,7 +125,8 @@ namespace data
             public string Color; // The colour in Hex without #
             public string Sound; // The file path of the sound
             public string PythonFile; // The python file that will generate the position
-            public string Type; // The name of the prefab object
+            public string Type; // The object type (can be "2D" or "3D")
+            public string Object; // The name of the prefab if it's 3D, image file name if it's 2D
             public string Image; // The location of the image file associated with the goal
 
             // Use list for serialization purposes

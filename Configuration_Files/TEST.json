@@ -464,7 +464,8 @@
     "Goals": [
         {
             "Pickup 1" : "Food",
-            "Type": "Pickup",
+            "Type": "3D",
+            "Object": "Pickup",
             "Tag": "1",
             "Color": "ff0000",
             "SoundLocation": "eat",
@@ -476,7 +477,8 @@
         },
         {
             "Pickup 2" : "Water",
-            "Type": "Pickup",
+            "Type": "3D",
+            "Object": "Pickup",
             "Tag": "1",
             "Color": "0000ff",
             "SoundLocation": "drink",
@@ -488,7 +490,8 @@
         },
         {
             "Pickup 3" : "Money",
-            "Type": "Pickup",
+            "Type": "3D",
+            "Object": "Pickup",
             "Tag": "1",
             "Color": "00ff00",
             "SoundLocation": "money",

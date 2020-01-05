@@ -222,7 +222,8 @@
     "Goals": [
         {
             "Pickup 1" : "Food",
-            "Type": "Cube",
+            "Type": "3D",
+            "Object": "Cube",
             "Tag": "1",
             "Color": "ff0000",
             "Sound": "eat",
@@ -233,7 +234,8 @@
         },
         {
             "Pickup 2" : "Water",
-            "Type": "Cube",
+            "Type": "3D",
+            "Object": "Cube",
             "Tag": "1",
             "Color": "0000ff",
             "Sound": "drink",
@@ -244,7 +246,8 @@
         },
         {
             "Pickup 3" : "Money",
-            "Type": "Cube",
+            "Type": "3D",
+            "Object": "Cube",
             "Tag": "1",
             "Color": "00ff00",
             "Sound": "money",
@@ -255,8 +258,8 @@
         },
         {
             "Pickup 3" : "Food Image",
-            "Type": "2DImage",
-            "Image": "Food.png",
+            "Type": "2D",
+            "Object": "Food.png",
             "Color": "ffffff00",
             "Sound": "eat",
             "Position": [-10, 1, -12],
@@ -264,8 +267,8 @@
         },
         {
             "Pickup 4" : "Water Image",
-            "Type": "2DImage",
-            "Image": "Water.png",
+            "Type": "2D",
+            "Object": "Water.png",
             "Color": "ffffff00",
             "Sound": "drink",
             "Position": [8, 2, -12],
@@ -273,8 +276,8 @@
         },
         {
             "Pickup 5" : "Money Image",
-            "Type": "2DImage",
-            "Image": "Money.png",
+            "Type": "2D",
+            "Object": "Money.png",
             "Sound": "money",
             "Color": "ffffff00",
             "Position": [19, 1, 16],

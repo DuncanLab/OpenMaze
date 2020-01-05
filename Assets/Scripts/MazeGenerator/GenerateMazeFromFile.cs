@@ -35,25 +35,37 @@ public class GenerateMazeFromFile : MonoBehaviour
                 }
                 else if (col != '0')
                 {
+                    // TODO: This code should be shared with PickupGenerator.cs - this class might also just be deadcode.
                     var val = col - '0';
-                    var item = DS.GetData().Goals[val - 1];
-                    var prefab = (GameObject)Resources.Load("3D_Objects/" + item.Type, typeof(GameObject));
+                    var goalItem = DS.GetData().Goals[val - 1];
 
-                    var obj = Instantiate(prefab);
+                    GameObject prefab;
+                    GameObject obj;
+                    var spriteName = "";
 
-                    if (!item.Type.Equals("2DImageDisplayer"))
+                    if (goalItem.Type.ToLower().Equals("3d"))
                     {
+                        prefab = (GameObject)Resources.Load("3D_Objects/" + goalItem.Object, typeof(GameObject));
+                        obj = Instantiate(prefab);
                         obj.AddComponent<RotateBlock>();
-                        obj.GetComponent<Renderer>().material.color = Data.GetColour(item.Color);
+                        obj.GetComponent<Renderer>().material.color = Data.GetColour(goalItem.Color);
+                    }
+                    else
+                    {
+                        // Load the "2D" prefab here, so we have the required components
+                        prefab = (GameObject)Resources.Load("3D_Objects/" + goalItem.Type.ToUpper(), typeof(GameObject));
+                        obj = Instantiate(prefab);
+                        spriteName = goalItem.Object;
                     }
 
-                    obj.transform.localScale = item.ScaleVector;
-
+                    obj.transform.localScale = goalItem.ScaleVector;
                     obj.transform.position = new Vector3(x, 0.5f, y);
-                    var sprite = item.Image;
 
-                    var pic = Img2Sprite.LoadNewSprite(DataSingleton.GetData().SpritesPath + sprite);
-                    obj.GetComponent<SpriteRenderer>().sprite = pic;
+                    if (!string.IsNullOrEmpty(spriteName))
+                    {
+                        var pic = Img2Sprite.LoadNewSprite(DataSingleton.GetData().SpritesPath + spriteName);
+                        obj.GetComponent<SpriteRenderer>().sprite = pic;
+                    }
                 }
 
                 x += m.TileWidth;
