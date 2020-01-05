@@ -15,18 +15,18 @@ namespace trial
         {
 
             base.PreEntry(t, first);
-            t.EnvironmentType = Value.Scene;
-            t.CurrentMazeName = Value.MazeName;
+            t.EnvironmentType = trialData.Scene;
+            t.CurrentEnclosureIndex = trialData.Enclosure - 1;
             t.BlockID = BlockID;
             t.TrialID = TrialID;
-            t.TwoDim = Value.TwoDimensional;
+            t.TwoDim = trialData.TwoDimensional;
             t.Instructional = 0;
             t.LastX = t.TargetX;
             t.LastY = t.TargetY;
             t.TargetX = 0;
             t.TargetY = 0;
 
-            LoadNextSceneWithTimer(Value.Scene);
+            LoadNextSceneWithTimer(trialData.Scene);
         }
 
         //Code for a trial to continue
@@ -34,7 +34,7 @@ namespace trial
         {
             base.Update(deltaTime);
 
-            var trialEndKeyCode = Value.TrialEndKey;
+            var trialEndKeyCode = trialData.TrialEndKey;
             var ignoreUserInputDelay = DataSingleton.GetData().IgnoreUserInputDelay;
 
             if (!String.IsNullOrEmpty(trialEndKeyCode) && Input.GetKey(trialEndKeyCode.ToLower()) && (_runningTime > ignoreUserInputDelay))

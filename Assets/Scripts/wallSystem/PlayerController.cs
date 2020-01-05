@@ -43,7 +43,7 @@ namespace wallSystem
                 goalText.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 40);
 
                 //And this section sets the text.
-                goalText.text = E.Get().CurrTrial.Value.Header;
+                goalText.text = E.Get().CurrTrial.trialData.Header;
                 goalText.color = Color.white;
 
 
@@ -58,13 +58,13 @@ namespace wallSystem
             _currDelay = 0;
 
             // Choose a random starting angle if the value is not set in config
-            if (E.Get().CurrTrial.Value.StartFacing == -1)
+            if (E.Get().CurrTrial.trialData.StartFacing == -1)
             {
                 _iniRotation = Random.Range(0, 360);
             }
             else
             {
-                _iniRotation = E.Get().CurrTrial.Value.StartFacing;
+                _iniRotation = E.Get().CurrTrial.trialData.StartFacing;
             }
 
             transform.Rotate(0, _iniRotation, 0, Space.World);
@@ -79,27 +79,27 @@ namespace wallSystem
             {
                 Debug.LogWarning("Can't set controller object: running an instructional trial");
             }
-            _waitTime = E.Get().CurrTrial.Value.Rotate;
+            _waitTime = E.Get().CurrTrial.trialData.Rotate;
             _reset = false;
-            localQuota = E.Get().CurrTrial.Value.Quota;
+            localQuota = E.Get().CurrTrial.trialData.Quota;
 
         }
 
-        //Start the character. //If init from maze, this allows "s" to determine the start position
-        public void ExternalStart(float pickX, float pickY, bool maze = false)
+        //Start the character. If init from enclosure, this allows "s" to determine the start position
+        public void ExternalStart(float pickX, float pickY, bool useEnclosure = false)
         {
             TrialProgress.GetCurrTrial().TrialProgress.TargetX = pickX;
             TrialProgress.GetCurrTrial().TrialProgress.TargetY = pickY;
 
             // No start pos specified so make it random.
-            if (E.Get().CurrTrial.Value.StartPosition.Count == 0)
+            if (E.Get().CurrTrial.trialData.StartPosition.Count == 0)
             {
                 // Try to randomly place the character, checking for proximity
                 // to the pickup location
                 var i = 0;
                 while (i++ < 100)
                 {
-                    var CurrentTrialRadius = DS.GetData().MazesDictionary[E.Get().CurrTrial.TrialProgress.CurrentMazeName].Radius;
+                    var CurrentTrialRadius = DS.GetData().Enclosures[E.Get().CurrTrial.TrialProgress.CurrentEnclosureIndex].Radius;
                     var v = Random.insideUnitCircle * CurrentTrialRadius * 0.9f;
                     var mag = Vector3.Distance(v, new Vector2(pickX, pickY));
                     if (mag > DS.GetData().CharacterData.DistancePickup)
@@ -116,9 +116,13 @@ namespace wallSystem
             }
             else
             {
-                var p = E.Get().CurrTrial.Value.StartPosition;
-                if (maze)
+                var p = E.Get().CurrTrial.trialData.StartPosition;
+
+                if (useEnclosure)
+                {
                     p = new List<float>() { pickX, pickY };
+                }
+
                 transform.position = new Vector3(p[0], 0.5f, p[1]);
                 var camPos = Cam.transform.position;
                 camPos.y = DS.GetData().CharacterData.Height;

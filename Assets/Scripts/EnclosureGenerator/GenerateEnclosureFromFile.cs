@@ -6,12 +6,12 @@ using Debug = UnityEngine.Debug;
 using DS = data.DataSingleton;
 using L = main.Loader;
 
-public class GenerateMazeFromFile : MonoBehaviour
+public class GenerateEnclosureFromFile : MonoBehaviour
 {
     // Use this for initialization
     private void Start()
     {
-        var m = L.Get().CurrTrial.Value.Map;
+        var m = L.Get().CurrTrial.trialData.Map;
         var y = m.TopLeft[1];
 
         // Goes through each map and initializes it based on stuff.
@@ -25,8 +25,8 @@ public class GenerateMazeFromFile : MonoBehaviour
                 {
                     var obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     obj.GetComponent<Renderer>().sharedMaterial.color = Data.GetColour(m.Color);
-                    obj.transform.localScale = new Vector3(m.TileWidth, L.Get().CurrTrial.maze.WallHeight, m.TileWidth);
-                    obj.transform.position = new Vector3(x, L.Get().CurrTrial.maze.WallHeight * 0.5f, y);
+                    obj.transform.localScale = new Vector3(m.TileWidth, L.Get().CurrTrial.enclosure.WallHeight, m.TileWidth);
+                    obj.transform.position = new Vector3(x, L.Get().CurrTrial.enclosure.WallHeight * 0.5f, y);
                 }
                 else if (col == 's')
                 {

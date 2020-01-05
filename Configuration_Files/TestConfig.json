@@ -93,7 +93,7 @@
             "ActiveGoals" : [],
             "InvisibleGoals" : [],
             "InactiveGoals" : [],
-            "MazeName": "SimpleSquare",
+            "Enclosure": 1,
             "Quota": 0,
             "LandMarks" :[1,2],
             "TrialEndKey": "G"
@@ -110,7 +110,7 @@
             "ActiveGoals" : [1,2],
             "InvisibleGoals" : [],
             "InactiveGoals" : [],
-            "MazeName": "SimpleSquare",
+            "Enclosure": 0,
             "Quota": 2,
             "LandMarks" :[1,2],
             "TrialEndKey": "G"
@@ -127,7 +127,7 @@
             "ActiveGoals" : [2],
             "InvisibleGoals" : [],
             "InactiveGoals" : [],
-            "MazeName": "SimpleCircle",
+            "Enclosure": 0,
             "Quota": 2,
             "LandMarks" :[1,2],
             "TrialEndKey": "G"
@@ -144,37 +144,17 @@
             "ActiveGoals" : [3],
             "InvisibleGoals" : [],
             "InactiveGoals" : [],
-            "MazeName": "SimpleSquare",
+            "Enclosure": 0,
             "Quota": 1,
             "LandMarks" :[1,2],
             "TrialEndKey": "G"
         }  
     ],
 
-"Maze DATA" : "Maze DATA--------------------*********------------------Maze DATA",
+"Enclosure DATA" : "Enclosure DATA--------------------*********------------------Enclosure DATA",
 
-    "Mazes": [
+    "Enclosures": [
         {
-            "MazeName": "SimpleSquare",
-            "Type": "Simple",
-            "Sides": 4,
-            "Radius": 30,
-            "WallHeight" : 5,
-            "WallColor": "1B5E40",
-            "GroundTileSides": 4,
-            "GroundTileSize": 0.5,
-            "GroundColor": "1B5E40",
-            "Position": [0, 0],
-            "InitialRotation": 0
-        },
-        {
-            "Type": "Prebuilt",
-            "PrefabName": "T-Maze",
-            "Position": [10, 10],
-            "InitialRotation": 0
-        },
-        {
-            "MazeName": "SimpleCircle",
             "Type": "Simple",
             "Sides": 40,
             "Radius": 15,

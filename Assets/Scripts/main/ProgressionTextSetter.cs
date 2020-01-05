@@ -11,7 +11,7 @@ namespace main
         public void Start()
         {
             Debug.Log("Entering Loading Screen: " + E.Get().CurrTrial.TrialID);
-            var filePath = DataSingleton.GetData().SpritesPath + E.Get().CurrTrial.Value.FileLocation;
+            var filePath = DataSingleton.GetData().SpritesPath + E.Get().CurrTrial.trialData.FileLocation;
             GetComponent<RawImage>().texture = Img2Sprite.LoadTexture(filePath);
         }
     }

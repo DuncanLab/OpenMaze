@@ -29,13 +29,13 @@ namespace twoDSystem
 
             var goalText = GameObject.Find("Goal").GetComponent<Text>();
             goalText.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 40);
-            goalText.text = E.Get().CurrTrial.Value.Header ?? "Test";
+            goalText.text = E.Get().CurrTrial.trialData.Header ?? "Test";
             goalText.color = Color.black;
 
             Generate2dWalls();
             Generate2dLandmarks();
             var previousTrial = E.Get().CurrTrial.TrialProgress.PreviousTrial;
-            GameObject.Find("Plane").transform.localScale *= previousTrial.maze.Radius / 10f;
+            GameObject.Find("Plane").transform.localScale *= previousTrial.enclosure.Radius / 10f;
         }
 
         // This is called when the object is destroyed. Here we destroy
@@ -48,29 +48,29 @@ namespace twoDSystem
             }
         }
 
-        // Generate walls based on the parameters of the previous maze
-        // TODO: Make 2d trials work with their own Mazes.
+        // Generate walls based on the parameters of the previous enclosure
+        // TODO: Make 2d trials work with their own enclosures.
         private void Generate2dWalls()
         {
             var previousTrial = E.Get().CurrTrial.TrialProgress.PreviousTrial;
             //This computes the current interior angle of the given side.
-            var interiorAngle = 360f / previousTrial.maze.Sides; //This is, of course, given as 360 / num sides
+            var interiorAngle = 360f / previousTrial.enclosure.Sides; //This is, of course, given as 360 / num sides
 
             //This sets the initial angle to the one given in the preset
             float currentAngle = 0;
 
             //Here we interate through all the sides
-            for (var i = 0; i < previousTrial.maze.Sides; i++)
+            for (var i = 0; i < previousTrial.enclosure.Sides; i++)
             {
                 //We compute the sin and cos of the current angle (essentially plotting points on a circle
-                var x = GenerateWall.Cos(currentAngle) * previousTrial.maze.Radius + previousTrial.maze.Position[0];
-                var y = GenerateWall.Sin(currentAngle) * previousTrial.maze.Radius + previousTrial.maze.Position[1];
+                var x = GenerateWall.Cos(currentAngle) * previousTrial.enclosure.Radius + previousTrial.enclosure.Position[0];
+                var y = GenerateWall.Sin(currentAngle) * previousTrial.enclosure.Radius + previousTrial.enclosure.Position[1];
 
                 //This is theoreticially the perfect length of the wall. However, this causes a multitude of problems
                 //Such as:
                 //Gaps appearing in large wall numbers
                 //Desealing some stuff. so, bad.
-                var length = 2 * previousTrial.maze.Radius * GenerateWall.Tan(180f / previousTrial.maze.Sides);
+                var length = 2 * previousTrial.enclosure.Radius * GenerateWall.Tan(180f / previousTrial.enclosure.Sides);
 
                 //Here we create the wall
                 var obj = Instantiate(Wall,
@@ -95,7 +95,7 @@ namespace twoDSystem
         //Generates the landmarks, pretty similar to the data in pickup.
         private void Generate2dLandmarks()
         {
-            foreach (var p in E.Get().CurrTrial.TrialProgress.PreviousTrial.Value.LandMarks)
+            foreach (var p in E.Get().CurrTrial.TrialProgress.PreviousTrial.trialData.LandMarks)
             {
                 var d = DS.GetData().Landmarks[p - 1];
 

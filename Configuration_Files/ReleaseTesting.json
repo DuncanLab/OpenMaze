@@ -93,6 +93,7 @@
             "ActiveGoals" : [4,5,6],
             "InvisibleGoals" : [],
             "InactiveGoals" : [],
+            "Enclosure": 1,
             "Quota": 3,
             "LandMarks" :[],
             "TrialEndKey": "G"
@@ -108,7 +109,7 @@
             "ActiveGoals" : [],
             "InvisibleGoals" : [],
             "InactiveGoals" : [],
-            "MazeName": "NoMaze",
+            "Enclosure": 0,
             "Quota": 0,
             "LandMarks" :[1,2,3],
             "TrialEndKey": "G"
@@ -124,7 +125,7 @@
             "ActiveGoals" : [],
             "InvisibleGoals" : [],
             "InactiveGoals" : [],
-            "MazeName": "NoMaze",
+            "Enclosure": 0,
             "Quota": 0,
             "LandMarks" :[1,2],
             "TrialEndKey": "G"
@@ -141,7 +142,7 @@
             "ActiveGoals" : [],
             "InvisibleGoals" : [],
             "InactiveGoals" : [],
-            "MazeName": "NoMaze",
+            "Enclosure": 0,
             "Quota": 0,
             "LandMarks" :[1,2],
             "TrialEndKey": "G"
@@ -158,7 +159,7 @@
             "ActiveGoals" : [],
             "InvisibleGoals" : [],
             "InactiveGoals" : [],
-            "MazeName": "NoMaze",
+            "Enclosure": 0,
             "Quota": 0,
             "LandMarks" :[1,2],
             "TrialEndKey": "G"
@@ -175,7 +176,7 @@
             "ActiveGoals" : [1,2],
             "InvisibleGoals" : [],
             "InactiveGoals" : [],
-            "MazeName": "NoMaze",
+            "Enclosure": 0,
             "Quota": 1,
             "LandMarks" :[1,2],
             "TrialEndKey": "G"
@@ -192,7 +193,7 @@
             "ActiveGoals" : [2],
             "InvisibleGoals" : [],
             "InactiveGoals" : [],
-            "MazeName": "NoMaze",
+            "Enclosure": 0,
             "Quota": 2,
             "LandMarks" :[1,2],
             "TrialEndKey": "G"
@@ -209,7 +210,7 @@
             "ActiveGoals" : [3],
             "InvisibleGoals" : [],
             "InactiveGoals" : [],
-            "MazeName": "NoMaze",
+            "Enclosure": 0,
             "Quota": 1,
             "LandMarks" :[1,2],
             "TrialEndKey": "G"
@@ -315,30 +316,10 @@
 
     ], 
 
-"Maze DATA" : "Maze DATA--------------------*********------------------Maze DATA",
+"Enclosure DATA" : "Enclosure DATA--------------------*********------------------Enclosure DATA",
 
-    "Mazes": [
+    "Enclosures": [
         {
-            "MazeName": "NoMaze",
-            "Type": "Simple",
-            "Sides": 4,
-            "Radius": 1,
-            "WallHeight" : 0,
-            "WallColor": "ffffff",
-            "GroundTileSides": 0,
-            "GroundTileSize": 0,
-            "GroundColor": "ffffff",
-            "Position": [0, 0],
-            "InitialRotation": 0
-        },
-        {
-            "Type": "Prebuilt",
-            "PrefabName": "T-Maze",
-            "Position": [10, 10],
-            "InitialRotation": 0
-        },
-        {
-            "MazeName": "SimpleCircle",
             "Type": "Simple",
             "Sides": 40,
             "Radius": 50,

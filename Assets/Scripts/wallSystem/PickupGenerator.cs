@@ -28,7 +28,7 @@ namespace wallSystem
             };
 
             p.Start();
-            p.StandardInput.Write(JsonUtility.ToJson(E.Get().CurrTrial.Value) + "\n");
+            p.StandardInput.Write(JsonUtility.ToJson(E.Get().CurrTrial.trialData) + "\n");
 
             p.WaitForExit();
             var line = p.StandardOutput.ReadLine();
@@ -63,9 +63,9 @@ namespace wallSystem
 
             _destroy = new List<GameObject>(); //This initializes the food object destroy list
 
-            var activeGoals = E.Get().CurrTrial.Value.ActiveGoals;
-            var inactiveGoals = E.Get().CurrTrial.Value.InactiveGoals;
-            var invisibleGoals = E.Get().CurrTrial.Value.InvisibleGoals;
+            var activeGoals = E.Get().CurrTrial.trialData.ActiveGoals;
+            var inactiveGoals = E.Get().CurrTrial.trialData.InactiveGoals;
+            var invisibleGoals = E.Get().CurrTrial.trialData.InvisibleGoals;
             var inactiveSet = new HashSet<int>(inactiveGoals);
             var invisibleSet = new HashSet<int>(invisibleGoals);
             var activeSet = new HashSet<int>(activeGoals);
