@@ -15,9 +15,10 @@ namespace wallSystem
 
         private static Data.Point ReadFromExternal(string inputFile)
         {
+            var scriptPath = DataSingleton.GetData().PythonScriptsPath + inputFile;
             var p = new Process
             {
-                StartInfo = new ProcessStartInfo("python", DataSingleton.GetData().PythonScriptsPath + inputFile)
+                StartInfo = new ProcessStartInfo("python", "\"" + scriptPath + "\"")
                 {
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
