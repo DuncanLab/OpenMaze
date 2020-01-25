@@ -10,7 +10,7 @@ namespace wallSystem
     {
         //-------------------------- Fields -------------------------------------
         public GameObject Create; //This is the prefab of the GenerateWall object.
-        public GameObject GenerateMazeFromFile;
+        public GameObject GenerateEnclosureFromFile;
         public Camera Cam;        //This is the main camera of the player.
         public Text Timer;        //This exists as the timer text.
         public GameObject Player;
@@ -29,7 +29,7 @@ namespace wallSystem
         private void Start()
         {
             Create.transform.position = Vector3.zero;
-            _currCreate = Instantiate(E.Get().CurrTrial.maze.Sides == 0 ? GenerateMazeFromFile : Create);
+            _currCreate = Instantiate(E.Get().CurrTrial.enclosure.Sides == 0 ? GenerateEnclosureFromFile : Create);
         }
 
         private void Update()

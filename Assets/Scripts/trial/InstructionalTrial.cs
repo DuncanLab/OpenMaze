@@ -18,7 +18,7 @@ namespace trial
             t.TimingVerification = data.DataSingleton.GetData().TimingVerification; // timing diagnostics
             t.TrialID = TrialID;
             t.BlockID = BlockID;
-            t.Instructional = Value.Instructional;
+            t.Instructional = trialData.Instructional;
             SceneManager.LoadScene(Constants.LoadingScreen);
             t.isLoaded = true;
         }
@@ -30,9 +30,9 @@ namespace trial
             // Default to space key
             var trialEndKeyCode = "space";
 
-            if (!String.IsNullOrEmpty(Value.TrialEndKey))
+            if (!String.IsNullOrEmpty(trialData.TrialEndKey))
             {
-                trialEndKeyCode = Value.TrialEndKey.ToLower();
+                trialEndKeyCode = trialData.TrialEndKey.ToLower();
             }
 
             if (Input.GetKey(trialEndKeyCode))

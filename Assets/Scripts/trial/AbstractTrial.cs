@@ -32,9 +32,9 @@ namespace trial
 
         public bool isTail;
 
-        public Data.Trial Value;
+        public Data.Trial trialData;
 
-        public Maze maze;
+        public Enclosure enclosure;
 
         //This points to the next trial
         // ReSharper disable once InconsistentNaming
@@ -52,17 +52,17 @@ namespace trial
             if (blockId == -1 || trialId == -1) return;
             if (DataSingleton.GetData().BlockList.Count == 0) throw new Exception("No trial in block");
 
-            Value = DataSingleton.GetData().TrialData[trialId];
+            trialData = DataSingleton.GetData().TrialData[trialId];
 
-            if (!string.IsNullOrEmpty(Value.MazeName))
+            if (trialData.Enclosure > 0)
             {
-                maze = DataSingleton.GetData().MazesDictionary[Value.MazeName];
+                enclosure = DataSingleton.GetData().Enclosures[trialData.Enclosure - 1];
             }
-            // If the user hasn't set a MazeName we want to set the Maze to be
+            // If the user hasn't set an Enclosure index we want to set the Enclosure to be
             // unobtrusive, So the ground generates but nothing else.
             else
             {
-                maze = new Maze
+                enclosure = new Enclosure
                 {
                     WallHeight = 0,
                     WallColor = "1B5E20",

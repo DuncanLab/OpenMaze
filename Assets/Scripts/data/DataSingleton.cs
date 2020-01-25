@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using static data.Data;
+﻿using UnityEngine;
 
 //This class is contains the central data object for all classes.
 //This is implemented using a singleton design pattern.
@@ -22,24 +20,7 @@ namespace data
             var file = System.IO.File.ReadAllText(fileName);
 
             var temp = JsonUtility.FromJson<Data>(file);
-            //_data = temp;
-
-            _data = ConvertMazeListToDictionary(temp);
-        }
-
-        private static Data ConvertMazeListToDictionary(Data tempData)
-        {
-            tempData.MazesDictionary = new Dictionary<string, Maze>();
-
-            foreach (var maze in tempData.Mazes)
-            {
-                if (!string.IsNullOrEmpty(maze.MazeName))
-                {
-                    tempData.MazesDictionary.Add(maze.MazeName, maze);
-                }
-            }
-
-            return tempData;
+            _data = temp;
         }
     }
 }

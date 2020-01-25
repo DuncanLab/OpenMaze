@@ -45,10 +45,8 @@ namespace data
         // Contains all pre-defined trials
         public List<Trial> TrialData;
 
-        // Contains all Maze config objects
-        public List<Maze> Mazes;
-
-        public Dictionary<string, Maze> MazesDictionary;
+        // Contains all Enclosure config objects
+        public List<Enclosure> Enclosures;
 
         public List<BlockData> BlockList;
 
@@ -87,11 +85,11 @@ namespace data
             public int TrialTime; // Allotted amount of time
             public string TrialEndKey; // The key press which will end the current trial.
             public string Header; // Note outputted out of the trial.
-            public MazeData Map; // The Map saved mazedata
+            public EnclosureData Map; // The Map saved EnclosureData
             public List<int> InvisibleGoals; //The goal that are active and invisible
             public List<int> ActiveGoals; // Goals that are active and visible
             public List<int> InactiveGoals; // Goals that are visible but inactive
-            public string MazeName; // Name of the maze to load
+            public int Enclosure; // The index of the enclosure to load (starts from 1, 0 is reserved for no enclosure)
             public List<int> LandMarks; // List of all land marks
             public int Quota; // The quota that the person needs to pick up before the next trial is switched too
             public List<float> StartPosition; //The start position of the character (usually 0, 0) If left empty (ie. "[]") start position is random
@@ -100,12 +98,12 @@ namespace data
             public bool ShowCollectedPerBlock; // Whether or not to display the amount of goals/pickups collected (resets each block)
         }
 
-        // Represents a Maze for the user. Mazes can be prebuilt; located in:
-        // Mazes can be 'Simple' with basic dimensions specified in the config file
+        // Represents an Enclosure (Maze) for the user. TODO: Enclosures can be prebuilt; located in:...
+        // Enclosures can be 'Simple' with basic dimensions specified in the config file
         [Serializable]
-        public class Maze
+        public class Enclosure
         {
-            public string MazeName; // Must be unique
+            public string EnclosureName; // Non functional (user can use this label to keep track of their enclosures)
             public int Sides; // Number of sides present in the trial.
             public int Radius; // Radius of the walls
             public float WallHeight; // This is the wall height
@@ -125,7 +123,8 @@ namespace data
             public string Color; // The colour in Hex without #
             public string Sound; // The file path of the sound
             public string PythonFile; // The python file that will generate the position
-            public string Type; // The name of the prefab object
+            public string Type; // The object type (can be "2D" or "3D")
+            public string Object; // The name of the prefab if it's 3D, image file name if it's 2D
             public string Image; // The location of the image file associated with the goal
 
             // Use list for serialization purposes
@@ -210,9 +209,9 @@ namespace data
         }
 
         [Serializable]
-        public class MazeData
+        public class EnclosureData
         {
-            public List<float> TopLeft; //The top left of the maze
+            public List<float> TopLeft; //The top left of the enclosure
             public float TileWidth;
             public List<string> Map;
             public string Color;
