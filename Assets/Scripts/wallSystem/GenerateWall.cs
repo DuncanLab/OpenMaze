@@ -69,6 +69,10 @@ namespace wallSystem
         {
             var col = Data.GetColour(E.Get().CurrTrial.enclosure.WallColor);
             //And here we set the color of the wall prefab to the appropriate color
+            if (E.Get().CurrTrial.enclosure.WallColor == "ffffff00")
+            {
+                Wall.GetComponent<Renderer>().enabled = false;
+            }
             Wall.GetComponent<Renderer>().sharedMaterial.color = col;
         }
 
