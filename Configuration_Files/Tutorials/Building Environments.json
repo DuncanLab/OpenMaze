@@ -1,7 +1,8 @@
 {
     "OutputTimesPerSecond": 30,
-    "TrialLoadingDelay": 5.0,
-    "IgnoreUserInputDelay": 5.0,
+    "TrialLoadingDelay": 1.0,
+    "IgnoreUserInputDelay": 0.0,
+    "TimeingVerification": false,
     "CHARACTER DATA": "CHARACTER DATA----------*********-------------------CHARACTER DATA",
     "CharacterData": {
         "Height": 2,
@@ -17,42 +18,54 @@
     
     "BlockList" : [
         {
-            "BlockName" : "1 - Starting Block",
-              "Notes" : "This is a standard block of trials.",
-              "TrialOrder": [
-                 1,2,4,2,5,3
-                ]
-        }
+            "BlockName" : "Simple Experiment",
+              "Notes" : "Trials will be presented in order from TrialOrder list",
+              "TrialOrder": [1,2,3,4,5,6,7]
+        }  
     ],
 
 "TRIAL DATA" : "TRIAL DATA--------------------*********------------------TRIAL DATA",
     
     "TrialData": [
         {
-            "1" : "Welcome",
+            "Trial 1" : "Welcome Page",
             "Instructional": 1,
-            "FileLocation": "Welcome.png",
+            "FileLocation": "Tutorial_Instructions/Welcome.png",
             "TrialTime": -1,
             "TrialEndKey": "Space"
         },
         {
-            "2" : "Collect",
+            "Trial 2" : "Task Instructions",
             "Instructional": 1,
-            "FileLocation": "Collect.png",
-            "TrialTime": 0,
-            "TrialEndKey": "X"
+            "FileLocation": "Tutorial_Instructions/Instructions.png",
+            "TrialTime": -1,
+            "TrialEndKey": "Space"
         },
         {
-            "3" : "Finish",
+            "Trial 3" : "Control Instructions",
             "Instructional": 1,
-            "FileLocation": "Finish.png",
-            "TrialTime": 0,
-            "TrialEndKey": "X"
+            "FileLocation": "Tutorial_Instructions/Controls.png",
+            "TrialTime": -1,
+            "TrialEndKey": "Space"
         },
         {
-            "4" : "3D - simple square - No Goals",
-            "Header": "Collect The Objects!",
-            "TrialTime" : 100,
+            "Trial 4" : "Get Ready",
+            "Instructional": 1,
+            "FileLocation": "Tutorial_Instructions/GetReady.png",
+            "TrialTime": -1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 5" : "Collection Cue",
+            "Instructional": 1,
+            "FileLocation": "Tutorial_Instructions/Collect.png",
+            "TrialTime": 1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 6" : "3D Trial",
+            "Header": "Collect the Objects!",
+            "TrialTime" : 1000,
             "Scene": 2,
             "StartPosition" : [0,0],
             "StartFacing" : 0,
@@ -62,22 +75,14 @@
             "InactiveGoals" : [],
             "Quota": 3,
             "LandMarks" :[],
-            "TrialEndKey": "X"
+            "TrialEndKey": "Space"
         },
         {
-            "5" : "3D - simple square - No Goals",
-            "Header": "Collect The Objects!",
-            "TrialTime" : 100,
-            "Scene": 3,
-            "StartPosition" : [0,0],
-            "StartFacing" : 0,
-            "Rotate": 0,
-            "ActiveGoals" : [1,2,3],
-            "InvisibleGoals" : [],
-            "InactiveGoals" : [],
-            "Quota": 3,
-            "LandMarks" :[],
-            "TrialEndKey": "X"
+            "Trial 7" : "End",
+            "Instructional": 1,
+            "FileLocation": "Tutorial_Instructions/End.png",
+            "TrialTime": 1,
+            "TrialEndKey": "x"
         }
     ],
 
@@ -86,43 +91,43 @@
 
     "Goals": [
         {
-            "Pickup 3" : "Food Image",
-            "Type": "2DImage",
-            "Image": "Food.png",
-            "Color": "ffffff00",
+            "Goal 1" : "2D Image - Apple",
+            "Type": "2D",
+            "Object": "Tutorial_Objects/Apple.png",
             "Sound": "eat",
+            "Color": "ffffff",
+            "Position": [-5, 1, 5],
+            "Scale": [1, 1, 1]
+        },
+        {
+            "Goal 2" : "2D Image - Water",
+            "Type": "2D",
+            "Object": "Tutorial_Objects/Water.png",
+            "Sound": "eat",
+            "Color": "ffffff",
             "Position": [-5, 1, -5],
-            "Scale": [2, 2, 2]
+            "Scale": [1, 1, 1]
         },
         {
-            "Pickup 4" : "Water Image",
-            "Type": "2DImage",
-            "Image": "Water.png",
-            "Color": "ffffff00",
-            "Sound": "drink",
-            "Position": [5, 1, 5],
-            "Scale": [2, 2, 2]
-        },
-        {
-            "Pickup 5" : "Money Image",
-            "Type": "2DImage",
-            "Image": "Money.png",
-            "Sound": "money",
-            "Color": "ffffff00",
+            "Goal 1" : "2D Image - Apple",
+            "Type": "2D",
+            "Object": "Tutorial_Objects/Money.png",
+            "Sound": "eat",
+            "Color": "ffffff",
             "Position": [5, 1, -5],
-            "Scale": [2, 2, 2]
-        } 
+            "Scale": [1, 1, 1]
+        }
     ],
 
 "LANDMARK DATA" : "LANDMARK DATA----------*********------------------LANDMARK DATA",
 
     "Landmarks": [
 
-
     ], 
 
-"Maze DATA" : "Maze DATA--------------------*********------------------Maze DATA",
+"Enclosure DATA" : "Enclosure DATA--------------------*********------------------Enclosure DATA",
 
-    "Mazes": [
+    "Enclosures": [
+ 
     ]
 }
