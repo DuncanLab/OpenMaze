@@ -66,14 +66,7 @@ https://duncanlab.github.io/OpenMazeSite
 
 ## Contributing
 
-If you plan on contributing then please make sure you have the latest version of OpenMaze on your machine and are able to edit the underlying code. While any text editor works for this step, we recommend you use [Rider](https://www.jetbrains.com/rider/) from jetbrains since Unity and C# integrations are provided that make the project much easier to work with. 
-
-1. Fork it (<https://github.com/DuncanLab/OpenMaze/fork>) *This step is optional if you have been
-granted push access already*.
-2. Create your feature branch (`git checkout -b feature/fooBar`).
-3. Commit your changes (`git commit -am 'Added some amazing features'`).
-4. Push to the branch (`git push origin feature/fooBar`).
-5. Create a new [Pull Request](https://github.com/DuncanLab/OpenMaze/pulls).
+Please read [Contributing](https://github.com/DuncanLab/OpenMaze/wiki/Contributing) for details on the process for submitting pull requests to us.
 
 ## Versioning
 
