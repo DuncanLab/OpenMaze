@@ -43,12 +43,12 @@ namespace data
         public List<LandMark> Landmarks;
 
         // Contains all pre-defined trials
-        public List<Trial> TrialData;
+        public List<Trial> Trials;
 
         // Contains all Enclosure config objects
         public List<Enclosure> Enclosures;
 
-        public List<BlockData> BlockList;
+        public List<BlockData> Blocks;
 
         public List<int> BlockOrder;
 

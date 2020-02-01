@@ -20,7 +20,7 @@ namespace trial
             Debug.Log("GenerateTrial");
             AbstractTrial currentTrial = this;
             var i = BlockID;
-            var block = DS.GetData().BlockList[i];
+            var block = DS.GetData().Blocks[i];
             var n = block.RandomlySelect.Count;
             var randomSelection = Random.Range(0, n);
 
@@ -48,7 +48,7 @@ namespace trial
             {
                 //Here we decide what each trial is, I guess we could do this with a function map, but later. 
                 //here we have a picture as a trial.
-                var trialData = DS.GetData().TrialData[j-1];
+                var trialData = DS.GetData().Trials[j-1];
                 
                 //Control flow here is for deciding what Trial gets spat out from the config
 

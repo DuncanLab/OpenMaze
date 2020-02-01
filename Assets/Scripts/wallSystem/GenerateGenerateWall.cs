@@ -38,15 +38,15 @@ namespace wallSystem
             currBlockId = E.Get().CurrTrial.BlockID;
             currTrialId = E.Get().CurrTrial.TrialID;
 
-            if (DS.GetData().BlockList[currBlockId].ShowNumSuccessfulTrials)
+            if (DS.GetData().Blocks[currBlockId].ShowNumSuccessfulTrials)
             {
                 Timer.text = "Number of successes: " + E.Get().CurrTrial.TrialProgress.NumSuccess;
             }
-            else if (DS.GetData().BlockList[currBlockId].ShowCollectedPerTrial)
+            else if (DS.GetData().Blocks[currBlockId].ShowCollectedPerTrial)
             {
                 Timer.text = "Goals found this trial: " + E.Get().CurrTrial.NumCollected;
             }
-            else if (DS.GetData().TrialData[currTrialId].ShowCollectedPerBlock)
+            else if (DS.GetData().Trials[currTrialId].ShowCollectedPerBlock)
             {
                 Timer.text = "Goals found this block: " + E.Get().CurrTrial.TrialProgress.NumCollectedPerBlock[currBlockId];
             }

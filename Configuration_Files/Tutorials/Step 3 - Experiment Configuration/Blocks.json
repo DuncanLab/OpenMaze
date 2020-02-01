@@ -1,7 +1,7 @@
 {
     "OutputTimesPerSecond": 30,
     "TrialLoadingDelay": 1.0,
-    "IgnoreUserInputDelay": 0.0,
+    "IgnoreUserInputDelay": 1.0,
     "TimeingVerification": false,
     "CHARACTER DATA": "CHARACTER DATA----------*********-------------------CHARACTER DATA",
     "CharacterData": {
@@ -14,19 +14,39 @@
 
 "BLOCK DATA" : "BLOCK DATA---------------------*********--------------------BLOCK DATA",   
    
-    "BlockOrder" : [1],
+    "BlockOrder" : [2],
     
-    "BlockList" : [
+    "Blocks" : [
         {
-            "BlockName" : "Simple Experiment",
+            "BlockName" : "Serial Trial Order",
               "Notes" : "Trials will be presented in order from TrialOrder list",
-              "TrialOrder": [1,2,3,4,5,6,7]
-        }  
+              "TrialOrder": []
+        },
+        {
+            
+              "BlockName" : "Random With Replacement - Randomly select a Group ordered trial list",
+              "Notes" : "Each time 0 is called in the TrialOrder list, it will select a Group from TrialGroups list",
+              "TrialOrder": [
+                    0,0,0,0,0,0,0,0,11
+                ],
+              "Replacement" : 1,
+              "RandomlySelect" : [{"Order": [5,6]},{"Order": [7,8]},{"Order": [9,10]}]
+        },
+        {
+            
+              "BlockName" : "Random Without Replacement - Randomly select a Group of ordered trial list then remove the group",
+              "Notes" : "Each time 0 is called in the TrialOrder list, it will select a Group from TrialGroups list and remove the group from the TrialsGroup list",
+              "TrialOrder": [
+                    
+                ],
+              "Replacement" : 0,
+              "RandomlySelect" : [{"Order": [5,6]},{"Order": [7,8]},{"Order": [9,10]}]
+        }    
     ],
 
 "TRIAL DATA" : "TRIAL DATA--------------------*********------------------TRIAL DATA",
     
-    "TrialData": [
+    "Trials": [
         {
             "Trial 1" : "Welcome Page",
             "Instructional": 1,
@@ -56,29 +76,73 @@
             "TrialEndKey": "Space"
         },
         {
-            "Trial 5" : "Collection Cue",
+            "Trial 5" : "Apple Cue",
             "Instructional": 1,
-            "FileLocation": "Tutorial_Instructions/Collect.png",
+            "FileLocation": "Tutorial_Instructions/FindApple.png",
             "TrialTime": 1,
             "TrialEndKey": "Space"
         },
         {
-            "Trial 6" : "3D Trial",
+            "Trial 6" : "Apple Trial",
             "Header": "Collect the Objects!",
             "TrialTime" : 1000,
-            "Scene": 2,
+            "Scene": 5,
             "StartPosition" : [0,0],
             "StartFacing" : 0,
             "Rotate": 0,
-            "ActiveGoals" : [1,2,3],
+            "ActiveGoals" : [1],
             "InvisibleGoals" : [],
             "InactiveGoals" : [],
-            "Quota": 3,
+            "Quota": 1,
             "LandMarks" :[],
             "TrialEndKey": "Space"
         },
         {
-            "Trial 7" : "End",
+            "Trial 7" : "Water Cue",
+            "Instructional": 1,
+            "FileLocation": "Tutorial_Instructions/FindWater.png",
+            "TrialTime": 1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 8" : "Water Trial",
+            "Header": "Collect the Objects!",
+            "TrialTime" : 1000,
+            "Scene": 4,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Rotate": 0,
+            "ActiveGoals" : [2],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 1,
+            "LandMarks" :[],
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 9" : "Money Cue",
+            "Instructional": 1,
+            "FileLocation": "Tutorial_Instructions/FindMoney.png",
+            "TrialTime": 1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 10" : "Money Trial",
+            "Header": "Collect the Objects!",
+            "TrialTime" : 1000,
+            "Scene": 5,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Rotate": 0,
+            "ActiveGoals" : [3],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 1,
+            "LandMarks" :[],
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 11" : "End",
             "Instructional": 1,
             "FileLocation": "Tutorial_Instructions/End.png",
             "TrialTime": 1,
@@ -103,16 +167,16 @@
             "Goal 2" : "2D Image - Water",
             "Type": "2D",
             "Object": "Tutorial_Objects/Water.png",
-            "Sound": "eat",
+            "Sound": "drink",
             "Color": "ffffff",
             "Position": [-5, 1, -5],
             "Scale": [1, 1, 1]
         },
         {
-            "Goal 1" : "2D Image - Apple",
+            "Goal 3" : "2D Image - Money",
             "Type": "2D",
             "Object": "Tutorial_Objects/Money.png",
-            "Sound": "eat",
+            "Sound": "money",
             "Color": "ffffff",
             "Position": [5, 1, -5],
             "Scale": [1, 1, 1]
@@ -123,11 +187,12 @@
 
     "Landmarks": [
 
+
     ], 
 
 "Enclosure DATA" : "Enclosure DATA--------------------*********------------------Enclosure DATA",
 
     "Enclosures": [
- 
+
     ]
 }
