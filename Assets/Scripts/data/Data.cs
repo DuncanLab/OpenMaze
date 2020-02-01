@@ -61,7 +61,7 @@ namespace data
             public string BlockName; // Name (outputed at the end of the Block)
             public string Notes; // Notes about the given block
             public int Replacement; //Integer value representing replacement
-            public List<RandomData> RandomTrialType; //Array that contains all the possible random values
+            public List<RandomData> RandomlySelect; //Array that contains all the possible random values
             public List<int> TrialOrder; //Trial order (-1 means random)
 
             public bool ShowNumSuccessfulTrials; // Whether or not to display the number of successful trials
@@ -71,7 +71,7 @@ namespace data
         [Serializable]
         public class RandomData
         {
-            public List<int> RandomGroup;
+            public List<int> Order;
         }
 
         [Serializable]
