@@ -14,33 +14,33 @@
 
 "BLOCK DATA" : "BLOCK DATA---------------------*********--------------------BLOCK DATA",   
    
-    "BlockOrder" : [2],
+    "BlockOrder" : [2,2,2],
     
     "Blocks" : [
         {
             "BlockName" : "Serial Trial Order",
               "Notes" : "Trials will be presented in order from TrialOrder list",
-              "TrialOrder": []
+              "TrialOrder": [1,2,3,4,5,6,7,8,9,10,11]
         },
         {
             
-              "BlockName" : "Random With Replacement - Randomly select a Group ordered trial list",
-              "Notes" : "Each time 0 is called in the TrialOrder list, it will select a Group from TrialGroups list",
+              "BlockName" : "Random With Replacement",
+              "Notes" : "Each time 0 is called in the TrialOrder list, it will select a Trial Order from Randomly Select list and remove that order option from RandomlySelect",
               "TrialOrder": [
-                    0,0,0,0,0,0,0,0,11
+                    1,2,3,4,0,0,0,11
                 ],
-              "Replacement" : 1,
+              "Replacement" : 0,
               "RandomlySelect" : [{"Order": [5,6]},{"Order": [7,8]},{"Order": [9,10]}]
         },
         {
             
               "BlockName" : "Random Without Replacement - Randomly select a Group of ordered trial list then remove the group",
-              "Notes" : "Each time 0 is called in the TrialOrder list, it will select a Group from TrialGroups list and remove the group from the TrialsGroup list",
+              "Notes" : "Each time 0 is called in the TrialOrder list, it will select a Trial Order from Randomly Select list",
               "TrialOrder": [
-                    
+                    1,2,3,4,0,0,0,0,0,0,11
                 ],
-              "Replacement" : 0,
-              "RandomlySelect" : [{"Order": [5,6]},{"Order": [7,8]},{"Order": [9,10]}]
+              "Replacement" : 1,
+              "RandomlySelect" : [{"Order": [{"Order": [5,6]},{"Order": [7,8]},{"Order": [9,10]}]}]
         }    
     ],
 
@@ -69,14 +69,14 @@
             "TrialEndKey": "Space"
         },
         {
-            "Trial 4" : "Get Ready",
+            "Trial 4" : "Preparation Screen",
             "Instructional": 1,
             "FileLocation": "Tutorial_Instructions/GetReady.png",
             "TrialTime": -1,
             "TrialEndKey": "Space"
         },
         {
-            "Trial 5" : "Apple Cue",
+            "Trial 5" : "Find Apple Cue",
             "Instructional": 1,
             "FileLocation": "Tutorial_Instructions/FindApple.png",
             "TrialTime": 1,
@@ -84,9 +84,9 @@
         },
         {
             "Trial 6" : "Apple Trial",
-            "Header": "Collect the Objects!",
+            "Header": "Find the Apple!",
             "TrialTime" : 1000,
-            "Scene": 5,
+            "Scene": 4,
             "StartPosition" : [0,0],
             "StartFacing" : 0,
             "Rotate": 0,
@@ -98,7 +98,7 @@
             "TrialEndKey": "Space"
         },
         {
-            "Trial 7" : "Water Cue",
+            "Trial 7" : "Find Water Cue",
             "Instructional": 1,
             "FileLocation": "Tutorial_Instructions/FindWater.png",
             "TrialTime": 1,
@@ -106,7 +106,7 @@
         },
         {
             "Trial 8" : "Water Trial",
-            "Header": "Collect the Objects!",
+            "Header": "Find The Water!",
             "TrialTime" : 1000,
             "Scene": 4,
             "StartPosition" : [0,0],
@@ -120,17 +120,17 @@
             "TrialEndKey": "Space"
         },
         {
-            "Trial 9" : "Money Cue",
+            "Trial 9" : "Find Money Cue",
             "Instructional": 1,
             "FileLocation": "Tutorial_Instructions/FindMoney.png",
             "TrialTime": 1,
             "TrialEndKey": "Space"
         },
         {
-            "Trial 10" : "Money Trial",
-            "Header": "Collect the Objects!",
+            "Trial 10" : "Find Money Trial",
+            "Header": "Find The Money!",
             "TrialTime" : 1000,
-            "Scene": 5,
+            "Scene": 4,
             "StartPosition" : [0,0],
             "StartFacing" : 0,
             "Rotate": 0,
