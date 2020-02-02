@@ -16,7 +16,7 @@
    
     "BlockOrder" : [1],
     
-    "BlockList" : [
+    "Blocks" : [
         {
             "BlockName" : "Serial Trial Order",
               "Notes" : "Trials will be presented in order from TrialOrder list",
@@ -46,7 +46,7 @@
 
 "TRIAL DATA" : "TRIAL DATA--------------------*********------------------TRIAL DATA",
     
-    "TrialData": [
+    "Trials": [
         {
             "Trial 1" : "Instructional Trial - Presents Welcome.png for TrialTime unless TrialEndKey Is pressed (-1) trial time requires TrialEndKey to be pressed to end trial",
             "Instructional": 1,
@@ -61,7 +61,7 @@
             "Scene": 2,
             "Enclosure": 1,
             "StartPosition" : [7,7],
-            "StartFacing" : -1,
+            "StartFacing" : 50,
             "Rotate": 0,
             "ActiveGoals" : [1,2],
             "InvisibleGoals" : [],
