@@ -14,7 +14,7 @@
 
 "BLOCK DATA" : "BLOCK DATA---------------------*********--------------------BLOCK DATA",   
    
-    "BlockOrder" : [1,2,3],
+    "BlockOrder" : [1],
     
     "Blocks" : [
         {
@@ -23,12 +23,12 @@
               "TrialOrder": [1,2,5,3,6,11]
         },
         {
-            "Block 1" : "Find objects invisible",
+            "Block 2" : "Find objects invisible",
               "Notes" : "Trials will be presented in order from TrialOrder list",
-              "TrialOrder": [1,2,7,3,8,11]
+              "TrialOrder": [2,7,3,8,11]
         },
         {
-            "Block 1" : "Find Both Visible",
+            "Block 3" : "Find Both Visible",
               "Notes" : "Trials will be presented in order from TrialOrder list",
               "TrialOrder": [1,4,9,4,10,11]
         }
@@ -70,8 +70,8 @@
             "Header": "Find The Apple!",
             "TrialTime" : 60,
             "Scene": 4,
-            "StartPosition" : [4,-3],
-            "StartFacing" : 30,
+            "StartPosition" : [0,-8],
+            "StartFacing" : 0,
             "Rotate": 0,
             "ActiveGoals" : [],
             "InactiveGoals" : [],
@@ -179,7 +179,7 @@
             "Scale": [1, 1, 1]
         },
         {
-            "Goal 1" : "Water",
+            "Goal 2" : "Water",
             "Type": "2D",
             "Object": "Tutorial_Objects/Water.png",
             "Sound": "drink",
@@ -202,7 +202,7 @@
             "Scale": [5, 5, 5]
         },
         {
-            "Landmark 1" : "Blue Cube",
+            "Landmark 2" : "Blue Cube",
             "Type": "Cube",
             "Color": "0000ff",
             "Position": [-10, 2.5, 10],
@@ -215,27 +215,6 @@
 "Enclosure DATA" : "Enclosure DATA--------------------*********------------------Enclosure DATA",
 
     "Enclosures": [
-        {
-            "Enclosure Name": "Use this field as lable",
-            "Sides": 40,
-            "Radius": 15,
-            "WallHeight" : 3,
-            "WallColor": "ffffff",
-            "GroundTileSides": 4,
-            "GroundTileSize": 1.0,
-            "GroundColor": "1B5E20",
-            "Position": [0, 0]
-        },
-        {
-            "Enclosure Name": "Use this field as lable",
-            "Sides": 4,
-            "Radius": 30,
-            "WallHeight" : 15,
-            "WallColor": "000000",
-            "GroundTileSides": 4,
-            "GroundTileSize": 1.0,
-            "GroundColor": "1B5E20",
-            "Position": [0, 0]
-        }  
+ 
     ]
 }

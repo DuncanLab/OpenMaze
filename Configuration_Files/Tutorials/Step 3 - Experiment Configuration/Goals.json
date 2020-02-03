@@ -16,59 +16,45 @@
    
     "BlockOrder" : [1],
     
-    "BlockList" : [
+    "Blocks" : [
         {
-            "BlockName" : "Serial Trial Order",
+            "Block 1" : "Find objects Visible",
               "Notes" : "Trials will be presented in order from TrialOrder list",
-              "TrialOrder": [1,2,1,2]
-        },
-        {
-            
-              "BlockName" : "Random With Replacement - Randomly select single trials",
-              "Notes" : "Each time trial 0 is called in trial order it will select a RandomGroup from RandomTrialType list",
-              "TrialOrder": [
-                    0,0
-                ],
-              "Replacement" : 1,
-              "RandomTrialType" : [{"RandomGroup": [1]},{"RandomGroup": [2]}]
-        },
-        {
-            
-              "BlockName" : "Random Without Replacement - Randomly select ordered trial list Trials in Random Groups",
-              "Notes" : "When a Random group is chosen it will present all trials in order from the group before moving on to the next random selection",
-              "TrialOrder": [
-                    0,0
-                ],
-              "Replacement" : 0,
-              "RandomTrialType" : [{"RandomGroup": [1, 2]},{"RandomGroup": [2, 1]}]
-        }    
+              "TrialOrder": [1,2,3]
+        }
     ],
 
 "TRIAL DATA" : "TRIAL DATA--------------------*********------------------TRIAL DATA",
     
-    "TrialData": [
+    "Trials": [
         {
-            "Trial 1" : "Instructional Trial - Presents Welcome.png for TrialTime unless TrialEndKey Is pressed (-1) trial time requires TrialEndKey to be pressed to end trial",
+            "Trial 1" : "Welcome",
             "Instructional": 1,
             "FileLocation": "Tutorial_Instructions/Welcome.png",
             "TrialTime": -1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 2" : "Collect the Goals",
+            "Header": "Collect The Goals!",
+            "TrialTime" : 60,
+            "Scene": 4,
+            "StartPosition" : [0,-8],
+            "StartFacing" : 0,
+            "Rotate": 0,
+            "ActiveGoals" : [2],
+            "InactiveGoals" : [],
+            "InvisibleGoals" : [],
+            "Quota": 1,
+            "LandMarks" :[],
             "TrialEndKey": "x"
         },
         {
-            "Trial 2" : "3D Trial",
-            "Header": "Collect the Objects!",
-            "TrialTime" : 60,
-            "Scene": 2,
-            "Enclosure": 1,
-            "StartPosition" : [7,7],
-            "StartFacing" : -1,
-            "Rotate": 0,
-            "ActiveGoals" : [1,2],
-            "InvisibleGoals" : [],
-            "InactiveGoals" : [],
-            "Quota": 2,
-            "LandMarks" :[1],
-            "TrialEndKey": "x"
+            "Trial 3" : "End",
+            "Instructional": 1,
+            "FileLocation": "Tutorial_Instructions/End.png",
+            "TrialTime": -1,
+            "TrialEndKey": "Space"
         }
     ],
 
@@ -76,65 +62,40 @@
 "GOAL DATA" : "GOAL DATA--------------------*********------------------GOAL DATA",
 
     "Goals": [
+
         {
-            "Goal 1" : "3D Object - Red Sphere",
+            "Goal 1" : "3D Object Goal",
             "Type": "3D",
-            "Object": "Sphere",
-            "Sound": "eat",
-            "Color": "ff0000",
-            "Position": [5, 1, 5],
+            "Object": "Cube",
+            "Sound": "drink",
+            "Color": "2B8231",
+            "Position": [-5, 1, 5],
             "Rotation": [0,0,0],
-            "Scale": [1, 1, 1]
+            "Scale": [3, 3, 3]
         },
         {
-            "Goal 1" : "2D Image - Apple",
+            "Goal 2" : "2D Image Goal",
             "Type": "2D",
             "Object": "Tutorial_Objects/Apple.png",
             "Sound": "eat",
             "Color": "ffffff",
-            "Position": [-5, 1, -5],
+            "Position": [5, 1, 5],
+            "Rotation": [0,0,0],
             "Scale": [1, 1, 1]
         }
+
     ],
 
 "LANDMARK DATA" : "LANDMARK DATA----------*********------------------LANDMARK DATA",
 
     "Landmarks": [
-        {
-            "Landmark 1" : "Red Sphere",
-            "Type": "Sphere",
-            "Color": "ff0000",
-            "Position": [100, 20, 100],
-            "Rotation": [0,0,0],
-            "Scale": [20, 20, 20]
-        }
+
 
     ], 
 
 "Enclosure DATA" : "Enclosure DATA--------------------*********------------------Enclosure DATA",
 
     "Enclosures": [
-        {
-            "Enclosure Name": "Use this field as lable",
-            "Sides": 40,
-            "Radius": 15,
-            "WallHeight" : 7,
-            "WallColor": "ffffff",
-            "GroundTileSides": 4,
-            "GroundTileSize": 1.0,
-            "GroundColor": "1B5E20",
-            "Position": [0, 0]
-        },
-        {
-            "Enclosure Name": "Use this field as lable",
-            "Sides": 4,
-            "Radius": 30,
-            "WallHeight" : 15,
-            "WallColor": "000000",
-            "GroundTileSides": 4,
-            "GroundTileSize": 1.0,
-            "GroundColor": "1B5E20",
-            "Position": [0, 0]
-        }  
+ 
     ]
 }
