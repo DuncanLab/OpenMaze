@@ -72,6 +72,7 @@ namespace wallSystem
             if (E.Get().CurrTrial.enclosure.WallColor == "ffffff00")
             {
                 Wall.GetComponent<Renderer>().enabled = false;
+                GameObject.Find("Ground").GetComponent<Renderer>().enabled = false;
             }
             Wall.GetComponent<Renderer>().sharedMaterial.color = col;
         }

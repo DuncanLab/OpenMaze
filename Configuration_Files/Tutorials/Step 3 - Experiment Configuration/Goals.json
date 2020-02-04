@@ -1,0 +1,101 @@
+{
+    "OutputTimesPerSecond": 30,
+    "TrialLoadingDelay": 1.0,
+    "IgnoreUserInputDelay": 1.0,
+    "TimeingVerification": false,
+    "CHARACTER DATA": "CHARACTER DATA----------*********-------------------CHARACTER DATA",
+    "CharacterData": {
+        "Height": 2,
+        "MovementSpeed": 5.0,
+        "RotationSpeed": 75.0,
+        "DistancePickup": 2,
+        "GoalRotationSpeed": 0
+    },
+
+"BLOCK DATA" : "BLOCK DATA---------------------*********--------------------BLOCK DATA",   
+   
+    "BlockOrder" : [1],
+    
+    "Blocks" : [
+        {
+            "Block 1" : "Find objects Visible",
+              "Notes" : "Trials will be presented in order from TrialOrder list",
+              "TrialOrder": [1,2,3]
+        }
+    ],
+
+"TRIAL DATA" : "TRIAL DATA--------------------*********------------------TRIAL DATA",
+    
+    "Trials": [
+        {
+            "Trial 1" : "Welcome",
+            "Instructional": 1,
+            "FileLocation": "Tutorial_Instructions/Welcome.png",
+            "TrialTime": -1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 2" : "Collect the Goals",
+            "Header": "Collect The Goals!",
+            "TrialTime" : 60,
+            "Scene": 4,
+            "StartPosition" : [0,-8],
+            "StartFacing" : 0,
+            "Rotate": 0,
+            "ActiveGoals" : [2],
+            "InactiveGoals" : [],
+            "InvisibleGoals" : [],
+            "Quota": 1,
+            "LandMarks" :[],
+            "TrialEndKey": "x"
+        },
+        {
+            "Trial 3" : "End",
+            "Instructional": 1,
+            "FileLocation": "Tutorial_Instructions/End.png",
+            "TrialTime": -1,
+            "TrialEndKey": "Space"
+        }
+    ],
+
+
+"GOAL DATA" : "GOAL DATA--------------------*********------------------GOAL DATA",
+
+    "Goals": [
+
+        {
+            "Goal 1" : "3D Object Goal",
+            "Type": "3D",
+            "Object": "Cube",
+            "Sound": "drink",
+            "Color": "2B8231",
+            "Position": [-5, 1, 5],
+            "Rotation": [0,0,0],
+            "Scale": [3, 3, 3]
+        },
+        {
+            "Goal 2" : "2D Image Goal",
+            "Type": "2D",
+            "Object": "Tutorial_Objects/Apple.png",
+            "Sound": "eat",
+            "Color": "ffffff",
+            "Position": [5, 1, 5],
+            "Rotation": [0,0,0],
+            "Scale": [1, 1, 1]
+        }
+
+    ],
+
+"LANDMARK DATA" : "LANDMARK DATA----------*********------------------LANDMARK DATA",
+
+    "Landmarks": [
+
+
+    ], 
+
+"Enclosure DATA" : "Enclosure DATA--------------------*********------------------Enclosure DATA",
+
+    "Enclosures": [
+ 
+    ]
+}

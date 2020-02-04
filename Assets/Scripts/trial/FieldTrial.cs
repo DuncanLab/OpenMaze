@@ -41,7 +41,7 @@ namespace trial
             foreach (var i in DS.GetData().BlockOrder)
             {
                 var l = i - 1;
-                var block = DS.GetData().BlockList[l];
+                var block = DS.GetData().Blocks[l];
                 var newBlock = true;
                 AbstractTrial currHead = null;
 
@@ -59,7 +59,7 @@ namespace trial
                     }
                     else
                     {
-                        var trialData = DS.GetData().TrialData[k];
+                        var trialData = DS.GetData().Trials[k];
 
                         // Control flow here is for deciding what Trial gets spat out from the config
                         if (trialData.FileLocation != null)

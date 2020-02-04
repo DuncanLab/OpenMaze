@@ -31,7 +31,7 @@ public class GenerateEnclosureFromFile : MonoBehaviour
                 else if (col == 's')
                 {
                     Debug.Log(x + " " + y);
-                    GameObject.Find("FirstPerson").GetComponent<PlayerController>().ExternalStart(x, y, true);
+                    GameObject.Find("Participant").GetComponent<PlayerController>().ExternalStart(x, y, true);
                 }
                 else if (col != '0')
                 {

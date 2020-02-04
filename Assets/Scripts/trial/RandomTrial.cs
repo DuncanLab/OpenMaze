@@ -20,15 +20,15 @@ namespace trial
             Debug.Log("GenerateTrial");
             AbstractTrial currentTrial = this;
             var i = BlockID;
-            var block = DS.GetData().BlockList[i];
-            var n = block.RandomTrialType.Count;
+            var block = DS.GetData().Blocks[i];
+            var n = block.RandomlySelect.Count;
             var randomSelection = Random.Range(0, n);
 
-            var d = block.RandomTrialType[randomSelection];
+            var d = block.RandomlySelect[randomSelection];
 
             if (block.Replacement == 0)
             {
-                block.RandomTrialType.Remove(d);
+                block.RandomlySelect.Remove(d);
             }
             Debug.Log("RANDOM TRIAL CREATION");
             
@@ -44,11 +44,11 @@ namespace trial
             var trueNext = next;
             
             var tCnt = 0;
-            foreach (var j in d.RandomGroup)
+            foreach (var j in d.Order)
             {
                 //Here we decide what each trial is, I guess we could do this with a function map, but later. 
                 //here we have a picture as a trial.
-                var trialData = DS.GetData().TrialData[j-1];
+                var trialData = DS.GetData().Trials[j-1];
                 
                 //Control flow here is for deciding what Trial gets spat out from the config
 
@@ -73,7 +73,7 @@ namespace trial
 
                 
                 
-                t.isTail = tCnt == d.RandomGroup.Count - 1 && isTail;
+                t.isTail = tCnt == d.Order.Count - 1 && isTail;
                 t.head = head;
                 
                 currentTrial.next = t;
