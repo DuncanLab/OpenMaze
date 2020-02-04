@@ -69,7 +69,7 @@ namespace main
             {
                 using (var writer = new StreamWriter("Assets/OutputFiles~/" + DS.GetData().OutputFile, true))
                 {
-                    var trialIdStr = s.TrialID.ToString();
+                    var trialIdStr = (s.TrialID + 1).ToString();
 
                     // If we're in a loading delay period we want to output that
                     // instead of TrialID;
@@ -84,8 +84,8 @@ namespace main
                     var str = string.Format(
                         "{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, " +
                         "{12}, {13}, {14}, {15}, {16}, {17}, {18}, {19}, {20}, {21}, {22}, {23}, {24}, {25}",
-                        DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss.fff tt"), data.DataSingleton.GetData().TrialInitialValue, s.TrialNumber, t.position.x, t.position.z, t.eulerAngles.y, s.EnvironmentType, s.CurrentEnclosureIndex,
-                        targetFound, s.PickupType, s.TargetX, s.TargetY, s.LastX, s.LastY, s.BlockID, trialIdStr,
+                        DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss.fff tt"), data.DataSingleton.GetData().TrialInitialValue, s.TrialNumber + 1, t.position.x, t.position.z, t.eulerAngles.y, s.EnvironmentType, s.CurrentEnclosureIndex,
+                        targetFound, s.PickupType, s.TargetX, s.TargetY, s.LastX, s.LastY, s.BlockID + 1, trialIdStr,
                         s.Subject, s.Condition, s.TwoDim, s.Instructional, s.Visible, Input.GetKey(KeyCode.UpArrow) ? 1 : 0,
                         Input.GetKey(KeyCode.DownArrow) ? 1 : 0, Input.GetKey(KeyCode.LeftArrow) ? 1 : 0,
                         Input.GetKey(KeyCode.RightArrow) ? 1 : 0,
