@@ -153,7 +153,7 @@ namespace wallSystem
                 _destroy.Add(obj);
             }
 
-            GameObject.Find("FirstPerson").GetComponent<PlayerController>().ExternalStart(p.X, p.Z);
+            GameObject.Find("Participant").GetComponent<PlayerController>().ExternalStart(p.X, p.Z);
         }
 
         //And here we destroy all the food.

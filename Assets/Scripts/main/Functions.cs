@@ -20,7 +20,7 @@ namespace main
             var curr = TrialProgress.GetCurrTrial();
 
             var blockId = curr.BlockID;
-            var bd = DS.GetData().BlockList[blockId];
+            var bd = DS.GetData().Blocks[blockId];
 
             var numSuccessfulInPrevious = bd.EndGoal.Split(' ');
             var numSuccessfulRequired = float.Parse(numSuccessfulInPrevious[0]);

@@ -1,0 +1,89 @@
+{
+    "OutputTimesPerSecond": 30,
+    "TrialLoadingDelay": 1.0,
+    "IgnoreUserInputDelay": 1.0,
+    "TimeingVerification": false,
+    "CHARACTER DATA": "CHARACTER DATA----------*********-------------------CHARACTER DATA",
+    "CharacterData": {
+        "Height": 2,
+        "MovementSpeed": 5.0,
+        "RotationSpeed": 75.0,
+        "DistancePickup": 2,
+        "GoalRotationSpeed": 0
+    },
+
+"BLOCK DATA" : "BLOCK DATA---------------------*********--------------------BLOCK DATA",   
+   
+    "BlockOrder" : [1],
+    
+    "Blocks" : [
+        {
+            "Block 1" : "Find objects Visible",
+              "Notes" : "Trials will be presented in order from TrialOrder list",
+              "TrialOrder": [1,2,3]
+        }
+    ],
+
+"TRIAL DATA" : "TRIAL DATA--------------------*********------------------TRIAL DATA",
+    
+    "Trials": [
+        {
+            "Trial 1" : "Welcome",
+            "Instructional": 1,
+            "FileLocation": "Tutorial_Instructions/Welcome.png",
+            "TrialTime": -1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 2" : "3D environment 2",
+            "Header": "Hello World!",
+            "TrialTime" : 10,
+            "Scene": 5,
+            "StartPosition" : [0.3,68],
+            "StartFacing" : -27,
+            "Rotate": 6,
+            "ActiveGoals" : [],
+            "InactiveGoals" : [],
+            "InvisibleGoals" : [],
+            "Quota": 0,
+            "LandMarks" :[],
+            "TrialEndKey": "x"
+        },
+        {
+            "Trial 3" : "3D Environment 1",
+            "Header": "Hello World!",
+            "TrialTime" : 10,
+            "Scene": 4,
+            "StartPosition" : [0.3,68],
+            "StartFacing" : -27,
+            "Rotate": 6,
+            "ActiveGoals" : [],
+            "InactiveGoals" : [],
+            "InvisibleGoals" : [],
+            "Quota": 0,
+            "LandMarks" :[],
+            "TrialEndKey": "x"
+        }
+    ],
+
+
+"GOAL DATA" : "GOAL DATA--------------------*********------------------GOAL DATA",
+
+    "Goals": [
+
+
+    ],
+
+"LANDMARK DATA" : "LANDMARK DATA----------*********------------------LANDMARK DATA",
+
+    "Landmarks": [
+
+
+    ], 
+
+"Enclosure DATA" : "Enclosure DATA--------------------*********------------------Enclosure DATA",
+
+    "Enclosures": [
+
+    ]
+}

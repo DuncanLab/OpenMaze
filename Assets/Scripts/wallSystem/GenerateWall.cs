@@ -72,6 +72,7 @@ namespace wallSystem
             if (E.Get().CurrTrial.enclosure.WallColor == "ffffff00")
             {
                 Wall.GetComponent<Renderer>().enabled = false;
+                GameObject.Find("Ground").GetComponent<Renderer>().enabled = false;
             }
             Wall.GetComponent<Renderer>().sharedMaterial.color = col;
         }
@@ -82,9 +83,25 @@ namespace wallSystem
             foreach (var p in E.Get().CurrTrial.trialData.LandMarks)
             {
                 var d = DS.GetData().Landmarks[p - 1];
-
-                var landmark = (GameObject)Instantiate(Resources.Load("3D_Objects/" + d.Type));
-
+                GameObject prefab;
+                GameObject landmark;
+                if (d.Type.ToLower().Equals("3d"))
+                {
+                    prefab = (GameObject)Resources.Load("3D_Objects/" + d.Object, typeof(GameObject));
+                    landmark = Instantiate(prefab);
+                    landmark.AddComponent<RotateBlock>();
+                    landmark.GetComponent<Renderer>().material.color = Data.GetColour(d.Color);
+                }
+                else
+                {
+                    // Load the "2D" prefab here, so we have the required components
+                    prefab = (GameObject)Resources.Load("3D_Objects/2D", typeof(GameObject));
+                    landmark = Instantiate(prefab);
+                    var spriteName = d.Object;
+                    var pic = Img2Sprite.LoadNewSprite(DataSingleton.GetData().SpritesPath + spriteName);
+                    landmark.GetComponent<SpriteRenderer>().sprite = pic;
+                }
+                
                 landmark.transform.localScale = d.ScaleVector;
                 try
                 {
