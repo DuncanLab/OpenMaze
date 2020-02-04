@@ -173,6 +173,7 @@ namespace data
         public class LandMark
         {
             public string Type;
+            public string Object;
             public string Color; // Color as a hex value
             public string ImageLoc; // The location (for 2Dimagedisplayer)
 
