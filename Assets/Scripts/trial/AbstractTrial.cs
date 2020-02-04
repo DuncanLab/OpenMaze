@@ -50,9 +50,9 @@ namespace trial
             isSuccessful = false;
 
             if (blockId == -1 || trialId == -1) return;
-            if (DataSingleton.GetData().BlockList.Count == 0) throw new Exception("No trial in block");
+            if (DataSingleton.GetData().Blocks.Count == 0) throw new Exception("No trial in block");
 
-            trialData = DataSingleton.GetData().TrialData[trialId];
+            trialData = DataSingleton.GetData().Trials[trialId];
 
             if (trialData.Enclosure > 0)
             {
@@ -85,7 +85,7 @@ namespace trial
                 Debug.Log(string.Format("Entered Block: {0} at time: {1}", BlockID, DateTime.Now));
                 t.ResetOngoing();
                 t.successes = new List<int>();
-                int NumBlocks = DS.GetData().BlockList.Count;
+                int NumBlocks = DS.GetData().Blocks.Count;
                 t.NumCollectedPerBlock = new int[NumBlocks];
             }
 
@@ -136,7 +136,7 @@ namespace trial
             //Exiting current trial
             TrialProgress.PreviousTrial = this;
 
-            var blockData = DS.GetData().BlockList[BlockID];
+            var blockData = DS.GetData().Blocks[BlockID];
             //Data on how to choose the next trial will be selected here.
             if (isTail)
             {

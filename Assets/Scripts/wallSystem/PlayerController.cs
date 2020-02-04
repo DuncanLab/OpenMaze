@@ -67,7 +67,7 @@ namespace wallSystem
                 _iniRotation = E.Get().CurrTrial.trialData.StartFacing;
             }
 
-            transform.Rotate(0, _iniRotation, 0, Space.World);
+            transform.Rotate(0, _iniRotation, 0);
 
             try
             {
