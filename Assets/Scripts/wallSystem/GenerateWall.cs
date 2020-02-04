@@ -94,7 +94,7 @@ namespace wallSystem
                 else
                 {
                     // Load the "2D" prefab here, so we have the required components
-                    prefab = (GameObject)Resources.Load("2D_Objects/" +d.Object, typeof(GameObject));
+                    prefab = (GameObject)Resources.Load("3D_Objects/2D", typeof(GameObject));
                     landmark = Instantiate(prefab);
                     var spriteName = d.Object;
                     var pic = Img2Sprite.LoadNewSprite(DataSingleton.GetData().SpritesPath + spriteName);
