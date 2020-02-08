@@ -133,10 +133,12 @@ namespace trial
         {
 
             Debug.Log("Progressing...");
+
             //Exiting current trial
             TrialProgress.PreviousTrial = this;
 
             var blockData = DS.GetData().Blocks[BlockID];
+
             //Data on how to choose the next trial will be selected here.
             if (isTail)
             {
@@ -155,15 +157,9 @@ namespace trial
                         return;
                     }
                 }
-
             }
             Loader.Get().CurrTrial = next;
             next.PreEntry(TrialProgress);
-        }
-
-        public float GetRunningTime()
-        {
-            return _runningTime;
         }
 
         protected void LoadNextSceneWithTimer(int environmentType)
@@ -173,24 +169,16 @@ namespace trial
 
         private IEnumerator LoadNextAsyncScene(int environmentType)
         {
-            AsyncOperation op = SceneManager.LoadSceneAsync(environmentType);
+            AsyncOperation ao = SceneManager.LoadSceneAsync(environmentType);
             TrialProgress.isLoaded = false;
+            ao.allowSceneActivation = true;
 
-            // Wait until the specified timeout to load the scene
-            var timer = 0.0f;
-
-            while (timer < DataSingleton.GetData().TrialLoadingDelay)
+            while (ao.isDone && !Input.GetKeyDown(this.trialData.TrialEndKey))
             {
-                timer += Time.deltaTime;
-                op.allowSceneActivation = false;
-                _runningTime = 0;
                 yield return null;
             }
 
-            op.allowSceneActivation = true;
             TrialProgress.isLoaded = true;
-            _runningTime = 0;
-            yield return null;
         }
     }
 }
