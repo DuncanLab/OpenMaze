@@ -173,8 +173,12 @@ namespace trial
             TrialProgress.isLoaded = false;
             ao.allowSceneActivation = true;
 
-            while (ao.isDone && !Input.GetKeyDown(this.trialData.TrialEndKey))
+            // Wait until the specified timeout to load the scene
+            var timer = 0.0f;
+
+            while (ao.isDone && (timer > this.trialData.TrialTime || !Input.GetKeyDown(this.trialData.TrialEndKey)))
             {
+                timer += Time.deltaTime;
                 yield return null;
             }
 
