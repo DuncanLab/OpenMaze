@@ -1,7 +1,5 @@
 ﻿using System;
-using data;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace trial
 {
@@ -19,8 +17,7 @@ namespace trial
             t.TrialID = TrialID;
             t.BlockID = BlockID;
             t.Instructional = trialData.Instructional;
-            SceneManager.LoadScene(Constants.LoadingScreen);
-            t.isLoaded = true;
+            LoadNextSceneWithTimer(trialData.Scene);
         }
 
         public override void Update(float deltaTime)
