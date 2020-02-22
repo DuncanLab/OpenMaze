@@ -130,7 +130,6 @@ namespace trial
         public virtual void Progress()
         {
             Debug.Log("Progressing...");
-            progressionComplete = true;
 
             // Exiting current trial
             TrialProgress.PreviousTrial = this;
@@ -158,6 +157,7 @@ namespace trial
 
             Loader.Get().CurrTrial = next;
             next.PreEntry(TrialProgress);
+            progressionComplete = true;
         }
 
         protected void LoadNextSceneWithTimer(int environmentType)
@@ -173,7 +173,7 @@ namespace trial
             // Wait until the specified timeout to load the scene
             var timer = 0.0f;
 
-            while (!ao.isDone && (!progressionComplete || timer < this.trialData.TrialTime || !Input.GetKeyDown(this.trialData.TrialEndKey.ToLower())))
+            while (!ao.isDone && (!progressionComplete))
             {
                 timer += Time.deltaTime;
                 yield return null;
