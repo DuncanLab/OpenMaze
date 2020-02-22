@@ -71,13 +71,6 @@ namespace main
                 {
                     var trialIdStr = (s.TrialID + 1).ToString();
 
-                    // If we're in a loading delay period we want to output that
-                    // instead of TrialID;
-                    if (s.isLoaded == false)
-                    {
-                        trialIdStr = "Loading Delay";
-                    }
-
                     var timeSinceExperimentStart = DateTimeOffset.Now.ToUnixTimeMilliseconds() - DataSingleton.GetData().ExperimentStartTime;
                     var timeSinceTrialStart = DateTimeOffset.Now.ToUnixTimeMilliseconds() - trialStartTime;
 

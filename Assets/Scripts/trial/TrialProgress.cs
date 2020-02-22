@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+
 using main;
+using UnityEngine;
 
 namespace trial
 {
-    //The is a data container that pumps data forward through the trials.
+    // The is a data container that pumps data forward through the trials.
     public class TrialProgress
     {
         public AbstractTrial PreviousTrial;
@@ -31,18 +33,17 @@ namespace trial
         public float LastY;
         public string SessionID;
 
-        public bool isLoaded = false;
+        public bool isLoaded = true;
 
+        public Transform playerTransform;
 
         public TrialProgress()
         {
             TrialNumber = -1;
             Num3D = 0;
-            TrialNumber = 0;
         }
 
         public string Note { get; set; }
-
 
         public static AbstractTrial GetCurrTrial()
         {

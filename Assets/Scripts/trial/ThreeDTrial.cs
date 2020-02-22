@@ -16,19 +16,11 @@ namespace trial
             // Sets the field of the preentry
             base.PreEntry(t, first);
             t.TimingVerification = data.DataSingleton.GetData().TimingVerification; // timing diagnostics
-            t.EnvironmentType = trialData.Scene;
-            t.CurrentEnclosureIndex = trialData.Enclosure - 1;
-            t.BlockID = BlockID;
-            t.TrialID = TrialID;
-            t.TwoDim = trialData.TwoDimensional;
-            t.Instructional = 0;
-            t.LastX = t.TargetX;
-            t.LastY = t.TargetY;
-            t.TargetX = 0;
-            t.TargetY = 0;
+
             _runningTime -= trialData.Rotate;
 
             LoadNextSceneWithTimer(trialData.Scene);
+
         }
 
         public override void Progress()
@@ -64,7 +56,12 @@ namespace trial
             var trialEndKeyCode = trialData.TrialEndKey;
             var ignoreUserInputDelay = DataSingleton.GetData().IgnoreUserInputDelay;
 
-            if (!String.IsNullOrEmpty(trialEndKeyCode) && Input.GetKey(trialEndKeyCode.ToLower()) && (_runningTime > ignoreUserInputDelay))
+            if (!String.IsNullOrEmpty(trialEndKeyCode))
+            {
+                trialEndKeyCode = trialData.TrialEndKey.ToLower();
+            }
+
+            if (Input.GetKey(trialEndKeyCode) && (_runningTime > ignoreUserInputDelay))
             {
                 Debug.Log(_runningTime);
                 Progress();

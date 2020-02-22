@@ -1,6 +1,6 @@
 {
     "OutputTimesPerSecond": 30,
-    "TrialLoadingDelay": 1.0,
+    "TrialLoadingDelay": 10.0,
     "IgnoreUserInputDelay": 1.0,
     "TimingVerification": false,
     "CHARACTER DATA": "CHARACTER DATA----------*********-------------------CHARACTER DATA",
@@ -34,8 +34,8 @@
             "Trial 1" : "Locate cue",
             "Instructional": 1,
             "FileLocation": "Tutorial_Instructions/Locate.png",
-            "TrialTime": 2,
-            "TrialEndKey": "Space"
+            "TrialTime": -1,
+            "TrialEndKey": "X"
         },
         {
             "Trial 2" : "Enclosure 1 - Visible",

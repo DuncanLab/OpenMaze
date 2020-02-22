@@ -15,16 +15,6 @@ namespace trial
         {
 
             base.PreEntry(t, first);
-            t.EnvironmentType = trialData.Scene;
-            t.CurrentEnclosureIndex = trialData.Enclosure - 1;
-            t.BlockID = BlockID;
-            t.TrialID = TrialID;
-            t.TwoDim = trialData.TwoDimensional;
-            t.Instructional = 0;
-            t.LastX = t.TargetX;
-            t.LastY = t.TargetY;
-            t.TargetX = 0;
-            t.TargetY = 0;
 
             LoadNextSceneWithTimer(trialData.Scene);
         }

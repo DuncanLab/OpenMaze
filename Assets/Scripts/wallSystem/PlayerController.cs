@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using trial;
 using UnityEngine;
 using UnityEngine.UI;
 using DS = data.DataSingleton;
 using E = main.Loader;
 using Random = UnityEngine.Random;
-//This class is the primary player script.
-//This allows us to move around essentially.
+
+// This class is the primary player script, it allows the participant to move around.
 namespace wallSystem
 {
     public class PlayerController : MonoBehaviour
@@ -15,13 +16,13 @@ namespace wallSystem
         public Camera Cam;
         private GenerateGenerateWall _gen;
 
-        //The stream writer that writes data out to an output file.
+        // The stream writer that writes data out to an output file.
         private readonly string _outDir;
 
-        //This is the character controller system used for collision
+        // This is the character controller system used for collision
         private CharacterController _controller;
 
-        //The initial move direction is static zero.
+        // The initial move direction is static zero.
         private Vector3 _moveDirection = Vector3.zero;
 
         private float _currDelay;
@@ -31,6 +32,8 @@ namespace wallSystem
         private float _waitTime;
 
         private bool _playingSound;
+
+        private bool _isStarted = false;
 
         private bool _reset;
         private int localQuota;
@@ -42,11 +45,9 @@ namespace wallSystem
                 var goalText = GameObject.Find("Goal").GetComponent<Text>();
                 goalText.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 40);
 
-                //And this section sets the text.
+                // This section sets the text
                 goalText.text = E.Get().CurrTrial.trialData.Header;
                 goalText.color = Color.white;
-
-
             }
             catch (NullReferenceException e)
             {
@@ -83,11 +84,30 @@ namespace wallSystem
             _reset = false;
             localQuota = E.Get().CurrTrial.trialData.Quota;
 
+            // This has to happen here for output to be aligned properly
+            TrialProgress.GetCurrTrial().TrialProgress.TrialNumber++;
+            TrialProgress.GetCurrTrial().TrialProgress.Instructional = TrialProgress.GetCurrTrial().trialData.Instructional;
+            TrialProgress.GetCurrTrial().TrialProgress.EnvironmentType = TrialProgress.GetCurrTrial().trialData.Scene;
+            TrialProgress.GetCurrTrial().TrialProgress.CurrentEnclosureIndex = TrialProgress.GetCurrTrial().trialData.Enclosure - 1;
+            TrialProgress.GetCurrTrial().TrialProgress.BlockID = TrialProgress.GetCurrTrial().BlockID;
+            TrialProgress.GetCurrTrial().TrialProgress.TrialID = TrialProgress.GetCurrTrial().TrialID;
+            TrialProgress.GetCurrTrial().TrialProgress.TwoDim = TrialProgress.GetCurrTrial().trialData.TwoDimensional;
+            TrialProgress.GetCurrTrial().TrialProgress.LastX = TrialProgress.GetCurrTrial().TrialProgress.TargetX;
+            TrialProgress.GetCurrTrial().TrialProgress.LastY = TrialProgress.GetCurrTrial().TrialProgress.TargetY;
+            TrialProgress.GetCurrTrial().TrialProgress.TargetX = 0;
+            TrialProgress.GetCurrTrial().TrialProgress.TargetY = 0;
+
+            _isStarted = true;
         }
 
-        //Start the character. If init from enclosure, this allows "s" to determine the start position
+        // Start the character. If init from enclosure, this allows "s" to determine the start position
         public void ExternalStart(float pickX, float pickY, bool useEnclosure = false)
         {
+            while (!_isStarted)
+            {
+                Thread.Sleep(20);
+            }
+
             TrialProgress.GetCurrTrial().TrialProgress.TargetX = pickX;
             TrialProgress.GetCurrTrial().TrialProgress.TargetY = pickY;
 
@@ -155,39 +175,41 @@ namespace wallSystem
             E.Get().CurrTrial.Notify();
 
             _playingSound = true;
-            E.LogData(
-                TrialProgress.GetCurrTrial().TrialProgress,
-                TrialProgress.GetCurrTrial().TrialStartTime,
-                transform,
-                1
-            );
         }
 
         private void ComputeMovement()
         {
-            //This calculates the current amount of rotation frame rate independent
+            // This calculates the current amount of rotation frame rate independent
             var rotation = Input.GetAxis("Horizontal") * DS.GetData().CharacterData.RotationSpeed * Time.deltaTime;
 
-
-            //This calculates the forward speed frame rate independent
+            // This calculates the forward speed frame rate independent
             _moveDirection = new Vector3(0, 0, Input.GetAxis("Vertical"));
             _moveDirection = transform.TransformDirection(_moveDirection);
             _moveDirection *= DS.GetData().CharacterData.MovementSpeed;
 
-            //Here is the movement system
+            // Here is the movement system
             const double tolerance = 0.0001;
 
-            //we move iff rotation is 0
+            // We move iff rotation is 0
             if (Math.Abs(Mathf.Abs(rotation)) < tolerance)
                 _controller.Move(_moveDirection * Time.deltaTime);
 
             transform.Rotate(0, rotation, 0);
         }
 
-
         private void Update()
         {
             E.LogData(TrialProgress.GetCurrTrial().TrialProgress, TrialProgress.GetCurrTrial().TrialStartTime, transform);
+
+            // Wait for the sound to finish playing before ending the trial
+            if (_playingSound)
+            {
+                if (!GetComponent<AudioSource>().isPlaying)
+                {
+                    TrialProgress.GetCurrTrial().Progress();
+                    _playingSound = false;
+                }
+            }
 
             // This first block is for the initial rotation of the character
             if (_currDelay < _waitTime)
@@ -195,18 +217,9 @@ namespace wallSystem
                 var angle = 360f * _currDelay / _waitTime + _iniRotation - transform.rotation.eulerAngles.y;
                 transform.Rotate(new Vector3(0, angle, 0));
             }
-            //We need to not continue if there is audio playing, so we just pause here.
-            else if (_playingSound)
-            {
-                if (!GetComponent<AudioSource>().isPlaying)
-                {
-                    //We finish it here
-                    E.Get().CurrTrial.Progress();
-                }
-            }
             else
             {
-                //This section rotates the camera (potentiall up 15 degrees), basically deprecated code.
+                // This section rotates the camera (potentiall up 15 degrees), basically deprecated code.
                 if (!_reset)
                 {
                     Cam.transform.Rotate(0, 0, 0);
@@ -214,7 +227,7 @@ namespace wallSystem
                     TrialProgress.GetCurrTrial().ResetTime();
                 }
 
-                //Move the character.
+                // Move the character.
                 try
                 {
                     ComputeMovement();
@@ -223,11 +236,9 @@ namespace wallSystem
                 {
                     Debug.LogWarning("Skipping movement calc: instructional trial");
                 }
-
             }
+
             _currDelay += Time.deltaTime;
         }
-
-
     }
 }
