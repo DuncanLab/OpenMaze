@@ -1,6 +1,6 @@
 ﻿using main;
 using SFB;
-
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -117,7 +117,8 @@ namespace trial
                 DS.GetData().OutputFile = TrialProgress.Subject + "_" +
                                           TrialProgress.SessionID + "_" +
                                           TrialProgress.Condition + "_" +
-                                          TrialProgress.Note + ".csv";
+                                          TrialProgress.Note + "_" + 
+                                          DateTime.Now.ToString("yyyy-MM-dd-HH.mm.ss") + ".csv";
 
                 GenerateTrials();
 

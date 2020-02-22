@@ -12,7 +12,7 @@ namespace wallSystem
 {
     public class GenerateWall : MonoBehaviour
     {
-
+        public bool MakeFloor = true;
         // This is the wall prefab that represents the walls
         public GameObject Wall;
         // This is object that generates pickups.
@@ -68,12 +68,22 @@ namespace wallSystem
         private void SetupColours()
         {
             var col = Data.GetColour(E.Get().CurrTrial.enclosure.WallColor);
+            MakeFloor = true;
             //And here we set the color of the wall prefab to the appropriate color
             if (E.Get().CurrTrial.enclosure.WallColor == "ffffff00")
             {
                 Wall.GetComponent<Renderer>().enabled = false;
                 GameObject.Find("Ground").GetComponent<Renderer>().enabled = false;
+                E.Get().CurrTrial.enclosure.GroundTileSize = 0;
+                MakeFloor = false;
             }
+            if (E.Get().CurrTrial.enclosure.GroundColor == "ffffff00")
+            {
+                GameObject.Find("Ground").GetComponent<Renderer>().enabled = false;
+                E.Get().CurrTrial.enclosure.GroundTileSize = 0;
+                MakeFloor = false;
+            }
+          
             Wall.GetComponent<Renderer>().sharedMaterial.color = col;
         }
 
@@ -131,32 +141,36 @@ namespace wallSystem
         // This function generates the tile floor. We can modify the size of this later.
         private void GenerateTileFloor()
         {
-            var val = E.Get().CurrTrial.enclosure.Radius * 2;
-
-            // Setup the polygon mesh (using sensible defaults).
-            int numSides = E.Get().CurrTrial.enclosure.GroundTileSides == 0 ? 4 : E.Get().CurrTrial.enclosure.GroundTileSides;
-            double tileSize = E.Get().CurrTrial.enclosure.GroundTileSize == 0.0 ? 1.0 : E.Get().CurrTrial.enclosure.GroundTileSize;
-            var col = Data.GetColour(E.Get().CurrTrial.enclosure.GroundColor);
-            Mesh mesh = ConstructTileMesh(numSides, tileSize);
-
-            // Generate a grid of tiles
-            var xStart = E.Get().CurrTrial.enclosure.Position[0] - val;
-            var yStart = E.Get().CurrTrial.enclosure.Position[1] - val;
-            var xEnd = xStart + (val * 2);
-            var yEnd = yStart + (val * 2);
-            for (float i = xStart; i <= xEnd; i += 2)
+            if (MakeFloor == true)
             {
-                for (float j = yStart; j <= yEnd; j += 2)
+                var val = E.Get().CurrTrial.enclosure.Radius * 2;
+
+                // Setup the polygon mesh (using sensible defaults).
+                int numSides = E.Get().CurrTrial.enclosure.GroundTileSides == 0 ? 4 : E.Get().CurrTrial.enclosure.GroundTileSides;
+                double tileSize = E.Get().CurrTrial.enclosure.GroundTileSize == 0.0 ? 1.0 : E.Get().CurrTrial.enclosure.GroundTileSize;
+                var col = Data.GetColour(E.Get().CurrTrial.enclosure.GroundColor);
+                Mesh mesh = ConstructTileMesh(numSides, tileSize);
+
+
+                // Generate a grid of tiles
+                var xStart = E.Get().CurrTrial.enclosure.Position[0] - val;
+                var yStart = E.Get().CurrTrial.enclosure.Position[1] - val;
+                var xEnd = xStart + (val * 2);
+                var yEnd = yStart + (val * 2);
+                for (float i = xStart; i <= xEnd; i += 2)
                 {
-                    var tile = Instantiate(Wall, new Vector3(i, 0.001f, j), Quaternion.identity);
-                    tile.GetComponent<MeshFilter>().mesh = mesh;
-                    tile.GetComponent<Renderer>().material.color = col;
-                    tile.transform.localScale = new Vector3(1, 0.001f, 1);
-                    // Use the rotate if the pattern looks off
-                    //tile.transform.Rotate(0, -45, 0);
-                    _created.Add(tile);
+                    for (float j = yStart; j <= yEnd; j += 2)
+                    {
+                        var tile = Instantiate(Wall, new Vector3(i, 0.001f, j), Quaternion.identity);
+                        tile.GetComponent<MeshFilter>().mesh = mesh;
+                        tile.GetComponent<Renderer>().material.color = col;
+                        tile.transform.localScale = new Vector3(1, 0.001f, 1);
+                        // Use the rotate if the pattern looks off
+                        //tile.transform.Rotate(0, -45, 0);
+                        _created.Add(tile);
+                    }
                 }
-            }
+            }      
         }
 
         private static Mesh ConstructTileMesh(int numSides, double tileSize)

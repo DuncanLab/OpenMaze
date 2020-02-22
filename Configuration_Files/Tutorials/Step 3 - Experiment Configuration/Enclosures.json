@@ -11,162 +11,193 @@
         "DistancePickup": 2,
         "GoalRotationSpeed": 0
     },
-
-"BLOCK DATA" : "BLOCK DATA---------------------*********--------------------BLOCK DATA",   
-   
-    "BlockOrder" : [1,2],
-    
-    "Blocks" : [
+    "BLOCK DATA": "BLOCK DATA---------------------*********--------------------BLOCK DATA",
+    "BlockOrder": [1, 2],
+    "Blocks": [
         {
-            "Block 1" : "Enclosure 1",
-            "TrialOrder": [1,2,6]
+            "Block 1": "Enclosure 1",
+            "TrialOrder": [1, 3, 8, 1, 4, 8, 1, 5, 8, 1, 3, 7]
         },
         {
-            "Block 1" : "Enclosure 2",
-            "TrialOrder": [1,4,6]
-        }        
+            "Block 1": "Enclosure 2",
+            "TrialOrder": [1, 4, 6]
+        }
     ],
-
-"TRIAL DATA" : "TRIAL DATA--------------------*********------------------TRIAL DATA",
-    
+    "TRIAL DATA": "TRIAL DATA--------------------*********------------------TRIAL DATA",
     "Trials": [
         {
-            "Trial 1" : "Locate cue",
+            "Trial 1": "Locate cue",
             "Instructional": 1,
             "FileLocation": "Tutorial_Instructions/Locate.png",
             "TrialTime": 2,
             "TrialEndKey": "Space"
         },
         {
-            "Trial 2" : "Enclosure 1 - Visible",
+            "Trial 2": "Enclosure 1 - Visible",
             "Header": "Locate The Cube",
-            "TrialTime" : 60,
+            "TrialTime": 60,
             "Scene": 4,
             "Enclosure": 1,
-            "StartPosition" : [0,0],
-            "StartFacing" : 0,
+            "StartPosition": [0, 0],
+            "StartFacing": 0,
             "Rotate": 0,
-            "ActiveGoals" : [1],
-            "InvisibleGoals" : [],
-            "InactiveGoals" : [],
+            "ActiveGoals": [1],
+            "InvisibleGoals": [],
+            "InactiveGoals": [],
             "Quota": 1,
-            "LandMarks" :[],
+            "LandMarks": [],
             "TrialEndKey": "x"
         },
         {
-            "Trial 3" : "Enclosure 1 - invisible",
-            "Header": "Locate The Invisible Cube!",
-            "TrialTime" : 60,
+            "Trial 3": "Enclosure 1 - invisible",
+            "Header": "Wall & Floor",
+            "TrialTime": 60,
             "Scene": 4,
             "Enclosure": 1,
-            "StartPosition" : [0,0],
-            "StartFacing" : 0,
+            "StartPosition": [0, 0],
+            "StartFacing": 0,
             "Rotate": 0,
-            "ActiveGoals" : [],
-            "InvisibleGoals" : [1],
-            "InactiveGoals" : [],
+            "ActiveGoals": [1],
+            "InvisibleGoals": [],
+            "InactiveGoals": [],
             "Quota": 1,
-            "LandMarks" :[],
+            "LandMarks": [],
             "TrialEndKey": "x"
         },
         {
-            "Trial 4" : "Enclosure 2 - Visible",
-            "Header": "Locate The Cube!",
-            "TrialTime" : 60,
+            "Trial 4": "Enclosure 2 - Visible",
+            "Header": "Wall only",
+            "TrialTime": 60,
             "Scene": 4,
             "Enclosure": 2,
-            "StartPosition" : -1,
-            "StartFacing" : -1,
+            "StartPosition": -1,
+            "StartFacing": -1,
             "Rotate": 0,
-            "ActiveGoals" : [2],
-            "InvisibleGoals" : [],
-            "InactiveGoals" : [],
+            "ActiveGoals": [1],
+            "InvisibleGoals": [],
+            "InactiveGoals": [],
             "Quota": 1,
-            "LandMarks" :[],
+            "LandMarks": [],
             "TrialEndKey": "x"
         },
         {
-            "Trial 5" : "Enclosure 2 - invisible",
-            "Header": "Locate the Invisible Cube!",
-            "TrialTime" : 60,
+            "Trial 5": "Enclosure 2 - invisible",
+            "Header": "Invisible all",
+            "TrialTime": 60,
             "Scene": 4,
-            "Enclosure": 2,
-            "StartPosition" : -1,
-            "StartFacing" : -1,
+            "Enclosure": 3,
+            "StartPosition": -1,
+            "StartFacing": -1,
             "Rotate": 0,
-            "ActiveGoals" : [],
-            "InvisibleGoals" : [2],
-            "InactiveGoals" : [],
+            "ActiveGoals": [1],
+            "InvisibleGoals": [],
+            "InactiveGoals": [],
             "Quota": 1,
-            "LandMarks" :[],
+            "LandMarks": [],
             "TrialEndKey": "x"
         },
         {
-            "Trial 6" : "End",
+            "Trial 6": "Enclosure 2 - invisible",
+            "Header": "None",
+            "TrialTime": 60,
+            "Scene": 4,
+            "Enclosure": 4,
+            "StartPosition": -1,
+            "StartFacing": -1,
+            "Rotate": 0,
+            "ActiveGoals": [1],
+            "InvisibleGoals": [],
+            "InactiveGoals": [],
+            "Quota": 1,
+            "LandMarks": [],
+            "TrialEndKey": "x"
+        },
+        {
+            "Trial 7": "End",
             "Instructional": 1,
             "FileLocation": "Tutorial_Instructions/End.png",
             "TrialTime": -1,
             "TrialEndKey": "x"
+        },
+        {
+            "8": "Where were you?----------------------------------------------------------------------------------------2D/3D",
+            "TwoDimensional": 1,
+            "Header": "Where Were You?",
+            "Scene": 3,
+            "TrialTime": 1000,
+            "TrialEndKey": "Space"
         }
     ],
-
-
-"GOAL DATA" : "GOAL DATA--------------------*********------------------GOAL DATA",
-
+    "GOAL DATA": "GOAL DATA--------------------*********------------------GOAL DATA",
     "Goals": [
         {
-            "Goal 1" : "Red Cube",
+            "Goal 1": "Red Cube",
             "Type": "3D",
             "Object": "Cube",
             "Sound": "coin",
             "Color": "ff0000",
             "Position": [7, 1, 7],
-            "Rotation": [0,0,0],
+            "Rotation": [0, 0, 0],
             "Scale": [2, 2, 2]
         },
         {
-            "Goal 2" : "Red Cube",
+            "Goal 2": "Red Cube",
             "Type": "3D",
             "Object": "Cube",
             "Sound": "coin",
             "Color": "ff0000",
             "Position": [-7, 1, 7],
-            "Rotation": [0,0,0],
+            "Rotation": [0, 0, 0],
             "Scale": [2, 2, 2]
         }
     ],
-
-"LANDMARK DATA" : "LANDMARK DATA----------*********------------------LANDMARK DATA",
-
-    "Landmarks": [
-
-
-    ], 
-
-"Enclosure DATA" : "Enclosure DATA--------------------*********------------------Enclosure DATA",
-
+    "LANDMARK DATA": "LANDMARK DATA----------*********------------------LANDMARK DATA",
+    "Landmarks": [],
+    "Enclosure DATA": "Enclosure DATA--------------------*********------------------Enclosure DATA",
     "Enclosures": [
         {
-            "Enclosure Name": "Use this field as lable",
+            "Enclosure Name": "Wall & Floor visible",
             "Sides": 40,
             "Radius": 15,
-            "WallHeight" : 3,
-            "WallColor": "ffff00",
+            "WallHeight": 3,
+            "WallColor": "000000",
             "GroundTileSides": 4,
             "GroundTileSize": 1.0,
-            "GroundColor": "1B5E20",
+            "GroundColor": "000000",
             "Position": [0, 0]
         },
         {
-            "Enclosure Name": "Use this field as lable",
+            "Enclosure Name": "Wall visiblee",
             "Sides": 4,
             "Radius": 15,
-            "WallHeight" : 3,
-            "WallColor": "ff00ff",
+            "WallHeight": 3,
+            "WallColor": "000000",
             "GroundTileSides": 4,
             "GroundTileSize": 1.0,
-            "GroundColor": "1B5E20",
+            "GroundColor": "ffffff00",
             "Position": [0, 0]
-        }    
+        },
+        {
+            "Enclosure Name": "Floor visible",
+            "Sides": 4,
+            "Radius": 15,
+            "WallHeight": 3,
+            "WallColor": "ffffff00",
+            "GroundTileSides": 4,
+            "GroundTileSize": 1.0,
+            "GroundColor": "000000",
+            "Position": [0, 0]
+        },
+        {
+            "Enclosure Name": "invisible all",
+            "Sides": 4,
+            "Radius": 15,
+            "WallHeight": 3,
+            "WallColor": "ffffff00",
+            "GroundTileSides": 4,
+            "GroundTileSize": 1.0,
+            "GroundColor": "ffffff00",
+            "Position": [0, 0]
+        }
     ]
 }
