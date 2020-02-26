@@ -58,7 +58,8 @@ namespace data
         {
             public string EndGoal; // percentage ___SPACE___ number. This is very arbitrary.
             public string EndFunction; // The function name (if not present, we assume its always true)
-
+            public string ExitGoal; // percentage ___SPACE___ number. This is very arbitrary.
+            public string ExitFunction; // The function name (if not present, we assume its always false)
             public string BlockName; // Name (outputed at the end of the Block)
             public string Notes; // Notes about the given block
             public int Replacement; //Integer value representing replacement

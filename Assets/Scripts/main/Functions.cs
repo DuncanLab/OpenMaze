@@ -21,8 +21,8 @@ namespace main
 
             var blockId = curr.BlockID;
             var bd = DS.GetData().Blocks[blockId];
-
-            var numSuccessfulInPrevious = bd.EndGoal.Split(' ');
+            var goal = bd.EndGoal ?? bd.ExitGoal;
+            var numSuccessfulInPrevious = goal.Split(' ');
             var numSuccessfulRequired = float.Parse(numSuccessfulInPrevious[0]);
 
             var successCount = 0;

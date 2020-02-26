@@ -80,7 +80,6 @@ namespace wallSystem
             foreach (var val in merged)
             {
                 var goalItem = DS.GetData().Goals[Mathf.Abs(val) - 1];
-                UnityEngine.Debug.Log(goalItem);
 
                 // Position is not set in the config file
                 if (goalItem.Position.Count == 0)

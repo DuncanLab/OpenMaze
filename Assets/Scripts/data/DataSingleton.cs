@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 //This class is contains the central data object for all classes.
 //This is implemented using a singleton design pattern.
@@ -18,9 +19,15 @@ namespace data
         public static void Load(string fileName)
         {
             var file = System.IO.File.ReadAllText(fileName);
-
-            var temp = JsonUtility.FromJson<Data>(file);
-            _data = temp;
+            try
+            {
+                _data = JsonUtility.FromJson<Data>(file);
+            }
+            catch (ArgumentException e)
+            {
+                Debug.LogError("INVALID JSON FILE");
+                Application.Quit();
+            }
         }
     }
 }

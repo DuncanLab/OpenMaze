@@ -238,9 +238,8 @@ namespace wallSystem
                 {
                     ComputeMovement();
                 }
-                catch (MissingComponentException e)
+                catch (MissingComponentException _)
                 {
-                    Debug.LogWarning("Skipping movement calc: instructional trial");
                 }
             }
 
