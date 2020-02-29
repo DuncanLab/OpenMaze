@@ -42,7 +42,7 @@
             "StartPosition" : [0,-8],
             "StartFacing" : 0,
             "Rotate": 0,
-            "ActiveGoals" : [2],
+            "ActiveGoals" : [],
             "InactiveGoals" : [],
             "InvisibleGoals" : [],
             "Quota": 1,
@@ -68,10 +68,10 @@
             "Type": "3D",
             "Object": "Cube",
             "Sound": "drink",
-            "Color": "2B8231",
+            "Color": "0000ff",
             "Position": [-5, 1, 5],
             "Rotation": [0,0,0],
-            "Scale": [3, 3, 3]
+            "Scale": [1, 1, 1]
         },
         {
             "Goal 2" : "2D Image Goal",
@@ -80,7 +80,6 @@
             "Sound": "eat",
             "Color": "ffffff",
             "Position": [5, 1, 5],
-            "Rotation": [0,0,0],
             "Scale": [1, 1, 1]
         }
 

@@ -20,7 +20,7 @@
         {
             "Block 1" : "Find objects Visible",
               "Notes" : "Trials will be presented in order from TrialOrder list",
-              "TrialOrder": [1,2,5,3,6,11]
+              "TrialOrder": [1,2,5,3,6]
         },
         {
             "Block 2" : "Find objects invisible",
@@ -30,7 +30,7 @@
         {
             "Block 3" : "Find Both Visible",
               "Notes" : "Trials will be presented in order from TrialOrder list",
-              "TrialOrder": [1,4,9,4,10,11]
+              "TrialOrder": [4,9,4,10,11]
         }
     ],
 
@@ -77,7 +77,7 @@
             "InactiveGoals" : [],
             "InvisibleGoals" : [],
             "Quota": 0,
-            "LandMarks" :[1,2],
+            "LandMarks" :[],
             "TrialEndKey": "x"
         },
         {
@@ -127,7 +127,7 @@
         },
         {
             "Trial 9" : "Find Both Visible",
-            "Header": "Find The Water!",
+            "Header": "Collect The Apple And Water!",
             "TrialTime" : 60,
             "Scene": 4,
             "StartPosition" : [0,-8],
@@ -142,7 +142,7 @@
         },
         {
             "Trial 10" : "Find Both invisible",
-            "Header": "Find The Water!",
+            "Header": "Collect The Apple And Water!",
             "TrialTime" : 60,
             "Scene": 4,
             "StartPosition" : [0,-8],
@@ -185,9 +185,9 @@
             "Sound": "drink",
             "Color": "ffffff",
             "Position": [-5, 1, 5],
+            "Rotation": [0,0,0],
             "Scale": [1, 1, 1]
         }
-
     ],
 
 "LANDMARK DATA" : "LANDMARK DATA----------*********------------------LANDMARK DATA",
@@ -195,7 +195,8 @@
     "Landmarks": [
         {
             "Landmark 1" : "Red Cube",
-            "Type": "Cube",
+            "Type": "3D",
+            "Object": "Cube",
             "Color": "ff0000",
             "Position": [10, 2.5, 10],
             "Rotation": [0,0,0],
@@ -203,13 +204,13 @@
         },
         {
             "Landmark 2" : "Blue Cube",
-            "Type": "Cube",
+            "Type": "3D",
+            "Object": "Cube",
             "Color": "0000ff",
             "Position": [-10, 2.5, 10],
             "Rotation": [0,0,0],
             "Scale": [5, 5, 5]
         }
-
     ], 
 
 "Enclosure DATA" : "Enclosure DATA--------------------*********------------------Enclosure DATA",
