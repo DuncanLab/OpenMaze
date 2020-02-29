@@ -179,6 +179,12 @@ namespace wallSystem
 
         private void ComputeMovement()
         {
+            // Dont move if the quota has been reached
+            if (localQuota <= 0)
+            {
+                return;
+            }
+
             // This calculates the current amount of rotation frame rate independent
             var rotation = Input.GetAxis("Horizontal") * DS.GetData().CharacterData.RotationSpeed * Time.deltaTime;
 
