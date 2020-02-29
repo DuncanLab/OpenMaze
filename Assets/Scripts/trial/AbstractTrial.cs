@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+
 using data;
 using main;
 using UnityEngine;
@@ -11,12 +12,12 @@ using DS = data.DataSingleton;
 
 namespace trial
 {
-    //A central trial class 
+    // A central trial class 
     public abstract class AbstractTrial
     {
         public long TrialStartTime;
 
-        //These two fields register the current block and trial ID in the dataSingleton
+        // These two fields register the current block and trial ID in the dataSingleton
         public int BlockID;
 
         public int TrialID;
@@ -27,7 +28,7 @@ namespace trial
 
         public TrialProgress TrialProgress;
 
-        //This points to the start of the block of trials (if present)
+        // This points to the start of the block of trials (if present)
         public AbstractTrial head;
 
         public bool isTail;
@@ -36,11 +37,13 @@ namespace trial
 
         public Enclosure enclosure;
 
-        //This points to the next trial
+        // This points to the next trial
         // ReSharper disable once InconsistentNaming
         public AbstractTrial next;
 
         protected float _runningTime;
+
+        public bool progressionComplete = false;
 
         protected AbstractTrial(int blockId, int trialId)
         {
@@ -58,6 +61,7 @@ namespace trial
             {
                 enclosure = DataSingleton.GetData().Enclosures[trialData.Enclosure - 1];
             }
+
             // If the user hasn't set an Enclosure index we want to set the Enclosure to be
             // unobtrusive, So the ground generates but nothing else.
             else
@@ -78,7 +82,6 @@ namespace trial
 
         public virtual void PreEntry(TrialProgress t, bool first = true)
         {
-            //Prentry into the next trial
             Debug.Log("Entering trial: " + TrialID);
             if (head == this && first)
             {
@@ -89,14 +92,9 @@ namespace trial
                 t.NumCollectedPerBlock = new int[NumBlocks];
             }
 
-            t.TrialNumber++;
-
             Debug.Log("Current Trial Increment: " + data.DataSingleton.GetData().TrialInitialValue);
 
-            // increment the trial sequence value
-            data.DataSingleton.GetData().TrialInitialValue++;
-
-            if (t.TrialNumber == 1)
+            if (t.TrialNumber < 2)
             {
                 t.TimeSinceExperimentStart = 0.0f;
             }
@@ -115,34 +113,34 @@ namespace trial
 
         public void ResetTime()
         {
-            if (TrialProgress.TrialNumber == 1)
+            if (TrialProgress.TrialNumber < 2)
             {
                 TrialProgress.TimeSinceExperimentStart = 0.0f;
             }
             _runningTime = 0;
         }
 
-        //Function for stuff to know that things have happened
+        // Function for stuff to know that things have happened
         public virtual void Notify()
         {
 
         }
 
-        //Essentially, here we load
+        // Load the next trial
         public virtual void Progress()
         {
-
             Debug.Log("Progressing...");
-            //Exiting current trial
+
+            // Exiting current trial
             TrialProgress.PreviousTrial = this;
 
             var blockData = DS.GetData().Blocks[BlockID];
-            //Data on how to choose the next trial will be selected here.
+
+            // Data on how to choose the next trial will be selected here.
             if (isTail)
             {
                 if (blockData.EndFunction != null)
                 {
-
                     var tmp = blockData.EndFunction;
                     var func = typeof(Functions).GetMethod(tmp, BindingFlags.Static | BindingFlags.Public);
 
@@ -155,15 +153,11 @@ namespace trial
                         return;
                     }
                 }
-
             }
+
             Loader.Get().CurrTrial = next;
             next.PreEntry(TrialProgress);
-        }
-
-        public float GetRunningTime()
-        {
-            return _runningTime;
+            progressionComplete = true;
         }
 
         protected void LoadNextSceneWithTimer(int environmentType)
@@ -173,24 +167,21 @@ namespace trial
 
         private IEnumerator LoadNextAsyncScene(int environmentType)
         {
-            AsyncOperation op = SceneManager.LoadSceneAsync(environmentType);
+            AsyncOperation ao = SceneManager.LoadSceneAsync(environmentType);
             TrialProgress.isLoaded = false;
 
             // Wait until the specified timeout to load the scene
             var timer = 0.0f;
 
-            while (timer < DataSingleton.GetData().TrialLoadingDelay)
+            while (!ao.isDone && (!progressionComplete))
             {
                 timer += Time.deltaTime;
-                op.allowSceneActivation = false;
-                _runningTime = 0;
                 yield return null;
             }
 
-            op.allowSceneActivation = true;
-            TrialProgress.isLoaded = true;
-            _runningTime = 0;
-            yield return null;
+            // Reset when loading is complete
+            timer = 0.0f;
+            progressionComplete = false;
         }
     }
 }

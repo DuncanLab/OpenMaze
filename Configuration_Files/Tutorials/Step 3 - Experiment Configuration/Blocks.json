@@ -14,34 +14,29 @@
 
 "BLOCK DATA" : "BLOCK DATA---------------------*********--------------------BLOCK DATA",   
    
-    "BlockOrder" : [1],
+    "BlockOrder" : [],
     
     "Blocks" : [
         {
-            "BlockName" : "Serial Trial Order",
+            "Block 1" : "Serial Trial Order",
               "Notes" : "Trials will be presented in order from TrialOrder list",
-              "TrialOrder": [1]
-        },
-        {
-            "BlockName" : "Serial Trial Order",
-              "Notes" : "Trials will be presented in order from TrialOrder list",
-              "TrialOrder": [5,6,7,8,9,10,11]
+              "TrialOrder": []
         },
         {
             
-              "BlockName" : "Random With Replacement",
-              "Notes" : "Each time 0 is called in the TrialOrder list, it will select a Trial Order from Randomly Select list and remove that order option from RandomlySelect",
-              "TrialOrder": [0,0,0,0,0,0,0,11],
+              "Block 2" : "Random With Replacement",
+              "Notes" : "Each time 0 is called in the TrialOrder list, it will select a TrialOrder from Randomly Select list",
+              "TrialOrder": [],
               "Replacement" : 1,
-              "RandomlySelect" : [{"Order": [5]},{"Order": [7]}, {"Order": [9]}]
+              "RandomlySelect" : [{"Order": []}]
         },
         {
             
-              "BlockName" : "Random With Replacement",
-              "Notes" : "Each time 0 is called in the TrialOrder list, it will select a Trial Order from Randomly Select list and remove that order option from RandomlySelect",
-              "TrialOrder": [0,0,0,11],
+              "Block 3" : "Random Without Replacement",
+              "Notes" : "Each time 0 is called in the TrialOrder list, it will select a TrialOrder from Randomly Select list and remove that order option from RandomlySelect",
+              "TrialOrder": [],
               "Replacement" : 0,
-              "RandomlySelect" : [{"Order": [5,6]},{"Order": [7,8]}, {"Order": [9,10]}]
+              "RandomlySelect" : [{"Order": []}]
         }
     ],
 

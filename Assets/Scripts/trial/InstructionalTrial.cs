@@ -1,7 +1,6 @@
 ﻿using System;
 using data;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace trial
 {
@@ -16,10 +15,8 @@ namespace trial
         {
             base.PreEntry(t, first);
             t.TimingVerification = data.DataSingleton.GetData().TimingVerification; // timing diagnostics
-            t.TrialID = TrialID;
-            t.BlockID = BlockID;
-            t.Instructional = trialData.Instructional;
-            SceneManager.LoadScene(Constants.LoadingScreen);
+
+            LoadNextSceneWithTimer(Constants.LoadingScreen);
             t.isLoaded = true;
         }
 
@@ -29,13 +26,14 @@ namespace trial
 
             // Default to space key
             var trialEndKeyCode = "space";
+            var ignoreUserInputDelay = DataSingleton.GetData().IgnoreUserInputDelay;
 
-            if (!String.IsNullOrEmpty(trialData.TrialEndKey))
+            if (!String.IsNullOrEmpty(trialData.TrialEndKey.ToLower()))
             {
                 trialEndKeyCode = trialData.TrialEndKey.ToLower();
             }
 
-            if (Input.GetKey(trialEndKeyCode))
+            if (Input.GetKey(trialEndKeyCode) && (_runningTime > ignoreUserInputDelay))
             {
                 Debug.Log(_runningTime);
                 Progress();

@@ -3,7 +3,7 @@
 "OPTIONS DATA": "OPTIONS DATA--------------*********-------------------CHARACTER DATA",
     "OutputTimesPerSecond": 30,
     "TrialLoadingDelay": 1.0,
-    "IgnoreUserInputDelay": 0.0,
+    "IgnoreUserInputDelay": 0.5,
     "TimeingVerification": false,
     
 
@@ -21,7 +21,7 @@
    
     "BlockOrder" : [1],
     
-    "BlockList" : [
+    "Blocks" : [
         {
             "Block 1" : "Simple Experiment",
               "Notes" : "Trials will be presented in order from TrialOrder list",
@@ -31,7 +31,7 @@
 
 "TRIAL DATA" : "TRIAL DATA-----------------*********------------------TRIAL DATA",
     
-    "TrialData": [
+    "Trials": [
         {
             "Trial 1" : "Welcome Page",
             "Instructional": 1,
