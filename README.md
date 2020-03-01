@@ -10,15 +10,16 @@ with statistic calculations done in Python.</p>
 ## Getting Started
 
 ### Prerequisites
-- Unity 2017.x or above.
+- Unity 2019.x or above.
 - Your PC must meet the minimum requirements to run Unity, found [here](https://unity3d.com/unity/system-requirements).
-- Mac OSX or Windows 10 are preferred, but the project should still behave normally on most Linux distros.
+- OpenMaze has been extensively tested on Mac OSX and Windows 10; however, the project should still behave normally on 
+  most Linux distros.
 
 ### Installation
 To use this software in your experiments you will need to download the
 following software packages: **Unity, Open Maze, Sublime Text/Text editor of choice**.
 
-1. Download and Install Unity
+1. Download and Install the Unity Hub
    1. Go to: https://store.unity.com/download?ref=personal.
    2. Follow Installation instructions for your specific computer.
    3. Open the Unity application and create an account or login.
@@ -43,17 +44,25 @@ following software packages: **Unity, Open Maze, Sublime Text/Text editor of cho
    2. Follow the instruction and select the correct download for your computer.
 
 4. Set up Unity with Open Maze
-   1. Open the Unity application.
+   1. Open the Unity Hub application.
    2. If you have not done so already, please log in or create a free account.
    3. Once signed in, click **Open** near the top right of the window.
    4. Navigate to and select the entire folder that you just unzipped and placed
       in an easy to access place. This folder should be titled
       **OpenMaze-Release**. Select the folder and click **Open**.
-   5. If you receive any warnings from Unity upon opening the folder, simple click
-      continue and Unity will begin loading the project.
-   6. This takes time! Lots of assets need to be processed so please be patient.
-   7. Once the process is complete, Unity will open and you will get a screen
-      similar to the following.
+   5. Once the OpenMaze project has been loaded into the Unity Hub click the small 
+      yellow triangle below the project. This will create a propmt at the bottom
+      of the screen to install the appropriate Unity version. Click install (NOTE:
+      installing Unity takes longer than you may expect - be patient!)
+   6. Once installed click the back arrow in the top left of the Unity hub window.
+      You will now see the Unity Version code has been added beside the OpenMaze
+      project and the yellow triangle no longer appears. 
+   7. Click the project to Open it in Unity. If prompted to update Unity to the 
+      newest version click no. 
+   8. Once OpenMaze is loaded in Unity Editor navigate to the Asset Store tab at the
+      top of the screen beside the Scene tab. 
+   9. Download and import "Standard Assets (Unity 2017.3)" and "Nature Startert Kit 2"
+      You can find these by searching for them by name.
 
 Congratulations! You have set up the Open Maze project. To begin using the
 software in your experiment, please take a look at our video tutorials at
