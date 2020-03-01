@@ -24,14 +24,15 @@ namespace trial
         public float TargetY;
         public int BlockID;
         public int TrialID;
-        public string Subject;
-        public string Condition;
+        public string Field1;
+        public string Field2;
+        public string Field3;
+        public string Field4;
         public int TwoDim;
         public int Instructional;
         public int Visible;
         public float LastX;
         public float LastY;
-        public string SessionID;
 
         public bool isLoaded = true;
 
@@ -42,8 +43,6 @@ namespace trial
             TrialNumber = -1;
             Num3D = 0;
         }
-
-        public string Note { get; set; }
 
         public static AbstractTrial GetCurrTrial()
         {

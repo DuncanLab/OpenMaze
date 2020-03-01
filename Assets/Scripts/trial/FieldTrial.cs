@@ -102,22 +102,22 @@ namespace trial
             if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Joystick1Button0))
             {
                 // Sets the output file name as the desired one.
-                var subjectTextField = _fields[0].transform.GetComponentsInChildren<Text>()[1];
-                TrialProgress.Subject = subjectTextField.text;
+                var Field1Text = _fields[0].transform.GetComponentsInChildren<Text>()[1];
+                TrialProgress.Field1 = Field1Text.text;
 
-                var sessionTextField = _fields[1].transform.GetComponentsInChildren<Text>()[1];
-                TrialProgress.SessionID = sessionTextField.text;
+                var Field2Text = _fields[1].transform.GetComponentsInChildren<Text>()[1];
+                TrialProgress.Field2 = Field2Text.text;
 
-                var conditionTextField = _fields[2].transform.GetComponentsInChildren<Text>()[1];
-                TrialProgress.Condition = conditionTextField.text;
+                var Field3Text = _fields[2].transform.GetComponentsInChildren<Text>()[1];
+                TrialProgress.Field3 = Field3Text.text;
 
-                var noteTextField = _fields[3].transform.GetComponentsInChildren<Text>()[1];
-                TrialProgress.Note = noteTextField.text;
+                var Field4Text = _fields[3].transform.GetComponentsInChildren<Text>()[1];
+                TrialProgress.Field4 = Field4Text.text;
 
-                DS.GetData().OutputFile = TrialProgress.Subject + "_" +
-                                          TrialProgress.SessionID + "_" +
-                                          TrialProgress.Condition + "_" +
-                                          TrialProgress.Note + "_" + 
+                DS.GetData().OutputFile = TrialProgress.Field1 + "_" +
+                                          TrialProgress.Field2 + "_" +
+                                          TrialProgress.Field3 + "_" +
+                                          TrialProgress.Field4 + "_" + 
                                           DateTime.Now.ToString("yyyy-MM-dd-HH.mm.ss") + ".csv";
 
                 GenerateTrials();
