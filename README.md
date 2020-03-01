@@ -70,8 +70,12 @@ https://duncanlab.github.io/OpenMazeSite
 
 ## Release History / Change log
 
+- 1.0.0
+This is the first official release version of OpenMaze Experiment Toolbox for the Unity Engine. This version was released with the publication "OpenMaze: An Open Source Unity Toolbox for Creating Virtual Environment Experiments" and was used to create the "Learn OpenMaze in a Day" video tutorial series (https://www.youtube.com/playlist?list=PLppXGUtW-XlIuTh-lW6URgm5Cim_DH4gL). For more information about the OpenMaze Toolbox please visit https://openmaze.organica.dev/
+
 - 0.1.0
-    - The first proper release
+Beta Testing Release
+    
 
 ## Contributing
 
