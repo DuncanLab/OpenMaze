@@ -21,7 +21,7 @@ following software packages: **Unity, Open Maze, Sublime Text/Text editor of cho
 1. Download and Install the Unity Hub
    1. Go to: https://store.unity.com/download?ref=personal.
    2. Follow Installation instructions for your specific computer.
-   3. Open the Unity application and create an account or login.
+   3. Open the Unity Hub application and create an account or login.
 
 2. Download Open Maze Software
    1. Go to https://github.com/DuncanLab/OpenMaze (you're already here!).
