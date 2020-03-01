@@ -1,6 +1,6 @@
 <h1 align="center">Open Maze</h1>
 <p align="center"><img src="https://i.imgur.com/M1Ep92b.png"></p>
-<p align="center">A simulation of the <a href="https://en.wikipedia.org/wiki/Morris_water_navigation_task">Morris Maze experiment</a> created in the OpenMaze software. 
+<p align="center">A simulation of the <a href="https://en.wikipedia.org/wiki/Morris_water_navigation_task">Morris Maze experiment</a> created using the OpenMaze Toolbox. 
 
 <p align="center">
 <a href="LICENSE"><img src="https://img.shields.io/github/license/DuncanLab/OpenMaze.svg"></a>
