@@ -26,7 +26,7 @@ following software packages: **Unity, Open Maze, Sublime Text/Text editor of cho
 
 2. Download Open Maze Software
    1. Go to https://github.com/DuncanLab/OpenMaze (you're already here!).
-   2. In the grey dropdown on the left side of the page called 'branch' make sure.
+   2. In the grey dropdown on the left side of the page called 'branch' make sure
       that **master** is selected. Alternatively, checkout the [releases section](https://github.com/DuncanLab/OpenMaze/releases)
       for the latest release.
    3. Now, click the green button on the right hand side called **Clone or
