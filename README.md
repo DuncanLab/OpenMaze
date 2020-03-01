@@ -1,7 +1,6 @@
 <h1 align="center">Open Maze</h1>
 <p align="center"><img src="https://i.imgur.com/M1Ep92b.png"></p>
-<p align="center">A simulation of the <a href="https://en.wikipedia.org/wiki/Morris_water_navigation_task">Morris Maze experiment</a> written mostly in Unity C#
-with statistic calculations done in Python.</p>
+<p align="center">A simulation of the <a href="https://en.wikipedia.org/wiki/Morris_water_navigation_task">Morris Maze experiment</a> created using the OpenMaze Toolbox. 
 
 <p align="center">
 <a href="LICENSE"><img src="https://img.shields.io/github/license/DuncanLab/OpenMaze.svg"></a>
@@ -10,22 +9,23 @@ with statistic calculations done in Python.</p>
 ## Getting Started
 
 ### Prerequisites
-- Unity 2017.x or above.
+- Unity 2019.x or above.
 - Your PC must meet the minimum requirements to run Unity, found [here](https://unity3d.com/unity/system-requirements).
-- Mac OSX or Windows 10 are preferred, but the project should still behave normally on most Linux distros.
+- OpenMaze has been extensively tested on Mac OSX and Windows 10; however, the project should still behave normally on 
+  most Linux distros.
 
 ### Installation
 To use this software in your experiments you will need to download the
 following software packages: **Unity, Open Maze, Sublime Text/Text editor of choice**.
 
-1. Download and Install Unity
+1. Download and Install the Unity Hub
    1. Go to: https://store.unity.com/download?ref=personal.
    2. Follow Installation instructions for your specific computer.
-   3. Open the Unity application and create an account or login.
+   3. Open the Unity Hub application and create an account or login.
 
 2. Download Open Maze Software
    1. Go to https://github.com/DuncanLab/OpenMaze (you're already here!).
-   2. In the grey dropdown on the left side of the page called 'branch' make sure.
+   2. In the grey dropdown on the left side of the page called 'branch' make sure
       that **master** is selected. Alternatively, checkout the [releases section](https://github.com/DuncanLab/OpenMaze/releases)
       for the latest release.
    3. Now, click the green button on the right hand side called **Clone or
@@ -43,17 +43,25 @@ following software packages: **Unity, Open Maze, Sublime Text/Text editor of cho
    2. Follow the instruction and select the correct download for your computer.
 
 4. Set up Unity with Open Maze
-   1. Open the Unity application.
+   1. Open the Unity Hub application.
    2. If you have not done so already, please log in or create a free account.
    3. Once signed in, click **Open** near the top right of the window.
    4. Navigate to and select the entire folder that you just unzipped and placed
       in an easy to access place. This folder should be titled
       **OpenMaze-Release**. Select the folder and click **Open**.
-   5. If you receive any warnings from Unity upon opening the folder, simple click
-      continue and Unity will begin loading the project.
-   6. This takes time! Lots of assets need to be processed so please be patient.
-   7. Once the process is complete, Unity will open and you will get a screen
-      similar to the following.
+   5. Once the OpenMaze project has been loaded into the Unity Hub click the small 
+      yellow triangle below the project. This will create a propmt at the bottom
+      of the screen to install the appropriate Unity version. Click install (NOTE:
+      installing Unity takes longer than you may expect - be patient!)
+   6. Once installed click the back arrow in the top left of the Unity hub window.
+      You will now see the Unity Version code has been added beside the OpenMaze
+      project and the yellow triangle no longer appears. 
+   7. Click the project to Open it in Unity. If prompted to update Unity to the 
+      newest version click no. 
+   8. Once OpenMaze is loaded in Unity Editor navigate to the Asset Store tab at the
+      top of the screen beside the Scene tab. 
+   9. Download and import "Standard Assets (Unity 2017.3)" and "Nature Startert Kit 2"
+      You can find these by searching for them by name.
 
 Congratulations! You have set up the Open Maze project. To begin using the
 software in your experiment, please take a look at our video tutorials at
@@ -61,8 +69,12 @@ https://duncanlab.github.io/OpenMazeSite
 
 ## Release History / Change log
 
+- 1.0.0
+This is the first official release version of OpenMaze Experiment Toolbox for the Unity Engine. This version was released with the publication "OpenMaze: An Open Source Unity Toolbox for Creating Virtual Environment Experiments" and was used to create the "Learn OpenMaze in a Day" video tutorial series (https://www.youtube.com/playlist?list=PLppXGUtW-XlIuTh-lW6URgm5Cim_DH4gL). For more information about the OpenMaze Toolbox please visit https://openmaze.organica.dev/
+
 - 0.1.0
-    - The first proper release
+Beta Testing Release
+    
 
 ## Contributing
 
