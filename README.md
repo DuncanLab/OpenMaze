@@ -1,4 +1,5 @@
-<h1 align="center">Open Maze</h1>
+<h1 align="center">OpenMaze</h1>
+<h1 align="center">visit our website: https://openmaze.organica.dev/</h1>
 <p align="center"><img src="https://i.imgur.com/M1Ep92b.png"></p>
 <p align="center">A simulation of the <a href="https://en.wikipedia.org/wiki/Morris_water_navigation_task">Morris Maze experiment</a> created using the OpenMaze Toolbox. 
 
@@ -7,7 +8,6 @@
 <a href="https://github.com/DuncanLab/OpenMaze/releases"><img src="https://img.shields.io/github/release/DuncanLab/OpenMaze.svg"></a>
 
 ## Getting Started
-For an extensive users manual and tutorial videos please visit our website https://openmaze.organica.dev/
 
 ### Prerequisites
 - Unity 2019.x or above.
