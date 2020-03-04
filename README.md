@@ -7,6 +7,7 @@
 <a href="https://github.com/DuncanLab/OpenMaze/releases"><img src="https://img.shields.io/github/release/DuncanLab/OpenMaze.svg"></a>
 
 ## Getting Started
+For an extensive users manual and tutorial videos please visit our website https://openmaze.organica.dev/
 
 ### Prerequisites
 - Unity 2019.x or above.
