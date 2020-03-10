@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using value;
 using DS = data.DataSingleton;
 using E = main.Loader;
 //This script is the Generate (GenerateWall) script
@@ -34,6 +35,10 @@ namespace wallSystem
 
         private void Update()
         {
+            if (E.Get().CurrTrial.BlockId == BlockId.EMPTY)
+            {
+                return;
+            }
 
             currBlockId = E.Get().CurrTrial.BlockId.Value;
             currTrialId = E.Get().CurrTrial.TrialId.Value;

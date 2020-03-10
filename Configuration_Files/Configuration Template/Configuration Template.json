@@ -13,7 +13,7 @@
 
 "BLOCK DATA" : "BLOCK DATA---------------------*********--------------------BLOCK DATA",   
    
-    "BlockOrder" : [1],
+    "BlockOrder" : [4],
     
     "Blocks" : [
         {
@@ -45,21 +45,26 @@
             "Block 4": "Contingency Based - Select the next trial based on contingency. This allows for a BST based contingency system",
             "Notes": "When a contingency is chosen, it will enter the contingency graph. Contingencies are chosen on a _first come first serve_ basis.",
             "TrialOrder": [
-                -1
+                -1, 1, 2, 3
             ],
-            "Contingencies": [
-                {
-                    "StartIndex": 1
-                    "1": {
-                        "Function": "ContingencyFunc",
-                        "A": 2
-                        "B": 3
-                        "D": 4
+            "ContingencyGraph": [
+                [{
+                    "TrialIndex": 1,
+                    "ContingencyFunction": "ContingencyFunc",
+                    "TrialIndicesByOutput": {
+                        "A": [1, 1, 2],
+                        "B": [3]
                     }
-                }
+                },
+                {
+                    "TrialIndex": 2,
+                    "ContingencyFunction": "ContingencyFunc",
+                    "TrialIndicesByOutput": {
+                        "A": [4],
+                        "B": [5]
+                    }
+                }]
             ]
-
-
         }    
     ],
 
@@ -77,14 +82,62 @@
         },
         {
             "Trial 2" : "3D Trial",
-            "Header": "Collect the Objects!",
+            "Header": "Collect the Objects!1",
             "TrialTime" : 60,
             "Scene": 2,
             "Enclosure": 1,
             "StartPosition" : [0,0],
             "StartFacing" : 0,
             "Rotate": 0,
-            "ActiveGoals" : [1,2],
+            "ActiveGoals" : [],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 2,
+            "LandMarks" :[1],
+            "TrialEndKey": "x"
+        },
+        {
+            "Trial 3" : "3D Trial",
+            "Header": "Collect the Objects!2",
+            "TrialTime" : 60,
+            "Scene": 2,
+            "Enclosure": 1,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Rotate": 0,
+            "ActiveGoals" : [],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 2,
+            "LandMarks" :[1],
+            "TrialEndKey": "x"
+        },
+        {
+            "Trial 4" : "3D Trial",
+            "Header": "Collect the Objects!3",
+            "TrialTime" : 60,
+            "Scene": 2,
+            "Enclosure": 1,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Rotate": 0,
+            "ActiveGoals" : [],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 2,
+            "LandMarks" :[1],
+            "TrialEndKey": "x"
+        },        
+        {
+            "Trial 5" : "3D Trial",
+            "Header": "Collect the Objects!4",
+            "TrialTime" : 60,
+            "Scene": 2,
+            "Enclosure": 1,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Rotate": 0,
+            "ActiveGoals" : [],
             "InvisibleGoals" : [],
             "InactiveGoals" : [],
             "Quota": 2,

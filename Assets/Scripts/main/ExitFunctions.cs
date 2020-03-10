@@ -10,7 +10,7 @@ namespace main
     //Collection of classes that are called with reflection.
     //These are called at the end of the trail and are associated with the given pickup file.
     //Return true to repeat
-    public class Functions
+    public class ExitFunctions
     {
         // ReSharper disable once UnusedMember.Global
         // Called with reflection

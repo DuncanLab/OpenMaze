@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json;
 using UnityEngine;
 
 //This class is contains the central data object for all classes.
@@ -21,10 +22,11 @@ namespace data
             var file = System.IO.File.ReadAllText(fileName);
             try
             {
-                _data = JsonUtility.FromJson<Data>(file);
+                _data = JsonConvert.DeserializeObject<Data>(file);
             }
             catch (ArgumentException e)
             {
+                Debug.LogError(e);
                 Debug.LogError("INVALID JSON FILE");
                 Application.Quit();
             }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 using data;
@@ -17,7 +18,13 @@ namespace trial
     public abstract class AbstractTrial
     {
         public long TrialStartTime;
-
+        
+        // Variable only used for easy manipulation of AbstractTrials.        
+        public static readonly AbstractTrial TempHead = new CloseTrial();
+        
+        private List<ContingencyData> _contingencyGraph;
+        private int _contingencyIndex;
+        
         // These two fields register the current block and trial ID in the dataSingleton
         public readonly BlockId BlockId;
 
@@ -36,7 +43,7 @@ namespace trial
 
         public bool isTail;
 
-        public Data.Trial trialData;
+        public Trial trialData;
 
         public Enclosure enclosure;
 
@@ -129,53 +136,138 @@ namespace trial
 
         }
 
+        private bool ComputeEndFunction()
+        {
+            var blockData = DS.GetData().Blocks[BlockId.Value];
+
+            // Data on how to choose the next trial will be selected here.
+            if (!isTail || blockData.EndFunction == null) return false;
+            
+            Debug.Log("Computing EndFunction");
+
+            
+            var tmp = blockData.EndFunction;
+            var func = typeof(ExitFunctions).GetMethod(tmp, BindingFlags.Static | BindingFlags.Public);
+
+            var result = func != null && (bool) func.Invoke(null, new object[] {TrialProgress});
+
+            if (!result) return false;
+            
+            Debug.Log($"Loop current block since {blockData.ExitFunction} returned true");
+            
+            Loader.Get().CurrTrial = head;
+            head.PreEntry(TrialProgress, false);
+            return true;
+
+        }
+        private bool ComputeExitFunction()
+        {
+            var blockData = DS.GetData().Blocks[BlockId.Value];
+            if (blockData.ExitFunction == null) return false;
+            var exitFunction = blockData.ExitFunction;
+            var func =
+                typeof(ExitFunctions).GetMethod(exitFunction, BindingFlags.Static | BindingFlags.Public);
+            var result = func != null && (bool) func.Invoke(null, new object[] {TrialProgress});
+            if (result) return false;
+            
+            Debug.Log($"Exiting current block since {blockData.ExitFunction} returned false");
+
+            var tmp = next;
+            
+            while (!tmp.isTail)
+            {
+                tmp = tmp.next;
+            }
+
+            Loader.Get().CurrTrial = tmp.next;
+            next.PreEntry(TrialProgress);
+            return true;
+        }
+
+        private bool HasContingency()
+        {
+            return _contingencyGraph != null;
+        }
+        
+        private void HandleContingency()
+        {
+            if (!IsGenerated) // The first trial in the contingency graph won't be generated.
+            {
+                while (next.IsGenerated)
+                {
+                    next = next.next;
+                }
+            }
+            
+            var contingencyNode = _contingencyGraph[_contingencyIndex];
+
+            var func =
+                typeof(ContingencyFunctions).GetMethod(contingencyNode.ContingencyFunction, BindingFlags.Static | BindingFlags.Public);
+            
+            if (func == null)
+            {
+                Debug.LogError($"Contingency Function {contingencyNode.ContingencyFunction} doesn't exist.");
+                Application.Quit();
+                return;
+            }
+            
+            var result = (string) func.Invoke(null, new object[] {TrialProgress});
+            var nextTrials = contingencyNode.TrialIndicesByOutput[result];
+            if (nextTrials == null || nextTrials.Count == 0)
+            {
+                Debug.LogError($"Result {result} has no associated trials");
+                Application.Quit();
+                return;
+            }
+
+            var nextTrialIds = from id in nextTrials select new TrialId(id);
+            var tmp = next;
+            var curr = TempHead;
+            foreach (var nextTrialId in nextTrialIds)
+            {
+                curr.next = TrialUtils.GenerateBasicTrialFromConfig(BlockId, nextTrialId,
+                    DS.GetData().Trials[nextTrialId.Value]);
+                curr.next.IsGenerated = true;
+                curr = curr.next;
+            }
+
+            for (var i = 0; i < _contingencyGraph.Count; i++)
+            {
+                if (curr._contingencyIndex == _contingencyGraph[i].TrialIndex)
+                {
+                    curr.SetContingency(_contingencyGraph, i);
+                    break;
+                }
+            }          
+            
+            curr.next = tmp;
+            next = TempHead.next;
+        }
+        
+        public void SetContingency(List<ContingencyData> contingencyGraph, int contingencyIndex)
+        {
+            _contingencyGraph = contingencyGraph;
+            _contingencyIndex = contingencyIndex;
+        }
         // Load the next trial
         public virtual void Progress()
         {
             Debug.Log("Progressing...");
 
+            if (HasContingency())
+            {
+                Debug.Log("Progressing with contingency");
+                HandleContingency();
+            }
+            
             // Exiting current trial
             TrialProgress.PreviousTrial = this;
             if (TrialProgress.Instructional != 1)
             {
-                var blockData = DS.GetData().Blocks[BlockId.Value];
-                if (blockData.ExitFunction != null)
+                // We exit the current trial.
+                if (ComputeEndFunction() || ComputeExitFunction())
                 {
-                    var exitFunction = blockData.ExitFunction;
-                    var func =
-                        typeof(Functions).GetMethod(exitFunction, BindingFlags.Static | BindingFlags.Public);
-                    var result = func != null && (bool) func.Invoke(null, new object[] {TrialProgress});
-                    if (!result)
-                    {
-                        var tmp = next;
-                        while (!tmp.isTail)
-                        {
-                            tmp = tmp.next;
-                        }
-
-                        Loader.Get().CurrTrial = tmp.next;
-                        next.PreEntry(TrialProgress);
-                        return;
-                    }
-                }
-
-                // Data on how to choose the next trial will be selected here.
-                if (isTail)
-                {
-                    if (blockData.EndFunction != null)
-                    {
-                        var tmp = blockData.EndFunction;
-                        var func = typeof(Functions).GetMethod(tmp, BindingFlags.Static | BindingFlags.Public);
-
-                        var result = func != null && (bool) func.Invoke(null, new object[] {TrialProgress});
-
-                        if (result)
-                        {
-                            Loader.Get().CurrTrial = head;
-                            head.PreEntry(TrialProgress, false);
-                            return;
-                        }
-                    }
+                    return;
                 }
             }
 

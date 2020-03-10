@@ -9,7 +9,7 @@
 
         public override string ToString()
         {
-            return Value.ToString();
+            return (Value + 1).ToString();
         }
 
         public int Value { get; }
