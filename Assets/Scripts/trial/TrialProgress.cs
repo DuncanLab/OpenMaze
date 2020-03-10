@@ -2,6 +2,7 @@
 
 using main;
 using UnityEngine;
+using value;
 
 namespace trial
 {
@@ -22,12 +23,10 @@ namespace trial
         public int PickupType;
         public float TargetX;
         public float TargetY;
-        public int BlockID;
-        public int TrialID;
-        public string Field1;
-        public string Field2;
-        public string Field3;
-        public string Field4;
+        public BlockId BlockId;
+        public TrialId TrialId;
+        public string Subject;
+        public string Condition;
         public int TwoDim;
         public int Instructional;
         public int Visible;

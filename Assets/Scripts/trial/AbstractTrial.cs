@@ -7,6 +7,7 @@ using data;
 using main;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using value;
 using static data.Data;
 using DS = data.DataSingleton;
 
@@ -18,10 +19,12 @@ namespace trial
         public long TrialStartTime;
 
         // These two fields register the current block and trial ID in the dataSingleton
-        public int BlockID;
+        public readonly BlockId BlockId;
 
-        public int TrialID;
-
+        public readonly TrialId TrialId;
+        
+        public bool IsGenerated { get; set; }
+        
         public bool isSuccessful;
 
         public int NumCollected; // The number of goals collected for this trial
@@ -45,17 +48,17 @@ namespace trial
 
         public bool progressionComplete = false;
 
-        protected AbstractTrial(int blockId, int trialId)
+        protected AbstractTrial(BlockId blockId, TrialId trialId)
         {
-            BlockID = blockId;
-            TrialID = trialId;
+            BlockId = blockId;
+            TrialId = trialId;
 
             isSuccessful = false;
 
-            if (blockId == -1 || trialId == -1) return;
+            if (blockId == BlockId.EMPTY) return;
             if (DataSingleton.GetData().Blocks.Count == 0) throw new Exception("No trial in block");
 
-            trialData = DataSingleton.GetData().Trials[trialId];
+            trialData = DataSingleton.GetData().Trials[trialId.Value];
 
             if (trialData.Enclosure > 0)
             {
@@ -82,10 +85,10 @@ namespace trial
 
         public virtual void PreEntry(TrialProgress t, bool first = true)
         {
-            Debug.Log("Entering trial: " + (TrialID + 1));
+            Debug.Log("Entering trial: " + TrialId);
             if (head == this && first)
             {
-                Debug.Log(string.Format("Entered Block: {0} at time: {1}", BlockID, DateTime.Now));
+                Debug.Log(string.Format("Entered Block: {0} at time: {1}", BlockId.Value, DateTime.Now));
                 t.ResetOngoing();
                 t.successes = new List<int>();
                 int NumBlocks = DS.GetData().Blocks.Count;
@@ -135,7 +138,7 @@ namespace trial
             TrialProgress.PreviousTrial = this;
             if (TrialProgress.Instructional != 1)
             {
-                var blockData = DS.GetData().Blocks[BlockID];
+                var blockData = DS.GetData().Blocks[BlockId.Value];
                 if (blockData.ExitFunction != null)
                 {
                     var exitFunction = blockData.ExitFunction;

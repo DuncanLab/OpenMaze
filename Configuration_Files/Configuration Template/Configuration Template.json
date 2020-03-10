@@ -40,6 +40,26 @@
                 ],
               "Replacement" : 0,
               "RandomlySelect" : [{"Order": [1, 2]},{"Order": [1,2]}]
+        },
+        {
+            "Block 4": "Contingency Based - Select the next trial based on contingency. This allows for a BST based contingency system",
+            "Notes": "When a contingency is chosen, it will enter the contingency graph. Contingencies are chosen on a _first come first serve_ basis.",
+            "TrialOrder": [
+                -1
+            ],
+            "Contingencies": [
+                {
+                    "StartIndex": 1
+                    "1": {
+                        "Function": "ContingencyFunc",
+                        "A": 2
+                        "B": 3
+                        "D": 4
+                    }
+                }
+            ]
+
+
         }    
     ],
 

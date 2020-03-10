@@ -65,7 +65,6 @@ namespace data
             public int Replacement; //Integer value representing replacement
             public List<RandomData> RandomlySelect; //Array that contains all the possible random values
             public List<int> TrialOrder; //Trial order (-1 means random)
-
             public bool ShowNumSuccessfulTrials; // Whether or not to display the number of successful trials
             public bool ShowCollectedPerTrial; // Whether or not to display the amount of goals/pickups collected (resets each trial)
         }

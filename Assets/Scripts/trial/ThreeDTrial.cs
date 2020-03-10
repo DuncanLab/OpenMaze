@@ -1,12 +1,13 @@
 ﻿using System;
 using data;
 using UnityEngine;
+using value;
 
 namespace trial
 {
     public class ThreeDTrial : TimeoutableTrial
     {
-        public ThreeDTrial(int blockId, int trialId) : base(blockId, trialId)
+        public ThreeDTrial(BlockId blockId, TrialId trialId) : base(blockId, trialId)
         {
         }
 

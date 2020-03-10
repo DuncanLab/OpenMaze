@@ -19,8 +19,8 @@ namespace main
 
             var curr = TrialProgress.GetCurrTrial();
 
-            var blockId = curr.BlockID;
-            var bd = DS.GetData().Blocks[blockId];
+            var blockId = curr.BlockId;
+            var bd = DS.GetData().Blocks[blockId.Value];
             var goal = bd.EndGoal ?? bd.ExitGoal;
             var numSuccessfulInPrevious = goal.Split(' ');
             var numSuccessfulRequired = float.Parse(numSuccessfulInPrevious[0]);
@@ -45,9 +45,8 @@ namespace main
                     if (tp.successes[i] == 1) successCount++;
                 }
 
-                Debug.Log(string.Format(
-                    "Number of Successes required: {0}, Actual: {1}, Previous trials to check: {2}",
-                    numSuccessfulRequired, successCount, previousTrialsToCheck));
+                Debug.Log(
+                    $"Number of Successes required: {numSuccessfulRequired}, Actual: {successCount}, Previous trials to check: {previousTrialsToCheck}");
 
             }
             else
@@ -57,9 +56,8 @@ namespace main
                     if (tp.successes[i] == 1) successCount++;
                 }
 
-                Debug.Log(string.Format(
-                    "Number of Successes required: {0}, Actual: {1}, Previous trials to check: ALL",
-                    numSuccessfulRequired, successCount));
+                Debug.Log(
+                    $"Number of Successes required: {numSuccessfulRequired}, Actual: {successCount}, Previous trials to check: ALL");
             }
 
             return successCount < numSuccessfulRequired;

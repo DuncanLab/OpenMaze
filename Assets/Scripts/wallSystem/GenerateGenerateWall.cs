@@ -35,8 +35,8 @@ namespace wallSystem
         private void Update()
         {
 
-            currBlockId = E.Get().CurrTrial.BlockID;
-            currTrialId = E.Get().CurrTrial.TrialID;
+            currBlockId = E.Get().CurrTrial.BlockId.Value;
+            currTrialId = E.Get().CurrTrial.TrialId.Value;
 
             if (DS.GetData().Blocks[currBlockId].ShowNumSuccessfulTrials)
             {

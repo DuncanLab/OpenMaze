@@ -40,7 +40,12 @@ namespace main
         //This function initializes the Data.singleton files
         public static bool ExternalActivation(string inputFile)
         {
-            if (!inputFile.Contains(".json")) return false;
+            if (!inputFile.Contains(".json"))
+            {
+                Debug.LogError("Invalid Json File");
+                Application.Quit();
+                return false;
+            }
             DS.Load(inputFile);
             Directory.CreateDirectory(C.OutputDirectory);
             return true;
@@ -91,7 +96,7 @@ namespace main
                     var str = string.Format(
                         "{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, " +
                         "{12}, {13}, {14}, {15}, {16}, {17}, {18}, {19}, {20}, {21}, {22}, {23}, {24}, {25}",
-                        s.Field1, s.Field2, s.Field3, s.Field4, DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss.fff tt"), s.BlockID + 1, s.TrialID + 1, s.TrialNumber + 1, s.Instructional, s.TwoDim, s.EnvironmentType, s.CurrentEnclosureIndex + 1, PositionX, PositionY, PositionZ, RotationY,
+                        s.Subject, s.Condition, s.SessionID, s.Note, DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss.fff tt"), s.BlockId, s.TrialId, s.TrialNumber + 1, s.Instructional, s.TwoDim, s.EnvironmentType, s.CurrentEnclosureIndex + 1, PositionX, PositionY, PositionZ, RotationY,
                         targetFound, s.TargetX, s.TargetY, s.LastX, s.LastY,
                         Input.GetKey(KeyCode.UpArrow) ? 1 : 0,
                         Input.GetKey(KeyCode.DownArrow) ? 1 : 0, Input.GetKey(KeyCode.LeftArrow) ? 1 : 0,

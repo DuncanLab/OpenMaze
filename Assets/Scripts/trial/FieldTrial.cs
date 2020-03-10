@@ -1,8 +1,11 @@
 ﻿using main;
 using SFB;
 using System;
+using data;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UI;
+using value;
 using System.IO;
 
 using Debug = UnityEngine.Debug;
@@ -16,7 +19,7 @@ namespace trial
         private readonly InputField[] _fields;
 
         // Here we construct the entire linked list structure.
-        public FieldTrial(InputField[] fields) : base(-1, -1)
+        public FieldTrial(InputField[] fields) : base(BlockId.EMPTY, TrialId.EMPTY)
         {
             _fields = fields;
 
@@ -57,60 +60,49 @@ namespace trial
         private void GenerateTrials()
         {
             AbstractTrial currentTrial = this;
-            foreach (var i in DS.GetData().BlockOrder)
+            foreach (var blockDisplayIndex in DS.GetData().BlockOrder)
             {
-                var l = i - 1;
-                var block = DS.GetData().Blocks[l];
+                var blockId = new BlockId(blockDisplayIndex);
+                var block = DS.GetData().Blocks[blockId.Value];
                 var newBlock = true;
                 AbstractTrial currHead = null;
 
-                var tCnt = 0;
-                foreach (var j in block.TrialOrder)
+                var trialCount = 0;
+                foreach (var trialDisplayIndex in block.TrialOrder)
                 {
-                    var k = j - 1;
-                    AbstractTrial t;
-
-                    // Here we decide what each trial is, I guess we could do this with a function map, but later. 
-                    // here we have a picture as a trial.
-                    if (k < 0)
-                    {
-                        t = new RandomTrial(l, k);
-                    }
-                    else
-                    {
-                        var trialData = DS.GetData().Trials[k];
-
-                        // Control flow here is for deciding what Trial gets spat out from the config
-                        if (trialData.FileLocation != null)
+                    AbstractTrial newTrial;
+                        var trialId = new TrialId(trialDisplayIndex);
+                        switch (trialId.Value)
                         {
-                            Debug.Log("Creating new Instructional Trial");
-                            t = new InstructionalTrial(l, k);
+                            // Here we decide what each trial is, I guess we could do this with a function map, but later. 
+                            // here we have a picture as a trial.
+                            case -1:
+                                newTrial = new RandomTrial(blockId);
+                                break;
+                            case -2:
+                                newTrial = null;
+                                break;
+                            default:
+                                newTrial = TrialUtils.GenerateBasicTrialFromConfig(blockId, trialId, trialData);
+                                break;
                         }
-                        else if (trialData.TwoDimensional == 1)
-                        {
-                            Debug.Log("Creating new 2D Screen Trial");
-                            t = new TwoDTrial(l, k);
-                        }
-                        else
-                        {
-                            Debug.Log("Creating new 3D Screen Trial");
-                            t = new ThreeDTrial(l, k);
-                        }
-                    }
-                    if (newBlock) currHead = t;
+                    
+                    
 
-                    t.isTail = tCnt == block.TrialOrder.Count - 1;
-                    t.head = currHead;
+                    if (newBlock) currHead = newTrial;
 
-                    currentTrial.next = t;
+                    newTrial.isTail = trialCount == block.TrialOrder.Count - 1;
+                    newTrial.head = currHead;
+
+                    currentTrial.next = newTrial;
 
                     currentTrial = currentTrial.next;
 
                     newBlock = false;
-                    tCnt++;
+                    trialCount++;
                 }
 
-                currentTrial.next = new CloseTrial(-1, -1);
+                currentTrial.next = new CloseTrial();
             }
         }
 

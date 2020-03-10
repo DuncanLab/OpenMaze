@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using value;
 
 namespace trial
 {
@@ -6,7 +7,7 @@ namespace trial
     {
         private readonly float _threshHold;
 
-        protected TimeoutableTrial(int blockId, int trialId) : base(blockId, trialId)
+        protected TimeoutableTrial(BlockId blockId, TrialId trialId) : base(blockId, trialId)
         {
             _threshHold = trialData.TrialTime < 1 ? int.MaxValue : trialData.TrialTime;
         }

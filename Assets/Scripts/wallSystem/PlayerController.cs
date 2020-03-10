@@ -89,8 +89,8 @@ namespace wallSystem
             TrialProgress.GetCurrTrial().TrialProgress.Instructional = TrialProgress.GetCurrTrial().trialData.Instructional;
             TrialProgress.GetCurrTrial().TrialProgress.EnvironmentType = TrialProgress.GetCurrTrial().trialData.Scene;
             TrialProgress.GetCurrTrial().TrialProgress.CurrentEnclosureIndex = TrialProgress.GetCurrTrial().trialData.Enclosure - 1;
-            TrialProgress.GetCurrTrial().TrialProgress.BlockID = TrialProgress.GetCurrTrial().BlockID;
-            TrialProgress.GetCurrTrial().TrialProgress.TrialID = TrialProgress.GetCurrTrial().TrialID;
+            TrialProgress.GetCurrTrial().TrialProgress.BlockId = TrialProgress.GetCurrTrial().BlockId;
+            TrialProgress.GetCurrTrial().TrialProgress.TrialId = TrialProgress.GetCurrTrial().TrialId;
             TrialProgress.GetCurrTrial().TrialProgress.TwoDim = TrialProgress.GetCurrTrial().trialData.TwoDimensional;
             TrialProgress.GetCurrTrial().TrialProgress.LastX = TrialProgress.GetCurrTrial().TrialProgress.TargetX;
             TrialProgress.GetCurrTrial().TrialProgress.LastY = TrialProgress.GetCurrTrial().TrialProgress.TargetY;
@@ -159,8 +159,11 @@ namespace wallSystem
             Destroy(other.gameObject);
 
             // Tally the number collected per current block
-            int BlockID = TrialProgress.GetCurrTrial().BlockID;
-            TrialProgress.GetCurrTrial().TrialProgress.NumCollectedPerBlock[BlockID]++;
+            var blockId = TrialProgress.GetCurrTrial().BlockId.Value;
+
+            if (localQuota > 0)
+            {
+                TrialProgress.GetCurrTrial().TrialProgress.NumCollectedPerBlock[blockId]++;
 
             TrialProgress.GetCurrTrial().NumCollected++;
             E.LogData(

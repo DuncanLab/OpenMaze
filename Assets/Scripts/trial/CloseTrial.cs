@@ -1,6 +1,7 @@
 ﻿using System;
 using data;
 using UnityEngine;
+using value;
 
 namespace trial
 {
@@ -9,7 +10,7 @@ namespace trial
     //If we are in this state, then we finish the experiment.
     public class CloseTrial : AbstractTrial
     {
-        public CloseTrial(int blockId, int trialId) : base(blockId, trialId)
+        public CloseTrial() : base(BlockId.EMPTY, TrialId.EMPTY)
         {
 
         }
