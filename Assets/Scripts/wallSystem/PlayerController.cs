@@ -165,13 +165,14 @@ namespace wallSystem
             {
                 TrialProgress.GetCurrTrial().TrialProgress.NumCollectedPerBlock[blockId]++;
 
-            TrialProgress.GetCurrTrial().NumCollected++;
-            E.LogData(
-                TrialProgress.GetCurrTrial().TrialProgress,
-                TrialProgress.GetCurrTrial().TrialStartTime,
-                transform,
-                1
-            );
+                TrialProgress.GetCurrTrial().NumCollected++;
+                E.LogData(
+                    TrialProgress.GetCurrTrial().TrialProgress,
+                    TrialProgress.GetCurrTrial().TrialStartTime,
+                    transform,
+                    1
+                );
+            }
 
             if (--localQuota > 0) return;
 

@@ -61,7 +61,7 @@ namespace main
             using (var writer = new StreamWriter("Assets/OutputFiles~/" + DS.GetData().OutputFile, false))
             {
                 writer.Write(
-                    "StartField1, StartField2, StartField3, StartField4, TimeStamp, BlockIndex, TrialIndex, TrialInBlock, Instructional, 2D, Scene, Enclosure, PositionX, PositionY, PositionZ, RotationY, " +
+                    "Participant, Session, Condition, Version, TimeStamp, BlockIndex, TrialIndex, TrialInBlock, Instructional, 2D, Scene, Enclosure, PositionX, PositionY, PositionZ, RotationY, " +
                     "Collision, GoalX, GoalZ, LastX, LastZ, UpArrow, DownArrow," +
                     " LeftArrow, RightArrow, Space"
                 + "\n");
@@ -77,11 +77,14 @@ namespace main
             {
                 using (var writer = new StreamWriter("Assets/OutputFiles~/" + DS.GetData().OutputFile, true))
                 {
+                    var trialIdStr = "InTrial";
                     var PositionX = t.position.x.ToString();
                     var PositionZ = t.position.z.ToString();
                     var PositionY = t.position.y.ToString();
                     var RotationY = t.eulerAngles.y.ToString();
+                    var LoadingTime = 0.0;
                     
+
                     var timeSinceExperimentStart = DateTimeOffset.Now.ToUnixTimeMilliseconds() - DataSingleton.GetData().ExperimentStartTime;
                     var timeSinceTrialStart = DateTimeOffset.Now.ToUnixTimeMilliseconds() - trialStartTime;
 
