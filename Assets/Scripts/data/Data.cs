@@ -137,7 +137,7 @@ namespace data
             {
                 get
                 {
-                    return Position.Count == 0 ? Vector3.zero : new Vector3(Position[0], Position[1], Position[2]);
+                    return Position == null || Position.Count == 0 ? Vector3.zero : new Vector3(Position[0], Position[1], Position[2]);
                 }
             }
 
@@ -145,7 +145,7 @@ namespace data
             {
                 get
                 {
-                    return Rotation.Count == 0 ? Vector3.zero : new Vector3(Rotation[0], Rotation[1], Rotation[2]);
+                    return Rotation == null || Rotation.Count == 0 ? Vector3.zero : new Vector3(Rotation[0], Rotation[1], Rotation[2]);
                 }
             }
 
@@ -153,7 +153,7 @@ namespace data
             {
                 get
                 {
-                    return Scale.Count == 0 ? Vector3.zero : new Vector3(Scale[0], Scale[1], Scale[2]);
+                    return Scale == null || Scale.Count == 0 ? Vector3.zero : new Vector3(Scale[0], Scale[1], Scale[2]);
                 }
             }
         }
@@ -188,7 +188,7 @@ namespace data
             {
                 get
                 {
-                    return Position.Count == 0 ? Vector3.zero : new Vector3(Position[0], Position[1], Position[2]);
+                    return Position == null || Position.Count == 0 ? Vector3.zero : new Vector3(Position[0], Position[1], Position[2]);
                 }
             }
 
@@ -196,7 +196,7 @@ namespace data
             {
                 get
                 {
-                    return Rotation.Count == 0 ? Vector3.zero : new Vector3(Rotation[0], Rotation[1], Rotation[2]);
+                    return Rotation == null || Rotation.Count == 0 ? Vector3.zero : new Vector3(Rotation[0], Rotation[1], Rotation[2]);
                 }
             }
 
@@ -204,7 +204,7 @@ namespace data
             {
                 get
                 {
-                    return Scale.Count == 0 ? Vector3.zero : new Vector3(Scale[0], Scale[1], Scale[2]);
+                    return Scale == null || Scale.Count == 0 ? Vector3.zero : new Vector3(Scale[0], Scale[1], Scale[2]);
                 }
             }
         }
