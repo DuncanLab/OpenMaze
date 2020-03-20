@@ -3,6 +3,7 @@ using SFB;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
 
 using Debug = UnityEngine.Debug;
 using DS = data.DataSingleton;
@@ -19,13 +20,26 @@ namespace trial
         {
             _fields = fields;
 
-            // This block of code basically calls the directory picker to select the configuration file.
-            while (true)
+            // This block of code will use the default configuration file if
+            // using webGL or Android (can add others in if statement) 
+            // Otherwise calls the directory picker to select the configuration file.
+
+            string[] files = Directory.GetFiles(Application.streamingAssetsPath + "/Default_Config/");
+            Debug.Log(files);
+            if (files.Length > 0)
             {
-                // Here we're using: https://github.com/gkngkc/UnityStandaloneFileBrowser because it was easier than rolling our own
-                string[] paths = StandaloneFileBrowser.OpenFilePanel("Choose configuration file", "Configuration_Files", "", false);
-                string path = paths[0];
-                if (Loader.ExternalActivation(path)) break;
+                string defaultConfig = Application.streamingAssetsPath + "/Default_Config/" + Path.GetFileName(files[0]);
+                Loader.ExternalActivation(defaultConfig);
+            }
+            else
+            {
+                while (true)
+                {
+                    // Here we're using: https://github.com/gkngkc/UnityStandaloneFileBrowser because it was easier than rolling our own
+                    string[] paths = StandaloneFileBrowser.OpenFilePanel("Choose configuration file", "Configuration_Files", "", false);
+                    string path = paths[0];
+                    if (Loader.ExternalActivation(path)) break;
+                }
             }
 
             TrialProgress = new TrialProgress();
