@@ -49,19 +49,28 @@
             ],
             "ContingencyGraph": [
                 [{
-                    "TrialIndex": 1,
+                    "InitialTrial": 1,
                     "ContingencyFunction": "ContingencyFunc",
                     "TrialIndicesByOutput": {
-                        "A": [1, 1, 2],
-                        "B": [3]
+                        "A": {
+                            "Trials": [2, 3],
+                            "NextNodeIndex": 2
+                        },
+                        "B": {
+                            "Trials": [3]
+                        }
                     }
                 },
                 {
-                    "TrialIndex": 2,
+                    "InitialTrial": 4,
                     "ContingencyFunction": "ContingencyFunc",
                     "TrialIndicesByOutput": {
-                        "A": [4],
-                        "B": [5]
+                        "A": {
+                            "Trials": [5, 6],
+                        },
+                        "B": {
+                            "Trials": [3]
+                        }
                     }
                 }]
             ]
@@ -131,6 +140,37 @@
         {
             "Trial 5" : "3D Trial",
             "Header": "Collect the Objects!4",
+            "TrialTime" : 60,
+            "Scene": 2,
+            "Enclosure": 1,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Rotate": 0,
+            "ActiveGoals" : [],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 2,
+            "LandMarks" :[1],
+            "TrialEndKey": "x"
+        },
+                {
+            "Trial 5" : "3D Trial",
+            "Header": "Collect the Objects!5",
+            "TrialTime" : 60,
+            "Scene": 2,
+            "Enclosure": 1,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Rotate": 0,
+            "ActiveGoals" : [],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 2,
+            "LandMarks" :[1],
+            "TrialEndKey": "x"
+        },        {
+            "Trial 5" : "3D Trial",
+            "Header": "Collect the Objects!6",
             "TrialTime" : 60,
             "Scene": 2,
             "Enclosure": 1,

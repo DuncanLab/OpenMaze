@@ -64,7 +64,6 @@ namespace trial
 
             if (Input.GetKey(trialEndKeyCode) && (_runningTime > ignoreUserInputDelay))
             {
-                Debug.Log(_runningTime);
                 Progress();
             }
         }

@@ -6,7 +6,7 @@ namespace main
     {
         public static string ContingencyFunc(TrialProgress tp)
         {
-            return "B";
+            return "A";
         }
     }
 }

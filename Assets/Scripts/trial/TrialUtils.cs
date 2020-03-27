@@ -18,7 +18,7 @@ namespace trial
                 return null;
             }
 
-            var contingencyGraph = new List<Data.ContingencyData>(block.ContingencyGraph[contingencyCount]);
+            var contingencyGraph = new List<Data.ContingencyNode>(block.ContingencyGraph[contingencyCount]);
             if (contingencyGraph.Count == 0)
             {
                 Debug.LogError($"The {contingencyGraph.Count}th {blockId} doesn't have enough entries (need at least one)");
@@ -27,8 +27,13 @@ namespace trial
             }
 
             var currentContingency = contingencyGraph[0];
-            
-            var trialId = new TrialId(currentContingency.TrialIndex);
+            if (currentContingency.InitialTrial == 0)
+            {
+                Debug.LogError($"The {currentContingency.InitialTrial} doesn't exist");
+                Application.Quit();
+                return null;
+            }
+            var trialId = new TrialId(currentContingency.InitialTrial);
             var trial = GenerateBasicTrialFromConfig(blockId, trialId, data.Trials[trialId.Value]);
             trial.SetContingency(contingencyGraph, 0);
 

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace data
 {
@@ -68,17 +69,24 @@ namespace data
             public List<int> TrialOrder; //Trial order (-1 means random)
             public bool ShowNumSuccessfulTrials; // Whether or not to display the number of successful trials
             public bool ShowCollectedPerTrial; // Whether or not to display the amount of goals/pickups collected (resets each trial)
-            public List<List<ContingencyData>> ContingencyGraph;
+            public List<List<ContingencyNode>> ContingencyGraph;
         }
         
         [Serializable]
-        public class ContingencyData
+        public class ContingencyNode
         {
-            public int TrialIndex;
+            public int InitialTrial;
             public string ContingencyFunction;
-            public Dictionary<string, List<int>> TrialIndicesByOutput;
+            public Dictionary<string, ContingencyData> TrialIndicesByOutput;
         }
 
+        [Serializable]
+        public class ContingencyData
+        {
+            public List<int> Trials;
+            public int NextNodeIndex;
+        }
+        
         [Serializable]
         public class RandomData
         {

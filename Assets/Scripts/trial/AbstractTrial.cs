@@ -22,10 +22,11 @@ namespace trial
         // Variable only used for easy manipulation of AbstractTrials.        
         public static readonly AbstractTrial TempHead = new CloseTrial();
         
-        private List<ContingencyData> _contingencyGraph;
+        private List<ContingencyNode> _contingencyGraph;
+        // The index of the node in the contingencyGraph which represents the current trial.
         private int _contingencyIndex;
         
-        // These two fields register the current block and trial ID in the dataSingleton
+        // These two fields register the current block and trial ID in the dataSin1gleton
         public readonly BlockId BlockId;
 
         public readonly TrialId TrialId;
@@ -188,36 +189,67 @@ namespace trial
         {
             return _contingencyGraph != null;
         }
+
+        private string InvokeContingencyFunction(string contingencyFunction)
+        {
+            var func =
+                typeof(ContingencyFunctions).GetMethod(contingencyFunction, BindingFlags.Static | BindingFlags.Public);
+            
+            if (func == null)
+            {
+                Debug.LogError($"Contingency Function {contingencyFunction} doesn't exist.");
+                Application.Quit();
+                return null;
+            }
+            
+            var result = (string) func.Invoke(null, new object[] {TrialProgress});
+            Debug.Log($"Output from the Contingency Function is {result}");
+            return result;
+        }
+
+        private ContingencyData GetContingencyDataFromResult(string contingencyResult)
+        {
+            var contingencyData = _contingencyGraph[_contingencyIndex];
+            
+            var path = contingencyData.TrialIndicesByOutput[contingencyResult];
+            
+            if (path == null)
+            {
+                Debug.LogError($"Result {contingencyResult} from contingencyFunction " +
+                               $"${contingencyData.ContingencyFunction} has no associated trials");
+                Application.Quit();
+                throw new Exception();
+            }
+
+            return path;
+        }
         
         private void HandleContingency()
         {
-            if (!IsGenerated) // The first trial in the contingency graph won't be generated.
+            
+            // The first trial in the contingency graph won't be generated.
+            // We remove the generated trials in case we had a loop in the block
+            if (!IsGenerated)
             {
                 while (next.IsGenerated)
                 {
                     next = next.next;
                 }
             }
-            
             var contingencyNode = _contingencyGraph[_contingencyIndex];
 
-            var func =
-                typeof(ContingencyFunctions).GetMethod(contingencyNode.ContingencyFunction, BindingFlags.Static | BindingFlags.Public);
+
+            var contingencyResult = InvokeContingencyFunction(contingencyNode.ContingencyFunction);
+
+            var contingencyData = GetContingencyDataFromResult(contingencyResult);
             
-            if (func == null)
-            {
-                Debug.LogError($"Contingency Function {contingencyNode.ContingencyFunction} doesn't exist.");
-                Application.Quit();
-                return;
-            }
+            var nextTrials = new List<int>(contingencyData.Trials);
             
-            var result = (string) func.Invoke(null, new object[] {TrialProgress});
-            var nextTrials = contingencyNode.TrialIndicesByOutput[result];
-            if (nextTrials == null || nextTrials.Count == 0)
-            {
-                Debug.LogError($"Result {result} has no associated trials");
-                Application.Quit();
-                return;
+            var contingencyNodeId = new ContingencyNodeId(contingencyData.NextNodeIndex);
+            
+            if (contingencyNodeId.Value >= 0)
+            { 
+                nextTrials.Add(_contingencyGraph[contingencyNodeId.Value].InitialTrial);
             }
 
             var nextTrialIds = from id in nextTrials select new TrialId(id);
@@ -231,20 +263,18 @@ namespace trial
                 curr = curr.next;
             }
 
-            for (var i = 0; i < _contingencyGraph.Count; i++)
+            if (contingencyNodeId.Value >= 0)
             {
-                if (curr._contingencyIndex == _contingencyGraph[i].TrialIndex)
-                {
-                    curr.SetContingency(_contingencyGraph, i);
-                    break;
-                }
-            }          
+                curr.SetContingency(_contingencyGraph, contingencyNodeId.Value);
+            }
+            
+            
             
             curr.next = tmp;
             next = TempHead.next;
         }
         
-        public void SetContingency(List<ContingencyData> contingencyGraph, int contingencyIndex)
+        public void SetContingency(List<ContingencyNode> contingencyGraph, int contingencyIndex)
         {
             _contingencyGraph = contingencyGraph;
             _contingencyIndex = contingencyIndex;
