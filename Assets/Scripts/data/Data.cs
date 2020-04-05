@@ -95,7 +95,7 @@ namespace data
             public int Quota; // The quota that the person needs to pick up before the next trial is switched too
             public List<float> StartPosition; //The start position of the character (usually 0, 0) If left empty (ie. "[]") start position is random
             public float StartFacing; // The starting angle of the character (in degrees). if set to -1 start facing will be random
-
+            public bool ExitButton; //When this is set to true a button that says "Exit Experiment" will appear at the bottom of screen, when pressed application will close
             public bool ShowCollectedPerBlock; // Whether or not to display the amount of goals/pickups collected (resets each block)
         }
 
