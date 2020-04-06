@@ -9,6 +9,9 @@
 
 ## Getting Started
 
+### IMPORTANT
+If you are following along with the OpenMaze tutorials there may be descrepencies between instructions in the tutorial videos and most recent version of the OpenMaze software. Please make sure that you carefully read over the **Release History / Change Log** below to see how these changes impact the tutorial videos. 
+
 ### Prerequisites
 - Unity 2019.x or above.
 - Your PC must meet the minimum requirements to run Unity, found [here](https://unity3d.com/unity/system-requirements).
@@ -28,7 +31,7 @@ following software packages: **Unity, Open Maze, Sublime Text/Text editor of cho
    1. Go to https://github.com/DuncanLab/OpenMaze (you're already here!).
    2. In the grey dropdown on the left side of the page called 'branch' make sure
       that **master** is selected. Alternatively, checkout the [releases section](https://github.com/DuncanLab/OpenMaze/releases)
-      for the latest release.
+      for the latest release. 
    3. Now, click the green button on the right hand side called **Clone or
       Download** and make sure to select **Download ZIP**.
    4. Unzip the file you downloaded in an easy to access place. For example, your
@@ -73,6 +76,13 @@ https://duncanlab.github.io/OpenMazeSite
     1. Unity has recently deprecated the ***Standard Assets*** package. Because of this we have changed the release so that it already 
     includes all the standard assets needed. There is no long an need to download any additional asset packs from the Unity asset
     store after launching OpenMaze. 
+    
+  >**Tutorial Videos Descrepencies**
+    1. Tutorial 1 - Download, Install and Setup - OpenMaze no long requires you to download **Nature Starter Kit 2** or
+    **StandardAssets** disregard these instructions in the tutorial video.
+    2. Tutuorial 2: Building 3D Environment - Textures used when creating terrains differ from the textures now available with OpenMaze.
+    Simple choose the textures that closely resemble those in the tutorial, or pick your own from the new textures included.
+    3. All Tutorials - Start button is now used to start the experiment rather than the space bar. 
 
 - 1.0.0
 This is the first official release version of OpenMaze Experiment Toolbox for the Unity Engine. This version was released with the publication "OpenMaze: An Open Source Unity Toolbox for Creating Virtual Environment Experiments" and was used to create the "Learn OpenMaze in a Day" video tutorial series (https://www.youtube.com/playlist?list=PLppXGUtW-XlIuTh-lW6URgm5Cim_DH4gL). For more information about the OpenMaze Toolbox please visit https://openmaze.organica.dev/
