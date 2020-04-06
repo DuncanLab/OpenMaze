@@ -59,16 +59,21 @@ following software packages: **Unity, Open Maze, Sublime Text/Text editor of cho
       project and the yellow triangle no longer appears. 
    7. Click the project to Open it in Unity. If prompted to update Unity to the 
       newest version click no. 
-   8. Once OpenMaze is loaded in Unity Editor navigate to the Asset Store tab at the
-      top of the screen beside the Scene tab. 
-   9. Download and import "Standard Assets (Unity 2017.3)" and "Nature Startert Kit 2"
-      You can find these by searching for them by name.
 
 Congratulations! You have set up the Open Maze project. To begin using the
 software in your experiment, please take a look at our video tutorials at
 https://duncanlab.github.io/OpenMazeSite
 
 ## Release History / Change log
+- 1.0.1
+  >**new features added** 
+    1. Start button - a "Start Experiment" button has been added to the ***+Launch Experiment*** Scene. 
+    2. Exit Experiment Button - ***Exit Experiment*** button can be added instruction trials by adding the attribute value pair:                **"ExitButton": true**. When this is added a button will appear at the bottom of the instruction trial and when pressed the              application will close. Note: Data will be automatically saved. 
+    3. Default Configuration File - the folder ***Defualt_Config*** has been added to the ***StreamingAssets*** folder. If there is a          configuration file within this folder, the experiment will automatically load this configuraiton file instead of prompting the          experimenter/participant to select a configuration file through the file browser. Only one configuration file should be added to        this folder. 
+  >**Changes to Download & Setup**
+    1. Unity has recently depricated the ***Standard Assets*** package. Because of this we have changed the release so that it already 
+    includes all the standard assets needed. There is no long an need to download any additional asset packs from the Unity asset
+    store after launching OpenMaze. 
 
 - 1.0.0
 This is the first official release version of OpenMaze Experiment Toolbox for the Unity Engine. This version was released with the publication "OpenMaze: An Open Source Unity Toolbox for Creating Virtual Environment Experiments" and was used to create the "Learn OpenMaze in a Day" video tutorial series (https://www.youtube.com/playlist?list=PLppXGUtW-XlIuTh-lW6URgm5Cim_DH4gL). For more information about the OpenMaze Toolbox please visit https://openmaze.organica.dev/
