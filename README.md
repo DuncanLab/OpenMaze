@@ -60,8 +60,7 @@ following software packages: **Unity, Open Maze, Sublime Text/Text editor of cho
    7. Click the project to Open it in Unity. If prompted to update Unity to the 
       newest version click no. 
 
-Congratulations! You have set up the Open Maze project. To begin using the
-software in your experiment, please take a look at our video tutorials at
+Congratulations! You have set up the Open Maze project. To start building your OpenMaze experiment, visit the OpenMaze website an check out our User's Manual and tutorial videos  
 https://duncanlab.github.io/OpenMazeSite
 
 ## Release History / Change log
