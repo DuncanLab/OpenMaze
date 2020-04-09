@@ -23,13 +23,17 @@ namespace trial
             // This block of code will use the default configuration file if
             // using webGL or Android (can add others in if statement) 
             // Otherwise calls the directory picker to select the configuration file.
-
-            var DefaultConfigPath = Application.streamingAssetsPath + "/Default_Config/";
-            var files = Directory.GetFiles(DefaultConfigPath);
+    
+            var defaultConfigDir = Application.streamingAssetsPath + "/Default_Config/";
+            var files = new string[0];
+            if (Directory.Exists(defaultConfigDir))
+            {
+                files = Directory.GetFiles(defaultConfigDir);
+            }
 
             if (files.Length > 0)
             {
-                string defaultConfig = DefaultConfigPath + Path.GetFileName(files[0]);
+                var defaultConfig = defaultConfigDir + Path.GetFileName(files[0]);
                 Loader.ExternalActivation(defaultConfig);
             }
             else
