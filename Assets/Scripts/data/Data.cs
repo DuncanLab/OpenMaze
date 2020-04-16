@@ -59,9 +59,7 @@ namespace data
         public class BlockData
         {
             public string EndGoal; // percentage ___SPACE___ number. This is very arbitrary.
-            public string EndFunction; // The function name (if not present, we assume its always true)
             public string ExitGoal; // percentage ___SPACE___ number. This is very arbitrary.
-            public string ExitFunction; // The function name (if not present, we assume its always false)
             public string BlockName; // Name (outputed at the end of the Block)
             public string Notes; // Notes about the given block
             public int Replacement; //Integer value representing replacement
@@ -69,24 +67,8 @@ namespace data
             public List<int> TrialOrder; //Trial order (-1 means random)
             public bool ShowNumSuccessfulTrials; // Whether or not to display the number of successful trials
             public bool ShowCollectedPerTrial; // Whether or not to display the amount of goals/pickups collected (resets each trial)
-            public List<List<ContingencyNode>> ContingencyGraph;
-        }
-        
-        [Serializable]
-        public class ContingencyNode
-        {
-            public int InitialTrial;
-            public string ContingencyFunction;
-            public Dictionary<string, ContingencyData> TrialIndicesByOutput;
         }
 
-        [Serializable]
-        public class ContingencyData
-        {
-            public List<int> Trials;
-            public int NextNodeIndex;
-        }
-        
         [Serializable]
         public class RandomData
         {

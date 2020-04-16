@@ -68,7 +68,6 @@ namespace trial
                 AbstractTrial currHead = null;
     
                 var trialCount = 0;
-                var currentContingencyCount = 0;
                 
                 foreach (var trialDisplayIndex in block.TrialOrder)
                 {
@@ -80,9 +79,6 @@ namespace trial
                             // here we have a picture as a trial.
                             case -1:
                                 newTrial = new RandomTrial(blockId);
-                                break;
-                            case -2:
-                                newTrial = TrialUtils.GenerateContingentTrialFromConfig(blockId, currentContingencyCount ++);
                                 break;
                             default:
                                 var newTrialData = DS.GetData().Trials[trialId.Value];
