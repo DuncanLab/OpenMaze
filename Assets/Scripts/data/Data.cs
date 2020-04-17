@@ -57,9 +57,7 @@ namespace data
 
         [Serializable]
         public class BlockData
-        {
-            public string EndGoal; // percentage ___SPACE___ number. This is very arbitrary.
-            public string ExitGoal; // percentage ___SPACE___ number. This is very arbitrary.
+        { 
             public string BlockName; // Name (outputed at the end of the Block)
             public string Notes; // Notes about the given block
             public int Replacement; //Integer value representing replacement
@@ -68,7 +66,30 @@ namespace data
             public bool ShowNumSuccessfulTrials; // Whether or not to display the number of successful trials
             public bool ShowCollectedPerTrial; // Whether or not to display the amount of goals/pickups collected (resets each trial)
         }
-
+        
+        // This class reads in the ContingencyData for a given contingency node.
+        [Serializable]
+        public class Contingency
+        {
+            // List of trials which this Data applies too
+            public List<int> ForTrials;
+            
+            // The contingency function under ContingencyFunctions which 
+            public string ContingencyFunction;
+            
+            public Dictionary<string, ContingencyBehaviour> BehaviourByResult;
+        }
+        
+        // This is the data list for possible contingency behaviours.
+        [Serializable]
+        public class ContingencyBehaviour
+        {
+            public List<int> NextTrials;
+            public bool EndBlock;
+            public bool RestartBlock;
+            public bool RepeatContingency;
+        }
+        
         [Serializable]
         public class RandomData
         {
