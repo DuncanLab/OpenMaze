@@ -1,8 +1,6 @@
 ﻿using data;
 using UnityEngine;
 using wallSystem;
-using Debug = UnityEngine.Debug;
-
 using DS = data.DataSingleton;
 using L = main.Loader;
 
@@ -25,7 +23,8 @@ public class GenerateEnclosureFromFile : MonoBehaviour
                 {
                     var obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     obj.GetComponent<Renderer>().sharedMaterial.color = Data.GetColour(m.Color);
-                    obj.transform.localScale = new Vector3(m.TileWidth, L.Get().CurrTrial.enclosure.WallHeight, m.TileWidth);
+                    obj.transform.localScale =
+                        new Vector3(m.TileWidth, L.Get().CurrTrial.enclosure.WallHeight, m.TileWidth);
                     obj.transform.position = new Vector3(x, L.Get().CurrTrial.enclosure.WallHeight * 0.5f, y);
                 }
                 else if (col == 's')
@@ -45,7 +44,7 @@ public class GenerateEnclosureFromFile : MonoBehaviour
 
                     if (goalItem.Type.ToLower().Equals("3d"))
                     {
-                        prefab = (GameObject)Resources.Load("3D_Objects/" + goalItem.Object, typeof(GameObject));
+                        prefab = (GameObject) Resources.Load("3D_Objects/" + goalItem.Object, typeof(GameObject));
                         obj = Instantiate(prefab);
                         obj.AddComponent<RotateBlock>();
                         obj.GetComponent<Renderer>().material.color = Data.GetColour(goalItem.Color);
@@ -53,7 +52,8 @@ public class GenerateEnclosureFromFile : MonoBehaviour
                     else
                     {
                         // Load the "2D" prefab here, so we have the required components
-                        prefab = (GameObject)Resources.Load("3D_Objects/" + goalItem.Type.ToUpper(), typeof(GameObject));
+                        prefab = (GameObject) Resources.Load("3D_Objects/" + goalItem.Type.ToUpper(),
+                            typeof(GameObject));
                         obj = Instantiate(prefab);
                         spriteName = goalItem.Object;
                     }

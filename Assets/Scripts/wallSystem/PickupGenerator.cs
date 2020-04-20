@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using data;
 using UnityEngine;
-
+using Debug = UnityEngine.Debug;
 using DS = data.DataSingleton;
 using E = main.Loader;
 
@@ -37,14 +37,13 @@ namespace wallSystem
             while (!p.StandardError.EndOfStream)
             {
                 var outputLine = p.StandardError.ReadLine();
-                UnityEngine.Debug.LogError(outputLine);
-
+                Debug.LogError(outputLine);
             }
 
             if (line == null)
             {
-                UnityEngine.Debug.LogError("PYTHON FILE ERROR! (Most likely the wrong python version/environment)");
-                return new Data.Point { X = 5, Y = 0, Z = 5 };
+                Debug.LogError("PYTHON FILE ERROR! (Most likely the wrong python version/environment)");
+                return new Data.Point {X = 5, Y = 0, Z = 5};
             }
 
             var arr = line.Split(',');
@@ -76,28 +75,26 @@ namespace wallSystem
             merged.AddRange(inactiveGoals);
             merged.AddRange(invisibleGoals);
 
-            Data.Point p = new Data.Point { X = 0, Y = 0, Z = 0 };
+            var p = new Data.Point {X = 0, Y = 0, Z = 0};
             foreach (var val in merged)
             {
                 var goalItem = DS.GetData().Goals[Mathf.Abs(val) - 1];
 
                 // Position is not set in the config file
                 if (goalItem.Position.Count == 0)
-                {
                     p = ReadFromExternal(goalItem.PythonFile);
-                }
                 else
-                {
                     try
                     {
-                        p = new Data.Point { X = goalItem.PositionVector.x, Y = goalItem.PositionVector.y, Z = goalItem.PositionVector.z };
+                        p = new Data.Point
+                        {
+                            X = goalItem.PositionVector.x, Y = goalItem.PositionVector.y, Z = goalItem.PositionVector.z
+                        };
                     }
                     catch (Exception _)
                     {
-                        p = new Data.Point { X = goalItem.PositionVector.x, Y = 0.5f, Z = goalItem.PositionVector.z };
-
+                        p = new Data.Point {X = goalItem.PositionVector.x, Y = 0.5f, Z = goalItem.PositionVector.z};
                     }
-                }
 
                 GameObject prefab;
                 GameObject obj;
@@ -105,14 +102,14 @@ namespace wallSystem
 
                 if (goalItem.Type.ToLower().Equals("3d"))
                 {
-                    prefab = (GameObject)Resources.Load("3D_Objects/" + goalItem.Object, typeof(GameObject));
+                    prefab = (GameObject) Resources.Load("3D_Objects/" + goalItem.Object, typeof(GameObject));
                     obj = Instantiate(prefab);
                     obj.AddComponent<RotateBlock>();
                 }
                 else
                 {
                     // Load the "2D" prefab here, so we have the required components
-                    prefab = (GameObject)Resources.Load("3D_Objects/" + goalItem.Type.ToUpper(), typeof(GameObject));
+                    prefab = (GameObject) Resources.Load("3D_Objects/" + goalItem.Type.ToUpper(), typeof(GameObject));
                     obj = Instantiate(prefab);
                     spriteName = goalItem.Object;
                 }
@@ -159,9 +156,8 @@ namespace wallSystem
         private void OnDestroy()
         {
             foreach (var t in _destroy)
-            {
-                if (t != null) Destroy(t);
-            }
+                if (t != null)
+                    Destroy(t);
         }
     }
 }

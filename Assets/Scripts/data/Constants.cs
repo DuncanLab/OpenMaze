@@ -1,6 +1,4 @@
-﻿using trial;
-
-namespace data
+﻿namespace data
 {
     public static class Constants
     {

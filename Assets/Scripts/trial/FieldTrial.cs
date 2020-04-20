@@ -1,38 +1,43 @@
-﻿using main;
-using SFB;
-using System;
+﻿using System;
+using System.IO;
 using data;
-using UnityEditorInternal;
+using main;
+using SFB;
 using UnityEngine;
 using UnityEngine.UI;
 using value;
-using System.IO;
-
-using Debug = UnityEngine.Debug;
 using DS = data.DataSingleton;
 
 namespace trial
 {
-    // This is the only trial in which the current data is null. This is so that we have uniform setup
+    // This trial is loaded at the beginning. This is the Entry point of the application.
     public class FieldTrial : AbstractTrial
     {
         private readonly InputField[] _fields;
-
+        private readonly ITrialService _trialService;
+        
         // Here we construct the entire linked list structure.
         public FieldTrial(InputField[] fields) : base(BlockId.EMPTY, TrialId.EMPTY)
         {
             _fields = fields;
 
+            LoadConfigFile();
+
+            TrialProgress = new TrialProgress();
+            _fields = fields;
+            _trialService = TrialService.Create();
+            
+        }
+
+        private static void LoadConfigFile()
+        {
             // This block of code will use the default configuration file if
             // using webGL or Android (can add others in if statement) 
             // Otherwise calls the directory picker to select the configuration file.
-    
+
             var defaultConfigDir = Application.streamingAssetsPath + "/Default_Config/";
             var files = new string[0];
-            if (Directory.Exists(defaultConfigDir))
-            {
-                files = Directory.GetFiles(defaultConfigDir);
-            }
+            if (Directory.Exists(defaultConfigDir)) files = Directory.GetFiles(defaultConfigDir);
 
             if (files.Length > 0)
             {
@@ -44,64 +49,11 @@ namespace trial
                 while (true)
                 {
                     // Here we're using: https://github.com/gkngkc/UnityStandaloneFileBrowser because it was easier than rolling our own
-                    string[] paths = StandaloneFileBrowser.OpenFilePanel("Choose configuration file", "Configuration_Files", "", false);
-                    string path = paths[0];
+                    var paths = StandaloneFileBrowser.OpenFilePanel("Choose configuration file", "Configuration_Files",
+                        "", false);
+                    var path = paths[0];
                     if (Loader.ExternalActivation(path)) break;
                 }
-            }
-
-            TrialProgress = new TrialProgress();
-            _fields = fields;
-
-        }
-
-
-        //We are gonna generate all the trials here.
-        private void GenerateTrials()
-        {
-            AbstractTrial currentTrial = this;
-            foreach (var blockDisplayIndex in DS.GetData().BlockOrder)
-            {
-                var blockId = new BlockId(blockDisplayIndex);
-                var block = DS.GetData().Blocks[blockId.Value];
-                var newBlock = true;
-                AbstractTrial currHead = null;
-    
-                var trialCount = 0;
-                
-                foreach (var trialDisplayIndex in block.TrialOrder)
-                {
-                    AbstractTrial newTrial;
-                        var trialId = new TrialId(trialDisplayIndex);
-                        switch (trialId.Value)
-                        {
-                            // Here we decide what each trial is, I guess we could do this with a function map, but later. 
-                            // here we have a picture as a trial.
-                            case -1:
-                                newTrial = new RandomTrial(blockId);
-                                break;
-                            default:
-                                var newTrialData = DS.GetData().Trials[trialId.Value];
-                                newTrial = TrialUtils.GenerateBasicTrialFromConfig(blockId, trialId, newTrialData);
-                                break;
-                        }
-                    
-                    
-
-                    if (newBlock) currHead = newTrial;
-
-                    newTrial.isTail = trialCount == block.TrialOrder.Count - 1;
-                    newTrial.head = currHead;
-
-                    currentTrial.next = newTrial;
-
-                    currentTrial = currentTrial.next;
-
-                    newBlock = false;
-                    trialCount++;
-                }
-
-                currentTrial.next = new CloseTrial();
             }
         }
 
@@ -109,7 +61,7 @@ namespace trial
         {
             base.Update(deltaTime);
 
-            if (StartButton.clicked == true)
+            if (StartButton.clicked)
             {
                 // Sets the output file name as the desired one.
                 var subjectTextField = _fields[0].transform.GetComponentsInChildren<Text>()[1];
@@ -127,16 +79,15 @@ namespace trial
                 DS.GetData().OutputFile = TrialProgress.Subject + "_" +
                                           TrialProgress.SessionID + "_" +
                                           TrialProgress.Condition + "_" +
-                                          TrialProgress.Note + "_" + 
+                                          TrialProgress.Note + "_" +
                                           DateTime.Now.ToString("yyyy-MM-dd-HH.mm.ss") + ".csv";
 
-                GenerateTrials();
-
+                _trialService.GenerateAllStartingTrials(this);
+                
                 Loader.LogHeaders();
 
                 Progress();
             }
-
         }
 
         public override void Progress()

@@ -9,7 +9,6 @@ public class LookAtUser : MonoBehaviour
     private void Start()
     {
         _player = GameObject.Find("Participant");
-
     }
 
     // Update is called once per frame

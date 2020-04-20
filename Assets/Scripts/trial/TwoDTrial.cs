@@ -1,5 +1,4 @@
-﻿using System;
-using data;
+﻿using data;
 using UnityEngine;
 using value;
 
@@ -14,7 +13,6 @@ namespace trial
 
         public override void PreEntry(TrialProgress t, bool first = true)
         {
-
             base.PreEntry(t, first);
 
             LoadNextSceneWithTimer(trialData.Scene);
@@ -28,7 +26,8 @@ namespace trial
             var trialEndKeyCode = trialData.TrialEndKey;
             var ignoreUserInputDelay = DataSingleton.GetData().IgnoreUserInputDelay;
 
-            if (!String.IsNullOrEmpty(trialEndKeyCode) && Input.GetKey(trialEndKeyCode.ToLower()) && (_runningTime > ignoreUserInputDelay))
+            if (!string.IsNullOrEmpty(trialEndKeyCode) && Input.GetKey(trialEndKeyCode.ToLower()) &&
+                _runningTime > ignoreUserInputDelay)
             {
                 Debug.Log(_runningTime);
                 Progress();

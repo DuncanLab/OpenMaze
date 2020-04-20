@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
 
-
 public class StartButton : MonoBehaviour
 {
-    public static bool clicked = false;
+    public static bool clicked;
 
-    void LateUpdate()
+    private void LateUpdate()
     {
         clicked = false;
     }

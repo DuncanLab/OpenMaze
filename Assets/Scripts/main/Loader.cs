@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using data;
 using trial;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,26 +7,26 @@ using C = data.Constants;
 using DS = data.DataSingleton;
 
 
-
 namespace main
 {
     /// <inheritdoc />
     /// <summary>
-    /// Main entry point of the app as well as the game object that stays alive for all scenes.
+    ///     Main entry point of the app as well as the game object that stays alive for all scenes.
     /// </summary>
     public class Loader : MonoBehaviour
     {
+        private static float _timer;
+
+        //An "abstract trial". Classic polymorphism.
+        public AbstractTrial CurrTrial;
+
+        public InputField[] Fields; //These are an array of the fields given from the field trials
+
         //Singleton function
         public static Loader Get()
         {
             return GameObject.Find("Loader").GetComponent<Loader>();
         }
-        public InputField[] Fields; //These are an array of the fields given from the field trials
-
-        private static float _timer = 0;
-
-        //An "abstract trial". Classic polymorphism.
-        public AbstractTrial CurrTrial;
 
         //Unity method
         private void Start()
@@ -46,6 +45,7 @@ namespace main
                 Application.Quit();
                 return false;
             }
+
             DS.Load(inputFile);
             Directory.CreateDirectory(C.OutputDirectory);
             return true;
@@ -64,7 +64,7 @@ namespace main
                     "Participant, Session, Condition, Version, TimeStamp, BlockIndex, TrialIndex, TrialInBlock, Instructional, 2D, Scene, Enclosure, PositionX, PositionY, PositionZ, RotationY, " +
                     "Collision, GoalX, GoalZ, LastX, LastZ, UpArrow, DownArrow," +
                     " LeftArrow, RightArrow, Space"
-                + "\n");
+                    + "\n");
                 writer.Flush();
                 writer.Close();
             }
@@ -73,7 +73,10 @@ namespace main
         public static void LogData(TrialProgress s, long trialStartTime, Transform t, int targetFound = 0)
         {
             // Don't output anything if the Y position is at default (avoids incorrect output data)
-            if (t.position.y != -1000 && (targetFound == 1 || _timer > 1f / (DS.GetData().OutputTimesPerSecond == 0 ? 1000 : DS.GetData().OutputTimesPerSecond)))
+            if (t.position.y != -1000 && (targetFound == 1 || _timer >
+                1f / (DS.GetData().OutputTimesPerSecond == 0
+                    ? 1000
+                    : DS.GetData().OutputTimesPerSecond)))
             {
                 using (var writer = new StreamWriter("Assets/OutputFiles~/" + DS.GetData().OutputFile, true))
                 {
@@ -83,12 +86,13 @@ namespace main
                     var PositionY = t.position.y.ToString();
                     var RotationY = t.eulerAngles.y.ToString();
                     var LoadingTime = 0.0;
-                    
 
-                    var timeSinceExperimentStart = DateTimeOffset.Now.ToUnixTimeMilliseconds() - DataSingleton.GetData().ExperimentStartTime;
+
+                    var timeSinceExperimentStart =
+                        DateTimeOffset.Now.ToUnixTimeMilliseconds() - DS.GetData().ExperimentStartTime;
                     var timeSinceTrialStart = DateTimeOffset.Now.ToUnixTimeMilliseconds() - trialStartTime;
 
-                    if(s.Instructional == 1)
+                    if (s.Instructional == 1)
                     {
                         PositionX = "NA";
                         PositionZ = "NA";
@@ -99,7 +103,10 @@ namespace main
                     var str = string.Format(
                         "{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, " +
                         "{12}, {13}, {14}, {15}, {16}, {17}, {18}, {19}, {20}, {21}, {22}, {23}, {24}, {25}",
-                        s.Subject, s.Condition, s.SessionID, s.Note, DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss.fff tt"), s.BlockId, s.TrialId, s.TrialNumber + 1, s.Instructional, s.TwoDim, s.EnvironmentType, s.CurrentEnclosureIndex + 1, PositionX, PositionY, PositionZ, RotationY,
+                        s.Subject, s.Condition, s.SessionID, s.Note,
+                        DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss.fff tt"), s.BlockId, s.TrialId, s.TrialNumber + 1,
+                        s.Instructional, s.TwoDim, s.EnvironmentType, s.CurrentEnclosureIndex + 1, PositionX, PositionY,
+                        PositionZ, RotationY,
                         targetFound, s.TargetX, s.TargetY, s.LastX, s.LastY,
                         Input.GetKey(KeyCode.UpArrow) ? 1 : 0,
                         Input.GetKey(KeyCode.DownArrow) ? 1 : 0, Input.GetKey(KeyCode.LeftArrow) ? 1 : 0,
@@ -109,8 +116,10 @@ namespace main
                     writer.Flush();
                     writer.Close();
                 }
+
                 _timer = 0;
             }
+
             _timer += Time.deltaTime;
         }
     }

@@ -1,10 +1,10 @@
 ﻿using trial;
 
-namespace main
+namespace contingency.reflection
 {
     public class ContingencyFunctions
     {
-        public static string ContingencyFunc(TrialProgress tp)
+        public static string ContingencyFunc(TrialProgress tp, string functionInput)
         {
             return "A";
         }

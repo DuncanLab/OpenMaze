@@ -13,29 +13,28 @@ namespace wallSystem
 {
     public class PlayerController : MonoBehaviour
     {
-        public Camera Cam;
-        private GenerateGenerateWall _gen;
-
         // The stream writer that writes data out to an output file.
         private readonly string _outDir;
 
         // This is the character controller system used for collision
         private CharacterController _controller;
 
-        // The initial move direction is static zero.
-        private Vector3 _moveDirection = Vector3.zero;
-
         private float _currDelay;
+        private GenerateGenerateWall _gen;
 
         private float _iniRotation;
 
-        private float _waitTime;
+        private bool _isStarted;
+
+        // The initial move direction is static zero.
+        private Vector3 _moveDirection = Vector3.zero;
 
         private bool _playingSound;
 
-        private bool _isStarted = false;
-
         private bool _reset;
+
+        private float _waitTime;
+        public Camera Cam;
         private int localQuota;
 
         private void Start()
@@ -60,13 +59,9 @@ namespace wallSystem
 
             // Choose a random starting angle if the value is not set in config
             if (E.Get().CurrTrial.trialData.StartFacing == -1)
-            {
                 _iniRotation = Random.Range(0, 360);
-            }
             else
-            {
                 _iniRotation = E.Get().CurrTrial.trialData.StartFacing;
-            }
 
             transform.Rotate(0, _iniRotation, 0);
 
@@ -80,15 +75,18 @@ namespace wallSystem
             {
                 Debug.LogWarning("Can't set controller object: running an instructional trial");
             }
+
             _waitTime = E.Get().CurrTrial.trialData.Rotate;
             _reset = false;
             localQuota = E.Get().CurrTrial.trialData.Quota;
 
             // This has to happen here for output to be aligned properly
             TrialProgress.GetCurrTrial().TrialProgress.TrialNumber++;
-            TrialProgress.GetCurrTrial().TrialProgress.Instructional = TrialProgress.GetCurrTrial().trialData.Instructional;
+            TrialProgress.GetCurrTrial().TrialProgress.Instructional =
+                TrialProgress.GetCurrTrial().trialData.Instructional;
             TrialProgress.GetCurrTrial().TrialProgress.EnvironmentType = TrialProgress.GetCurrTrial().trialData.Scene;
-            TrialProgress.GetCurrTrial().TrialProgress.CurrentEnclosureIndex = TrialProgress.GetCurrTrial().trialData.Enclosure - 1;
+            TrialProgress.GetCurrTrial().TrialProgress.CurrentEnclosureIndex =
+                TrialProgress.GetCurrTrial().trialData.Enclosure - 1;
             TrialProgress.GetCurrTrial().TrialProgress.BlockId = TrialProgress.GetCurrTrial().BlockId;
             TrialProgress.GetCurrTrial().TrialProgress.TrialId = TrialProgress.GetCurrTrial().TrialId;
             TrialProgress.GetCurrTrial().TrialProgress.TwoDim = TrialProgress.GetCurrTrial().trialData.TwoDimensional;
@@ -103,10 +101,7 @@ namespace wallSystem
         // Start the character. If init from enclosure, this allows "s" to determine the start position
         public void ExternalStart(float pickX, float pickY, bool useEnclosure = false)
         {
-            while (!_isStarted)
-            {
-                Thread.Sleep(20);
-            }
+            while (!_isStarted) Thread.Sleep(20);
 
             TrialProgress.GetCurrTrial().TrialProgress.TargetX = pickX;
             TrialProgress.GetCurrTrial().TrialProgress.TargetY = pickY;
@@ -119,7 +114,8 @@ namespace wallSystem
                 var i = 0;
                 while (i++ < 100)
                 {
-                    var CurrentTrialRadius = DS.GetData().Enclosures[E.Get().CurrTrial.TrialProgress.CurrentEnclosureIndex].Radius;
+                    var CurrentTrialRadius =
+                        DS.GetData().Enclosures[E.Get().CurrTrial.TrialProgress.CurrentEnclosureIndex].Radius;
                     var v = Random.insideUnitCircle * CurrentTrialRadius * 0.9f;
                     var mag = Vector3.Distance(v, new Vector2(pickX, pickY));
                     if (mag > DS.GetData().CharacterData.DistancePickup)
@@ -131,6 +127,7 @@ namespace wallSystem
                         return;
                     }
                 }
+
                 Debug.LogError("Could not randomly place player. Probably due to" +
                                " a pick up location setting");
             }
@@ -138,10 +135,7 @@ namespace wallSystem
             {
                 var p = E.Get().CurrTrial.trialData.StartPosition;
 
-                if (useEnclosure)
-                {
-                    p = new List<float>() { pickX, pickY };
-                }
+                if (useEnclosure) p = new List<float> {pickX, pickY};
 
                 transform.position = new Vector3(p[0], 0.5f, p[1]);
                 var camPos = Cam.transform.position;
@@ -184,10 +178,7 @@ namespace wallSystem
         private void ComputeMovement()
         {
             // Dont move if the quota has been reached
-            if (localQuota <= 0)
-            {
-                return;
-            }
+            if (localQuota <= 0) return;
 
             // This calculates the current amount of rotation frame rate independent
             var rotation = Input.GetAxis("Horizontal") * DS.GetData().CharacterData.RotationSpeed * Time.deltaTime;
@@ -209,17 +200,16 @@ namespace wallSystem
 
         private void Update()
         {
-            E.LogData(TrialProgress.GetCurrTrial().TrialProgress, TrialProgress.GetCurrTrial().TrialStartTime, transform);
+            E.LogData(TrialProgress.GetCurrTrial().TrialProgress, TrialProgress.GetCurrTrial().TrialStartTime,
+                transform);
 
             // Wait for the sound to finish playing before ending the trial
             if (_playingSound)
-            {
                 if (!GetComponent<AudioSource>().isPlaying)
                 {
                     TrialProgress.GetCurrTrial().Progress();
                     _playingSound = false;
                 }
-            }
 
             // This first block is for the initial rotation of the character
             if (_currDelay < _waitTime)

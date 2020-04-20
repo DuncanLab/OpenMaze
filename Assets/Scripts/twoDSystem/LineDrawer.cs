@@ -4,7 +4,6 @@ using data;
 using UnityEngine;
 using UnityEngine.UI;
 using wallSystem;
-
 using DS = data.DataSingleton;
 using E = main.Loader;
 
@@ -15,11 +14,10 @@ namespace twoDSystem
     // Attached to the 2DWallGen Object (in 2d scenes)
     public class LineDrawer : MonoBehaviour
     {
-        public GameObject Wall;
-
         //This is the list of objects that LineDrawer has created
         //We need to keep track of this in order to properly garbage collect
         private List<GameObject> _created;
+        public GameObject Wall;
 
         private void Start()
         {
@@ -42,10 +40,7 @@ namespace twoDSystem
         // all objects that were created by this object. This is done so the game doesn't lag to hell.
         private void OnDestroy()
         {
-            foreach (var obj in _created)
-            {
-                Destroy(obj);
-            }
+            foreach (var obj in _created) Destroy(obj);
         }
 
         // Generate walls based on the parameters of the previous enclosure
@@ -63,14 +58,17 @@ namespace twoDSystem
             for (var i = 0; i < previousTrial.enclosure.Sides; i++)
             {
                 //We compute the sin and cos of the current angle (essentially plotting points on a circle
-                var x = GenerateWall.Cos(currentAngle) * previousTrial.enclosure.Radius + previousTrial.enclosure.Position[0];
-                var y = GenerateWall.Sin(currentAngle) * previousTrial.enclosure.Radius + previousTrial.enclosure.Position[1];
+                var x = GenerateWall.Cos(currentAngle) * previousTrial.enclosure.Radius +
+                        previousTrial.enclosure.Position[0];
+                var y = GenerateWall.Sin(currentAngle) * previousTrial.enclosure.Radius +
+                        previousTrial.enclosure.Position[1];
 
                 //This is theoreticially the perfect length of the wall. However, this causes a multitude of problems
                 //Such as:
                 //Gaps appearing in large wall numbers
                 //Desealing some stuff. so, bad.
-                var length = 2 * previousTrial.enclosure.Radius * GenerateWall.Tan(180f / previousTrial.enclosure.Sides);
+                var length = 2 * previousTrial.enclosure.Radius *
+                             GenerateWall.Tan(180f / previousTrial.enclosure.Sides);
 
                 //Here we create the wall
                 var obj = Instantiate(Wall,
@@ -103,7 +101,7 @@ namespace twoDSystem
                 GameObject landmark;
                 if (d.Type.ToLower().Equals("3d"))
                 {
-                    prefab = (GameObject)Resources.Load("3D_Objects/" + d.Object.ToUpper(), typeof(GameObject));
+                    prefab = (GameObject) Resources.Load("3D_Objects/" + d.Object.ToUpper(), typeof(GameObject));
                     landmark = Instantiate(prefab);
                     landmark.AddComponent<RotateBlock>();
                     landmark.GetComponent<Renderer>().material.color = Data.GetColour(d.Color);
@@ -111,7 +109,7 @@ namespace twoDSystem
                 else
                 {
                     // Load the "2D" prefab here, so we have the required components
-                    prefab = (GameObject)Resources.Load("2D_Objects/" + d.Object.ToUpper(), typeof(GameObject));
+                    prefab = (GameObject) Resources.Load("2D_Objects/" + d.Object.ToUpper(), typeof(GameObject));
                     landmark = Instantiate(prefab);
                     var spriteName = d.Object;
                     var pic = Img2Sprite.LoadNewSprite(DataSingleton.GetData().SpritesPath + spriteName);

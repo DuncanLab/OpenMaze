@@ -1,5 +1,4 @@
-﻿using System;
-using data;
+﻿using data;
 using UnityEngine;
 using value;
 
@@ -13,15 +12,13 @@ namespace trial
 
         public override void PreEntry(TrialProgress t, bool first = true)
         {
-
             // Sets the field of the preentry
             base.PreEntry(t, first);
-            t.TimingVerification = data.DataSingleton.GetData().TimingVerification; // timing diagnostics
+            t.TimingVerification = DataSingleton.GetData().TimingVerification; // timing diagnostics
 
             _runningTime -= trialData.Rotate;
 
             LoadNextSceneWithTimer(trialData.Scene);
-
         }
 
         public override void Progress()
@@ -31,13 +28,9 @@ namespace trial
             // If we are progressing without a success, record the failure
             // as a zero, otherwise record a 1.
             if (isSuccessful)
-            {
                 TrialProgress.successes.Add(1);
-            }
             else
-            {
                 TrialProgress.successes.Add(0);
-            }
             isSuccessful = false;
             base.Progress();
         }
@@ -47,7 +40,6 @@ namespace trial
             // Record that this particular trial was a success
             TrialProgress.NumSuccess++;
             isSuccessful = true;
-
         }
 
         public override void Update(float deltaTime)
@@ -57,15 +49,9 @@ namespace trial
             var trialEndKeyCode = trialData.TrialEndKey;
             var ignoreUserInputDelay = DataSingleton.GetData().IgnoreUserInputDelay;
 
-            if (!String.IsNullOrEmpty(trialEndKeyCode))
-            {
-                trialEndKeyCode = trialData.TrialEndKey.ToLower();
-            }
+            if (!string.IsNullOrEmpty(trialEndKeyCode)) trialEndKeyCode = trialData.TrialEndKey.ToLower();
 
-            if (Input.GetKey(trialEndKeyCode) && (_runningTime > ignoreUserInputDelay))
-            {
-                Progress();
-            }
+            if (Input.GetKey(trialEndKeyCode) && _runningTime > ignoreUserInputDelay) Progress();
         }
     }
 }

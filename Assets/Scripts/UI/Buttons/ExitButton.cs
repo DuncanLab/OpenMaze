@@ -3,10 +3,10 @@ using E = main.Loader;
 
 public class ExitButton : MonoBehaviour
 {
-    public static bool clicked = false;
+    public static bool clicked;
 
 
-    void LateUpdate()
+    private void LateUpdate()
     {
         clicked = false;
         gameObject.SetActive(E.Get().CurrTrial.trialData.ExitButton);
@@ -16,6 +16,4 @@ public class ExitButton : MonoBehaviour
     {
         clicked = true;
     }
-
 }
-

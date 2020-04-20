@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -19,7 +20,7 @@ namespace data
         //This function loads the file from a defacto location as shown below
         public static void Load(string fileName)
         {
-            var file = System.IO.File.ReadAllText(fileName);
+            var file = File.ReadAllText(fileName);
             try
             {
                 _data = JsonConvert.DeserializeObject<Data>(file);

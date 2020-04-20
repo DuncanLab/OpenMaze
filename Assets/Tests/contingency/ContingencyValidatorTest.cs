@@ -13,7 +13,7 @@ namespace Tests
 {
     public class ContingencyValidatorTest
     {
-        private ContingencyBehaviourValidator _contingencyBehaviourValidator;
+        private IContingencyBehaviourValidator _contingencyBehaviourValidator;
         
         [SetUp]
         public void SetupContingencyValidator()

@@ -1,5 +1,4 @@
-﻿using data;
-using main;
+﻿using main;
 using UnityEngine;
 using value;
 using DS = data.DataSingleton;
@@ -22,18 +21,12 @@ namespace trial
             var randomSelection = Random.Range(0, numRandomTrials);
 
             var randomTrialIndices = block.RandomlySelect[randomSelection];
-            while (next.IsGenerated)
-            {
-                next = next.next;
-            }
-            if (block.Replacement == 0)
-            {
-                block.RandomlySelect.Remove(randomTrialIndices);
-            }
+            while (next.IsGenerated) next = next.next;
+            if (block.Replacement == 0) block.RandomlySelect.Remove(randomTrialIndices);
             Debug.Log("RANDOM TRIAL CREATION");
 
             var trueNext = next;
-            
+
             var tCnt = 0;
             foreach (var trialDisplayIndex in randomTrialIndices.Order)
             {
@@ -41,20 +34,20 @@ namespace trial
                 //Here we decide what each trial is, I guess we could do this with a function map, but later. 
                 //here we have a picture as a trial.
                 var targetTrialData = DS.GetData().Trials[trialId.Value];
-                
+
                 //Control flow here is for deciding what Trial gets spat out from the config
 
-                var targetTrial = TrialUtils.GenerateBasicTrialFromConfig(BlockId, trialId, targetTrialData);
+                var targetTrial = TrialService.Create().GenerateBasicTrialFromConfig(BlockId, trialId, targetTrialData);
                 targetTrial.isTail = tCnt == randomTrialIndices.Order.Count - 1 && isTail;
                 targetTrial.head = head;
                 targetTrial.IsGenerated = true;
-                
+
                 currentTrial.next = targetTrial;
-                
+
                 currentTrial = currentTrial.next;
                 tCnt++;
             }
-            
+
             currentTrial.next = trueNext;
         }
 
@@ -63,18 +56,13 @@ namespace trial
             base.PreEntry(t, first);
             GenerateTrials();
             Progress();
-
         }
-        
-        
+
+
         public override void Progress()
         {
-            
             Loader.Get().CurrTrial = next;
             next.PreEntry(TrialProgress);
         }
-
-        
-
     }
 }
