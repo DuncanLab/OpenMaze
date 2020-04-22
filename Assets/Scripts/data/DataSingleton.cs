@@ -10,7 +10,7 @@ namespace data
     public class DataSingleton
     {
         //Our singleton instance
-        private static Data _data;
+        private static Data _data = new Data();
 
         public static Data GetData()
         {

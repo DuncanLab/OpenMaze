@@ -7,7 +7,7 @@ namespace trial
     public class InstructionalTrial : TimeoutableTrial
 
     {
-        public InstructionalTrial(BlockId blockId, TrialId trialId) : base(blockId, trialId)
+        public InstructionalTrial(Data data, BlockId blockId, TrialId trialId) : base(data, blockId, trialId)
         {
         }
 

@@ -26,7 +26,7 @@ namespace contingency
         private readonly IContingencyBehaviourValidator _contingencyBehaviourValidator;
         private readonly IContingencyFunctionCaller _contingencyFunctionCaller;
         private readonly Data _data;
-        private readonly TrialService _trialService;
+        private readonly ITrialService _trialService;
 
         private ContingencyService()
         {
@@ -34,7 +34,7 @@ namespace contingency
 
         private ContingencyService(IContingencyBehaviourValidator contingencyBehaviourValidator,
             IContingencyFunctionCaller contingencyFunctionCaller,
-            TrialService trialService,
+            ITrialService trialService,
             Data data,
             Data.Contingency contingency, AbstractTrial abstractTrial)
         {
@@ -46,23 +46,34 @@ namespace contingency
             _abstractTrial = abstractTrial;
         }
 
-        // This generator function is called when a trial doesn't have an associated contingency
-        public static ContingencyService CreateEmpty()
+        public class ContingencyServiceFactory : IContingencyServiceFactory
         {
-            return new ContingencyService();
-        }
+            public static IContingencyServiceFactory Create()
+            {
+                return new ContingencyServiceFactory();
+            }
+            private ContingencyServiceFactory(){}
+            
+            // This generator function is called when a trial doesn't have an associated contingency
+            public IContingencyService CreateEmpty()
+            {
+                return new ContingencyService();
+            }
 
-        public static ContingencyService Create(Data.Contingency contingency, AbstractTrial abstractTrial)
-        {
-            return new ContingencyService(
-                ContingencyBehaviourValidator.Create(),
-                ContingencyFunctionCaller.Create(),
-                TrialService.Create(),
-                DataSingleton.GetData(),
-                contingency,
-                abstractTrial
-            );
+            public IContingencyService Create(Data.Contingency contingency, AbstractTrial abstractTrial)
+            {
+                return new ContingencyService(
+                    ContingencyBehaviourValidator.Create(),
+                    ContingencyFunctionCaller.Create(),
+                    TrialService.Create(),
+                    DataSingleton.GetData(),
+                    contingency,
+                    abstractTrial
+                );
+            }
         }
+        
+
 
         private bool HasContingency()
         {

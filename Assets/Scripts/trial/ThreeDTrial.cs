@@ -6,7 +6,7 @@ namespace trial
 {
     public class ThreeDTrial : TimeoutableTrial
     {
-        public ThreeDTrial(BlockId blockId, TrialId trialId) : base(blockId, trialId)
+        public ThreeDTrial(Data data, BlockId blockId, TrialId trialId) : base(data, blockId, trialId)
         {
         }
 

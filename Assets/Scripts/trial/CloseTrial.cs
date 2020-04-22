@@ -8,7 +8,7 @@ namespace trial
     //If we are in this state, then we finish the experiment.
     public class CloseTrial : AbstractTrial
     {
-        public CloseTrial() : base(BlockId.EMPTY, TrialId.EMPTY)
+        public CloseTrial() : base(null, BlockId.EMPTY, TrialId.EMPTY)
         {
         }
 

@@ -17,7 +17,7 @@ namespace trial
         private readonly ITrialService _trialService;
         
         // Here we construct the entire linked list structure.
-        public FieldTrial(InputField[] fields) : base(BlockId.EMPTY, TrialId.EMPTY)
+        public FieldTrial(InputField[] fields) : base(null, BlockId.EMPTY, TrialId.EMPTY)
         {
             _fields = fields;
 

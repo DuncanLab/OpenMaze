@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using contingency;
+using data;
 using main;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,6 +15,8 @@ namespace trial
     // A central trial class 
     public abstract class AbstractTrial
     {
+
+        protected Data _data;
         // Variable only used for easy manipulation of AbstractTrials.        
         public static readonly AbstractTrial TempHead = new CloseTrial();
 
@@ -52,21 +55,23 @@ namespace trial
         public TrialProgress TrialProgress;
         public long TrialStartTime;
 
-        protected AbstractTrial(BlockId blockId, TrialId trialId)
+        protected AbstractTrial(Data data, BlockId blockId, TrialId trialId)
         {
-            _contingencyService = ContingencyService.CreateEmpty();
+            IContingencyServiceFactory factory = ContingencyService.ContingencyServiceFactory.Create();
+            _data = data;
+            _contingencyService = factory.CreateEmpty();
             BlockId = blockId;
             TrialId = trialId;
 
             isSuccessful = false;
 
             if (Equals(blockId, BlockId.EMPTY)) return;
-            if (DS.GetData().Blocks.Count == 0) throw new Exception("No trial in block");
+            if (data.Blocks.Count == 0) throw new Exception("No trial in block");
 
-            trialData = DS.GetData().Trials[trialId.Value];
+            trialData = data.Trials[trialId.Value];
 
             if (trialData.Enclosure > 0)
-                enclosure = DS.GetData().Enclosures[trialData.Enclosure - 1];
+                enclosure = data.Enclosures[trialData.Enclosure - 1];
 
             // If the user hasn't set an Enclosure index we want to set the Enclosure to be
             // unobtrusive, So the ground generates but nothing else.

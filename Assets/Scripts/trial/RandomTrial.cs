@@ -1,4 +1,5 @@
-﻿using main;
+﻿using data;
+using main;
 using UnityEngine;
 using value;
 using DS = data.DataSingleton;
@@ -7,8 +8,11 @@ namespace trial
 {
     public class RandomTrial : AbstractTrial
     {
-        public RandomTrial(BlockId blockId) : base(blockId, TrialId.EMPTY)
+        private readonly ITrialService _trialService;
+
+        public RandomTrial(Data data, ITrialService trialService, BlockId blockId) : base(data, blockId, TrialId.EMPTY)
         {
+            _trialService = trialService;
         }
 
         //We are gonna generate all the trials here.
@@ -33,11 +37,11 @@ namespace trial
                 var trialId = new TrialId(trialDisplayIndex);
                 //Here we decide what each trial is, I guess we could do this with a function map, but later. 
                 //here we have a picture as a trial.
-                var targetTrialData = DS.GetData().Trials[trialId.Value];
+                var targetTrialData = _data.Trials[trialId.Value];
 
                 //Control flow here is for deciding what Trial gets spat out from the config
 
-                var targetTrial = TrialService.Create().GenerateBasicTrialFromConfig(BlockId, trialId, targetTrialData);
+                var targetTrial = _trialService.GenerateBasicTrialFromConfig(BlockId, trialId, targetTrialData);
                 targetTrial.isTail = tCnt == randomTrialIndices.Order.Count - 1 && isTail;
                 targetTrial.head = head;
                 targetTrial.IsGenerated = true;

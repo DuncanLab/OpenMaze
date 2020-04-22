@@ -7,7 +7,7 @@ namespace trial
     //This is a two dimensional trial
     public class TwoDTrial : TimeoutableTrial
     {
-        public TwoDTrial(BlockId blockId, TrialId trialId) : base(blockId, trialId)
+        public TwoDTrial(Data data, BlockId blockId, TrialId trialId) : base(data, blockId, trialId)
         {
         }
 

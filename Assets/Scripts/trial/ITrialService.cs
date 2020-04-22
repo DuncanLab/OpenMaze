@@ -6,8 +6,7 @@ namespace trial
 {
     public interface ITrialService
     {
-        AbstractTrial GenerateBasicTrialFromConfig(BlockId blockId, TrialId trialId, Data.Trial trialDataFromIndex);
-
         void GenerateAllStartingTrials(AbstractTrial root);
+        AbstractTrial GenerateBasicTrialFromConfig(BlockId blockId, TrialId trialId, Data.Trial targetTrialData);
     }
 }

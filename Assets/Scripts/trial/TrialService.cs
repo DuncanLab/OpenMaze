@@ -11,15 +11,17 @@ namespace trial
     public class TrialService : ITrialService
     {
         private readonly Data _data;
+        private readonly IContingencyServiceFactory _contingencyServiceFactory;
 
-        private TrialService(Data data)
+        private TrialService(Data data, IContingencyServiceFactory contingencyServiceFactory)
         {
             _data = data;
+            _contingencyServiceFactory = contingencyServiceFactory;
         }
 
-        public static TrialService Create()
+        public static ITrialService Create()
         {
-            return new TrialService(DataSingleton.GetData());
+            return new TrialService(DataSingleton.GetData(), ContingencyService.ContingencyServiceFactory.Create());
         }
 
         private Dictionary<TrialId, Data.Contingency> ConstructContingencyByTrialMap(BlockId blockId)
@@ -60,7 +62,7 @@ namespace trial
                         // Here we decide what each trial is, I guess we could do this with a function map, but later. 
                         // here we have a picture as a trial.
                         case -1:
-                            newTrial = new RandomTrial(blockId);
+                            newTrial = new RandomTrial(_data, this, blockId);
                             break;
                         default:
                             var newTrialData = _data.Trials[trialId.Value];
@@ -72,8 +74,9 @@ namespace trial
                     {
                         // allows the trial to repeat itself even if it doesn't generate a new trial.
                         newTrial.StartOfContingency = newTrial;
-                        newTrial
-                            .SetContingency(ContingencyService.Create(trialContingenciesForBlock[trialId], newTrial));
+                        var contingencyService =
+                            _contingencyServiceFactory.Create(trialContingenciesForBlock[trialId], newTrial);
+                        newTrial.SetContingency(contingencyService);
                     }
                     
 
@@ -99,22 +102,22 @@ namespace trial
         public AbstractTrial GenerateBasicTrialFromConfig(BlockId blockId, TrialId trialId,
             Data.Trial trialDataFromIndex)
         {
-            // Control flow here is for deciding what Trial gets spat out from the config
+            // Control flow here i                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                s for deciding what Trial gets spat out from the config
             AbstractTrial currTrial;
             if (trialDataFromIndex.FileLocation != null)
             {
                 Debug.Log("Creating new Instructional Trial");
-                currTrial = new InstructionalTrial(blockId, trialId);
+                currTrial = new InstructionalTrial(_data, blockId, trialId);
             }
             else if (trialDataFromIndex.TwoDimensional == 1)
             {
                 Debug.Log("Creating new 2D Screen Trial");
-                currTrial = new TwoDTrial(blockId, trialId);
+                currTrial = new TwoDTrial(_data, blockId, trialId);
             }
             else
             {
                 Debug.Log("Creating new 3D Screen Trial");
-                currTrial = new ThreeDTrial(blockId, trialId);
+                currTrial = new ThreeDTrial(_data, blockId, trialId);
             }
             
             return currTrial;
