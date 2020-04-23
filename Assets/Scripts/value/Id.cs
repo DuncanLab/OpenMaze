@@ -16,10 +16,7 @@
 
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj == null) return false;
 
             return ((Id) obj).Value == Value;
         }

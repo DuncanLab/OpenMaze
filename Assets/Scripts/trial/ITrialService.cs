@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using data;
+﻿using data;
 using value;
 
 namespace trial

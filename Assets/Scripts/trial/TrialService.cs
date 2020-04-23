@@ -9,35 +9,13 @@ namespace trial
 {
     public class TrialService : ITrialService
     {
-        private readonly Data _data;
         private readonly IContingencyServiceFactory _contingencyServiceFactory;
+        private readonly Data _data;
 
         private TrialService(Data data, IContingencyServiceFactory contingencyServiceFactory)
         {
             _data = data;
             _contingencyServiceFactory = contingencyServiceFactory;
-        }
-
-        public static ITrialService Create()
-        {
-            return new TrialService(DataSingleton.GetData(), ContingencyService.ContingencyServiceFactory.Create());
-        }
-
-        private Dictionary<TrialId, Data.Contingency> ConstructContingencyByTrialMap(BlockId blockId)
-        {
-            var contingencies = _data.Blocks[blockId.Value].Contingencies;
-            
-            var contingencyByTrial = new Dictionary<TrialId, Data.Contingency>();
-
-            foreach (var contingency in contingencies)
-            {
-                foreach (var trialId in contingency.ForTrials.Select(x => new TrialId(x)))
-                {
-                    contingencyByTrial[trialId] = contingency;
-                }
-            }
-
-            return contingencyByTrial;
         }
 
         public void AddContingencyServiceToTrial(AbstractTrial trial)
@@ -60,7 +38,7 @@ namespace trial
                 trial.SetContingency(contingencyService);
             }
         }
-        
+
         public void GenerateAllStartingTrials(AbstractTrial currentTrial)
         {
             foreach (var blockDisplayIndex in _data.BlockOrder)
@@ -69,7 +47,7 @@ namespace trial
                 var block = _data.Blocks[blockId.Value];
                 var newBlock = true;
                 AbstractTrial currHead = null;
-                
+
                 var trialCount = 0;
 
                 foreach (var trialDisplayIndex in block.TrialOrder)
@@ -90,7 +68,7 @@ namespace trial
                     }
 
                     AddContingencyServiceToTrial(newTrial);
-                    
+
 
                     if (newBlock) currHead = newTrial;
 
@@ -131,8 +109,30 @@ namespace trial
                 Debug.Log("Creating new 3D Screen Trial");
                 currTrial = new ThreeDTrial(_data, blockId, trialId);
             }
-            
+
             return currTrial;
+        }
+
+        public static ITrialService Create()
+        {
+            return new TrialService(DataSingleton.GetData(), ContingencyService.ContingencyServiceFactory.Create());
+        }
+
+        private Dictionary<TrialId, Data.Contingency> ConstructContingencyByTrialMap(BlockId blockId)
+        {
+            var contingencies = _data.Blocks[blockId.Value].Contingencies;
+
+            var contingencyByTrial = new Dictionary<TrialId, Data.Contingency>();
+
+            foreach (var contingency in contingencies)
+            {
+                foreach (var trialId in contingency.ForTrials.Select(x => new TrialId(x)))
+                {
+                    contingencyByTrial[trialId] = contingency;
+                }
+            }
+
+            return contingencyByTrial;
         }
     }
 }

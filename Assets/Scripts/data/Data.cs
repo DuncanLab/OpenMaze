@@ -71,6 +71,7 @@ namespace data
         public class BlockData
         {
             public string BlockName; // Name (outputed at the end of the Block)
+            public List<Contingency> Contingencies = new List<Contingency>();
             public string Notes; // Notes about the given block
             public List<RandomData> RandomlySelect; //Array that contains all the possible random values
             public int Replacement; //Integer value representing replacement
@@ -80,7 +81,6 @@ namespace data
 
             public bool ShowNumSuccessfulTrials; // Whether or not to display the number of successful trials
             public List<int> TrialOrder; //Trial order (-1 means random)
-            public List<Contingency> Contingencies = new List<Contingency>();
         }
 
         // This class reads in the ContingencyData for a given contingency node.

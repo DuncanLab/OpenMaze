@@ -1,5 +1,4 @@
-﻿using System.Xml.Schema;
-using contingency;
+﻿using contingency;
 using data;
 using Moq;
 using Newtonsoft.Json;
@@ -19,7 +18,7 @@ namespace Tests.trial
         {
             _contingencyServiceFactoryMock = new Mock<IContingencyServiceFactory>();
         }
-        
+
         // Basic Trial Check
 
         [Test]
@@ -57,7 +56,7 @@ namespace Tests.trial
             var root = AbstractTrial.TempHead;
             _contingencyServiceFactoryMock.Setup(e => e.CreateEmpty());
             _contingencyServiceFactoryMock
-                .Setup(e => 
+                .Setup(e =>
                     e.Create(data.Blocks[0].Contingencies[0], It.IsAny<AbstractTrial>()))
                 .Callback<Data.Contingency, AbstractTrial>((_, trial) => appliedTrial = trial);
 
@@ -65,15 +64,15 @@ namespace Tests.trial
             _contingencyServiceFactoryMock.Verify(e => e.CreateEmpty(), Times.Exactly(5));
             _contingencyServiceFactoryMock.Verify(e => e
                 .Create(data.Blocks[0].Contingencies[0], It.IsAny<AbstractTrial>()), Times.Exactly(1));
-            
+
             Assert.AreEqual(appliedTrial.TrialId, new TrialId(1));
             Assert.AreEqual(appliedTrial.SourceTrial, appliedTrial);
-            
+
             root = root.next;
             Debug.Log(root.GetType());
 
             Assert.False(root.isTail);
-            Assert.AreEqual( root, root.SourceTrial);
+            Assert.AreEqual(root, root.SourceTrial);
             Assert.AreEqual(root.GetType(), typeof(InstructionalTrial));
             root = root.next;
 
@@ -96,7 +95,7 @@ namespace Tests.trial
             Assert.True(root.isTail);
             Assert.AreEqual(root.GetType(), typeof(ThreeDTrial));
             root = root.next;
-            
+
             Assert.AreEqual(root.GetType(), typeof(CloseTrial));
         }
 

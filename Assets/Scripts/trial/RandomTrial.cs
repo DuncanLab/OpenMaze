@@ -9,10 +9,10 @@ namespace trial
 {
     public class RandomTrial : AbstractTrial
     {
-        private readonly ITrialService _trialService;
         private readonly IContingencyServiceFactory _contingencyServiceFactory;
+        private readonly ITrialService _trialService;
 
-        public RandomTrial(Data data, ITrialService trialService, IContingencyServiceFactory serviceFactory, 
+        public RandomTrial(Data data, ITrialService trialService, IContingencyServiceFactory serviceFactory,
             BlockId blockId) : base(data, blockId, TrialId.EMPTY)
         {
             _trialService = trialService;

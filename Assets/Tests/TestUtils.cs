@@ -20,8 +20,8 @@ namespace Tests
                 Debug.LogError("constructor doesn't exist");
                 throw new NullReferenceException();
             }
-            
-            return (T)ci.Invoke(paramValues);
+
+            return (T) ci.Invoke(paramValues);
         }
     }
 }

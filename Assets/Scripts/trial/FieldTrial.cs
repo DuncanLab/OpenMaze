@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using data;
 using main;
 using SFB;
 using UnityEngine;
@@ -15,7 +14,7 @@ namespace trial
     {
         private readonly InputField[] _fields;
         private readonly ITrialService _trialService;
-        
+
         // Here we construct the entire linked list structure.
         public FieldTrial(InputField[] fields) : base(null, BlockId.EMPTY, TrialId.EMPTY)
         {
@@ -26,7 +25,6 @@ namespace trial
             TrialProgress = new TrialProgress();
             _fields = fields;
             _trialService = TrialService.Create();
-            
         }
 
         private static void LoadConfigFile()
@@ -83,7 +81,7 @@ namespace trial
                                           DateTime.Now.ToString("yyyy-MM-dd-HH.mm.ss") + ".csv";
 
                 _trialService.GenerateAllStartingTrials(this);
-                
+
                 Loader.LogHeaders();
 
                 Progress();

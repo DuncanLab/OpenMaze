@@ -7,14 +7,15 @@ namespace contingency.reflection
 {
     public class ContingencyFunctionCaller : IContingencyFunctionCaller
     {
-
         public static ContingencyFunctionCaller Create()
         {
             return new ContingencyFunctionCaller();
         }
-        
-        private ContingencyFunctionCaller(){}
-        
+
+        private ContingencyFunctionCaller()
+        {
+        }
+
         /**
          * Uses reflection to call the contingency function and get the result.
          *

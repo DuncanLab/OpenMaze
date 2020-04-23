@@ -15,8 +15,6 @@ namespace trial
     // A central trial class 
     public abstract class AbstractTrial
     {
-
-        protected Data _data;
         // Variable only used for easy manipulation of AbstractTrials.        
         public static readonly AbstractTrial TempHead = new CloseTrial();
 
@@ -28,14 +26,15 @@ namespace trial
         // The index of the node in the contingencyGraph which represents the current trial.
         private IContingencyService _contingencyService;
 
+        protected Data _data;
+
         protected float _runningTime;
 
         public Enclosure enclosure;
 
         // This points to the start of the block of trials (if present)
         public AbstractTrial head;
-        public AbstractTrial SourceTrial;
-        
+
         public bool isSuccessful;
 
         public bool isTail;
@@ -44,12 +43,13 @@ namespace trial
         // ReSharper disable once InconsistentNaming
         public AbstractTrial next;
 
-        public AbstractTrial Prev;
-
         public int NumCollected; // The number of goals collected for this trial
 
+        public AbstractTrial Prev;
+
         public bool progressionComplete;
-        
+        public AbstractTrial SourceTrial;
+
         public Trial trialData;
 
         public TrialProgress TrialProgress;
@@ -94,7 +94,7 @@ namespace trial
         {
             _contingencyService = contingencyService;
         }
-        
+
         public virtual void PreEntry(TrialProgress t, bool first = true)
         {
             Debug.Log("Entering trial: " + TrialId);

@@ -48,47 +48,11 @@ namespace contingency
             _abstractTrial = abstractTrial;
         }
 
-        public class ContingencyServiceFactory : IContingencyServiceFactory
-        {
-            public static IContingencyServiceFactory Create()
-            {
-                return new ContingencyServiceFactory();
-            }
-            private ContingencyServiceFactory(){}
-            
-            // This generator function is called when a trial doesn't have an associated contingency
-            public IContingencyService CreateEmpty()
-            {
-                return new ContingencyService();
-            }
-
-            public IContingencyService Create(Data.Contingency contingency, AbstractTrial abstractTrial)
-            {
-                return new ContingencyService(
-                    ContingencyBehaviourValidator.Create(),
-                    ContingencyFunctionCaller.Create(),
-                    TrialService.Create(),
-                    DataSingleton.GetData(),
-                    contingency,
-                    abstractTrial
-                );
-            }
-        }
-        
-
-
-        private bool HasContingency()
-        {
-            return _contingency != null;
-        }
-
         public AbstractTrial ExecuteContingency(TrialProgress tp)
         {
             if (!HasContingency())
-            {
                 // If there is no contingency, the trial should just progress to the next one.
                 return _abstractTrial.next;
-            }
 
             var contingencyRes = _contingencyFunctionCaller.InvokeContingencyFunction(tp, _contingency);
 
@@ -113,10 +77,7 @@ namespace contingency
             var curr = _abstractTrial;
 
             // Remove all generated trials before executing the behaviour
-            while (curr.next.IsGenerated)
-            {
-                curr = curr.next;
-            }
+            while (curr.next.IsGenerated) curr = curr.next;
             _abstractTrial.next = curr.next;
 
 
@@ -125,35 +86,33 @@ namespace contingency
                 AddTrials(behaviour);
                 return _abstractTrial.next;
             }
+
             if (behaviour.EndBlock)
             {
                 curr = _abstractTrial;
-                while (!curr.isTail)
-                {
-                    curr = curr.next;
-                }
+                while (!curr.isTail) curr = curr.next;
                 return curr.next;
             }
 
-            if (behaviour.RepeatContingency)
-            {
-                return _abstractTrial.SourceTrial;
-            }
+            if (behaviour.RepeatContingency) return _abstractTrial.SourceTrial;
 
-            if (behaviour.RestartBlock)
-            {
-                return _abstractTrial.head;
-            }
-            
+            if (behaviour.RestartBlock) return _abstractTrial.head;
+
             // Other behaviours not implemented yet.
             throw new NotImplementedException();
+        }
+
+
+        private bool HasContingency()
+        {
+            return _contingency != null;
         }
 
         private void AddTrials(Data.ContingencyBehaviour behaviour)
         {
             var curr = _abstractTrial;
             var next = curr.next;
-            
+
 
             foreach (var trialId in behaviour.NextTrials.Select(trialIdx => new TrialId(trialIdx)))
             {
@@ -165,9 +124,39 @@ namespace contingency
                 curr.next = trial;
                 curr = curr.next;
             }
-            
+
             _trialService.AddContingencyServiceToTrial(curr);
             curr.next = next;
+        }
+
+        public class ContingencyServiceFactory : IContingencyServiceFactory
+        {
+            private ContingencyServiceFactory()
+            {
+            }
+
+            // This generator function is called when a trial doesn't have an associated contingency
+            public IContingencyService CreateEmpty()
+            {
+                return new ContingencyService();
+            }
+
+            public IContingencyService Create(Data.Contingency contingency, AbstractTrial abstractTrial)
+            {
+                return new ContingencyService(
+                    ContingencyBehaviourValidator.Create(),
+                    ContingencyFunctionCaller.Create(),
+                    TrialService.Create(),
+                    DataSingleton.GetData(),
+                    contingency,
+                    abstractTrial
+                );
+            }
+
+            public static IContingencyServiceFactory Create()
+            {
+                return new ContingencyServiceFactory();
+            }
         }
     }
 }

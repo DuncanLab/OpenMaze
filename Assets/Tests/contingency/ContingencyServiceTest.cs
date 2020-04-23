@@ -12,11 +12,12 @@ namespace Tests
 {
     public class ContingencyServiceTest
     {
+        private readonly TrialProgress _tp = new TrialProgress();
         private Mock<IContingencyBehaviourValidator> _contingencyBehaviourValidator;
         private Mock<IContingencyFunctionCaller> _contingencyFunctionCaller;
-        private Mock<ITrialService> _trialService;
         private AbstractTrial _trial;
-        private readonly TrialProgress _tp = new TrialProgress();
+        private Mock<ITrialService> _trialService;
+
         [SetUp]
         public void Setup()
         {
@@ -29,7 +30,7 @@ namespace Tests
         [Test]
         public void TestContingency_EndBlock()
         {
-            var config = 
+            var config =
                 @"{
                     ""BlockOrder"": [1, 2],
                     ""Blocks"": [
@@ -54,7 +55,7 @@ namespace Tests
                         {}
                     ]
                 }";
-            
+
             var data = JsonConvert.DeserializeObject<Data>(config);
             _contingencyFunctionCaller
                 .Setup(e => e.InvokeContingencyFunction(_tp, data.Blocks[0].Contingencies[0]))
@@ -76,11 +77,11 @@ namespace Tests
             var returnedTrial = contingencyService.ExecuteContingency(_tp);
             Assert.AreEqual(returnedTrial, t3);
         }
-        
+
         [Test]
         public void TestContingency_AddTrialsAndRepeatContingency()
         {
-            var config = 
+            var config =
                 @"{
                     ""BlockOrder"": [1, 2],
                     ""Blocks"": [
@@ -113,7 +114,7 @@ namespace Tests
                         {}
                     ]
                 }";
-            
+
             var data = JsonConvert.DeserializeObject<Data>(config);
             _contingencyFunctionCaller
                 .Setup(e => e.InvokeContingencyFunction(_tp, data.Blocks[0].Contingencies[0]))
@@ -131,7 +132,7 @@ namespace Tests
                 .Setup(e =>
                     e.GenerateBasicTrialFromConfig(new BlockId(1), new TrialId(3), data.Trials[2]))
                 .Returns(t13);
-            
+
             var t14 = new ThreeDTrial(data, new BlockId(1), new TrialId(4));
             _trialService
                 .Setup(e =>
@@ -141,7 +142,7 @@ namespace Tests
             _trialService
                 .Setup(e =>
                     e.AddContingencyServiceToTrial(t14));
-            
+
             var t11 = new ThreeDTrial(data, new BlockId(1), new TrialId(1));
             t11.SourceTrial = t11;
             t11.head = t11;
@@ -158,10 +159,10 @@ namespace Tests
             var contingencyService = CreateContingencyService(t11, data, data.Blocks[0].Contingencies[0]);
 
             var returnedTrial = contingencyService.ExecuteContingency(_tp);
-            
+
             _trialService.Verify(e =>
                 e.AddContingencyServiceToTrial(t14), Times.Once);
-            
+
             Assert.AreEqual(t13, returnedTrial);
             Assert.IsTrue(t13.IsGenerated);
             Assert.AreEqual(t11, t13.SourceTrial);
@@ -171,20 +172,19 @@ namespace Tests
             Assert.AreEqual(t11, t14.SourceTrial);
 
             Assert.AreEqual(returnedTrial.next.next, t12);
-            
+
             contingencyService = CreateContingencyService(t14, data, data.Blocks[0].Contingencies[1]);
 
             returnedTrial = contingencyService.ExecuteContingency(_tp);
             Assert.AreEqual(t11, returnedTrial);
-
         }
 
 
-        private IContingencyService 
+        private IContingencyService
             CreateContingencyService(AbstractTrial trial, Data data, Data.Contingency contingency)
         {
             return TestUtils.Construct<ContingencyService>(
-                new []
+                new[]
                 {
                     typeof(IContingencyBehaviourValidator),
                     typeof(IContingencyFunctionCaller),
@@ -193,8 +193,8 @@ namespace Tests
                     typeof(Data.Contingency),
                     typeof(AbstractTrial)
                 },
-
-                new object []{
+                new object[]
+                {
                     _contingencyBehaviourValidator.Object,
                     _contingencyFunctionCaller.Object,
                     _trialService.Object,
