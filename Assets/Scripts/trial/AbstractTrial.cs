@@ -134,6 +134,10 @@ namespace trial
         {
         }
 
+        public override string ToString()
+        {
+            return $"Block {BlockId}, Trial {TrialId}";
+        }
 
         // Load the next trial
         public virtual void Progress()

@@ -161,6 +161,7 @@ namespace contingency
                     _data.Trials[trialId.Value]);
                 trial.IsGenerated = true;
                 trial.SourceTrial = _abstractTrial.SourceTrial;
+                trial.head = _abstractTrial.SourceTrial.head;
                 curr.next = trial;
                 curr = curr.next;
             }
