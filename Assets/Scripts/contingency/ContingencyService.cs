@@ -32,11 +32,13 @@ namespace contingency
         {
         }
 
-        private ContingencyService(IContingencyBehaviourValidator contingencyBehaviourValidator,
+        private ContingencyService(
+            IContingencyBehaviourValidator contingencyBehaviourValidator,
             IContingencyFunctionCaller contingencyFunctionCaller,
             ITrialService trialService,
             Data data,
-            Data.Contingency contingency, AbstractTrial abstractTrial)
+            Data.Contingency contingency,
+            AbstractTrial abstractTrial)
         {
             _contingencyBehaviourValidator = contingencyBehaviourValidator;
             _contingencyFunctionCaller = contingencyFunctionCaller;
@@ -77,7 +79,7 @@ namespace contingency
 
         private bool HasContingency()
         {
-            return _contingency == null;
+            return _contingency != null;
         }
 
         public AbstractTrial ExecuteContingency(TrialProgress tp)
@@ -111,8 +113,11 @@ namespace contingency
             var curr = _abstractTrial;
 
             // Remove all generated trials before executing the behaviour
-            while (curr.next.IsGenerated) curr = curr.next;
-            _abstractTrial.next = curr;
+            while (curr.next.IsGenerated)
+            {
+                curr = curr.next;
+            }
+            _abstractTrial.next = curr.next;
 
 
             if (behaviour.NextTrials != null)
@@ -125,14 +130,14 @@ namespace contingency
                 curr = _abstractTrial;
                 while (!curr.isTail)
                 {
-                    curr = _abstractTrial.next;
+                    curr = curr.next;
                 }
                 return curr.next;
             }
 
             if (behaviour.RepeatContingency)
             {
-                return _abstractTrial.StartOfContingency;
+                return _abstractTrial.SourceTrial;
             }
 
             if (behaviour.RestartBlock)
@@ -155,14 +160,13 @@ namespace contingency
                 var trial = _trialService.GenerateBasicTrialFromConfig(_abstractTrial.BlockId, trialId,
                     _data.Trials[trialId.Value]);
                 trial.IsGenerated = true;
-                trial.StartOfContingency = 
-                    _abstractTrial.IsGenerated ? _abstractTrial.StartOfContingency : _abstractTrial;
+                trial.SourceTrial = _abstractTrial.SourceTrial;
                 curr.next = trial;
                 curr = curr.next;
             }
-
-            curr.next = next;
             
+            _trialService.AddContingencyServiceToTrial(curr);
+            curr.next = next;
         }
     }
 }

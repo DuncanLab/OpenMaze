@@ -34,7 +34,7 @@ namespace trial
 
         // This points to the start of the block of trials (if present)
         public AbstractTrial head;
-        public AbstractTrial StartOfContingency;
+        public AbstractTrial SourceTrial;
         
         public bool isSuccessful;
 
@@ -57,9 +57,8 @@ namespace trial
 
         protected AbstractTrial(Data data, BlockId blockId, TrialId trialId)
         {
-            IContingencyServiceFactory factory = ContingencyService.ContingencyServiceFactory.Create();
+            var factory = ContingencyService.ContingencyServiceFactory.Create();
             _data = data;
-            _contingencyService = factory.CreateEmpty();
             BlockId = blockId;
             TrialId = trialId;
 
@@ -144,8 +143,8 @@ namespace trial
             TrialProgress.PreviousTrial = this;
 
             var nextTrial = _contingencyService.ExecuteContingency(TrialProgress);
-            
-            Loader.Get().CurrTrial = next;
+
+            Loader.Get().CurrTrial = nextTrial;
             next.PreEntry(TrialProgress);
             progressionComplete = true;
         }

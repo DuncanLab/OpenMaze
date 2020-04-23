@@ -1,4 +1,5 @@
-﻿using data;
+﻿using contingency;
+using data;
 using main;
 using UnityEngine;
 using value;
@@ -9,10 +10,13 @@ namespace trial
     public class RandomTrial : AbstractTrial
     {
         private readonly ITrialService _trialService;
+        private readonly IContingencyServiceFactory _contingencyServiceFactory;
 
-        public RandomTrial(Data data, ITrialService trialService, BlockId blockId) : base(data, blockId, TrialId.EMPTY)
+        public RandomTrial(Data data, ITrialService trialService, IContingencyServiceFactory serviceFactory, 
+            BlockId blockId) : base(data, blockId, TrialId.EMPTY)
         {
             _trialService = trialService;
+            _contingencyServiceFactory = serviceFactory;
         }
 
         //We are gonna generate all the trials here.
@@ -45,7 +49,7 @@ namespace trial
                 targetTrial.isTail = tCnt == randomTrialIndices.Order.Count - 1 && isTail;
                 targetTrial.head = head;
                 targetTrial.IsGenerated = true;
-
+                targetTrial.SetContingency(_contingencyServiceFactory.CreateEmpty());
                 currentTrial.next = targetTrial;
 
                 currentTrial = currentTrial.next;

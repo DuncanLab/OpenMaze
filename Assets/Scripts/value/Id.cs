@@ -21,11 +21,6 @@
                 return false;
             }
 
-            if (obj.GetType() != typeof(Id))
-            {
-                return false;
-            }
-
             return ((Id) obj).Value == Value;
         }
 

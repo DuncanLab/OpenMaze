@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
 using contingency;
 using data;
 using UnityEngine;
@@ -41,6 +40,27 @@ namespace trial
             return contingencyByTrial;
         }
 
+        public void AddContingencyServiceToTrial(AbstractTrial trial)
+        {
+            var blockId = trial.BlockId;
+            var trialId = trial.TrialId;
+            var trialContingenciesForBlock =
+                ConstructContingencyByTrialMap(blockId);
+            if (trialContingenciesForBlock.ContainsKey(trialId))
+            {
+                // allows the trial to repeat itself even if it doesn't generate a new trial.
+                trial.SourceTrial = trial;
+                var contingencyService =
+                    _contingencyServiceFactory.Create(trialContingenciesForBlock[trialId], trial);
+                trial.SetContingency(contingencyService);
+            }
+            else
+            {
+                var contingencyService = _contingencyServiceFactory.CreateEmpty();
+                trial.SetContingency(contingencyService);
+            }
+        }
+        
         public void GenerateAllStartingTrials(AbstractTrial currentTrial)
         {
             foreach (var blockDisplayIndex in _data.BlockOrder)
@@ -51,8 +71,7 @@ namespace trial
                 AbstractTrial currHead = null;
                 
                 var trialCount = 0;
-                var trialContingenciesForBlock =
-                    ConstructContingencyByTrialMap(blockId);
+
                 foreach (var trialDisplayIndex in block.TrialOrder)
                 {
                     AbstractTrial newTrial;
@@ -62,7 +81,7 @@ namespace trial
                         // Here we decide what each trial is, I guess we could do this with a function map, but later. 
                         // here we have a picture as a trial.
                         case -1:
-                            newTrial = new RandomTrial(_data, this, blockId);
+                            newTrial = new RandomTrial(_data, this, _contingencyServiceFactory, blockId);
                             break;
                         default:
                             var newTrialData = _data.Trials[trialId.Value];
@@ -70,14 +89,7 @@ namespace trial
                             break;
                     }
 
-                    if (trialContingenciesForBlock.ContainsKey(trialId))
-                    {
-                        // allows the trial to repeat itself even if it doesn't generate a new trial.
-                        newTrial.StartOfContingency = newTrial;
-                        var contingencyService =
-                            _contingencyServiceFactory.Create(trialContingenciesForBlock[trialId], newTrial);
-                        newTrial.SetContingency(contingencyService);
-                    }
+                    AddContingencyServiceToTrial(newTrial);
                     
 
                     if (newBlock) currHead = newTrial;
