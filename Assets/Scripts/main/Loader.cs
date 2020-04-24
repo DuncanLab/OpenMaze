@@ -17,7 +17,7 @@ namespace main
     {
         private static float _timer;
 
-        //An "abstract trial". Classic polymorphism.
+        // The current trial running in the game. Loader stores this as an instance field. 
         public AbstractTrial CurrTrial;
 
         public InputField[] Fields; //These are an array of the fields given from the field trials

@@ -7,7 +7,7 @@ using UnityEngine;
 //This is implemented using a singleton design pattern.
 namespace data
 {
-    public class DataSingleton
+    public static class DataSingleton
     {
         //Our singleton instance
         private static Data _data = new Data();

@@ -1,11 +1,9 @@
 ﻿using UnityEngine;
 
-public class PickupSound : MonoBehaviour
+namespace wallSystem
 {
-    public AudioClip Sound;
-
-    // Update is called once per frame
-    private void Update()
+    public class PickupSound : MonoBehaviour
     {
+        public AudioClip Sound;
     }
 }
