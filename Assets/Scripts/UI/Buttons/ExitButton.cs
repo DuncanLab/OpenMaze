@@ -1,19 +1,21 @@
 ﻿using UnityEngine;
 using E = main.Loader;
 
-public class ExitButton : MonoBehaviour
+namespace UI.Buttons
 {
-    public static bool clicked;
-
-
-    private void LateUpdate()
+    public class ExitButton : MonoBehaviour
     {
-        clicked = false;
-        gameObject.SetActive(E.Get().CurrTrial.trialData.ExitButton);
-    }
-
-    public void Click()
-    {
-        clicked = true;
+        public void Update()
+        {
+            if (E.Get().CurrTrial.trialData != null)
+            {
+                gameObject.SetActive(E.Get().CurrTrial.trialData.ExitButton);
+            }
+        }
+        
+        public void Click()
+        {
+            Application.Quit();
+        }
     }
 }

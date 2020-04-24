@@ -55,8 +55,8 @@ namespace contingency
                 return _abstractTrial.next;
 
             var contingencyRes = _contingencyFunctionCaller.InvokeContingencyFunction(tp, _contingency);
-
-            if (!_contingency.BehaviourByResult.ContainsKey(contingencyRes))
+            
+            if (contingencyRes == null || !_contingency.BehaviourByResult.ContainsKey(contingencyRes))
             {
                 Debug.LogError($"{contingencyRes} does not exist as a result for trial " +
                                $"{_abstractTrial.TrialId} in block {_abstractTrial.BlockId}");

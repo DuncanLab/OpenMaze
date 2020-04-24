@@ -53,7 +53,7 @@ namespace main
 
         private void Update()
         {
-            CurrTrial.Update(Time.deltaTime);
+            CurrTrial?.Update(Time.deltaTime);
         }
 
         public static void LogHeaders()

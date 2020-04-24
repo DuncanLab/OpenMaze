@@ -64,7 +64,12 @@ namespace trial
 
             isSuccessful = false;
 
-            if (Equals(blockId, BlockId.EMPTY)) return;
+            if (Equals(blockId, BlockId.EMPTY))
+            {
+                // To stop the null condition for the exit button system.
+                trialData = new Trial();
+                return;
+            }
             if (data.Blocks.Count == 0) throw new Exception("No trial in block");
 
             trialData = data.Trials[trialId.Value];
@@ -149,7 +154,7 @@ namespace trial
             var nextTrial = _contingencyService.ExecuteContingency(TrialProgress);
 
             Loader.Get().CurrTrial = nextTrial;
-            next.PreEntry(TrialProgress);
+            nextTrial.PreEntry(TrialProgress);
             progressionComplete = true;
         }
 

@@ -13,68 +13,25 @@
 
 "BLOCK DATA" : "BLOCK DATA---------------------*********--------------------BLOCK DATA",   
    
-    "BlockOrder" : [4],
+    "BlockOrder" : [1],
     
-    "Blocks" : [
+    "Blocks": [
         {
             "Block 1" : "Serial Trial Order",
-              "Notes" : "Trials will be presented in order from TrialOrder list",
-              "TrialOrder": [1,2,1,2]
-        },
-        {
-            
-              "Block 2" : "Random With Replacement - Randomly select single trials",
-              "Notes" : "Each time trial 0 is called in trial order it will select a RandomGroup from RandomTrialType list",
-              "TrialOrder": [
-                    0,0
-                ],
-              "Replacement" : 1,
-              "RandomlySelect" : [{"Order": [1,2]},{"Order": [1,2]}]
-        },
-        {
-            
-              "Block 3" : "Random Without Replacement - Randomly select ordered trial list Trials in Random Groups",
-              "Notes" : "When a Random group is chosen it will present all trials in order from the group before moving on to the next random selection",
-              "TrialOrder": [
-                    0,0
-                ],
-              "Replacement" : 0,
-              "RandomlySelect" : [{"Order": [1, 2]},{"Order": [1,2]}]
-        },
-        {
-            "Block 4": "Contingency Based - Select the next trial based on contingency. This allows for a BST based contingency system",
-            "Notes": "When a contingency is chosen, it will enter the contingency graph. Contingencies are chosen on a _first come first serve_ basis.",
-            "TrialOrder": [
-                -1, 1, 2, 3
-            ],
-            "ContingencyGraph": [
-                [{
-                    "InitialTrial": 1,
-                    "ContingencyFunction": "ContingencyFunc",
-                    "TrialIndicesByOutput": {
-                        "A": {
-                            "Trials": [2, 3],
-                            "NextNodeIndex": 2
-                        },
-                        "B": {
-                            "Trials": [3]
-                        }
-                    }
-                },
+            "Notes" : "Trials will be presented in order from TrialOrder list",
+            "TrialOrder": [1, 2, 3],
+            "Contingencies": [
                 {
-                    "InitialTrial": 4,
                     "ContingencyFunction": "ContingencyFunc",
-                    "TrialIndicesByOutput": {
+                    "ForTrials": [1],
+                    "BehaviourByResult": {
                         "A": {
-                            "Trials": [5, 6],
-                        },
-                        "B": {
-                            "Trials": [3]
+                            "EndBlock": true
                         }
                     }
-                }]
+                }
             ]
-        }    
+        }
     ],
 
 "TRIAL DATA" : "TRIAL DATA--------------------*********------------------TRIAL DATA",

@@ -25,7 +25,7 @@ namespace data
             {
                 _data = JsonConvert.DeserializeObject<Data>(file);
             }
-            catch (ArgumentException e)
+            catch (JsonReaderException e)
             {
                 Debug.LogError(e);
                 Debug.LogError("INVALID JSON FILE");

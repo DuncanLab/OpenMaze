@@ -1,4 +1,5 @@
 ﻿using data;
+using UI.Buttons;
 using UnityEngine;
 using value;
 
@@ -34,7 +35,7 @@ namespace trial
             if (Input.GetKey(trialEndKeyCode) && _runningTime > ignoreUserInputDelay) Progress();
 
             //Exit the experiment 
-            if (ExitButton.clicked | Input.GetKeyDown(KeyCode.Escape)) Application.Quit();
+            if (Input.GetKeyDown(KeyCode.Escape)) Application.Quit();
         }
     }
 }
