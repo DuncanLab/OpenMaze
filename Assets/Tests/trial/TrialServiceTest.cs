@@ -71,28 +71,28 @@ namespace Tests.trial
             root = root.next;
             Debug.Log(root.GetType());
 
-            Assert.False(root.isTail);
+            Assert.True(root.IsHead);
             Assert.AreEqual(root, root.SourceTrial);
             Assert.AreEqual(root.GetType(), typeof(InstructionalTrial));
             root = root.next;
 
-            Assert.False(root.isTail);
+            Assert.False(root.IsHead);
             Assert.AreEqual(root.GetType(), typeof(TwoDTrial));
             root = root.next;
 
-            Assert.True(root.isTail);
+            Assert.False(root.IsHead);
             Assert.AreEqual(root.GetType(), typeof(ThreeDTrial));
             root = root.next;
 
-            Assert.False(root.isTail);
+            Assert.True(root.IsHead);
             Assert.AreEqual(root.GetType(), typeof(InstructionalTrial));
             root = root.next;
 
-            Assert.False(root.isTail);
+            Assert.False(root.IsHead);
             Assert.AreEqual(root.GetType(), typeof(TwoDTrial));
             root = root.next;
-
-            Assert.True(root.isTail);
+            
+            Assert.False(root.IsHead);
             Assert.AreEqual(root.GetType(), typeof(ThreeDTrial));
             root = root.next;
 

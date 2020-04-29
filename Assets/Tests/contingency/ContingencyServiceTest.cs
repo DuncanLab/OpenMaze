@@ -64,11 +64,11 @@ namespace Tests
                 .Setup(e =>
                     e.ValidateContingencyBehaviour(It.IsAny<Data.ContingencyBehaviour>()))
                 .Returns(true);
-            var t1 = new ThreeDTrial(data, new BlockId(1), new TrialId(1));
+            var t1 = new ThreeDTrial(data, new BlockId(1), new TrialId(1)){IsHead = true};
             _trial.next = t1;
-            var t2 = new ThreeDTrial(data, new BlockId(1), new TrialId(2)) {isTail = true};
+            var t2 = new ThreeDTrial(data, new BlockId(1), new TrialId(2));
             t1.next = t2;
-            var t3 = new ThreeDTrial(data, new BlockId(2), new TrialId(1));
+            var t3 = new ThreeDTrial(data, new BlockId(2), new TrialId(1)){IsHead = true};
             t2.next = t3;
             var t4 = new ThreeDTrial(data, new BlockId(2), new TrialId(2));
             t3.next = t4;
@@ -143,14 +143,14 @@ namespace Tests
                 .Setup(e =>
                     e.AddContingencyServiceToTrial(t14));
 
-            var t11 = new ThreeDTrial(data, new BlockId(1), new TrialId(1));
+            var t11 = new ThreeDTrial(data, new BlockId(1), new TrialId(1)){IsHead = true};
             t11.SourceTrial = t11;
             t11.head = t11;
             _trial.next = t11;
-            var t12 = new ThreeDTrial(data, new BlockId(1), new TrialId(2)) {isTail = true};
+            var t12 = new ThreeDTrial(data, new BlockId(1), new TrialId(2));
             t11.next = t12;
             t12.head = t11;
-            var t21 = new ThreeDTrial(data, new BlockId(2), new TrialId(1));
+            var t21 = new ThreeDTrial(data, new BlockId(2), new TrialId(1)){IsHead = true};
             t12.next = t21;
             t21.head = t21;
             var t22 = new ThreeDTrial(data, new BlockId(2), new TrialId(2));

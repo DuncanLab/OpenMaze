@@ -10,6 +10,7 @@ namespace trial
     {
         public CloseTrial() : base(null, BlockId.EMPTY, TrialId.EMPTY)
         {
+            IsHead = true;
         }
 
         public override void PreEntry(TrialProgress t, bool first = true)

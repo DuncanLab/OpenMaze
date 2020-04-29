@@ -53,6 +53,7 @@ namespace trial
                 foreach (var trialDisplayIndex in block.TrialOrder)
                 {
                     AbstractTrial newTrial;
+
                     var trialId = new TrialId(trialDisplayIndex);
                     switch (trialId.Value)
                     {
@@ -67,12 +68,16 @@ namespace trial
                             break;
                     }
 
+                    if (trialCount == 0)
+                    {
+                        newTrial.IsHead = true;
+                    }
+                    
                     AddContingencyServiceToTrial(newTrial);
 
 
                     if (newBlock) currHead = newTrial;
 
-                    newTrial.isTail = trialCount == block.TrialOrder.Count - 1;
                     newTrial.head = currHead;
 
                     currentTrial.next = newTrial;

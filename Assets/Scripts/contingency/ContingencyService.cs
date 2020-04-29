@@ -74,23 +74,15 @@ namespace contingency
                 return null;
             }
 
-            var curr = _abstractTrial;
-
-            // Remove all generated trials before executing the behaviour
-            while (curr.next.IsGenerated) curr = curr.next;
-            _abstractTrial.next = curr.next;
-
-
             if (behaviour.NextTrials != null)
             {
-                AddTrials(behaviour);
-                return _abstractTrial.next;
+                return GenerateTrials(behaviour);
             }
 
             if (behaviour.EndBlock)
             {
-                curr = _abstractTrial;
-                while (!curr.isTail) curr = curr.next;
+                var curr = _abstractTrial;
+                while (!curr.next.IsHead) curr = curr.next;
                 return curr.next;
             }
 
@@ -108,10 +100,10 @@ namespace contingency
             return _contingency != null;
         }
 
-        private void AddTrials(Data.ContingencyBehaviour behaviour)
+        private AbstractTrial GenerateTrials(Data.ContingencyBehaviour behaviour)
         {
-            var curr = _abstractTrial;
-            var next = curr.next;
+            var curr = AbstractTrial.TempHead;
+            var next = _abstractTrial.next;
 
 
             foreach (var trialId in behaviour.NextTrials.Select(trialIdx => new TrialId(trialIdx)))
@@ -127,6 +119,7 @@ namespace contingency
 
             _trialService.AddContingencyServiceToTrial(curr);
             curr.next = next;
+            return AbstractTrial.TempHead.next;
         }
 
         public class ContingencyServiceFactory : IContingencyServiceFactory

@@ -1,4 +1,5 @@
-﻿using contingency;
+﻿﻿using System.Collections.Generic;
+using contingency;
 using data;
 using main;
 using UnityEngine;
@@ -11,29 +12,33 @@ namespace trial
     {
         private readonly IContingencyServiceFactory _contingencyServiceFactory;
         private readonly ITrialService _trialService;
+        private AbstractTrial _generatedTrialHead;
+        private readonly List<Data.RandomData> _randomSelection;
+        private readonly bool _replacement;
 
         public RandomTrial(Data data, ITrialService trialService, IContingencyServiceFactory serviceFactory,
             BlockId blockId) : base(data, blockId, TrialId.EMPTY)
         {
             _trialService = trialService;
             _contingencyServiceFactory = serviceFactory;
+            var block = data.Blocks[BlockId.Value];
+            _randomSelection = block.RandomlySelect;
+            _replacement = block.Replacement == 0;
         }
 
         //We are gonna generate all the trials here.
         private void GenerateTrials()
         {
             Debug.Log("GenerateTrial");
-            AbstractTrial currentTrial = this;
-            var block = DS.GetData().Blocks[BlockId.Value];
-            var numRandomTrials = block.RandomlySelect.Count;
+            var curr = TempHead;
+            var numRandomTrials = _randomSelection.Count;
             var randomSelection = Random.Range(0, numRandomTrials);
 
-            var randomTrialIndices = block.RandomlySelect[randomSelection];
-            while (next.IsGenerated) next = next.next;
-            if (block.Replacement == 0) block.RandomlySelect.Remove(randomTrialIndices);
+            var randomTrialIndices = _randomSelection[randomSelection];
+            
+            if (!_replacement) _randomSelection.Remove(randomTrialIndices);
             Debug.Log("RANDOM TRIAL CREATION");
 
-            var trueNext = next;
 
             var tCnt = 0;
             foreach (var trialDisplayIndex in randomTrialIndices.Order)
@@ -46,17 +51,17 @@ namespace trial
                 //Control flow here is for deciding what Trial gets spat out from the config
 
                 var targetTrial = _trialService.GenerateBasicTrialFromConfig(BlockId, trialId, targetTrialData);
-                targetTrial.isTail = tCnt == randomTrialIndices.Order.Count - 1 && isTail;
-                targetTrial.head = head;
+                targetTrial.IsHead = tCnt == 0 && IsHead;
+                targetTrial.head = curr;
                 targetTrial.IsGenerated = true;
                 targetTrial.SetContingency(_contingencyServiceFactory.CreateEmpty());
-                currentTrial.next = targetTrial;
+                curr.next = targetTrial;
 
-                currentTrial = currentTrial.next;
+                curr = curr.next;
                 tCnt++;
             }
 
-            currentTrial.next = trueNext;
+            curr.next = next;
         }
 
         public override void PreEntry(TrialProgress t, bool first = true)
@@ -69,8 +74,8 @@ namespace trial
 
         public override void Progress()
         {
-            Loader.Get().CurrTrial = next;
-            next.PreEntry(TrialProgress);
+            Loader.Get().CurrTrial = TempHead.next;
+            TempHead.next.PreEntry(TrialProgress);
         }
     }
 }

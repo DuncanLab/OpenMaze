@@ -35,10 +35,10 @@ namespace trial
         // This points to the start of the block of trials (if present)
         public AbstractTrial head;
 
+        public bool IsHead;
+        
         public bool isSuccessful;
-
-        public bool isTail;
-
+        
         // This points to the next trial
         // ReSharper disable once InconsistentNaming
         public AbstractTrial next;
@@ -57,7 +57,6 @@ namespace trial
 
         protected AbstractTrial(Data data, BlockId blockId, TrialId trialId)
         {
-            var factory = ContingencyService.ContingencyServiceFactory.Create();
             _data = data;
             BlockId = blockId;
             TrialId = trialId;
