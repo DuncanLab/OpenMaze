@@ -17,9 +17,6 @@ namespace data
         // whether or not to turn on timing diagnostics
         public bool TimingVerification;
 
-        // value from which trials start incrementing in the config file. 
-        public int TrialInitialValue = 1;
-
         // The amount of delay (in seconds) before a trial loads in. This value is used to 
         // ensure a consitent loading time between trials.
         public float TrialLoadingDelay = 3.0f;

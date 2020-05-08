@@ -92,8 +92,6 @@ namespace trial
                 t.NumCollectedPerBlock = new int[NumBlocks];
             }
 
-            Debug.Log("Current Trial Increment: " + data.DataSingleton.GetData().TrialInitialValue);
-
             if (t.TrialNumber < 2)
             {
                 t.TimeSinceExperimentStart = 0.0f;

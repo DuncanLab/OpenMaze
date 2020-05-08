@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using main;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.Timing
@@ -19,7 +20,7 @@ namespace Assets.Scripts.Timing
             if (data.DataSingleton.GetData().TimingVerification)
             {
                 timingBox.enabled = true;
-                if (data.DataSingleton.GetData().TrialInitialValue % 2 == 0)
+                if (Loader.Get().CurrTrial.TrialProgress.TrialNumber % 2 == 0)
                 {
                     Debug.Log("Changing square to black");
                     timingBox.color = Color.black;
