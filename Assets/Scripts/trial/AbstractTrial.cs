@@ -166,18 +166,14 @@ namespace trial
         {
             var ao = SceneManager.LoadSceneAsync(environmentType);
             TrialProgress.isLoaded = false;
-
-            // Wait until the specified timeout to load the scene
-            var timer = 0.0f;
+            
 
             while (!ao.isDone && !progressionComplete)
             {
-                timer += Time.deltaTime;
                 yield return null;
             }
 
             // Reset when loading is complete
-            timer = 0.0f;
             progressionComplete = false;
         }
     }
