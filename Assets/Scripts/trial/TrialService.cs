@@ -34,7 +34,7 @@ namespace trial
             }
             else
             {
-                var contingencyService = _contingencyServiceFactory.CreateEmpty();
+                var contingencyService = _contingencyServiceFactory.CreateEmpty(trial);
                 trial.SetContingency(contingencyService);
             }
         }

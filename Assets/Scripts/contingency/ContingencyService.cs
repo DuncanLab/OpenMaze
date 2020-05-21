@@ -28,8 +28,9 @@ namespace contingency
         private readonly Data _data;
         private readonly ITrialService _trialService;
 
-        private ContingencyService()
+        private ContingencyService(AbstractTrial abstractTrial)
         {
+            _abstractTrial = abstractTrial;
         }
 
         private ContingencyService(
@@ -38,14 +39,13 @@ namespace contingency
             ITrialService trialService,
             Data data,
             Data.Contingency contingency,
-            AbstractTrial abstractTrial)
+            AbstractTrial abstractTrial): this(abstractTrial)
         {
             _contingencyBehaviourValidator = contingencyBehaviourValidator;
             _contingencyFunctionCaller = contingencyFunctionCaller;
             _trialService = trialService;
             _data = data;
             _contingency = contingency;
-            _abstractTrial = abstractTrial;
         }
 
         public AbstractTrial ExecuteContingency(TrialProgress tp)
@@ -129,9 +129,9 @@ namespace contingency
             }
 
             // This generator function is called when a trial doesn't have an associated contingency
-            public IContingencyService CreateEmpty()
+            public IContingencyService CreateEmpty(AbstractTrial abstractTrial)
             {
-                return new ContingencyService();
+                return new ContingencyService(abstractTrial);
             }
 
             public IContingencyService Create(Data.Contingency contingency, AbstractTrial abstractTrial)

@@ -54,14 +54,14 @@ namespace Tests.trial
 
             AbstractTrial appliedTrial = null;
             var root = AbstractTrial.TempHead;
-            _contingencyServiceFactoryMock.Setup(e => e.CreateEmpty());
+            _contingencyServiceFactoryMock.Setup(e => e.CreateEmpty(It.IsAny<AbstractTrial>()));
             _contingencyServiceFactoryMock
                 .Setup(e =>
                     e.Create(data.Blocks[0].Contingencies[0], It.IsAny<AbstractTrial>()))
                 .Callback<Data.Contingency, AbstractTrial>((_, trial) => appliedTrial = trial);
 
             service.GenerateAllStartingTrials(root);
-            _contingencyServiceFactoryMock.Verify(e => e.CreateEmpty(), Times.Exactly(5));
+            _contingencyServiceFactoryMock.Verify(e => e.CreateEmpty(It.IsAny<AbstractTrial>()), Times.Exactly(5));
             _contingencyServiceFactoryMock.Verify(e => e
                 .Create(data.Blocks[0].Contingencies[0], It.IsAny<AbstractTrial>()), Times.Exactly(1));
 
