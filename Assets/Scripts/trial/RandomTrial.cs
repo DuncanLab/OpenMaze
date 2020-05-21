@@ -54,7 +54,7 @@ namespace trial
                 targetTrial.IsHead = tCnt == 0 && IsHead;
                 targetTrial.head = curr;
                 targetTrial.IsGenerated = true;
-                targetTrial.SetContingency(_contingencyServiceFactory.CreateEmpty());
+                targetTrial.SetContingency(_contingencyServiceFactory.CreateEmpty(targetTrial));
                 curr.next = targetTrial;
 
                 curr = curr.next;

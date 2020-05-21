@@ -11,13 +11,6 @@ namespace trial
         {
         }
 
-        public override void PreEntry(TrialProgress t, bool first = true)
-        {
-            base.PreEntry(t, first);
-
-            LoadNextSceneWithTimer(trialData.Scene);
-        }
-
         //Code for a trial to continue
         public override void Update(float deltaTime)
         {

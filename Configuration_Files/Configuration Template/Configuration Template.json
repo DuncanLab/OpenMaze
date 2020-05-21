@@ -2,6 +2,7 @@
     "OutputTimesPerSecond": 30,
     "IgnoreUserInputDelay": 0.5,
     "TimingVerification": false,
+    "IgnoreMinLoadMsDelay": true,
     "CHARACTER DATA": "CHARACTER DATA----------*********-------------------CHARACTER DATA",
     "CharacterData": {
         "Height": 2,
@@ -19,18 +20,7 @@
         {
             "Block 1" : "Serial Trial Order",
             "Notes" : "Trials will be presented in order from TrialOrder list",
-            "TrialOrder": [1, 2, 3],
-            "Contingencies": [
-                {
-                    "ContingencyFunction": "ContingencyFunc",
-                    "ForTrials": [1],
-                    "BehaviourByResult": {
-                        "A": {
-                            "EndBlock": true
-                        }
-                    }
-                }
-            ]
+            "TrialOrder": [1, 2, 3]
         }
     ],
 

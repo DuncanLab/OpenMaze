@@ -2,6 +2,6 @@
 {
     public interface ILoadingService
     {
-        
+        void TransitionNextSceneWithDelay(int sceneNumber);
     }
 }

@@ -17,7 +17,6 @@ namespace trial
             base.PreEntry(t, first);
             t.TimingVerification = DataSingleton.GetData().TimingVerification; // timing diagnostics
 
-            LoadNextSceneWithTimer(Constants.LoadingScreen);
             t.isLoaded = true;
         }
 

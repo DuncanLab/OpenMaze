@@ -9,7 +9,8 @@ namespace data
     public class Data
     {
         public List<int> BlockOrder;
-
+        public int MinLoadMsDelay = 1000; // Default the minimum transition time to 1 second.
+        public bool IgnoreMinLoadMsDelay = false;
         public List<BlockData> Blocks;
 
         //This is the object (defined below) which contains all data available for the main player
@@ -131,7 +132,8 @@ namespace data
             public EnclosureData Map; // The Map saved EnclosureData
             public int Quota; // The quota that the person needs to pick up before the next trial is switched too
             public int Rotate; // How long the delay can last in the rotation
-            public int Scene; // This is the environment type referenced.
+            public int Scene = Constants.LoadingScreen; // This is the environment type referenced.
+            // This defaults to the LoadingScreen scene.
 
             public bool
                 ShowCollectedPerBlock; // Whether or not to display the amount of goals/pickups collected (resets each block)

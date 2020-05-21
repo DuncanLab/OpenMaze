@@ -17,8 +17,6 @@ namespace trial
             t.TimingVerification = DataSingleton.GetData().TimingVerification; // timing diagnostics
 
             _runningTime -= trialData.Rotate;
-
-            LoadNextSceneWithTimer(trialData.Scene);
         }
 
         public override void Progress()

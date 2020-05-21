@@ -22,7 +22,7 @@ namespace Tests.trial
         // Basic Trial Check
 
         [Test]
-        public void TestGenerateBasicTrials()
+       public void TestGenerateBasicTrials()
         {
             var config = @"{
                 ""BlockOrder"": [1, 2],

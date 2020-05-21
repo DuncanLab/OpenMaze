@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using contingency;
 using data;
+using loading;
 using main;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -26,6 +27,8 @@ namespace trial
         // The index of the node in the contingencyGraph which represents the current trial.
         private IContingencyService _contingencyService;
 
+        protected ILoadingService LoadingService;
+        
         protected Data _data;
 
         protected float _runningTime;
@@ -57,6 +60,7 @@ namespace trial
 
         protected AbstractTrial(Data data, BlockId blockId, TrialId trialId)
         {
+            LoadingService = loading.LoadingService.Create();
             _data = data;
             BlockId = blockId;
             TrialId = trialId;
@@ -114,6 +118,7 @@ namespace trial
             Debug.Log("Current Trial Increment: " + DS.GetData().TrialInitialValue);
 
             if (t.TrialNumber < 2) t.TimeSinceExperimentStart = 0.0f;
+            LoadingService.TransitionNextSceneWithDelay(trialData.Scene);
 
             TrialStartTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
 
@@ -155,26 +160,6 @@ namespace trial
             Loader.Get().CurrTrial = nextTrial;
             nextTrial.PreEntry(TrialProgress);
             progressionComplete = true;
-        }
-
-        protected void LoadNextSceneWithTimer(int environmentType)
-        {
-            Loader.Get().StartCoroutine(LoadNextAsyncScene(environmentType));
-        }
-
-        private IEnumerator LoadNextAsyncScene(int environmentType)
-        {
-            var ao = SceneManager.LoadSceneAsync(environmentType);
-            TrialProgress.isLoaded = false;
-            
-
-            while (!ao.isDone && !progressionComplete)
-            {
-                yield return null;
-            }
-
-            // Reset when loading is complete
-            progressionComplete = false;
         }
     }
 }

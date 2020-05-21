@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using main;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace unity.wrapper
@@ -10,13 +12,24 @@ namespace unity.wrapper
         // Singleton service
         public static ISceneWrapper Create()
         {
-            return _sceneWrapper ?? (_sceneWrapper = new SceneWrapper());
+            return _sceneWrapper ?? (_sceneWrapper = new SceneWrapper(Loader.Get()));
         }
         
-        
-        public AsyncOperation LoadAsyncScene(string name)
+        private readonly Loader _loader;
+
+        private SceneWrapper(Loader loader)
         {
-            return SceneManager.LoadSceneAsync(name);
+            _loader = loader;
+        }
+
+        public void SwitchScene(IEnumerator loadAction)
+        {
+            _loader.StartCoroutine(loadAction);
+        }
+        
+        public void LoadScene(string name)
+        {
+            SceneManager.LoadScene(name);
         }
         
         public AsyncOperation LoadAsyncScene(int environmentNumber)
