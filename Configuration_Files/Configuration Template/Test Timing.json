@@ -1,0 +1,207 @@
+{
+    "OutputTimesPerSecond": 1000,
+    "IgnoreUserInputDelay": 0.5,
+    "TimingVerification": false,
+    "IgnoreMinLoadMsDelay": true,
+    "CHARACTER DATA": "CHARACTER DATA----------*********-------------------CHARACTER DATA",
+    "CharacterData": {
+        "Height": 2,
+        "MovementSpeed": 5.0,
+        "RotationSpeed": 75.0,
+        "DistancePickup": 2,
+        "GoalRotationSpeed": 0
+    },
+
+"BLOCK DATA" : "BLOCK DATA---------------------*********--------------------BLOCK DATA",   
+   
+    "BlockOrder" : [1],
+    
+    "Blocks": [
+        {
+            "Block 1" : "Serial Trial Order",
+            "Notes" : "Trials will be presented in order from TrialOrder list",
+            "TrialOrder": [1, 2, 3, 2, 3, 2, 3, 2, 3, 2, 3, 2, 3]
+        }
+    ],
+
+"TRIAL DATA" : "TRIAL DATA--------------------*********------------------TRIAL DATA",
+    
+    "Trials": [
+        {
+            "Trial 1" : "Instructional Trial - Presents Welcome.png for TrialTime unless TrialEndKey Is pressed (-1) trial time requires TrialEndKey to be pressed to end trial",
+            "Instructional": 1,
+            "FileLocation": "Tutorial_Instructions/Collect.png",
+            "TrialTime": 2,
+            "TrialEndKey": "x"
+        },
+        {
+            "Trial 1" : "Instructional Trial - Presents Welcome.png for TrialTime unless TrialEndKey Is pressed (-1) trial time requires TrialEndKey to be pressed to end trial",
+            "Instructional": 1,
+            "FileLocation": "Tutorial_Instructions/Fixation.png",
+            "TrialTime": 2,
+            "TrialEndKey": "x"
+        },
+        {
+            "Trial 2" : "3D Trial",
+            "Header": "Collect the Objects!1",
+            "TrialTime" : 3,
+            "Scene": 2,
+            "Enclosure": 1,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Rotate": 0,
+            "ActiveGoals" : [],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 2,
+            "LandMarks" :[1],
+            "TrialEndKey": "x"
+        },
+        {
+            "Trial 3" : "3D Trial",
+            "Header": "Collect the Objects!2",
+            "TrialTime" : 60,
+            "Scene": 2,
+            "Enclosure": 1,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Rotate": 0,
+            "ActiveGoals" : [],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 2,
+            "LandMarks" :[1],
+            "TrialEndKey": "x"
+        },
+        {
+            "Trial 4" : "3D Trial",
+            "Header": "Collect the Objects!3",
+            "TrialTime" : 60,
+            "Scene": 2,
+            "Enclosure": 1,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Rotate": 0,
+            "ActiveGoals" : [],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 2,
+            "LandMarks" :[1],
+            "TrialEndKey": "x"
+        },        
+        {
+            "Trial 5" : "3D Trial",
+            "Header": "Collect the Objects!4",
+            "TrialTime" : 60,
+            "Scene": 2,
+            "Enclosure": 1,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Rotate": 0,
+            "ActiveGoals" : [],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 2,
+            "LandMarks" :[1],
+            "TrialEndKey": "x"
+        },
+                {
+            "Trial 5" : "3D Trial",
+            "Header": "Collect the Objects!5",
+            "TrialTime" : 60,
+            "Scene": 2,
+            "Enclosure": 1,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Rotate": 0,
+            "ActiveGoals" : [],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 2,
+            "LandMarks" :[1],
+            "TrialEndKey": "x"
+        },        {
+            "Trial 5" : "3D Trial",
+            "Header": "Collect the Objects!6",
+            "TrialTime" : 60,
+            "Scene": 2,
+            "Enclosure": 1,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Rotate": 0,
+            "ActiveGoals" : [],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 2,
+            "LandMarks" :[1],
+            "TrialEndKey": "x"
+        }
+    ],
+
+
+"GOAL DATA" : "GOAL DATA--------------------*********------------------GOAL DATA",
+
+    "Goals": [
+        {
+            "Goal 1" : "3D Object - Red Sphere",
+            "Type": "3D",
+            "Object": "Sphere",
+            "Sound": "eat",
+            "Color": "ff0000",
+            "Position": [5, 1, 5],
+            "Rotation": [0,0,0],
+            "Scale": [1, 1, 1]
+        },
+        {
+            "Goal 1" : "2D Image - Apple",
+            "Type": "2D",
+            "Object": "Tutorial_Objects/Apple.png",
+            "Sound": "eat",
+            "Color": "ffffff",
+            "Position": [-5, 1, -5],
+            "Scale": [1, 1, 1]
+        }
+    ],
+
+"LANDMARK DATA" : "LANDMARK DATA----------*********------------------LANDMARK DATA",
+
+    "Landmarks": [
+        {
+            "Landmark 1" : "Red Sphere",
+            "Type": "3D",
+            "Object": "Sphere",
+            "Color": "ff0000",
+            "Position": [100, 20, 100],
+            "Rotation": [0,0,0],
+            "Scale": [20, 20, 20]
+        }
+
+    ], 
+
+"Enclosure DATA" : "Enclosure DATA--------------------*********------------------Enclosure DATA",
+
+    "Enclosures": [
+        {
+            "Enclosure 1": "Use this field as lable",
+            "Sides": 40,
+            "Radius": 15,
+            "WallHeight" : 7,
+            "WallColor": "ffffff",
+            "GroundTileSides": 4,
+            "GroundTileSize": 1.0,
+            "GroundColor": "1B5E20",
+            "Position": [0, 0]
+        },
+        {
+            "Enclosure 2": "Use this field as lable",
+            "Sides": 4,
+            "Radius": 30,
+            "WallHeight" : 15,
+            "WallColor": "000000",
+            "GroundTileSides": 4,
+            "GroundTileSize": 1.0,
+            "GroundColor": "1B5E20",
+            "Position": [0, 0]
+        }  
+    ]
+}
