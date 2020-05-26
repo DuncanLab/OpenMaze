@@ -9,7 +9,7 @@ namespace data
     public class Data
     {
         public List<int> BlockOrder;
-        public int MinLoadMsDelay = 1000; // Default the minimum transition time to 1 second.
+        public long MinLoadMsDelay; // Default the minimum transition time to 1 second.
         public bool IgnoreMinLoadMsDelay = false;
         public List<BlockData> Blocks;
 

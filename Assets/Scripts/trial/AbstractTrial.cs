@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using contingency;
 using data;
 using loading;
@@ -57,6 +58,7 @@ namespace trial
 
         public TrialProgress TrialProgress;
         public long TrialStartTime;
+        
 
         protected AbstractTrial(Data data, BlockId blockId, TrialId trialId)
         {
@@ -119,7 +121,6 @@ namespace trial
 
             if (t.TrialNumber < 2) t.TimeSinceExperimentStart = 0.0f;
             LoadingService.TransitionNextSceneWithDelay(trialData.Scene);
-
             TrialStartTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
 
             _runningTime = 0;

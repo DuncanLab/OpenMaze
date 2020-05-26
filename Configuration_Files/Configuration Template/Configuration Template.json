@@ -2,7 +2,8 @@
     "OutputTimesPerSecond": 30,
     "IgnoreUserInputDelay": 0.5,
     "TimingVerification": false,
-    "IgnoreMinLoadMsDelay": true,
+    "IgnoreMinLoadMsDelay":false,
+    "MinLoadMsDelay": 10000,
     "CHARACTER DATA": "CHARACTER DATA----------*********-------------------CHARACTER DATA",
     "CharacterData": {
         "Height": 2,

@@ -12,5 +12,8 @@ namespace unity.wrapper
         AsyncOperation LoadAsyncScene(int environmentNumber);
         void SwitchScene(IEnumerator loadAction);
 
+        void FreezeTime();
+
+        void RestartTime();
     }
 }

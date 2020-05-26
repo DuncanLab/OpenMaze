@@ -22,6 +22,16 @@ namespace unity.wrapper
             _loader = loader;
         }
 
+        public void FreezeTime()
+        {
+            Time.timeScale = 0;
+        }
+
+        public void RestartTime()
+        {
+            Time.timeScale = 1;
+        }
+        
         public void SwitchScene(IEnumerator loadAction)
         {
             _loader.StartCoroutine(loadAction);

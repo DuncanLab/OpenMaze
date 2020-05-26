@@ -11,13 +11,14 @@ namespace loading
         private readonly Data _data;
         private static ILoadingService _loadingService;
         private readonly ISceneWrapper _sceneWrapper;
-        
+        private bool _doneTransitioning;
+
         // Singleton service
         public static ILoadingService Create()
         {
             return _loadingService ?? (_loadingService = new LoadingService(
-                DataSingleton.GetData(),
-                SceneWrapper.Create()));
+                       DataSingleton.GetData(),
+                       SceneWrapper.Create()));
         }
 
         private LoadingService(Data data, ISceneWrapper sceneWrapper)
@@ -28,26 +29,41 @@ namespace loading
 
         public void TransitionNextSceneWithDelay(int sceneNumber)
         {
-            var entryTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() - _data.ExperimentStartTime;
-            _sceneWrapper.LoadScene("StopGapLoad");
-            
-            var scenePromise = _sceneWrapper.LoadAsyncScene(sceneNumber);
-            scenePromise.allowSceneActivation = false;
-            _sceneWrapper.SwitchScene(BeginLoad(scenePromise, entryTime));
+            _sceneWrapper.SwitchScene(BeginLoad(sceneNumber));
         }
 
         /**
          * This function will try to load a scene
          */
-        private IEnumerator BeginLoad(AsyncOperation scenePromise, long entryTime)
+        private IEnumerator BeginLoad(int sceneNumber)
         {
+            var entryTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+
+            _sceneWrapper.LoadScene("StopGapLoad");
+            _sceneWrapper.FreezeTime();
+            yield return null;
+            _doneTransitioning = false;
             
-            var loadingDelta = DateTimeOffset.Now.ToUnixTimeMilliseconds() - _data.ExperimentStartTime - entryTime;
-            while (!scenePromise.isDone || loadingDelta < _data.MinLoadMsDelay)
+
+            
+            var scenePromise = _sceneWrapper.LoadAsyncScene(sceneNumber);
+            scenePromise.allowSceneActivation = false;
+            
+            var loadingDelta = DateTimeOffset.Now.ToUnixTimeMilliseconds() - entryTime;
+
+            
+            while (loadingDelta < _data.MinLoadMsDelay)
             {
-                loadingDelta = DateTimeOffset.Now.ToUnixTimeMilliseconds() - _data.ExperimentStartTime - entryTime;
+                loadingDelta = DateTimeOffset.Now.ToUnixTimeMilliseconds() - entryTime;
+
+                if (loadingDelta > _data.MinLoadMsDelay - 150)
+                {
+                    scenePromise.allowSceneActivation = true;
+                }
                 yield return null;
             }
+            
+            loadingDelta = DateTimeOffset.Now.ToUnixTimeMilliseconds() - entryTime;
 
             if (loadingDelta > _data.MinLoadMsDelay * 1.1)
             {
@@ -67,8 +83,9 @@ namespace loading
                 }
 
             }
-            
-            scenePromise.allowSceneActivation = true;
+
+            _doneTransitioning = true;
+            _sceneWrapper.RestartTime();
         }
     }
 }

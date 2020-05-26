@@ -19,40 +19,10 @@ namespace trial
         public FieldTrial(InputField[] fields) : base(null, BlockId.EMPTY, TrialId.EMPTY)
         {
             _fields = fields;
-
-            LoadConfigFile();
-
             TrialProgress = new TrialProgress();
             _fields = fields;
             _trialService = TrialService.Create();
-        }
-
-        private static void LoadConfigFile()
-        {
-            // This block of code will use the default configuration file if
-            // using webGL or Android (can add others in if statement) 
-            // Otherwise calls the directory picker to select the configuration file.
-
-            var defaultConfigDir = Application.streamingAssetsPath + "/Default_Config/";
-            var files = new string[0];
-            if (Directory.Exists(defaultConfigDir)) files = Directory.GetFiles(defaultConfigDir);
-
-            if (files.Length > 0)
-            {
-                var defaultConfig = defaultConfigDir + Path.GetFileName(files[0]);
-                Loader.ExternalActivation(defaultConfig);
-            }
-            else
-            {
-                while (true)
-                {
-                    // Here we're using: https://github.com/gkngkc/UnityStandaloneFileBrowser because it was easier than rolling our own
-                    var paths = StandaloneFileBrowser.OpenFilePanel("Choose configuration file", "Configuration_Files",
-                        "", false);
-                    var path = paths[0];
-                    if (Loader.ExternalActivation(path)) break;
-                }
-            }
+            LoadingService = loading.LoadingService.Create();
         }
 
         public override void Update(float deltaTime)

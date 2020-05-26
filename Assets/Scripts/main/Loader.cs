@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using SFB;
 using trial;
 using UnityEngine;
 using UnityEngine.UI;
@@ -32,8 +33,38 @@ namespace main
         private void Start()
         {
             DontDestroyOnLoad(this);
+            LoadConfigFile();
             CurrTrial = new FieldTrial(Fields);
             //Initialize the default field trial, see this later.
+        }
+        
+        
+        private static void LoadConfigFile()
+        {
+            // This block of code will use the default configuration file if
+            // using webGL or Android (can add others in if statement) 
+            // Otherwise calls the directory picker to select the configuration file.
+
+            var defaultConfigDir = Application.streamingAssetsPath + "/Default_Config/";
+            var files = new string[0];
+            if (Directory.Exists(defaultConfigDir)) files = Directory.GetFiles(defaultConfigDir);
+
+            if (files.Length > 0)
+            {
+                var defaultConfig = defaultConfigDir + Path.GetFileName(files[0]);
+                Loader.ExternalActivation(defaultConfig);
+            }
+            else
+            {
+                while (true)
+                {
+                    // Here we're using: https://github.com/gkngkc/UnityStandaloneFileBrowser because it was easier than rolling our own
+                    var paths = StandaloneFileBrowser.OpenFilePanel("Choose configuration file", "Configuration_Files",
+                        "", false);
+                    var path = paths[0];
+                    if (Loader.ExternalActivation(path)) break;
+                }
+            }
         }
 
         //This function initializes the Data.singleton files
@@ -86,12 +117,7 @@ namespace main
                     var PositionY = t.position.y.ToString();
                     var RotationY = t.eulerAngles.y.ToString();
                     var LoadingTime = 0.0;
-
-
-                    var timeSinceExperimentStart =
-                        DateTimeOffset.Now.ToUnixTimeMilliseconds() - DS.GetData().ExperimentStartTime;
-                    var timeSinceTrialStart = DateTimeOffset.Now.ToUnixTimeMilliseconds() - trialStartTime;
-
+                    
                     if (s.Instructional == 1)
                     {
                         PositionX = "NA";

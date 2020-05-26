@@ -20,7 +20,6 @@ namespace trial
 
             if (_runningTime > _threshHold)
             {
-                Debug.Log(_runningTime);
                 Progress();
             }
         }
