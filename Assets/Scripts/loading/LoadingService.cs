@@ -27,6 +27,11 @@ namespace loading
             _sceneWrapper = sceneWrapper;
         }
 
+        public bool IsLoading()
+        {
+            return !_doneTransitioning;
+        }
+
         public void TransitionNextSceneWithDelay(int sceneNumber)
         {
             _sceneWrapper.SwitchScene(BeginLoad(sceneNumber));
@@ -38,11 +43,11 @@ namespace loading
         private IEnumerator BeginLoad(int sceneNumber)
         {
             var entryTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+            _doneTransitioning = false;
 
             _sceneWrapper.LoadScene("StopGapLoad");
             _sceneWrapper.FreezeTime();
             yield return null;
-            _doneTransitioning = false;
             
 
             
@@ -60,7 +65,10 @@ namespace loading
                 {
                     scenePromise.allowSceneActivation = true;
                 }
-                yield return null;
+                else
+                {
+                    yield return null;
+                }
             }
             
             loadingDelta = DateTimeOffset.Now.ToUnixTimeMilliseconds() - entryTime;
@@ -79,7 +87,9 @@ namespace loading
                     Debug.LogError("The minimum loading delay has been exceeded. The current delay is " +
                                    $"{_data.MinLoadMsDelay} but the loading took {loadingDelta}. Please re-tune " +
                                        "LoadMinMsDelay in the config file or set the flag IgnoreLoadMinMsDelay to true");
-                    Application.Quit();
+                    #if UNITY_EDITOR
+                        UnityEditor.EditorApplication.isPlaying = false;
+                    #endif
                 }
 
             }

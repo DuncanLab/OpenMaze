@@ -127,6 +127,11 @@ namespace trial
             TrialProgress = t;
         }
 
+        public bool IsLoading()
+        {
+            return LoadingService.IsLoading();
+        }
+        
         public virtual void Update(float deltaTime)
         {
             TrialProgress.TimeSinceExperimentStart += deltaTime;

@@ -73,7 +73,9 @@ namespace main
             if (!inputFile.Contains(".json"))
             {
                 Debug.LogError("Invalid Json File");
-                Application.Quit();
+                #if UNITY_EDITOR
+    UnityEditor.EditorApplication.isPlaying = false;
+#endif
                 return false;
             }
 
@@ -103,6 +105,11 @@ namespace main
 
         public static void LogData(TrialProgress s, long trialStartTime, Transform t, int targetFound = 0)
         {
+            if (Get().CurrTrial.IsLoading())
+            {
+                return;
+            }
+            
             // Don't output anything if the Y position is at default (avoids incorrect output data)
             if (t.position.y != -1000 && (targetFound == 1 || _timer >
                 1f / (DS.GetData().OutputTimesPerSecond == 0
