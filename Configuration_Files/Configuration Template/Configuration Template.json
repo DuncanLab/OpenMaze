@@ -21,7 +21,28 @@
         {
             "Block 1" : "Serial Trial Order",
             "Notes" : "Trials will be presented in order from TrialOrder list",
-            "TrialOrder": [1, 2, 3]
+            "TrialOrder": [1, 2, 3],
+            "Contingencies": [
+                {
+                    "ForTrials": [1],
+                    "FunctionInput": "a b",
+                    "ContingencyFunction": "ContingencyFunc",
+                    "BehaviourByResult": {
+                        "A": {
+                            "EndBlock": true
+                        },
+                        "B": {
+                            "NextTrials": [4]
+                        },
+                        "C": {
+                            "RepeatContingency": true
+                        },
+                        "D": {
+                            "RestartBlock": true
+                        }
+                    }
+                }
+            ]
         }
     ],
 
