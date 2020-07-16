@@ -119,7 +119,10 @@ namespace trial
 
             Debug.Log("Current Trial Increment: " + DS.GetData().TrialInitialValue);
 
-            if (t.TrialNumber < 2) t.TimeSinceExperimentStart = 0.0f;
+            if (t.TrialNumber < 2) {
+                t.TimeSinceExperimentStart = 0.0f;
+            }
+            
             LoadingService.TransitionNextSceneWithDelay(trialData.Scene);
             TrialStartTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
 

@@ -97,7 +97,7 @@ namespace trial
         public AbstractTrial GenerateBasicTrialFromConfig(BlockId blockId, TrialId trialId,
             Data.Trial trialDataFromIndex)
         {
-            // Control flow here i                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                s for deciding what Trial gets spat out from the config
+            // Control flow here is for deciding what Trial gets spat out from the config
             AbstractTrial currTrial;
             if (trialDataFromIndex.FileLocation != null)
             {

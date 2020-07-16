@@ -9,6 +9,9 @@ namespace unity.wrapper
     public interface ISceneWrapper
     {
         void LoadScene(string name);
+
+        void LoadScene(int sceneNumber);
+
         AsyncOperation LoadAsyncScene(int environmentNumber);
         void SwitchScene(IEnumerator loadAction);
 

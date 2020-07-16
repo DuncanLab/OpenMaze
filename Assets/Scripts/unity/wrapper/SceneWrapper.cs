@@ -42,6 +42,11 @@ namespace unity.wrapper
             SceneManager.LoadScene(name);
         }
         
+        public void LoadScene(int sceneNumber)
+        {
+            SceneManager.LoadScene(sceneNumber);
+        }
+
         public AsyncOperation LoadAsyncScene(int environmentNumber)
         {
             return SceneManager.LoadSceneAsync(environmentNumber);

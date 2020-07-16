@@ -45,14 +45,21 @@ namespace loading
             var entryTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
             _doneTransitioning = false;
 
-            _sceneWrapper.LoadScene("StopGapLoad");
+            if (sceneNumber != Constants.LoadingScreen){
+                _sceneWrapper.LoadScene("StopGapLoad");
+            } else {
+                _sceneWrapper.LoadScene(sceneNumber);
+            }
+
             _sceneWrapper.FreezeTime();
             yield return null;
             
+            AsyncOperation scenePromise = null;
 
-            
-            var scenePromise = _sceneWrapper.LoadAsyncScene(sceneNumber);
-            scenePromise.allowSceneActivation = false;
+            if (sceneNumber != Constants.LoadingScreen){
+                scenePromise = _sceneWrapper.LoadAsyncScene(sceneNumber);
+                scenePromise.allowSceneActivation = false;
+            }
             
             var loadingDelta = DateTimeOffset.Now.ToUnixTimeMilliseconds() - entryTime;
 
@@ -61,7 +68,7 @@ namespace loading
             {
                 loadingDelta = DateTimeOffset.Now.ToUnixTimeMilliseconds() - entryTime;
 
-                if (loadingDelta > _data.MinLoadMsDelay - 150)
+                if (loadingDelta > _data.MinLoadMsDelay - 150 && scenePromise != null)
                 {
                     scenePromise.allowSceneActivation = true;
                 }

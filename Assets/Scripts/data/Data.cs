@@ -190,12 +190,13 @@ namespace data
             public string Type; // The object type (can be "2D" or "3D")
 
             public Vector3 PositionVector =>
-                Position.Count == 0 ? Vector3.zero : new Vector3(Position[0], Position[1], Position[2]);
+                Position == null || Position.Count == 0 ? Vector3.zero : new Vector3(Position[0], Position[1], Position[2]);
 
             public Vector3 RotationVector =>
-                Rotation.Count == 0 ? Vector3.zero : new Vector3(Rotation[0], Rotation[1], Rotation[2]);
+                Rotation == null || Rotation.Count == 0 ? Vector3.zero : new Vector3(Rotation[0], Rotation[1], Rotation[2]);
 
-            public Vector3 ScaleVector => Scale.Count == 0 ? Vector3.zero : new Vector3(Scale[0], Scale[1], Scale[2]);
+            public Vector3 ScaleVector => 
+                Scale == null ||Scale.Count == 0 ? Vector3.zero : new Vector3(Scale[0], Scale[1], Scale[2]);
         }
 
         [Serializable]
