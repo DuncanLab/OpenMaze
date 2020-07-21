@@ -38,17 +38,25 @@ namespace wallSystem
             currBlockId = E.Get().CurrTrial.BlockID;
             currTrialId = E.Get().CurrTrial.TrialID;
 
-            if (DS.GetData().Blocks[currBlockId].ShowNumSuccessfulTrials)
+            //HUD for the number of successful trials in the current Block
+            if (DS.GetData().Blocks[currBlockId].ShowNumSuccesses| DS.GetData().Trials[currTrialId].ShowNumSuccesses)
             {
-                Timer.text = "Number of successes: " + E.Get().CurrTrial.TrialProgress.NumSuccess;
+                var trialsuccessText = GameObject.Find("TrailSuccesses").GetComponent<Text>();
+                trialsuccessText.text = "Successful Trials: " + E.Get().CurrTrial.TrialProgress.NumSuccess;
             }
-            else if (DS.GetData().Blocks[currBlockId].ShowCollectedPerTrial)
+            
+            //HUD for the number of goals found in the current trial 
+            if (DS.GetData().Blocks[currBlockId].ShowTrialTotal | DS.GetData().Trials[currTrialId].ShowTrialTotal)
             {
-                Timer.text = "Goals found this trial: " + E.Get().CurrTrial.NumCollected;
+                var trialtotalText = GameObject.Find("TrialTotal").GetComponent<Text>();
+                trialtotalText.text = "Goals Found In Trial: " + E.Get().CurrTrial.NumCollected;
             }
-            else if (DS.GetData().Trials[currTrialId].ShowCollectedPerBlock)
+
+            //HUD for the number of goals found in the current Block
+            if (DS.GetData().Trials[currTrialId].ShowBlockTotal | DS.GetData().Blocks[currBlockId].ShowBlockTotal)
             {
-                Timer.text = "Goals found this block: " + E.Get().CurrTrial.TrialProgress.NumCollectedPerBlock[currBlockId];
+                var blocktotalText = GameObject.Find("BlockTotal").GetComponent<Text>();
+                blocktotalText.text = "Goals Found In Block: " + E.Get().CurrTrial.TrialProgress.NumCollectedPerBlock[currBlockId];
             }
         }
     }

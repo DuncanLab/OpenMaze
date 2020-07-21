@@ -17,6 +17,8 @@
         {
             "Block 1" : "Serial Trial Order",
             "Notes" : "Trials will be presented in order from TrialOrder list",
+            "ShowTrialTotal" : true,
+            "ShowNumSuccesses": true,
             "TrialOrder": [1,2,3,4,3,5]
         },
         {
@@ -83,7 +85,7 @@
         {
             "Trial 5" : "3D Trial - same as 4 but with enclosure and goal collection total displayed",
             "Header": "Collect the Objects!",
-            "ShowCollectedPerTrial": true,
+            "ShowBlockTotal" : true,
             "TrialTime" : 60,
             "Scene": 2,
             "Enclosure": 1,

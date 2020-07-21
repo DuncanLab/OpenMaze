@@ -65,8 +65,9 @@ namespace data
             public List<RandomData> RandomlySelect; //Array that contains all the possible random values
             public List<int> TrialOrder; //Trial order (-1 means random)
 
-            public bool ShowNumSuccessfulTrials; // Whether or not to display the number of successful trials
-            public bool ShowCollectedPerTrial; // Whether or not to display the amount of goals/pickups collected (resets each trial)
+            public bool ShowNumSuccesses; // Whether or not to display the number of successful trials
+            public bool ShowBlockTotal; // Whether or not to display the amount of goals/pickups collected (resets each block)
+            public bool ShowTrialTotal; // Whether or not to display the amount of goals/pickups collected (resets each trial)
         }
 
         [Serializable]
@@ -96,7 +97,9 @@ namespace data
             public List<float> StartPosition; //The start position of the character (usually 0, 0) If left empty (ie. "[]") start position is random
             public float StartFacing; // The starting angle of the character (in degrees). if set to -1 start facing will be random
             public bool ExitButton; //When this is set to true a button that says "Exit Experiment" will appear at the bottom of screen, when pressed application will close
-            public bool ShowCollectedPerBlock; // Whether or not to display the amount of goals/pickups collected (resets each block)
+            public bool ShowBlockTotal; // Whether or not to display the amount of goals/pickups collected (resets each block)
+            public bool ShowTrialTotal; // Whether or not to display the amount of goals/pickups collected (resets each trial)
+            public bool ShowNumSuccesses; // Whether or not to display the number of successful trials
         }
 
         // Represents an Enclosure (Maze) for the user. TODO: Enclosures can be prebuilt; located in:...

@@ -42,12 +42,10 @@ namespace wallSystem
         {
             try
             {
-                var goalText = GameObject.Find("Goal").GetComponent<Text>();
-                goalText.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 40);
+                var headerText = GameObject.Find("Header").GetComponent<Text>();
 
                 // This section sets the text
-                goalText.text = E.Get().CurrTrial.trialData.Header;
-                goalText.color = Color.white;
+                headerText.text = E.Get().CurrTrial.trialData.Header;
             }
             catch (NullReferenceException e)
             {
