@@ -12,7 +12,7 @@ namespace data
         // File locations
         public string SpritesPath = Application.streamingAssetsPath + "/2D_Objects/";
         public string PythonScriptsPath = Application.streamingAssetsPath + "/PythonScripts/";
-        public string DefaultConfigPath = Application.streamingAssetsPath + "/Default_Config/";
+        public string AutoRunConfigPath = Application.streamingAssetsPath + "/AutoRun_Config/";
 
         // whether or not to turn on timing diagnostics
         public bool TimingVerification;

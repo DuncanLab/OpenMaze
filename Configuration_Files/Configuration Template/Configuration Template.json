@@ -17,6 +17,8 @@
         {
             "Block 1" : "Serial Trial Order",
             "Notes" : "Trials will be presented in order from TrialOrder list",
+            "ShowBlockTotal" : true,
+            "ShowNumSuccesses": true,
             "TrialOrder": [1,2,3,4,3,5]
         },
         {
@@ -68,6 +70,7 @@
         {
             "Trial 4" : "3D Trial - will take place in Scene 2 in the build. Goal 1, Goal 2, and Landmark 1 will be added to the scene",
             "Header": "Collect the Objects!",
+            "ShowTrialTotal" : true,
             "TrialTime" : 60,
             "Scene": 2,
             "StartPosition" : [0,0],
@@ -83,7 +86,7 @@
         {
             "Trial 5" : "3D Trial - same as 4 but with enclosure and goal collection total displayed",
             "Header": "Collect the Objects!",
-            "ShowCollectedPerTrial": true,
+            "ShowTrialTotal" : true,
             "TrialTime" : 60,
             "Scene": 2,
             "Enclosure": 1,

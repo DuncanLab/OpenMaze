@@ -24,16 +24,16 @@ namespace trial
             // using webGL or Android (can add others in if statement) 
             // Otherwise calls the directory picker to select the configuration file.
     
-            var defaultConfigDir = Application.streamingAssetsPath + "/Default_Config/";
+            var AutoRunConfigDir = Application.streamingAssetsPath + "/AutoRun_Config/";
             var files = new string[0];
-            if (Directory.Exists(defaultConfigDir))
+            if (Directory.Exists(AutoRunConfigDir))
             {
-                files = Directory.GetFiles(defaultConfigDir);
+                files = Directory.GetFiles(AutoRunConfigDir);
             }
 
             if (files.Length > 0)
             {
-                var defaultConfig = defaultConfigDir + Path.GetFileName(files[0]);
+                var defaultConfig = AutoRunConfigDir + Path.GetFileName(files[0]);
                 Loader.ExternalActivation(defaultConfig);
             }
             else
