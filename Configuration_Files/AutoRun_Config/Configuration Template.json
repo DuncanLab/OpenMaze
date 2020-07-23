@@ -11,34 +11,46 @@
         "GoalRotationSpeed": 0
     },
 
-    "BlockOrder" : [1,4],
+    "BlockOrder" : [1,5,6],
     
     "Blocks" : [
         {
-            "Block 1" : "Serial Trial Order",
+            "Block 1" : "Serial Trial Order - Instructions",
+            "Notes" : "Trials will be presented in order from TrialOrder list",
+            "TrialOrder": [1,2]
+        },
+        {
+            "Block 2" : "Serial Trial Order",
             "Notes" : "Trials will be presented in order from TrialOrder list",
             "ShowBlockTotal" : true,
             "ShowNumSuccesses": true,
-            "TrialOrder": [1,2,3,4,3,5]
+            "TrialOrder": [3,4,3,5]
         },
         {
             
-            "Block 2" : "Random With Replacement - Randomly select single trials",
+            "Block 3" : "Random With Replacement - Randomly select single trials",
             "Notes" : "Each time trial 0 is called in trial order it will select a RandomGroup from RandomTrialType list",
             "TrialOrder": [0,0,0],
             "Replacement" : 1,
             "RandomlySelect" : [{"Order": [3,4]}, {"Order": [3,5]}]
         },
         {
-            
-            "Block 3" : "Random Without Replacement - Randomly select ordered trial list Trials in Random Groups. The # of TrialOrder 0s must = # of Orders",
+            "Block 4" : "Random Without Replacement - Randomly select ordered trial list Trials in Random Groups. The # of TrialOrder 0s must = # of Orders",
             "Notes" : "When a Random group is chosen it will present all trials in order from the group before moving on to the next random selection",
             "TrialOrder": [0,0],
             "Replacement" : 0,
             "RandomlySelect" : [{"Order": [3, 4]}, {"Order": [3,5]}]
         },
         {
-            "Block 4" : "End experiment Screen",
+            "Block 5" : "Trial Criterion",
+            "Notes" : "This Block terminates when 3 Trials have been completed successfully",
+            "ExitFunction": "TrialCriterion",
+            "ExitGoal": "3",
+            "ShowNumSuccesses": true,
+            "TrialOrder": [3,4,3,5,4,3,5,4,3,5,4,3,5,4,3,5,4,3,5,3,4,3,5,4,3,5,4,3,5,4,3,5,4,3,5,4,3,5],
+        },
+        {
+            "Block 6" : "End experiment Screen",
             "Notes" : "This Block can be added to the end of the block order to display the end of experiment screen",
             "TrialOrder": [6]
         }    

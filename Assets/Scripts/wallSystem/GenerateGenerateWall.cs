@@ -58,6 +58,7 @@ namespace wallSystem
                 var blocktotalText = GameObject.Find("BlockTotal").GetComponent<Text>();
                 blocktotalText.text = "Goals Found In Block: " + E.Get().CurrTrial.TrialProgress.NumCollectedPerBlock[currBlockId];
             }
+
         }
     }
 }

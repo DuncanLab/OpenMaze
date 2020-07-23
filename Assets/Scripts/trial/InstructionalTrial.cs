@@ -32,6 +32,10 @@ namespace trial
             {
                 trialEndKeyCode = trialData.TrialEndKey.ToLower();
             }
+            else
+            {
+                trialEndKeyCode = "space";
+            }
 
             if (Input.GetKey(trialEndKeyCode) && (_runningTime > ignoreUserInputDelay))
             {

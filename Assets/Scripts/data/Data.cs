@@ -56,8 +56,10 @@ namespace data
         [Serializable]
         public class BlockData
         {
-            public string EndGoal; // percentage ___SPACE___ number. This is very arbitrary.
-            public string EndFunction; // The function name (if not present, we assume its always true)
+            public string BlockGoal; // percentage ___SPACE___ number. This is very arbitrary.
+            public string BlockFunction; // The function name (if not present, we assume its always true)
+            public string TrialGoal; // percentage ___SPACE___ number. This is very arbitrary.
+            public string TrialFunction; // The function name (if not present, we assume its always false)
 
             public string BlockName; // Name (outputed at the end of the Block)
             public string Notes; // Notes about the given block
@@ -68,6 +70,8 @@ namespace data
             public bool ShowNumSuccesses; // Whether or not to display the number of successful trials
             public bool ShowBlockTotal; // Whether or not to display the amount of goals/pickups collected (resets each block)
             public bool ShowTrialTotal; // Whether or not to display the amount of goals/pickups collected (resets each trial)
+            public string DisplayText; // Text appears at the bottom of every 3D trial in the block.
+
         }
 
         [Serializable]
@@ -86,7 +90,8 @@ namespace data
             public int Scene; // This is the environment type referenced.
             public int TrialTime; // Allotted amount of time
             public string TrialEndKey; // The key press which will end the current trial.
-            public string Header; // Note outputted out of the trial.
+            public string DisplayText; // Note outputted out of the trial.
+            public string DisplayImage; // Is not null iff FileLocation exists (Image for 1D trials)
             public EnclosureData Map; // The Map saved EnclosureData
             public List<int> InvisibleGoals; //The goal that are active and invisible
             public List<int> ActiveGoals; // Goals that are active and visible

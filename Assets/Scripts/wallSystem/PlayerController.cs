@@ -4,6 +4,7 @@ using System.Threading;
 using trial;
 using UnityEngine;
 using UnityEngine.UI;
+using data;
 using DS = data.DataSingleton;
 using E = main.Loader;
 using Random = UnityEngine.Random;
@@ -42,10 +43,21 @@ namespace wallSystem
         {
             try
             {
-                var headerText = GameObject.Find("Header").GetComponent<Text>();
-
+                var trialText = GameObject.Find("TrialText").GetComponent<Text>();
+                var blockText = GameObject.Find("BlockText").GetComponent<Text>();
+                var currBlockId = E.Get().CurrTrial.BlockID;
                 // This section sets the text
-                headerText.text = E.Get().CurrTrial.trialData.Header;
+                trialText.text = E.Get().CurrTrial.trialData.DisplayText;
+                blockText.text = DS.GetData().Blocks[currBlockId].DisplayText;
+
+                if (!string.IsNullOrEmpty(E.Get().CurrTrial.trialData.DisplayImage))
+                {
+                    var filePath = DS.GetData().SpritesPath + E.Get().CurrTrial.trialData.DisplayImage;
+                    var displayImage = GameObject.Find("DisplayImage").GetComponent<RawImage>();
+                    displayImage.enabled = true;
+                    displayImage.texture = Img2Sprite.LoadTexture(filePath);
+                }
+
             }
             catch (NullReferenceException e)
             {
@@ -65,6 +77,9 @@ namespace wallSystem
             {
                 _iniRotation = E.Get().CurrTrial.trialData.StartFacing;
             }
+
+
+
 
             transform.Rotate(0, _iniRotation, 0);
 
