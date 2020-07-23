@@ -11,7 +11,7 @@
         "GoalRotationSpeed": 0
     },
 
-    "BlockOrder" : [4,5,6],
+    "BlockOrder" : [19,21],
     
     "Blocks" : [
         {
@@ -45,47 +45,136 @@
             "TrialOrder": [41,42,43,44,45,46,47,48]
         },
         {
-            "Block 3" : "Random With Replacement - Randomly select single trials",
-            "Notes" : "Each time trial 0 is called in trial order it will select a RandomGroup from RandomTrialType list",
-            "DisplayText": "Block 3 - Random w/ Replacement",
-            "TrialOrder": [0,0,0],
+            "Block 7" : "Testing Landmakrs",
+            "DisplayText": "Testing Landmarks",
+            "TrialOrder": [49,50,51,52,53,54,55]
+        },
+        {
+            "Block 8" : "Testing Goals + Landmarks",
+            "DisplayText": "Testing Goals + Landmarks",
+            "TrialOrder": [56,57,58]
+        },
+        {
+            "Block 9" : "Testing Enclosures",
+            "DisplayText": "Testing Enclosures",
+            "TrialOrder": [59,60,61,62,63,64,65,66,67,68,69,70,71]
+        },
+        {
+            "Block 10" : "Testing Enclosures + Goals + Landmarks",
+            "DisplayText": "Testing Enclosures + Goals + Landmarks",
+            "TrialOrder": [72,73,74,75,76,77,78,79,80]
+        },
+        {
+            "Block 11" : "Random With Replacement selects from Randomly Select 5x",
+            "TrialOrder": [81,0,0,0,0,0],
             "Replacement" : 1,
-            "RandomlySelect" : [{"Order": [3,5]}, {"Order": [3,6]}]
+            "RandomlySelect" : [{"Order": [82]}, {"Order": [83,84]}, {"Order": [85,86,87]}]
         },
         {
-            "Block 4" : "Random Without Replacement - Randomly select ordered trial list Trials in Random Groups. The # of TrialOrder 0s must = # of Orders",
-            "Notes" : "When a Random group is chosen it will present all trials in order from the group before moving on to the next random selection",
-            "DisplayText": "Block 4 - Random w/o Replacement",
-            "TrialOrder": [0,0],
+            "Block 12" : "Random Without Replacement selects from Randomly Select 3x",
+            "TrialOrder": [88,0,0,0],
             "Replacement" : 0,
-            "RandomlySelect" : [{"Order": [3, 5]}, {"Order": [3,6]}]
+            "RandomlySelect" : [{"Order": [89]}, {"Order": [90,91]}, {"Order": [92,93,94]}]
         },
         {
-            "Block 5" : "Using the TrialGoal and TrialFunction with the SuccessesCriterion function",
-            "Notes" : "This Block terminates when 3 Trials have been completed successfully. If 3 trials have not be completed the final trail is an end screen with exit button.",
-            "DisplayText": "Block 5 - TrialFunction",
+            "Block 13" : "Testing Trail Cririon ",
+            "DisplayText": "Trial Criterion (3/4) Test FAIL",
+            "ShowBlockTotal" : true,
+            "ShowTrialTotal": true,
+            "ShowNumSuccesses": true,
             "TrialFunction": "SuccessesCriterion",
             "TrialGoal": "3",
+            "Notes" : "This Block terminates when 3 Trials have been completed successfully. If 3 trials have not be completed the final trail is an end screen with exit button.",
+            "TrialOrder": [95,96,97,98,99,100,101,102,103,104]
+        },
+        {
+            "Block 14" : "Testing Trail Cririon ",
+            "DisplayText": "Trial Criterion (3/4) Test Success",
             "ShowBlockTotal" : true,
             "ShowTrialTotal": true,
             "ShowNumSuccesses": true,
-            "TrialOrder": [4,3,5,3,6,3,5,3,6,3,5,8]
+            "TrialFunction": "SuccessesCriterion",
+            "TrialGoal": "3",
+            "Notes" : "This Block terminates when 3 Trials have been completed successfully. If 3 trials have not be completed the final trail is an end screen with exit button.",
+            "TrialOrder": [105,96,97,98,99,100,101,102,103]
         },
         {
-            "Block 6" : "Using the BlockGoal and BlockFunction",
-            "Notes" : "checks whether SuccessesCriterion was met after the last trial is complete, if met experiment continues to next block, if not, block is repeated",
-            "DisplayText": "Block 6 - BlockFunction",
+            "Block 15" : "Testing Trail Cririon ",
+            "DisplayText": "Trial Criterion (3/8) Test Random w/ Replacement",
+            "ShowBlockTotal" : true,
+            "ShowTrialTotal": true,
+            "ShowNumSuccesses": true,
+            "TrialFunction": "SuccessesCriterion",
+            "TrialGoal": "3",
+            "Notes" : "This Block terminates when 3 Trials have been completed successfully. If 3 trials have not be completed the final trail is an end screen with exit button.",
+            "TrialOrder": [106,0,0,0,0,0,0,0,0],
+            "Replacement" : 1,
+            "RandomlySelect" : [{"Order": [96,97]}, {"Order": [98,99]}, {"Order": [100,101]}, {"Order": [102,103]}]
+        },
+        {
+            "Block 16" : "Testing Trail Cririon ",
+            "DisplayText": "Trial Criterion (3/4) Test Random w/0 Replacement",
+            "ShowBlockTotal" : true,
+            "ShowTrialTotal": true,
+            "ShowNumSuccesses": true,
+            "TrialFunction": "SuccessesCriterion",
+            "TrialGoal": "3",
+            "Notes" : "This Block terminates when 3 Trials have been completed successfully. If 3 trials have not be completed the final trail is an end screen with exit button.",
+            "TrialOrder": [106,0,0,0,0],
+            "Replacement" : 0,
+            "RandomlySelect" : [{"Order": [96,97]}, {"Order": [98,99]}, {"Order": [100,101]}, {"Order": [102,103]}]
+        },
+        {
+            "Block 17" : "Testing Block Cririon ",
+            "DisplayText": "Block Criterion (3/4) Test FAIL",
+            "ShowBlockTotal" : true,
+            "ShowTrialTotal": true,
+            "ShowNumSuccesses": true,
             "BlockFunction": "SuccessesCriterion",
             "BlockGoal": "3",
+            "Notes" : "This Block terminates when 3 Trials have been completed successfully. If 3 trials have not be completed the final trail is an end screen with exit button.",
+            "TrialOrder": [95,96,97,98,99,100,101,102,103,104]
+        },
+        {
+            "Block 18" : "Testing Block Cririon ",
+            "DisplayText": "Block Criterion (3/4) Test Success",
             "ShowBlockTotal" : true,
             "ShowTrialTotal": true,
             "ShowNumSuccesses": true,
-            "TrialOrder": [4,3,5,3,6,3,5,3,6,3,5]
+            "BlockFunction": "SuccessesCriterion",
+            "BlockGoal": "3",
+            "Notes" : "This Block terminates when 3 Trials have been completed successfully. If 3 trials have not be completed the final trail is an end screen with exit button.",
+            "TrialOrder": [105,96,97,98,99,100,101,102,103]
         },
         {
-            "Block 7" : "End experiment Screen",
-            "Notes" : "This Block can be added to the end of the block order to display the end of experiment screen",
-            "TrialOrder": [7]
+            "Block 19" : "Testing Block Cririon",
+            "DisplayText": "Block Criterion (3/4) Test Random w/ Replacement",
+            "ShowBlockTotal" : true,
+            "ShowTrialTotal": true,
+            "ShowNumSuccesses": true,
+            "BlockFunction": "SuccessesCriterion",
+            "BlockGoal": "3",
+            "Notes" : "This Block terminates when 3 Trials have been completed successfully. If 3 trials have not be completed the final trail is an end screen with exit button.",
+            "TrialOrder": [1,0,0,0,0],
+            "Replacement" : 1,
+            "RandomlySelect" : [{"Order": [96,97]}, {"Order": [98,99]}, {"Order": [100,101]}, {"Order": [102,103]}]
+        },
+        {
+            "Block 20" : "Testing Block Cririon ",
+            "DisplayText": "Block Criterion (3/4) Test Random w/0 Replacement",
+            "ShowBlockTotal" : true,
+            "ShowTrialTotal": true,
+            "ShowNumSuccesses": true,
+            "BlockFunction": "SuccessesCriterion",
+            "BlockGoal": "3",
+            "Notes" : "This Block terminates when 3 Trials have been completed successfully. If 3 trials have not be completed the final trail is an end screen with exit button.",
+            "TrialOrder": [106,0,0,0,0],
+            "Replacement" : 0,
+            "RandomlySelect" : [{"Order": [96,97]}, {"Order": [98,99]}, {"Order": [100,101]}, {"Order": [102,103]}]
+        },
+        {
+            "Block 21" : "Testing Block Cririon ",
+            "TrialOrder": [6]
         }     
     ],
 
@@ -322,7 +411,7 @@
             "StartPosition" : [0,0],
             "StartFacing" : 0,
             "Rotate": 0,
-            "ActiveGoals" : [],
+            "ActiveGoals" : [1,2],
             "InvisibleGoals" : [],
             "InactiveGoals" : [],
             "Quota": 2,
@@ -637,6 +726,593 @@
             "Quota": 4,
             "LandMarks" :[],
             "TrialEndKey": "space"
+        },
+        {
+            "Trial 49" : "------------------------------------------------------------------Testing Landmarks",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide29.png",
+            "TrialTime": -1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 50" : "Testing Landmarks",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide30.png",
+            "TrialTime": 3,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 51" : "3D Landmarks",
+            "DisplayText": "3D Landmarks: Cube + Sphere",
+            "TrialTime" : 10,
+            "Scene": 2,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Rotate": 0,
+            "ActiveGoals" : [],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 0,
+            "LandMarks" :[1,2],
+            "TrialEndKey": "space"
+        },
+        {
+            "Trial 52" : "Testing Landmarks",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide31.png",
+            "TrialTime": 3,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 53" : "3D Landmarks",
+            "DisplayText": "Image Landmarks: Apple + Water",
+            "TrialTime" : 10,
+            "Scene": 3,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Rotate": 0,
+            "ActiveGoals" : [],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 0,
+            "LandMarks" :[3,4],
+            "TrialEndKey": "space"
+        },
+        {
+            "Trial 54" : "Testing Landmarks",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide32.png",
+            "TrialTime": 3,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 55" : "3D Landmarks",
+            "DisplayText": "ALL Landmarks",
+            "TrialTime" : 10,
+            "Scene": 2,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Rotate": 0,
+            "ActiveGoals" : [],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 0,
+            "LandMarks" :[1,2,3,4],
+            "TrialEndKey": "space"
+        },
+        {
+            "Trial 56" : "------------------------------------------------------------------Testing Goals + Landmarks",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide33.png",
+            "TrialTime": -1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 57" : "Testing Goals + Landmarks",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide34.png",
+            "TrialTime": 3,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 58" : "3D Landmarks",
+            "DisplayText": "ALL Landmarks + ALL Goals = A:A IA:W+C; IV:S; Q:2",
+            "TrialTime" : 100,
+            "Scene": 2,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Rotate": 0,
+            "ActiveGoals" : [3],
+            "InvisibleGoals" : [1],
+            "InactiveGoals" : [2,4],
+            "Quota": 2,
+            "LandMarks" :[1,2,3,4],
+            "TrialEndKey": "space"
+        },
+        {
+            "Trial 59" : "------------------------------------------------------------------Testing Enclosures",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide35.png",
+            "TrialTime": -1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 60" : "Testing Enclosures",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide36.png",
+            "TrialTime": 3,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 61" : "Enclosures",
+            "DisplayText": "Square + Random Placement",
+            "TrialTime" : 5,
+            "Scene": 2,
+            "StartPosition" : [],
+            "StartFacing" : -1,
+            "Rotate": 0,
+            "ActiveGoals" : [],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 0,
+            "Enclosure": 1,
+            "LandMarks" :[],
+            "TrialEndKey": "space"
+        },
+        {
+            "Trial 62" : "Testing Enclosures",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide37.png",
+            "TrialTime": 3,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 63" : "Enclosures",
+            "DisplayText": "Circle + Center Placement",
+            "TrialTime" : 5,
+            "Scene": 2,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Rotate": 0,
+            "ActiveGoals" : [],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 0,
+            "Enclosure": 2,
+            "LandMarks" :[],
+            "TrialEndKey": "space"
+        },
+        {
+            "Trial 64" : "Testing Enclosures",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide38.png",
+            "TrialTime": 3,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 65" : "Enclosures",
+            "DisplayText": "Square + Center Placement",
+            "TrialTime" : 5,
+            "Scene": 3,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Rotate": 0,
+            "ActiveGoals" : [],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 0,
+            "Enclosure": 1,
+            "LandMarks" :[],
+            "TrialEndKey": "space"
+        },
+        {
+            "Trial 66" : "Testing Enclosures",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide39.png",
+            "TrialTime": 3,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 67" : "Enclosures",
+            "DisplayText": "Circle + Random Placement",
+            "TrialTime" : 5,
+            "Scene": 3,
+            "StartPosition" : [],
+            "StartFacing" : -1,
+            "Rotate": 0,
+            "ActiveGoals" : [],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 0,
+            "Enclosure": 2,
+            "LandMarks" :[],
+            "TrialEndKey": "space"
+        },
+        {
+            "Trial 68" : "Testing Enclosures",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide40.png",
+            "TrialTime": 3,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 69" : "Enclosures",
+            "DisplayText": "Invisible Ground + Random Placement",
+            "TrialTime" : 5,
+            "Scene": 2,
+            "StartPosition" : [],
+            "StartFacing" : -1,
+            "Rotate": 0,
+            "ActiveGoals" : [],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 0,
+            "Enclosure": 3,
+            "LandMarks" :[],
+            "TrialEndKey": "space"
+        },
+        {
+            "Trial 70" : "Testing Enclosures",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide41.png",
+            "TrialTime": 3,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 71" : "Enclosures",
+            "DisplayText": "Invisible Enclosure + Random Placement",
+            "TrialTime" : 100,
+            "Scene": 2,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Rotate": 0,
+            "ActiveGoals" : [],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 0,
+            "Enclosure": 4,
+            "LandMarks" :[],
+            "TrialEndKey": "space"
+        },
+        {
+            "Trial 72" : "------------------------------------------------------------------Testing Goals + Landmarks + Enclosures",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide42.png",
+            "TrialTime": -1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 73" : "Testing Goals + Landmarks + Enclosures",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide43.png",
+            "TrialTime": 3,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 74" : "Enclosures",
+            "DisplayText": "Square; All Landmarks; All Goals Active; Q:4",
+            "DisplayImage": "Tutorial_Objects/Apple.png",
+            "ShowBlockTotal" : true,
+            "ShowTrialTotal": true,
+            "ShowNumSuccesses": true,
+            "TrialTime" : 100,
+            "Scene": 2,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Rotate": 0,
+            "ActiveGoals" : [1,2,3,4],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 4,
+            "Enclosure": 1,
+            "LandMarks" :[1,2,3,4],
+            "TrialEndKey": "space"
+        },
+        {
+            "Trial 75" : "Testing Goals + Landmarks + Enclosures",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide44.png",
+            "TrialTime": 3,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 76" : "Testing Goals + Landmarks + Enclosures",
+            "DisplayText": "Circle; A:C+A; IV:S Q=3",
+            "DisplayImage": "Tutorial_Objects/Water.png",
+            "ShowBlockTotal" : true,
+            "ShowTrialTotal": true,
+            "ShowNumSuccesses": true,
+            "TrialTime" : 100,
+            "Scene": 3,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Rotate": 0,
+            "ActiveGoals" : [2,3],
+            "InvisibleGoals" : [1],
+            "InactiveGoals" : [],
+            "Quota": 3,
+            "Enclosure": 2,
+            "LandMarks" :[1,2,3,4],
+            "TrialEndKey": "space"
+        },
+        {
+            "Trial 77" : "Testing Enclosures",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide45.png",
+            "TrialTime": 3,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 78" : "Enclosures",
+            "DisplayText": "Invisible Floor; A:S, IV:W; Q=2",
+            "DisplayImage": "Tutorial_Objects/Apple.png",
+            "ShowBlockTotal" : true,
+            "ShowTrialTotal": true,
+            "ShowNumSuccesses": true,
+            "TrialTime" : 100,
+            "Scene": 2,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Rotate": 0,
+            "ActiveGoals" : [1],
+            "InvisibleGoals" : [4],
+            "InactiveGoals" : [],
+            "Quota": 2,
+            "Enclosure": 3,
+            "LandMarks" :[],
+            "TrialEndKey": "space"
+        },
+        {
+            "Trial 79" : "Testing Enclosures",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide46.png",
+            "TrialTime": 3,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 80" : "Enclosures",
+            "DisplayText": "Invisible Floor; A:S+W, IA:C+A; Q=2",
+            "DisplayImage": "Tutorial_Objects/Water.png",
+            "ShowBlockTotal" : true,
+            "ShowTrialTotal": true,
+            "ShowNumSuccesses": true,
+            "TrialTime" : 100,
+            "Scene": 3,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Rotate": 0,
+            "ActiveGoals" : [1,4],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [2,3],
+            "Quota": 2,
+            "Enclosure": 4,
+            "LandMarks" :[1,2,3,4],
+            "TrialEndKey": "space"
+        },
+        {
+            "Trial 81" : "------------------------------------------------------------------Testing Blocks Random w/ Replacement",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide47.png",
+            "TrialTime": -1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 82" : "Testing Blocks Random w/ Replacement",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide48.png",
+            "TrialTime": 3,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 83" : "Testing Blocks Random w/ Replacement",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide49.png",
+            "TrialTime": 3,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 84" : "Testing Blocks Random w/ Replacement",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide50.png",
+            "TrialTime": 3,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 85" : "Testing Blocks Random w/ Replacement",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide51.png",
+            "TrialTime": 3,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 86" : "Testing Blocks Random w/ Replacement",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide52.png",
+            "TrialTime": 3,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 87" : "TTesting Blocks Random w/ Replacement",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide53.png",
+            "TrialTime": 3,
+            "TrialEndKey": "Space"
+        },        
+        {
+            "Trial 88" : "------------------------------------------------------------------Testing Blocks Random w/o Replacement",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide54.png",
+            "TrialTime": -1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 89" : "Testing Blocks Random w/o Replacement",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide55.png",
+            "TrialTime": 3,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 90" : "Testing Blocks Random w/o Replacement",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide56.png",
+            "TrialTime": 3,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 91" : "Testing Blocks Random w/o Replacement",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide57.png",
+            "TrialTime": 3,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 92" : "Testing Blocks Random w/o Replacement",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide58.png",
+            "TrialTime": 3,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 93" : "Testing Blocks Random w/o Replacement",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide59.png",
+            "TrialTime": 3,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 94" : "Testing Blocks Random w/o Replacement",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide60.png",
+            "TrialTime": 3,
+            "TrialEndKey": "Space"
+        },        
+        {
+            "Trial 95" : "------------------------------------------------------------------Testing Blocks Trial Criterion FAIL",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide61.png",
+            "TrialTime": -1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 96" : "Testing Blocks Trial Criterion FAIL",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide62.png",
+            "TrialTime": 3,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 97" : "Enclosures",
+            "DisplayText": "Square/ALL Goals/All Landmarks Q = 2",
+            "TrialTime" : 100,
+            "Scene": 3,
+            "StartPosition" : [],
+            "StartFacing" : -1,
+            "Rotate": 0,
+            "ActiveGoals" : [1,2,3,4],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 2,
+            "Enclosure": 1,
+            "LandMarks" :[1,2,3,4],
+            "TrialEndKey": "space"
+        },
+        {
+            "Trial 98" : "Testing Blocks Trial Criterion FAIL",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide63.png",
+            "TrialTime": 3,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 99" : "Enclosures",
+            "DisplayText": "Circle/ALL Goals/All Landmarks Q = 2",
+            "TrialTime" : 100,
+            "Scene": 2,
+            "StartPosition" : [],
+            "StartFacing" : -1,
+            "Rotate": 0,
+            "ActiveGoals" : [1,2,3,4],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 2,
+            "Enclosure": 2,
+            "LandMarks" :[1,2,3,4],
+            "TrialEndKey": "space"
+        },
+        {
+            "Trial 100" : "Testing Blocks Trial Criterion FAIL",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide64.png",
+            "TrialTime": 3,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 101" : "Enclosures",
+            "DisplayText": "Invisible Floor/ALL Goals/All Landmarks Q = 2",
+            "TrialTime" : 100,
+            "Scene": 3,
+            "StartPosition" : [],
+            "StartFacing" : -1,
+            "Rotate": 0,
+            "ActiveGoals" : [1,2,3,4],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 2,
+            "Enclosure": 3,
+            "LandMarks" :[1,2,3,4],
+            "TrialEndKey": "space"
+        },
+        {
+            "Trial 102" : "Testing Blocks Trial Criterion FAIL",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide65.png",
+            "TrialTime": 3,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 103" : "Enclosures",
+            "DisplayText": "Invisible Enclosure/ALL Goals/All Landmarks Q = 2",
+            "TrialTime" : 100,
+            "Scene": 3,
+            "StartPosition" : [],
+            "StartFacing" : -1,
+            "Rotate": 0,
+            "ActiveGoals" : [1,2,3,4],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 2,
+            "Enclosure": 4,
+            "LandMarks" :[1,2,3,4],
+            "TrialEndKey": "space"
+        },
+        {
+            "Trial 104" : "Testing Blocks Trial Criterion FAIL",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide66.png",
+            "TrialTime": 3,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 105" : "------------------------------------------------------------------Testing Blocks Trial Criterion PASS",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide67.png",
+            "TrialTime": 3,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 106" : "------------------------------------------------------------------Testing Blocks - Trial Criterion with Random w/ Replacement",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide72.png",
+            "TrialTime": 3,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 107" : "------------------------------------------------------------------Testing Blocks - Trial Criterion with Random w/o Replacement",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide67.png",
+            "TrialTime": 3,
+            "TrialEndKey": "Space"
         }
     ],
 
@@ -655,7 +1331,7 @@
             "Goal 2" : "3D Object - Blue Cube",
             "Type": "3D",
             "Object": "Cube",
-            "Sound": "eat",
+            "Sound": "drink",
             "Color": "0000ff",
             "Position": [5, 1, -5],
             "Rotation": [0,0,0],
@@ -674,7 +1350,7 @@
             "Goal 4" : "2D Image - Water",
             "Type": "2D",
             "Object": "Tutorial_Objects/Water.png",
-            "Sound": "eat",
+            "Sound": "drink",
             "Color": "ffffff",
             "Position": [-5, 1, -5],
             "Scale": [1, 1, 1]
@@ -686,36 +1362,34 @@
             "Landmark 1" : "3D Object - Red Sphere",
             "Type": "3D",
             "Object": "Sphere",
-            "Color": "ffff00",
-            "Position": [150, 25, 150],
+            "Color": "ff0000",
+            "Position": [100, 25, 100],
             "Rotation": [0,0,0],
             "Scale": [50, 50, 50]
         },
         {
-            "Goal 2" : "3D Object - Blue Cube",
+            "Landmark 2" : "3D Object - Blue Cube",
             "Type": "3D",
             "Object": "Cube",
-            "Color": "ff00ff",
-            "Position": [150, 25, -150],
+            "Color": "0000ff",
+            "Position": [100, 25, -100],
             "Rotation": [0,0,0],
             "Scale": [50, 50, 50]
         },
         {
-            "Goal 3" : "2D Image - Apple",
+            "Landmark 3" : "2D Image - Apple",
             "Type": "2D",
             "Object": "Tutorial_Objects/Apple.png",
-            "Sound": "eat",
             "Color": "ffffff",
-            "Position": [-150, 25, 150],
+            "Position": [-100, 0, 100],
             "Scale": [50, 50, 50]
         },
         {
-            "Goal 4" : "2D Image - Water",
+            "Landmark 4" : "2D Image - Water",
             "Type": "2D",
             "Object": "Tutorial_Objects/Water.png",
-            "Sound": "eat",
             "Color": "ffffff",
-            "Position": [-150, 25, -150],
+            "Position": [-100, 0, -100],
             "Scale": [50, 50, 50]
         }
 
@@ -731,8 +1405,8 @@
             "WallHeight" : 3,
             "WallColor": "ffffff",
             "GroundTileSides": 4,
-            "GroundTileSize": 1.0,
-            "GroundColor": "1B5E20",
+            "GroundTileSize": 0.7,
+            "GroundColor": "000000",
             "Position": [0, 0]
         },
         {
@@ -742,8 +1416,8 @@
             "WallHeight" : 6,
             "WallColor": "000000",
             "GroundTileSides": 40,
-            "GroundTileSize": 1.0,
-            "GroundColor": "ffffff",
+            "GroundTileSize": 0.2,
+            "GroundColor": "000000",
             "Position": [0, 0]
         },
         {
