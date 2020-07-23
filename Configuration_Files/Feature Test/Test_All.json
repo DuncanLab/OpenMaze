@@ -11,80 +11,100 @@
         "GoalRotationSpeed": 0
     },
 
-    "BlockOrder" : [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22,23,24,25,26,27,28,29,30,31],
+    "BlockOrder" : [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31],
     
     "Blocks" : [
         {
             "Section 1" : "-----------------------------------------------------------------------------------------------Insturctions/Cue Screen Trials (Block 1)",
+            "SectionStatus": "FULLY FUNCTIONAL",
             "Block 1" : "Test Insturctions/Cue Screen Trials",
+            "TestStatus": "WORKING",
             "DisplayText": "Testing Instruction/Cue Screens",
             "TrialOrder": [1,2,3,4,5]
         },
         {
             "Section 2" : "-----------------------------------------------------------------------------------------------Task Trails - Participant + Trial Termination (Blocks 2-3)",
+            "SectionStatus": "FULLY FUNCTIONAL",
             "Block 2" : "Testing Task Trail Termination",
+            "TestStatus": "WORKING",
             "DisplayText": "Testing Task Trail Termination",
             "TrialOrder": [6,7,8,9,10,11,12,13,14]
         },
         {
             "Block 3" : "Testing Participant Placement",
+            "TestStatus": "WORKING",
             "DisplayText": "Testing Participant Placement",
             "TrialOrder": [15,16,17,18,19]
         },
         {
             "Section 3" : "-----------------------------------------------------------------------------------------------Task Trails - Goals + HUD (Blocks 4-6)",
+            "SectionStatus": "FULLY FUNCTIONAL",
             "Block 4" : "Testing 3D Goals",
+            "TestStatus": "WORKING",
             "DisplayText": "Testing 3D Goals + Trial lvl HUD",
             "TrialOrder": [20,21,22,23,24,25,26,27,28,29,30]
         },
         {
             "Block 5" : "Testing Images Goals + Trial lvl HUD",
+            "TestStatus": "WORKING",
             "DisplayText": "Testing Image Goals + Trial lvl HUD",
             "TrialOrder": [31,32,33,34,35,36,37,38,39,40]
         },
         {
             "Block 6" : "Testing 3D/Images Goals + Trial lvl HUD",
+            "TestStatus": "WORKING",
             "DisplayText": "Testing 3D/Image Goals + Trial lvl HUD",
             "TrialOrder": [41,42,43,44,45,46,47,48]
         },
         {
             "Section 4" : "-----------------------------------------------------------------------------------------------Task Trails - Landmarks + Landmarks AND Goals (Blocks 7-8)",
+            "SectionStatus": "FULLY FUNCTIONAL",
             "Block 7" : "Testing Landmakrs",
+            "TestStatus": "WORKING",
             "DisplayText": "Testing Landmarks",
             "TrialOrder": [49,50,51,52,53,54,55]
         },
         {
             "Block 8" : "Testing Goals + Landmarks",
+            "TestStatus": "WORKING",
             "DisplayText": "Testing Goals + Landmarks",
             "TrialOrder": [56,57,58]
         },
         {
             "Section 5" : "-----------------------------------------------------------------------------------------------Task Trails - Enclosures + Enclosures AND Landmaks And Goals (Blocks 9-10)",
+            "SectionStatus": "FULLY FUNCTIONAL",
             "Block 9" : "Testing Enclosures",
+            "TestStatus": "WORKING",
             "DisplayText": "Testing Enclosures",
             "TrialOrder": [59,60,61,62,63,64,65,66,67,68,69,70,71]
         },
         {
             "Block 10" : "Testing Enclosures + Goals + Landmarks",
+            "TestStatus": "WORKING",
             "DisplayText": "Testing Enclosures + Goals + Landmarks",
             "TrialOrder": [72,73,74,75,76,77,78,79,80]
         },
         {
             "Section 6" : "-----------------------------------------------------------------------------------------------Blocks - Random Presentation Orders (Blocks 11-12)",
+            "SectionStatus": "FULLY FUNCTIONAL",
             "Block 11" : "Random With Replacement selects from Randomly Select 5x",
+            "TestStatus": "WORKING",
             "TrialOrder": [81,0,0,0,0,0],
             "Replacement" : 1,
             "RandomlySelect" : [{"Order": [82]}, {"Order": [83,84]}, {"Order": [85,86,87]}]
         },
         {
             "Block 12" : "Random Without Replacement selects from Randomly Select 3x",
+            "TestStatus": "WORKING",
             "TrialOrder": [88,0,0,0],
             "Replacement" : 0,
             "RandomlySelect" : [{"Order": [89]}, {"Order": [90,91]}, {"Order": [92,93,94]}]
         },
         {
             "Section 7" : "-----------------------------------------------------------------------------------------------Blocks - Trial Criterion (Blocks 13-18)",
+            "SectionStatus": "FULLY FUNCTIONAL",
             "Block 13" : "Trial Criterion (3/4) FAIL TEST",
+            "TestStatus": "WORKING",
             "DisplayText": "Trial Criterion (3/4) FAIL TEST",
             "ShowBlockTotal" : true,
             "ShowTrialTotal": true,
@@ -96,6 +116,7 @@
         },
         {
             "Block 14" : "Trial Criterion (3/4) PASS TEST",
+            "TestStatus": "WORKING",
             "DisplayText": "Trial Criterion (3/4) PASS TEST",
             "ShowBlockTotal" : true,
             "ShowTrialTotal": true,
@@ -107,6 +128,7 @@
         },
         {
             "Block 15" : "Trial Criterion (5/8) + Random w/ Replacement FAIL TEST",
+            "TestStatus": "WORKING",
             "DisplayText": "Trial Criterion (5/8) + Random w/ Replacement FAIL TEST",
             "ShowBlockTotal" : true,
             "ShowTrialTotal": true,
@@ -120,6 +142,7 @@
         },
         {
             "Block 16" : "Trial Criterion (5/8) + Random w/ Replacement PASS TEST",
+            "TestStatus": "WORKING",
             "DisplayText": "Trial Criterion (5/8) + Random w/ Replacement PASS TEST",
             "ShowBlockTotal" : true,
             "ShowTrialTotal": true,
@@ -133,6 +156,7 @@
         },
         {
             "Block 17" : "Trial Criterion (2/4) + Random w/o Replacement FAIL TEST",
+            "TestStatus": "WORKING",
             "DisplayText": "Trial Criterion (2/4) + Random w/o Replacement FAIL TEST",
             "ShowBlockTotal" : true,
             "ShowTrialTotal": true,
@@ -146,6 +170,7 @@
         },
         {
             "Block 18" : "Trial Criterion (2/4) + Random w/o Replacement PASS TEST",
+            "TestStatus": "WORKING",
             "DisplayText": "Trial Criterion (2/4) + Random w/o Replacement PASS TEST",
             "ShowBlockTotal" : true,
             "ShowTrialTotal": true,
@@ -159,7 +184,10 @@
         },        
         {
             "Section 7" : "-----------------------------------------------------------------------------------------------Blocks - Block Criterion (Blocks 19-24)",
+            "SectionStatus": "Partial Functionality",
+            "SectionNotes" : "Issues with Random w/o Replacement + Criterion",
             "Block 19" : "Testing Block Criterion",
+            "TestStatus": "WORKING",
             "DisplayText": "Block Criterion (3/4) FAIL TEST",
             "ShowBlockTotal" : true,
             "ShowTrialTotal": true,
@@ -167,10 +195,11 @@
             "BlockFunction": "SuccessesCriterion",
             "BlockGoal": "3",
             "Notes" : "This Block will repeated if 3 Trials have not been completed successfully by the last trial.",
-            "TrialOrder": [110,96,97,98,99,100,101,102,103,104]
+            "TrialOrder": [110,96,97,98,99,100,101,102,103]
         },
         {
             "Block 20" : "Testing Block Cririon ",
+            "TestStatus": "WORKING",
             "DisplayText": "Block Criterion (3/4) PASS TEST",
             "ShowBlockTotal" : true,
             "ShowTrialTotal": true,
@@ -178,10 +207,12 @@
             "BlockFunction": "SuccessesCriterion",
             "BlockGoal": "3",
             "Notes" : "This Block will repeated if 3 Trials have not been completed successfully by the last trial.",
-            "TrialOrder": [111,96,97,98,99,100,101,102,103,104]
+            "TrialOrder": [111,96,97,98,99,100,101,102,103]
         },
         {
-            "Block 21" : "Testing Block Cririon ",
+            "Block 21" : "Testing Block Cririon",
+            "TestStatus": " NOT WORKING",
+            "TestNotes": "Block does not end as expected",
             "DisplayText": "Block Criterion (5/8) + Random w/ Replacement FAIL TEST",
             "ShowBlockTotal" : true,
             "ShowTrialTotal": true,
@@ -189,12 +220,14 @@
             "BlockFunction": "SuccessesCriterion",
             "BlockGoal": "5",
             "Notes" : "This Block will repeated if 5 Trials have not been completed successfully by the last trial.",
-            "TrialOrder": [112,0,0,0,0,0,0,0,0,104],
+            "TrialOrder": [112,0,0,0,0,0,0,0,0],
             "Replacement" : 1,
             "RandomlySelect" : [{"Order": [96,97]}, {"Order": [98,99]}, {"Order": [100,101]}, {"Order": [102,103]}]
         },
         {
-            "Block 22" : "Testing Block Cririon ",
+            "Block 22" : "Testing Block Cririon",
+            "TestStatus": " NOT WORKING",
+            "TestNotes": "Block does not end as expected",
             "DisplayText": "Block Criterion (5/8) + Random w/ Replacement PASS TEST",
             "ShowBlockTotal" : true,
             "ShowTrialTotal": true,
@@ -202,25 +235,29 @@
             "BlockFunction": "SuccessesCriterion",
             "BlockGoal": "5",
             "Notes" : "This Block will repeated if 5 Trials have not been completed successfully by the last trial.",
-            "TrialOrder": [113,0,0,0,0,0,0,0,0,104],
+            "TrialOrder": [113,0,0,0,0,0,0,0,0],
             "Replacement" : 1,
             "RandomlySelect" : [{"Order": [96,97]}, {"Order": [98,99]}, {"Order": [100,101]}, {"Order": [102,103]}]
         },
         {
             "Block 23" : "Testing Block Cririon",
-            "DisplayText": "Block Criterion (2/4) + Random w/o Replacement FAIL TEST",
+            "TestStatus": " NOT WORKING",
+            "TestNotes": "Trials Do not Get Replaced on Block Criterion Fail",
+            "DisplayText": "Block Criterion (2/4) + Random w/o Replacement",
             "ShowBlockTotal" : true,
             "ShowTrialTotal": true,
             "ShowNumSuccesses": true,
             "BlockFunction": "SuccessesCriterion",
             "BlockGoal": "2",
             "Notes" : "This Block will repeated if 2 Trials have not been completed successfully by the last trial.",
-            "TrialOrder": [114,0,0,0,0,104],
+            "TrialOrder": [114,0,0,0,0],
             "Replacement" : 0,
             "RandomlySelect" : [{"Order": [96,97]}, {"Order": [98,99]}, {"Order": [100,101]}, {"Order": [102,103]}]
         },
         {
             "Block 24" : "Testing Block Cririon",
+            "TestStatus": " NOT WORKING",
+            "TestNotes": "Trials Do not Get Replaced on Block Criterion Fail",
             "DisplayText": "Block Criterion (2/4) + Random w/o Replacement PASS TEST",
             "ShowBlockTotal" : true,
             "ShowTrialTotal": true,
@@ -228,14 +265,17 @@
             "BlockFunction": "SuccessesCriterion",
             "BlockGoal": "2",
             "Notes" : "This Block will repeated if 2 Trials have not been completed successfully by the last trial.",
-            "TrialOrder": [115,0,0,0,0,0,0,0,0,104],
+            "TrialOrder": [115,0,0,0,0,0,0,0,0],
             "Replacement" : 1,
             "RandomlySelect" : [{"Order": [96,97]}, {"Order": [98,99]}, {"Order": [100,101]}, {"Order": [102,103]}]
         },        
         {
-            "Section 8" : "-----------------------------------------------------------------------------------------------Blocks - Trial + Block Criterion (Blocks 19-24)",
-            "Block 25" : "Testing Block Criterion",
-            "DisplayText": "Block Criterion (3/4) FAIL TEST",
+            "Section 8" : "-----------------------------------------------------------------------------------------------Blocks - Trial + Block Criterion (Blocks 25-30)",
+            "SectionStatus": "Partial Functionality",
+            "SectionNotes" : "Issues with Random w/o Replacement + Criterion",
+            "Block 25" : "Testing Trial + Block Criterion",
+            "TestStatus": "WORKING",
+            "DisplayText": "Trial + Block Criterion (3/4) FAIL TEST",
             "ShowBlockTotal" : true,
             "ShowTrialTotal": true,
             "ShowNumSuccesses": true,
@@ -244,11 +284,14 @@
             "BlockFunction": "SuccessesCriterion",
             "BlockGoal": "3",
             "Notes" : "This Block will repeated if 3 Trials have not been completed successfully by the last trial.",
-            "TrialOrder": [116,96,97,98,99,100,101,102,103,104]
+            "TrialOrder": [116,96,97,98,99,100,101,102,103]
         },
         {
-            "Block 26" : "Testing Block Cririon ",
-            "DisplayText": "Block Criterion (3/4) PASS TEST",
+            "Block 26" : "Testing Trial + Block Cririon",
+            "TestStatus": " NOT WORKING",
+            "TestNotes": "if Last Trial satisfies Criterion Next block is skipped - Probable Cause - Trial Function and Block Function both instruct to move to next block one after another",
+            "DisplayText": "Trial + Block Criterion (3/4) PASS TEST",
+            "TestStatus": "WORKING",
             "ShowBlockTotal" : true,
             "ShowTrialTotal": true,
             "ShowNumSuccesses": true,
@@ -257,11 +300,13 @@
             "BlockFunction": "SuccessesCriterion",
             "BlockGoal": "3",
             "Notes" : "This Block will repeated if 3 Trials have not been completed successfully by the last trial.",
-            "TrialOrder": [117,96,97,98,99,100,101,102,103,104]
+            "TrialOrder": [117,96,97,98,99,100,101,102,103]
         },
         {
-            "Block 27" : "Testing Block Cririon ",
-            "DisplayText": "Block Criterion (5/8) + Random w/ Replacement FAIL TEST",
+            "Block 27" : "Testing Trial + Block Cririon",
+            "TestStatus": "NOT WORKING",
+            "TestNotes": "Waiting for Fix above to test",
+            "DisplayText": "Trial + Block Criterion (5/8) + Random w/ Replacement FAIL TEST",
             "ShowBlockTotal" : true,
             "ShowTrialTotal": true,
             "ShowNumSuccesses": true,
@@ -270,13 +315,15 @@
             "BlockFunction": "SuccessesCriterion",
             "BlockGoal": "5",
             "Notes" : "This Block will repeated if 5 Trials have not been completed successfully by the last trial.",
-            "TrialOrder": [118,0,0,0,0,0,0,0,0,104],
+            "TrialOrder": [118,0,0,0,0,0,0,0,0],
             "Replacement" : 1,
             "RandomlySelect" : [{"Order": [96,97]}, {"Order": [98,99]}, {"Order": [100,101]}, {"Order": [102,103]}]
         },
         {
-            "Block 28" : "Testing Block Cririon ",
-            "DisplayText": "Block Criterion (5/8) + Random w/ Replacement PASS TEST",
+            "Block 28" : "Testing Trial + Block Cririon",
+            "TestStatus": "NOT WORKING",
+            "TestNotes": "Waiting for Fix above to test",
+            "DisplayText": "Trial + Block Criterion (5/8) + Random w/ Replacement PASS TEST",
             "ShowBlockTotal" : true,
             "ShowTrialTotal": true,
             "ShowNumSuccesses": true,
@@ -285,13 +332,15 @@
             "BlockFunction": "SuccessesCriterion",
             "BlockGoal": "5",
             "Notes" : "This Block will repeated if 5 Trials have not been completed successfully by the last trial.",
-            "TrialOrder": [119,0,0,0,0,0,0,0,0,104],
+            "TrialOrder": [119,0,0,0,0,0,0,0,0],
             "Replacement" : 1,
             "RandomlySelect" : [{"Order": [96,97]}, {"Order": [98,99]}, {"Order": [100,101]}, {"Order": [102,103]}]
         },
         {
-            "Block 29" : "Testing Block Cririon",
-            "DisplayText": "Block Criterion (2/4) + Random w/o Replacement FAIL TEST",
+            "Block 29" : "Testing Trial + Block Cririon",
+            "TestStatus": "NOT WORKING",
+            "TestNotes": "Waiting for Fix above to test",
+            "DisplayText": "Trial + Block Criterion (2/4) + Random w/o Replacement FAIL TEST",
             "ShowBlockTotal" : true,
             "ShowTrialTotal": true,
             "ShowNumSuccesses": true,
@@ -299,14 +348,16 @@
             "TrialGoal": "2",
             "BlockFunction": "SuccessesCriterion",
             "BlockGoal": "2",
-            "Notes" : "This Block will repeated if 2 Trials have not been completed successfully by the last trial.",
+            "Notes" : "This Trial + Block will repeated if 2 Trials have not been completed successfully by the last trial.",
             "TrialOrder": [120,0,0,0,0,104],
             "Replacement" : 0,
             "RandomlySelect" : [{"Order": [96,97]}, {"Order": [98,99]}, {"Order": [100,101]}, {"Order": [102,103]}]
         },
         {
-            "Block 30" : "Testing Block Cririon",
-            "DisplayText": "Block Criterion (2/4) + Random w/o Replacement PASS TEST",
+            "Block 30" : "Testing Trial + Block Cririon",
+            "TestStatus": "NOT WORKING",
+            "TestNotes": "Waiting for Fix above to test",
+            "DisplayText": "Trial + Block Criterion (2/4) + Random w/o Replacement PASS TEST",
             "ShowBlockTotal" : true,
             "ShowTrialTotal": true,
             "ShowNumSuccesses": true,
@@ -612,7 +663,7 @@
             "InvisibleGoals" : [2],
             "InactiveGoals" : [1],
             "Quota": 1,
-            "LandMarks" :[],
+            "LandMarks" :[6],
             "TrialEndKey": "space"
         },
         {
@@ -637,7 +688,7 @@
             "InvisibleGoals" : [2],
             "InactiveGoals" : [],
             "Quota": 2,
-            "LandMarks" :[],
+            "LandMarks" :[6],
             "TrialEndKey": "space"
         },
         {
@@ -741,7 +792,7 @@
             "InvisibleGoals" : [4],
             "InactiveGoals" : [3],
             "Quota": 1,
-            "LandMarks" :[],
+            "LandMarks" :[8],
             "TrialEndKey": "space"
         },
         {
@@ -767,7 +818,7 @@
             "InvisibleGoals" : [4],
             "InactiveGoals" : [],
             "Quota": 2,
-            "LandMarks" :[],
+            "LandMarks" :[8],
             "TrialEndKey": "space"
         },
         {
@@ -871,7 +922,7 @@
             "InvisibleGoals" : [2,4],
             "InactiveGoals" : [],
             "Quota": 4,
-            "LandMarks" :[],
+            "LandMarks" :[6,8],
             "TrialEndKey": "space"
         },
         {
@@ -973,7 +1024,7 @@
             "InvisibleGoals" : [1],
             "InactiveGoals" : [2,4],
             "Quota": 2,
-            "LandMarks" :[1,2,3,4],
+            "LandMarks" :[1,2,3,4,5],
             "TrialEndKey": "space"
         },
         {
@@ -1179,7 +1230,7 @@
             "InactiveGoals" : [],
             "Quota": 3,
             "Enclosure": 2,
-            "LandMarks" :[1,2,3,4],
+            "LandMarks" :[1,2,3,4,5],
             "TrialEndKey": "space"
         },
         {
@@ -1206,7 +1257,7 @@
             "InactiveGoals" : [],
             "Quota": 2,
             "Enclosure": 3,
-            "LandMarks" :[],
+            "LandMarks" :[1,2,3,4,8],
             "TrialEndKey": "space"
         },
         {
@@ -1345,12 +1396,12 @@
             "Trial 96" : "Trial 1",
             "Instructional": 1,
             "FileLocation": "Test/Slide61.png",
-            "TrialTime": -1,
+            "TrialTime": 2,
             "TrialEndKey": "Space"
         },
         {
             "Trial 97" : "Trial 1 Setup",
-            "DisplayText": "Square/ALL Goals/All Landmarks Q = 2",
+            "DisplayText": "Trial #1 - Square - Q = 2",
             "TrialTime" : 100,
             "Scene": 3,
             "StartPosition" : [],
@@ -1368,12 +1419,12 @@
             "Trial 98" : "Trial 2",
             "Instructional": 1,
             "FileLocation": "Test/Slide62.png",
-            "TrialTime": 3,
+            "TrialTime": 2,
             "TrialEndKey": "Space"
         },
         {
             "Trial 99" : "Trial 2 Setup",
-            "DisplayText": "Circle/ALL Goals/All Landmarks Q = 2",
+            "DisplayText": "Trial #2 - Circle - Q = 2",
             "TrialTime" : 100,
             "Scene": 2,
             "StartPosition" : [],
@@ -1391,12 +1442,12 @@
             "Trial 100" : "Trial 3",
             "Instructional": 1,
             "FileLocation": "Test/Slide63.png",
-            "TrialTime": 3,
+            "TrialTime": 2,
             "TrialEndKey": "Space"
         },
         {
             "Trial 101" : "Trial 3 Setup",
-            "DisplayText": "Invisible Floor/ALL Goals/All Landmarks Q = 2",
+            "DisplayText": "Trial #3 - Invisible Floor - Q = 2",
             "TrialTime" : 100,
             "Scene": 3,
             "StartPosition" : [],
@@ -1414,12 +1465,12 @@
             "Trial 102" : "Trial 4",
             "Instructional": 1,
             "FileLocation": "Test/Slide64.png",
-            "TrialTime": 3,
+            "TrialTime": 2,
             "TrialEndKey": "Space"
         },
         {
             "Trial 103" : "Trial 4 Setup",
-            "DisplayText": "Invisible Enclosure/ALL Goals/All Landmarks Q = 2",
+            "DisplayText": "Trial #4 - Invisible - Q = 2",
             "TrialTime" : 100,
             "Scene": 3,
             "StartPosition" : [],
@@ -1645,6 +1696,42 @@
             "Color": "ffffff",
             "Position": [-100, 0, -100],
             "Scale": [50, 50, 50]
+        },
+        {
+            "Landmark 5" : "3D Object - Red Sphere Ground Marker",
+            "Type": "3D",
+            "Object": "Cylinder",
+            "Color": "000000",
+            "Position": [5, -1, 5],
+            "Rotation": [0,0,0],
+            "Scale": [2, 1, 2]
+        },
+        {
+            "Landmark 6" : "3D Object - Blue Cube Ground Marker",
+            "Type": "3D",
+            "Object": "Cylinder",
+            "Color": "000000",
+            "Position": [5, -1, -5],
+            "Rotation": [0,0,0],
+            "Scale": [2, 1, 2]
+        },
+        {
+            "Landmark 7" : "2D Image - Apple Ground Marker",
+            "Type": "3D",
+            "Object": "Cylinder",
+            "Color": "000000",
+            "Position": [-5, -1, 5],
+            "Rotation": [0,0,0],
+            "Scale": [2, 1, 2]
+        },
+        {
+            "Landmark 8" : "2D Image - Water Ground Marker",
+            "Type": "3D",
+            "Object": "Cylinder",
+            "Color": "000000",
+            "Position": [-5, -1, -5],
+            "Rotation": [0,0,0],
+            "Scale": [2, 1, 2]
         }
 
     ], 
