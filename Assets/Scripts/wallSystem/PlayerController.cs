@@ -193,7 +193,7 @@ namespace wallSystem
         private void ComputeMovement()
         {
             // Dont move if the quota has been reached
-            if (localQuota <= 0)
+            if (localQuota <= 0 & E.Get().CurrTrial.trialData.Quota !=0)
             {
                 return;
             }
