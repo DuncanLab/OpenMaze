@@ -1,0 +1,391 @@
+{
+    "OutputTimesPerSecond": 30,
+    "IgnoreUserInputDelay": 0.5,
+    "TimingVerification": false,
+    "CHARACTER DATA": "CHARACTER DATA----------*********-------------------CHARACTER DATA",
+    "CharacterData": {
+        "Height": 2,
+        "MovementSpeed": 5.0,
+        "RotationSpeed": 75.0,
+        "DistancePickup": 2,
+        "GoalRotationSpeed": 0
+    },
+
+    "BlockOrder" : [1,2,3],
+    
+    "Blocks" : [
+        {
+            "Block 1" : "Test Insturctions/Cue Screen Trials",
+            "DisplayText": "Testing Instruction/Cue Screens",
+            "TrialOrder": [1,2,3,4,5]
+        },
+        {
+            "Block 2" : "Testing Task Trail Termination",
+            "DisplayText": "Testing Task Trail Termination",
+            "TrialOrder": [6,7,8,9,10,11,12,13,14]
+        },
+        {
+            "Block 3" : "Testing Participant Placement",
+            "DisplayText": "Testing Participant Placement",
+            "TrialOrder": [15,16,17,18,19]
+        },
+        {
+            "Block 3" : "Random With Replacement - Randomly select single trials",
+            "Notes" : "Each time trial 0 is called in trial order it will select a RandomGroup from RandomTrialType list",
+            "DisplayText": "Block 3 - Random w/ Replacement",
+            "TrialOrder": [0,0,0],
+            "Replacement" : 1,
+            "RandomlySelect" : [{"Order": [3,5]}, {"Order": [3,6]}]
+        },
+        {
+            "Block 4" : "Random Without Replacement - Randomly select ordered trial list Trials in Random Groups. The # of TrialOrder 0s must = # of Orders",
+            "Notes" : "When a Random group is chosen it will present all trials in order from the group before moving on to the next random selection",
+            "DisplayText": "Block 4 - Random w/o Replacement",
+            "TrialOrder": [0,0],
+            "Replacement" : 0,
+            "RandomlySelect" : [{"Order": [3, 5]}, {"Order": [3,6]}]
+        },
+        {
+            "Block 5" : "Using the TrialGoal and TrialFunction with the SuccessesCriterion function",
+            "Notes" : "This Block terminates when 3 Trials have been completed successfully. If 3 trials have not be completed the final trail is an end screen with exit button.",
+            "DisplayText": "Block 5 - TrialFunction",
+            "TrialFunction": "SuccessesCriterion",
+            "TrialGoal": "3",
+            "ShowBlockTotal" : true,
+            "ShowTrialTotal": true,
+            "ShowNumSuccesses": true,
+            "TrialOrder": [4,3,5,3,6,3,5,3,6,3,5,8]
+        },
+        {
+            "Block 6" : "Using the BlockGoal and BlockFunction",
+            "Notes" : "checks whether SuccessesCriterion was met after the last trial is complete, if met experiment continues to next block, if not, block is repeated",
+            "DisplayText": "Block 6 - BlockFunction",
+            "BlockFunction": "SuccessesCriterion",
+            "BlockGoal": "3",
+            "ShowBlockTotal" : true,
+            "ShowTrialTotal": true,
+            "ShowNumSuccesses": true,
+            "TrialOrder": [4,3,5,3,6,3,5,3,6,3,5]
+        },
+        {
+            "Block 7" : "End experiment Screen",
+            "Notes" : "This Block can be added to the end of the block order to display the end of experiment screen",
+            "TrialOrder": [7]
+        }     
+    ],
+
+    
+    "Trials": [
+        {
+            "Trial 1" : "------------------------------------------------------------------Testing Instruction/Cue Screens",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide1.png",
+            "TrialTime": -1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 2" : "Wait 3 Seconds",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide2.png",
+            "TrialTime": 3,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 3" : "Press P",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide3.png",
+            "TrialTime": -1,
+            "TrialEndKey": "p"
+        },
+        {
+            "Trial 4" : "Press Space",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide4.png",
+            "TrialTime": -1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 5" : "Wait 5 Seconds",
+            "Instructional": 1,
+            "FileLocation": "Test/Subfolder/Slide5.png",
+            "TrialTime": -1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 6" : "------------------------------------------------------------------Testing Trial Termination",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide6.png",
+            "TrialTime": -1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 7" : "TrialTime 5 Seconds Scene 2",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide7.png",
+            "TrialTime": 2,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 8" : "TrialTime 5 Seconds Scene 2",
+            "DisplayText": "TrialTime 5 Seconds Scene 2",
+            "TrialTime" : 5,
+            "Scene": 2,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Rotate": 0,
+            "ActiveGoals" : [],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 0,
+            "LandMarks" :[],
+            "TrialEndKey": "x"
+        },
+        {
+            "Trial 9" : "TrialTime 10 Seconds Scene 3",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide8.png",
+            "TrialTime": 2,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 10" : "TrialTime 10 Seconds Scene 3",
+            "DisplayText": "TrialTime 10 Seconds Scene 3",
+            "TrialTime" : 10,
+            "Scene": 3,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Rotate": 0,
+            "ActiveGoals" : [],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 0,
+            "LandMarks" :[],
+            "TrialEndKey": "x"
+        },
+        {
+            "Trial 11" : "Press x",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide9.png",
+            "TrialTime": 2,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 12" : "TrialEndKey = x Scene 2",
+            "DisplayText": "TrialEndKey = x Scene 2",
+            "TrialTime" : 1000,
+            "Scene": 2,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Rotate": 0,
+            "ActiveGoals" : [],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 0,
+            "LandMarks" :[],
+            "TrialEndKey": "x"
+        },
+        {
+            "Trial 13" : "Wait 5 Seconds",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide10.png",
+            "TrialTime": 2,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 14" : "TrialEndKey = c Scene 3",
+            "DisplayText": "TrialEndKey = c Scene 3",
+            "TrialTime" : 1000,
+            "Scene": 3,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Rotate": 0,
+            "ActiveGoals" : [],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 0,
+            "LandMarks" :[],
+            "TrialEndKey": "c"
+        },
+        {
+            "Trial 15" : "------------------------------------------------------------------Testing Participant Placement",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide11.png",
+            "TrialTime": -1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 16" : "Start 10,10,60",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide11.png",
+            "TrialTime": 2,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 17" : "PLacement",
+            "DisplayText": "P = 10,10; R = 60",
+            "TrialTime" : 100,
+            "Scene": 2,
+            "StartPosition" : [10,10],
+            "StartFacing" : 60,
+            "Rotate": 0,
+            "ActiveGoals" : [],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 0,
+            "LandMarks" :[],
+            "TrialEndKey": "space"
+        },
+        {
+            "Trial 18" : "Start 100,100,90",
+            "Instructional": 1,
+            "FileLocation": "Test/Slide11.png",
+            "TrialTime": 2,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 19" : "PLacement",
+            "DisplayText": "P = 100,100; R = 90",
+            "TrialTime" : 100,
+            "Scene": 3,
+            "StartPosition" : [100,100],
+            "StartFacing" : 90,
+            "Rotate": 0,
+            "ActiveGoals" : [],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 0,
+            "LandMarks" :[],
+            "TrialEndKey": "space"
+        }
+    ],
+
+    "Goals": [
+        {
+            "Goal 1" : "3D Object - Red Sphere",
+            "Type": "3D",
+            "Object": "Sphere",
+            "Sound": "eat",
+            "Color": "ff0000",
+            "Position": [5, 1, 5],
+            "Rotation": [0,0,0],
+            "Scale": [1, 1, 1]
+        },
+        {
+            "Goal 2" : "3D Object - Blue Cube",
+            "Type": "3D",
+            "Object": "Cube",
+            "Sound": "eat",
+            "Color": "0000ff",
+            "Position": [5, 1, -5],
+            "Rotation": [0,0,0],
+            "Scale": [1, 1, 1]
+        },
+        {
+            "Goal 3" : "2D Image - Apple",
+            "Type": "2D",
+            "Object": "Tutorial_Objects/Apple.png",
+            "Sound": "eat",
+            "Color": "ffffff",
+            "Position": [-5, 1, 5],
+            "Scale": [1, 1, 1]
+        },
+        {
+            "Goal 4" : "2D Image - Water",
+            "Type": "2D",
+            "Object": "Tutorial_Objects/Water.png",
+            "Sound": "eat",
+            "Color": "ffffff",
+            "Position": [-5, 1, -5],
+            "Scale": [1, 1, 1]
+        }
+    ],
+
+    "Landmarks": [
+        {
+            "Landmark 1" : "3D Object - Red Sphere",
+            "Type": "3D",
+            "Object": "Sphere",
+            "Color": "ffff00",
+            "Position": [150, 25, 150],
+            "Rotation": [0,0,0],
+            "Scale": [50, 50, 50]
+        },
+        {
+            "Goal 2" : "3D Object - Blue Cube",
+            "Type": "3D",
+            "Object": "Cube",
+            "Color": "ff00ff",
+            "Position": [150, 25, -150],
+            "Rotation": [0,0,0],
+            "Scale": [50, 50, 50]
+        },
+        {
+            "Goal 3" : "2D Image - Apple",
+            "Type": "2D",
+            "Object": "Tutorial_Objects/Apple.png",
+            "Sound": "eat",
+            "Color": "ffffff",
+            "Position": [-150, 25, 150],
+            "Scale": [50, 50, 50]
+        },
+        {
+            "Goal 4" : "2D Image - Water",
+            "Type": "2D",
+            "Object": "Tutorial_Objects/Water.png",
+            "Sound": "eat",
+            "Color": "ffffff",
+            "Position": [-150, 25, -150],
+            "Scale": [50, 50, 50]
+        }
+
+    ], 
+
+"Enclosure DATA" : "Enclosure DATA--------------------*********------------------Enclosure DATA",
+
+    "Enclosures": [
+        {
+            "Enclosure 1": "Square",
+            "Sides": 4,
+            "Radius": 15,
+            "WallHeight" : 3,
+            "WallColor": "ffffff",
+            "GroundTileSides": 4,
+            "GroundTileSize": 1.0,
+            "GroundColor": "1B5E20",
+            "Position": [0, 0]
+        },
+        {
+            "Enclosure 2": "Circle",
+            "Sides": 40,
+            "Radius": 30,
+            "WallHeight" : 6,
+            "WallColor": "000000",
+            "GroundTileSides": 40,
+            "GroundTileSize": 1.0,
+            "GroundColor": "ffffff",
+            "Position": [0, 0]
+        },
+        {
+            "Enclosure 3": "Square - Invisible Walls",
+            "Sides": 4,
+            "Radius": 15,
+            "WallHeight" : 3,
+            "WallColor": "ffffff",
+            "GroundTileSides": 4,
+            "GroundTileSize": 1.0,
+            "GroundColor": "ffffff00",
+            "Position": [0, 0]
+        },
+        {
+            "Enclosure 2": "Circle - Invisible",
+            "Sides": 40,
+            "Radius": 30,
+            "WallHeight" : 6,
+            "WallColor": "ffffff00",
+            "GroundTileSides": 40,
+            "GroundTileSize": 1.0,
+            "GroundColor": "ffffff",
+            "Position": [0, 0]
+        }  
+    ]
+}

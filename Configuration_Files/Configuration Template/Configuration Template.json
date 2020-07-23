@@ -11,49 +11,76 @@
         "GoalRotationSpeed": 0
     },
 
-    "BlockOrder" : [1,2,6],
+    "BlockOrder" : [1,2,3,4,5,6,7],
     
     "Blocks" : [
         {
             "Block 1" : "Serial Trial Order - Instructions",
             "Notes" : "Trials will be presented in order from TrialOrder list",
-            "TrialOrder": [1,2]
+            "DisplayText": "Block 1 - Instructions",
+            "TrialOrder": [5,5]
         },
         {
-            "Block 2" : "Serial Trial Order",
+            "Block 2" : "Serial Trial Order - Block HUD test",
             "Notes" : "Trials will be presented in order from TrialOrder list",
+            "DisplayText": "Block 2 - Serial Order - Block HUD",
             "ShowBlockTotal" : true,
+            "ShowTrialTotal": true,
             "ShowNumSuccesses": true,
-            "TrialOrder": [3,4,3,5]
+            "TrialOrder": [3,5,3,6]
         },
         {
-            
+            "Block 2" : "Serial Trial Order - Trial HUD test",
+            "Notes" : "Trials will be presented in order from TrialOrder list",
+            "DisplayText": "Block 2 - Serial Order - Trial HUD",
+            "ShowBlockTotal" : true,
+            "ShowTrialTotal": true,
+            "ShowNumSuccesses": true,
+            "TrialOrder": [3,5,3,6]
+        },
+        {
             "Block 3" : "Random With Replacement - Randomly select single trials",
             "Notes" : "Each time trial 0 is called in trial order it will select a RandomGroup from RandomTrialType list",
+            "DisplayText": "Block 3 - Random w/ Replacement",
             "TrialOrder": [0,0,0],
             "Replacement" : 1,
-            "RandomlySelect" : [{"Order": [3,4]}, {"Order": [3,5]}]
+            "RandomlySelect" : [{"Order": [3,5]}, {"Order": [3,6]}]
         },
         {
             "Block 4" : "Random Without Replacement - Randomly select ordered trial list Trials in Random Groups. The # of TrialOrder 0s must = # of Orders",
             "Notes" : "When a Random group is chosen it will present all trials in order from the group before moving on to the next random selection",
+            "DisplayText": "Block 4 - Random w/o Replacement",
             "TrialOrder": [0,0],
             "Replacement" : 0,
-            "RandomlySelect" : [{"Order": [3, 4]}, {"Order": [3,5]}]
+            "RandomlySelect" : [{"Order": [3, 5]}, {"Order": [3,6]}]
         },
         {
-            "Block 5" : "Trial Criterion",
-            "Notes" : "This Block terminates when 3 Trials have been completed successfully",
-            "ExitFunction": "TrialCriterion",
-            "ExitGoal": "3",
+            "Block 5" : "Using the TrialGoal and TrialFunction with the SuccessesCriterion function",
+            "Notes" : "This Block terminates when 3 Trials have been completed successfully. If 3 trials have not be completed the final trail is an end screen with exit button.",
+            "DisplayText": "Block 5 - TrialFunction",
+            "TrialFunction": "SuccessesCriterion",
+            "TrialGoal": "3",
+            "ShowBlockTotal" : true,
+            "ShowTrialTotal": true,
             "ShowNumSuccesses": true,
-            "TrialOrder": [3,4,3,5,4,3,5,4,3,5,4,3,5,4,3,5,4,3,5,3,4,3,5,4,3,5,4,3,5,4,3,5,4,3,5,4,3,5]
+            "TrialOrder": [4,3,5,3,6,3,5,3,6,3,5,8]
         },
         {
-            "Block 6" : "End experiment Screen",
+            "Block 6" : "Using the BlockGoal and BlockFunction",
+            "Notes" : "checks whether SuccessesCriterion was met after the last trial is complete, if met experiment continues to next block, if not, block is repeated",
+            "DisplayText": "Block 6 - BlockFunction",
+            "BlockFunction": "SuccessesCriterion",
+            "BlockGoal": "3",
+            "ShowBlockTotal" : true,
+            "ShowTrialTotal": true,
+            "ShowNumSuccesses": true,
+            "TrialOrder": [4,3,5,3,6,3,5,3,6,3,5]
+        },
+        {
+            "Block 7" : "End experiment Screen",
             "Notes" : "This Block can be added to the end of the block order to display the end of experiment screen",
-            "TrialOrder": [6]
-        }    
+            "TrialOrder": [7]
+        }     
     ],
 
     
@@ -61,27 +88,34 @@
         {
             "Trial 1" : "Instruction Screen Trial - Welcome! Presents the image Template-Welcome.png",
             "Instructional": 1,
-            "FileLocation": "Tutorial_Instructions/Template-Welcome.png",
+            "FileLocation": "ConfigTemplate/Welcome.png",
             "TrialTime": -1,
             "TrialEndKey": "Space"
         },
         {
             "Trial 2" : "Insruction Screen Trial - Displays Movement Controls",
             "Instructional": 1,
-            "FileLocation": "Tutorial_Instructions/Template-Controls.png",
+            "FileLocation": "ConfigTemplate/Controls.png",
             "TrialTime": -1,
             "TrialEndKey": "Space"
         },
         {
             "Trial 3" : "Cue Screen - Cues participant to collect apple and sphere goal objects",
             "Instructional": 1,
-            "FileLocation": "Tutorial_Instructions/Template-Collect.png",
+            "FileLocation": "ConfigTemplate/Collect.png",
             "TrialTime": 1,
             "TrialEndKey": "Space"
         },
         {
-            "Trial 4" : "3D Trial - will take place in Scene 2 in the build. Goal 1, Goal 2, and Landmark 1 will be added to the scene",
-            "Header": "Collect the Objects!",
+            "Trial 4" : "Cue Screen - Cues participant to collect apple and sphere goal objects",
+            "Instructional": 1,
+            "FileLocation": "ConfigTemplate/Criterion.png",
+            "TrialTime": 1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 5" : "3D Trial - will take place in Scene 2 in the build. Goal 1, Goal 2, and Landmark 1 will be added to the scene",
+            "DisplayText": "3D Model Goals",
             "TrialTime" : 60,
             "Scene": 2,
             "StartPosition" : [0,0],
@@ -95,14 +129,30 @@
             "TrialEndKey": "x"
         },
         {
-            "Trial 5" : "3D Trial - same as 4 but with enclosure and goal collection total displayed",
-            "Header": "Collect the Objects!",
+            "Trial 6" : "3D Trial - same as 4 but with enclosure and goal collection total displayed",
+            "DisplayText": "Image Goals",
             "TrialTime" : 60,
             "Scene": 2,
             "Enclosure": 1,
             "StartPosition" : [0,0],
             "StartFacing" : 0,
             "Rotate": 0,
+            "ActiveGoals" : [3,4],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 2,
+            "LandMarks" :[1],
+            "TrialEndKey": "x"
+        },
+        {
+            "Trial 5" : "3D Trial - will take place in Scene 2 in the build. Goal 1, Goal 2, and Landmark 1 will be added to the scene",
+            "DisplayText": "3D Model Goals",
+            "DisplayImage": "Tutorial_Objects/Apple.png",
+            "TrialTime" : 60,
+            "Scene": 2,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Rotate": 0,
             "ActiveGoals" : [1,2],
             "InvisibleGoals" : [],
             "InactiveGoals" : [],
@@ -111,9 +161,33 @@
             "TrialEndKey": "x"
         },
         {
-            "Trial 6" : "Instruction/Cue Screen with Exit button",
+            "Trial 6" : "3D Trial - same as 4 but with enclosure and goal collection total displayed",
+            "DisplayText": "Image Goals",
+            "DisplayImage": "Tutorial_Objects/Money.png",
+            "TrialTime" : 60,
+            "Scene": 2,
+            "Enclosure": 1,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Rotate": 0,
+            "ActiveGoals" : [3,4],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 2,
+            "LandMarks" :[1],
+            "TrialEndKey": "x"
+        },
+        {
+            "Trial 7" : "Instruction/Cue Screen with Exit button",
             "Instructional": 1,
-            "FileLocation": "Tutorial_Instructions/Template-End.png",
+            "FileLocation": "ConfigTemplate/End.png",
+            "TrialTime": -1,
+            "ExitButton": true
+        },
+        {
+            "Trial 8" : "Instruction/Cue Screen with Exit button",
+            "Instructional": 1,
+            "FileLocation": "ConfigTemplate/Fail.png",
             "TrialTime": -1,
             "ExitButton": true
         }
@@ -131,9 +205,28 @@
             "Scale": [1, 1, 1]
         },
         {
-            "Goal 1" : "2D Image - Apple",
+            "Goal 2" : "3D Object - Blue Cube",
+            "Type": "3D",
+            "Object": "Cube",
+            "Sound": "eat",
+            "Color": "ff0000",
+            "Position": [5, 1, -5],
+            "Rotation": [0,0,0],
+            "Scale": [1, 1, 1]
+        },
+        {
+            "Goal 3" : "2D Image - Apple",
             "Type": "2D",
             "Object": "Tutorial_Objects/Apple.png",
+            "Sound": "eat",
+            "Color": "ffffff",
+            "Position": [-5, 1, 5],
+            "Scale": [1, 1, 1]
+        },
+        {
+            "Goal 4" : "2D Image - Water",
+            "Type": "2D",
+            "Object": "Tutorial_Objects/Water.png",
             "Sound": "eat",
             "Color": "ffffff",
             "Position": [-5, 1, -5],
