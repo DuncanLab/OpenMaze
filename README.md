@@ -74,13 +74,13 @@ https://duncanlab.github.io/OpenMazeSite
     3. Default Configuration File - the folder ***Default_Config*** has been added to the ***StreamingAssets*** folder. If there is a          configuration file within this folder, the experiment will automatically load this configuration file instead of prompting the          experimenter/participant to select a configuration file through the file browser. Only one configuration file should be added to        this folder. 
   >**Changes to Download & Setup**
     1. Unity has recently deprecated the ***Standard Assets*** package. Because of this we have changed the release so that it already 
-    includes all the standard assets needed. There is no long an need to download any additional asset packs from the Unity asset
+    includes all the standard assets needed. There is no longer a need to download any additional asset packs from the Unity asset
     store after launching OpenMaze. 
     
-  >**Tutorial Videos Descrepencies**
-    1. Tutorial 1 - Download, Install and Setup - OpenMaze no long requires you to download **Nature Starter Kit 2** or
+  >**Tutorial Videos Discrepencies**
+    1. Tutorial 1 - Download, Install and Setup - OpenMaze no longer requires you to download **Nature Starter Kit 2** or
     **StandardAssets** disregard these instructions in the tutorial video.
-    2. Tutuorial 2: Building 3D Environment - Textures used when creating terrains differ from the textures now available with OpenMaze.
+    2. Tutorial 2: Building 3D Environment - Textures used when creating terrains differ from the textures now available with OpenMaze.
     Simple choose the textures that closely resemble those in the tutorial, or pick your own from the new textures included.
     3. All Tutorials - Start button is now used to start the experiment rather than the space bar. 
 
