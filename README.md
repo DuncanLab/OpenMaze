@@ -10,7 +10,7 @@
 ## Getting Started
 
 ### IMPORTANT
-If you are following along with the OpenMaze tutorials there may be descrepencies between instructions in the tutorial videos and most recent version of the OpenMaze software. Please make sure that you carefully read over the **Release History / Change Log** below to see how these changes impact the tutorial videos. 
+If you are following along with the OpenMaze tutorials there may be discrepencies between instructions in the tutorial videos and most recent version of the OpenMaze software. Please make sure that you carefully read over the **Release History / Change Log** below to see how these changes impact the tutorial videos. 
 
 ### Prerequisites
 - Unity 2019.x or above.
