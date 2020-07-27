@@ -1,0 +1,51 @@
+{
+    "OutputTimesPerSecond": 30,
+    "IgnoreUserInputDelay": 0,
+    "TimingVerification": false,
+    "CHARACTER DATA": "CHARACTER DATA----------*********-------------------CHARACTER DATA",
+    "CharacterData": {
+        "Height": 2,
+        "MovementSpeed": 5.0,
+        "RotationSpeed": 75.0,
+        "DistancePickup": 2,
+        "GoalRotationSpeed": 0
+    },
+
+    "BlockOrder" : [1],
+    
+    "Blocks" : [
+        {
+            "Block 1" : "Serial Trial Order - Instructions",
+            "TrialOrder": [2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2]
+        }    
+    ],
+
+    
+    "Trials": [
+        {
+            "Trial 1" : "Instruction Screen Trial - Welcome! Presents the image Template-Welcome.png",
+            "Instructional": 1,
+            "FileLocation": "Test/AutoRun1.png",
+            "TrialTime": 1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 2" : "Instruction Screen Trial - Welcome! Presents the image Template-Welcome.png",
+            "Instructional": 1,
+            "FileLocation": "Test/AutoRun2.png",
+            "TrialTime": 1,
+            "TrialEndKey": "Space"
+        }
+    ],
+
+    "Goals": [
+    ],
+
+    "Landmarks": [
+
+    ], 
+
+    "Enclosures": [
+ 
+    ]
+}
