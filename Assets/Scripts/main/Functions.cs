@@ -14,15 +14,15 @@ namespace main
     {
         // ReSharper disable once UnusedMember.Global
         // Called with reflection
-        public static bool CheckFoodThresholdPercentage(TrialProgress tp)
+        public static bool SuccessesCriterion(TrialProgress tp)
         {
 
             var curr = TrialProgress.GetCurrTrial();
 
             var blockId = curr.BlockID;
             var bd = DS.GetData().Blocks[blockId];
-
-            var numSuccessfulInPrevious = bd.EndGoal.Split(' ');
+            var goal = bd.BlockGoal ?? bd.TrialGoal;
+            var numSuccessfulInPrevious = goal.Split(' ');
             var numSuccessfulRequired = float.Parse(numSuccessfulInPrevious[0]);
 
             var successCount = 0;
@@ -36,7 +36,6 @@ namespace main
             if (numSuccessfulInPrevious.Length == 2)
             {
                 int previousTrialsToCheck = int.Parse(numSuccessfulInPrevious[1]);
-
                 // Continue if we haven't reached the required run length
                 if (tp.successes.Count < previousTrialsToCheck) return true;
 

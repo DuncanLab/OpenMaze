@@ -36,6 +36,7 @@ namespace trial
                 var defaultConfig = AutoRunConfigDir + Path.GetFileName(files[0]);
                 Loader.ExternalActivation(defaultConfig);
             }
+
             else
             {
                 while (true)

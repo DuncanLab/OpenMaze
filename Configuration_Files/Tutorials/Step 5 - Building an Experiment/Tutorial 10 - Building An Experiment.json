@@ -63,7 +63,7 @@
         },
         {
             "Trial 6" : "Apple Trial",
-            "Header": "Find the Apple!",
+            "DisplayText": "Find the Apple!",
             "TrialTime" : 1000,
             "Scene": 4,
             "StartPosition" : [0,0],
@@ -85,7 +85,7 @@
         },
         {
             "Trial 8" : "Water Trial",
-            "Header": "Find The Water!",
+            "DisplayText": "Find The Water!",
             "TrialTime" : 1000,
             "Scene": 4,
             "StartPosition" : [0,0],
@@ -107,7 +107,7 @@
         },
         {
             "Trial 10" : "Find Money Trial",
-            "Header": "Find The Money!",
+            "DisplayText": "Find The Money!",
             "TrialTime" : 1000,
             "Scene": 4,
             "StartPosition" : [0,0],
@@ -125,7 +125,8 @@
             "Instructional": 1,
             "FileLocation": "Tutorial_Instructions/End.png",
             "TrialTime": 1,
-            "TrialEndKey": "x"
+            "TrialEndKey": "x",
+            "ExitButton": true
         }
     ],
 

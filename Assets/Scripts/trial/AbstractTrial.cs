@@ -82,11 +82,21 @@ namespace trial
 
         public virtual void PreEntry(TrialProgress t, bool first = true)
         {
+
             Debug.Log("Entering trial: " + TrialID);
             if (head == this && first)
             {
                 Debug.Log(string.Format("Entered Block: {0} at time: {1}", BlockID, DateTime.Now));
                 t.ResetOngoing();
+                t.successes = new List<int>();
+                int NumBlocks = DS.GetData().Blocks.Count;
+                t.NumCollectedPerBlock = new int[NumBlocks];
+            }
+
+            if (head == this && first == false)
+            {
+                Debug.Log(string.Format("Entered Block: {0} at time: {1}", BlockID, DateTime.Now));
+                t.SpecialReset();
                 t.successes = new List<int>();
                 int NumBlocks = DS.GetData().Blocks.Count;
                 t.NumCollectedPerBlock = new int[NumBlocks];
@@ -103,6 +113,8 @@ namespace trial
 
             _runningTime = 0;
             TrialProgress = t;
+            TrialProgress.GetCurrTrial().NumCollected = 0;
+
         }
 
         public virtual void Update(float deltaTime)
@@ -133,24 +145,47 @@ namespace trial
 
             // Exiting current trial
             TrialProgress.PreviousTrial = this;
-
-            var blockData = DS.GetData().Blocks[BlockID];
-
-            // Data on how to choose the next trial will be selected here.
-            if (isTail)
+            
+            if (TrialProgress.Instructional != 1)
             {
-                if (blockData.EndFunction != null)
+                var blockData = DS.GetData().Blocks[BlockID];
+                if (blockData.TrialFunction != null)
                 {
-                    var tmp = blockData.EndFunction;
-                    var func = typeof(Functions).GetMethod(tmp, BindingFlags.Static | BindingFlags.Public);
-
-                    var result = func != null && (bool)func.Invoke(null, new object[] { TrialProgress });
-
-                    if (result)
+                    var trialFunction = blockData.TrialFunction;
+                    var func =
+                        typeof(Functions).GetMethod(trialFunction, BindingFlags.Static | BindingFlags.Public);
+                    var result = func != null && (bool) func.Invoke(null, new object[] {TrialProgress});
+                    
+                    if (!result)
                     {
-                        Loader.Get().CurrTrial = head;
-                        head.PreEntry(TrialProgress, false);
+                        var tmp = next;
+                        while (!tmp.isTail)
+                        {
+                            tmp = tmp.next;
+                        }
+
+                        Loader.Get().CurrTrial = tmp.next;
+                        tmp.next.PreEntry(TrialProgress);
                         return;
+                    }
+                }
+
+                // Data on how to choose the next trial will be selected here.
+                if (isTail)
+                {
+                    if (blockData.BlockFunction != null)
+                    {
+                        var tmp = blockData.BlockFunction;
+                        var func = typeof(Functions).GetMethod(tmp, BindingFlags.Static | BindingFlags.Public);
+
+                        var result = func != null && (bool) func.Invoke(null, new object[] {TrialProgress});
+
+                        if (result)
+                        {
+                            Loader.Get().CurrTrial = head;
+                            head.PreEntry(TrialProgress, false);
+                            return;
+                        }
                     }
                 }
             }

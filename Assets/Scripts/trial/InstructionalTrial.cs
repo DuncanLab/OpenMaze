@@ -32,6 +32,10 @@ namespace trial
             {
                 trialEndKeyCode = trialData.TrialEndKey.ToLower();
             }
+            else
+            {
+                trialEndKeyCode = "space";
+            }
 
             if (Input.GetKey(trialEndKeyCode) && (_runningTime > ignoreUserInputDelay))
             {
@@ -40,7 +44,7 @@ namespace trial
             }
 
             //Exit the experiment 
-            if (ExitButton.clicked == true | Input.GetKeyDown(KeyCode.Escape))
+            if (ExitButton.clicked == true)
             {
                 Application.Quit();
             }

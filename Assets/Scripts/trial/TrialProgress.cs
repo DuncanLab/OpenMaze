@@ -55,5 +55,11 @@ namespace trial
             Num3D = 0;
             TrialNumber = -1;
         }
+
+        public void SpecialReset()
+        {
+            NumSuccess = 0;
+            Num3D = 0;
+        }
     }
 }

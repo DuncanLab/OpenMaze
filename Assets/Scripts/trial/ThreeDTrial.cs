@@ -20,7 +20,6 @@ namespace trial
             _runningTime -= trialData.Rotate;
 
             LoadNextSceneWithTimer(trialData.Scene);
-
         }
 
         public override void Progress()

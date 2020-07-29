@@ -15,6 +15,7 @@ public class ExitButton : MonoBehaviour
     public void Click()
     {
         clicked = true;
+        Application.Quit();
     }
 
 }

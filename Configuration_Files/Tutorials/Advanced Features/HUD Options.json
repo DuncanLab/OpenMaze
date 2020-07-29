@@ -1,0 +1,188 @@
+{
+    "OutputTimesPerSecond": 30,
+    "IgnoreUserInputDelay": 0.5,
+    "TimingVerification": false,
+    "CHARACTER DATA": "CHARACTER DATA----------*********-------------------CHARACTER DATA",
+    "CharacterData": {
+        "Height": 2,
+        "MovementSpeed": 5.0,
+        "RotationSpeed": 75.0,
+        "DistancePickup": 2,
+        "GoalRotationSpeed": 0
+    },
+
+    "IMPORTANT" : "THIS CONFIG REQUIRES A SCENE 4 AND A SCENE 5 TO RUN - ADD BOTH TUTORIAL ENVIRONMENTS TO BUILD FROM OPENMAZE BASE",
+   
+    "BlockOrder" : [1],
+    
+    "Blocks" : [
+        {
+            "Block 1" : "Serial Trial Order",
+              "Notes" : "Trials will be presented in order from TrialOrder list",
+              "TrialOrder": [1,2,3,4,5,6,7,8,9,10,11]
+        }
+    ],
+
+    
+    "Trials": [
+        {
+            "Trial 1" : "Welcome Page",
+            "Instructional": 1,
+            "FileLocation": "Tutorial_Instructions/Welcome.png",
+            "TrialTime": -1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 2" : "Task Instructions",
+            "Instructional": 1,
+            "FileLocation": "Tutorial_Instructions/Instructions.png",
+            "TrialTime": -1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 3" : "Control Instructions",
+            "Instructional": 1,
+            "FileLocation": "Tutorial_Instructions/Controls.png",
+            "TrialTime": -1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 4" : "Preparation Screen",
+            "Instructional": 1,
+            "FileLocation": "Tutorial_Instructions/GetReady.png",
+            "TrialTime": -1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 5" : "Find Apple Cue",
+            "Instructional": 1,
+            "FileLocation": "Tutorial_Instructions/FindApple.png",
+            "TrialTime": 1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 6" : "Apple Trial",
+            "DisplayText": "Find The Apple!",
+            "DisplayImage": "Tutorial_Objects/Apple.png",
+            "ShowBlockTotal" : true,
+            "ShowTrialTotal": true,
+            "ShowNumSuccesses": true,
+            "TrialTime" : 1000,
+            "Scene": 4,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Rotate": 0,
+            "ActiveGoals" : [1],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 1,
+            "LandMarks" :[],
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 7" : "Find Water Cue",
+            "Instructional": 1,
+            "FileLocation": "Tutorial_Instructions/FindWater.png",
+            "TrialTime": 1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 8" : "Water Trial",
+            "DisplayText": "Find The Water!",
+            "DisplayImage": "Tutorial_Objects/Water.png",
+            "ShowBlockTotal" : true,
+            "ShowTrialTotal": true,
+            "ShowNumSuccesses": true,
+            "TrialTime" : 1000,
+            "Scene": 5,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Rotate": 0,
+            "ActiveGoals" : [2],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 1,
+            "LandMarks" :[],
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 9" : "Find Money Cue",
+            "Instructional": 1,
+            "FileLocation": "Tutorial_Instructions/FindMoney.png",
+            "TrialTime": 1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 10" : "Find Money Trial",
+            "DisplayText": "Find The Money!",
+            "DisplayImage": "Tutorial_Objects/Money.png",
+            "ShowBlockTotal" : true,
+            "ShowTrialTotal": true,
+            "ShowNumSuccesses": true,
+            "TrialTime" : 1000,
+            "Scene": 4,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Rotate": 0,
+            "ActiveGoals" : [3],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 1,
+            "LandMarks" :[],
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 11" : "End",
+            "Instructional": 1,
+            "FileLocation": "Tutorial_Instructions/End.png",
+            "TrialTime": 1,
+            "TrialEndKey": "x"
+        }
+    ],
+
+
+"GOAL DATA" : "GOAL DATA--------------------*********------------------GOAL DATA",
+
+    "Goals": [
+        {
+            "Goal 1" : "2D Image - Apple",
+            "Type": "2D",
+            "Object": "Tutorial_Objects/Apple.png",
+            "Sound": "eat",
+            "Color": "ffffff",
+            "Position": [-5, 1, 5],
+            "Scale": [1, 1, 1]
+        },
+        {
+            "Goal 2" : "2D Image - Water",
+            "Type": "2D",
+            "Object": "Tutorial_Objects/Water.png",
+            "Sound": "drink",
+            "Color": "ffffff",
+            "Position": [-5, 1, -5],
+            "Scale": [1, 1, 1]
+        },
+        {
+            "Goal 3" : "2D Image - Money",
+            "Type": "2D",
+            "Object": "Tutorial_Objects/Money.png",
+            "Sound": "money",
+            "Color": "ffffff",
+            "Position": [5, 1, -5],
+            "Scale": [1, 1, 1]
+        }
+    ],
+
+"LANDMARK DATA" : "LANDMARK DATA----------*********------------------LANDMARK DATA",
+
+    "Landmarks": [
+
+
+    ], 
+
+"Enclosure DATA" : "Enclosure DATA--------------------*********------------------Enclosure DATA",
+
+    "Enclosures": [
+
+    ]
+}
