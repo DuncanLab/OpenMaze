@@ -11,7 +11,7 @@
         "GoalRotationSpeed": 0
     },
 
-"BLOCK DATA" : "BLOCK DATA---------------------*********--------------------BLOCK DATA",   
+    "IMPORTANT" : "THIS CONFIG REQUIRES A SCENE 4 AND A SCENE 5 TO RUN - ADD BOTH TUTORIAL ENVIRONMENTS TO BUILD FROM OPENMAZE BASE",
    
     "BlockOrder" : [1],
     
@@ -23,7 +23,6 @@
         }
     ],
 
-"TRIAL DATA" : "TRIAL DATA--------------------*********------------------TRIAL DATA",
     
     "Trials": [
         {
@@ -65,6 +64,9 @@
             "Trial 6" : "Apple Trial",
             "DisplayText": "Find The Apple!",
             "DisplayImage": "Tutorial_Objects/Apple.png",
+            "ShowBlockTotal" : true,
+            "ShowTrialTotal": true,
+            "ShowNumSuccesses": true,
             "TrialTime" : 1000,
             "Scene": 4,
             "StartPosition" : [0,0],
@@ -88,6 +90,9 @@
             "Trial 8" : "Water Trial",
             "DisplayText": "Find The Water!",
             "DisplayImage": "Tutorial_Objects/Water.png",
+            "ShowBlockTotal" : true,
+            "ShowTrialTotal": true,
+            "ShowNumSuccesses": true,
             "TrialTime" : 1000,
             "Scene": 5,
             "StartPosition" : [0,0],
@@ -111,6 +116,9 @@
             "Trial 10" : "Find Money Trial",
             "DisplayText": "Find The Money!",
             "DisplayImage": "Tutorial_Objects/Money.png",
+            "ShowBlockTotal" : true,
+            "ShowTrialTotal": true,
+            "ShowNumSuccesses": true,
             "TrialTime" : 1000,
             "Scene": 4,
             "StartPosition" : [0,0],

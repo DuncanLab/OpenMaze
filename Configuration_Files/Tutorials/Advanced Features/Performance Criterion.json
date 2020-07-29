@@ -11,43 +11,17 @@
         "GoalRotationSpeed": 0
     },
 
-    "IMPORTANT" : "THIS CONFIG REQUIRES A SCENE 4 AND A SCENE 5 TO RUN - ADD BOTH TUTORIAL ENVIRONMENTS TO BUILD FROM OPENMAZE BASE",
+    "BlockOrder" : [1,2,3,4,5],
 
-    "BlockOrder" : [1,2,3,4,5,6,7,8],
+    "IMPORTANT" : "THIS CONFIG REQUIRES A SCENE 4 AND A SCENE 5 TO RUN - ADD BOTH TUTORIAL ENVIRONMENTS TO BUILD FROM OPENMAZE BASE",
     
     "Blocks" : [
         {
             "Block 1" : "Serial Trial Order - Instructions",
-            "Notes" : "Trials will be presented in order from TrialOrder list",
             "TrialOrder": [1,2]
         },
         {
-            "Block 2" : "Serial Trial Order - Block HUD test",
-            "Notes" : "Trials will be presented in order from TrialOrder list",
-            "DisplayText": "Serial Order",
-            "ShowBlockTotal" : true,
-            "ShowTrialTotal": true,
-            "ShowNumSuccesses": true,
-            "TrialOrder": [3,4,5,6,7,8]
-        },
-        {
-            "Block 3" : "Random With Replacement - Randomly select single trials",
-            "Notes" : "Each time trial 0 is called in trial order it will select a RandomGroup from RandomTrialType list",
-            "DisplayText": "Random WITH Replacement",
-            "TrialOrder": [0,0,0,0,0],
-            "Replacement" : 1,
-            "RandomlySelect" : [{"Order": [3,4]}, {"Order": [5,6]}, {"Order": [7,8]}]
-        },
-        {
-            "Block 4" : "Random Without Replacement - Randomly select ordered trial list Trials in Random Groups. The # of TrialOrder 0s must = # of Orders",
-            "Notes" : "When a Random group is chosen it will present all trials in order from the group before moving on to the next random selection",
-            "DisplayText": "Random WITHOUT Replacement",
-            "TrialOrder": [0,0,0],
-            "Replacement" : 0,
-            "RandomlySelect" : [{"Order": [3,4]}, {"Order": [5,6]}, {"Order": [7,8]}]
-        },
-        {
-            "Block 5" : "Using the TrialGoal and TrialFunction with the SuccessesCriterion function",
+            "Block 2" : "Using the TrialGoal and TrialFunction with the SuccessesCriterion function",
             "Notes" : "This Block terminates when 3 Trials have been completed successfully. If 3 trials have not be completed the final trail is an end screen with exit button.",
             "DisplayText": "Trial Criterion Complete 3/5 Trials To end Block",
             "TrialFunction": "SuccessesCriterion",
@@ -58,7 +32,7 @@
             "TrialOrder": [9,3,4,5,6,7,8,3,4,5,6]
         },
         {
-            "Block 6" : "Using the BlockGoal and BlockFunction",
+            "Block 3" : "Using the BlockGoal and BlockFunction",
             "Notes" : "checks whether SuccessesCriterion was met after the last trial is complete, if met experiment continues to next block, if not, block is repeated",
             "DisplayText": "Block Criterion Complete 3/5 or Block will repeat",
             "BlockFunction": "SuccessesCriterion",
@@ -69,7 +43,7 @@
             "TrialOrder": [9,3,4,5,6,7,8,3,4,5,6]
         },
         {
-            "Block 7" : "Using the BlockFunction & TrialFunction",
+            "Block 4" : "Using the BlockFunction & TrialFunction",
             "Notes" : "checks whether SuccessesCriterion was met after the last trial is complete, if met experiment continues to next block, if not, block is repeated",
             "DisplayText": "Block + Trial Criterion",
             "BlockFunction": "SuccessesCriterion",
@@ -82,7 +56,7 @@
             "TrialOrder": [9,3,4,5,6,7,8,3,4,5,6]
         },
         {
-            "Block 8" : "End experiment Screen",
+            "Block 5" : "End experiment Screen",
             "Notes" : "This Block can be added to the end of the block order to display the end of experiment screen",
             "TrialOrder": [10]
         }     

@@ -17,9 +17,9 @@
     
     "Blocks" : [
         {
-            "Block 1" : "Find objects Visible",
+            "Block 1" : "Serial Trial Order",
               "Notes" : "Trials will be presented in order from TrialOrder list",
-              "TrialOrder": [1,2]
+              "TrialOrder": [1]
         }
     ],
 
@@ -27,26 +27,12 @@
     
     "Trials": [
         {
-            "Trial 1" : "Welcome",
+            "Trial 1" : "Test URL",
             "Instructional": 1,
-            "FileLocation": "Tutorial_Instructions/Welcome.png",
+            "FileLocation": "Test/URL.png",
             "TrialTime": -1,
-            "TrialEndKey": "Space"
-        },
-        {
-            "Trial 2" : "3D Trial Basics",
-            "DisplayText": "",
-            "TrialTime" : 60,
-            "Scene": 4,
-            "StartPosition" : [0,0],
-            "StartFacing" : 0,
-            "Rotate": 0,
-            "ActiveGoals" : [],
-            "InactiveGoals" : [],
-            "InvisibleGoals" : [],
-            "Quota": 1,
-            "LandMarks" :[],
-            "TrialEndKey": "x"
+            "TrialEndKey": "Space",
+            "ExitButton": true
         }
     ],
 
@@ -54,7 +40,6 @@
 "GOAL DATA" : "GOAL DATA--------------------*********------------------GOAL DATA",
 
     "Goals": [
-
 
     ],
 
