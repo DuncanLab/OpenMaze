@@ -215,6 +215,28 @@ namespace wallSystem
 
             transform.Rotate(0, rotation, 0);
         }
+        
+        private void doInitialRotation(){
+            var multiplier = 1.0f;
+            
+            // Smooth out the rotation as we approach the values
+            
+            var threshold1 = Math.Abs(_currDelay/_waitTime - 0.25f);
+            var threshold2 = Math.Abs(_currDelay/_waitTime - 0.75f);
+
+            if (threshold1 < 0.03 || threshold2 < 0.03){
+                return;
+            }
+
+            if (_currDelay/_waitTime > 0.25 && _currDelay/_waitTime < 0.75){
+                multiplier *= -1;
+            }
+
+            var anglePerSecond = 240/_waitTime;
+            var angle = Time.deltaTime*anglePerSecond;
+
+            transform.Rotate(new Vector3(0, multiplier * angle, 0));
+        }
 
         private void Update()
         {
@@ -233,8 +255,7 @@ namespace wallSystem
             // This first block is for the initial rotation of the character
             if (_currDelay < _waitTime)
             {
-                var angle = 360f * _currDelay / _waitTime + _iniRotation - transform.rotation.eulerAngles.y;
-                transform.Rotate(new Vector3(0, angle, 0));
+                doInitialRotation();
             }
             else
             {
