@@ -119,3 +119,7 @@ This project is licensed under the MIT License.
 ## Acknowledgments
 
 - File browser used: https://github.com/gkngkc/UnityStandaloneFileBrowser
+
+## Disclaimer 
+
+This website and software is not sponsored by or affiliated with Unity Technologies or its affiliates. Unity Trademarks are trademarks or registered trademarks of Unity Technologies or its affiliates in the U.S. and elsewhere
