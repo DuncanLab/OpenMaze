@@ -99,9 +99,10 @@ namespace trial
         {
             // Control flow here is for deciding what Trial gets spat out from the config
             AbstractTrial currTrial;
-            if (trialDataFromIndex.FileLocation != null)
+            if (trialDataFromIndex.Instructional == 1)
             {
                 Debug.Log("Creating new Instructional Trial");
+                trialDataFromIndex.Scene = 1; // Modify the instructional trial to have scene 1
                 currTrial = new InstructionalTrial(_data, blockId, trialId);
             }
             else if (trialDataFromIndex.TwoDimensional == 1)

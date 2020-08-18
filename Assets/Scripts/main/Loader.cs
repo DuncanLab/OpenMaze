@@ -61,8 +61,17 @@ namespace main
                     // Here we're using: https://github.com/gkngkc/UnityStandaloneFileBrowser because it was easier than rolling our own
                     var paths = StandaloneFileBrowser.OpenFilePanel("Choose configuration file", "Configuration_Files",
                         "", false);
+                    if (paths.Length == 0)
+                    {
+                        Debug.Log("Empty config given, exiting application");
+                        #if UNITY_EDITOR
+                            UnityEditor.EditorApplication.isPlaying = false;
+                        #endif
+                        Application.Quit();
+                        return;
+                    }
                     var path = paths[0];
-                    if (Loader.ExternalActivation(path)) break;
+                    if (ExternalActivation(path)) break;
                 }
             }
         }
@@ -74,8 +83,8 @@ namespace main
             {
                 Debug.LogError("Invalid Json File");
                 #if UNITY_EDITOR
-    UnityEditor.EditorApplication.isPlaying = false;
-#endif
+                    UnityEditor.EditorApplication.isPlaying = false;
+                #endif
                 return false;
             }
 

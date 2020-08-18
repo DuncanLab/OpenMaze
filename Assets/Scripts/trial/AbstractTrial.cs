@@ -69,7 +69,7 @@ namespace trial
 
             isSuccessful = false;
 
-            if (Equals(blockId, BlockId.EMPTY))
+            if (Equals(blockId, BlockId.EMPTY) || Equals(trialId, TrialId.EMPTY))
             {
                 // To stop the null condition for the exit button system.
                 trialData = new Trial();
