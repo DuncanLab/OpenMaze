@@ -1,0 +1,245 @@
+{
+    "OutputTimesPerSecond": 100,
+    "IgnoreUserInputDelay": 0.5,
+    "TimingVerification": false,
+    "CHARACTER DATA": "CHARACTER DATA----------*********-------------------CHARACTER DATA",
+    "CharacterData": {
+        "Height": 2,
+        "MovementSpeed": 5.0,
+        "RotationSpeed": 75.0,
+        "DistancePickup": 2,
+        "GoalRotationSpeed": 0
+    },
+
+    "BlockOrder" : [1,2,3,4,5],
+
+    "IMPORTANT" : "THIS CONFIG REQUIRES A SCENE 4 AND A SCENE 5 TO RUN - ADD BOTH TUTORIAL ENVIRONMENTS TO BUILD FROM OPENMAZE BASE",
+    
+    "Blocks" : [
+        {
+            "Block 1" : "Serial Trial Order - Instructions",
+            "TrialOrder": [1,2]
+        },
+        {
+            "Block 2" : "Using the TrialGoal and TrialFunction with the SuccessesCriterion function",
+            "Notes" : "This Block terminates when 3 Trials have been completed successfully. If 3 trials have not be completed the final trail is an end screen with exit button.",
+            "DisplayText": "Trial Criterion Complete 3/5 Trials To end Block",
+            "TrialFunction": "SuccessesCriterion",
+            "TrialGoal": "3",
+            "ShowBlockTotal" : true,
+            "ShowTrialTotal": true,
+            "ShowNumSuccesses": true,
+            "TrialOrder": [9,3,4,5,6,7,8,3,4,5,6]
+        },
+        {
+            "Block 3" : "Using the BlockGoal and BlockFunction",
+            "Notes" : "checks whether SuccessesCriterion was met after the last trial is complete, if met experiment continues to next block, if not, block is repeated",
+            "DisplayText": "Block Criterion Complete 3/5 or Block will repeat",
+            "BlockFunction": "SuccessesCriterion",
+            "BlockGoal": "3",
+            "ShowBlockTotal" : true,
+            "ShowTrialTotal": true,
+            "ShowNumSuccesses": true,
+            "TrialOrder": [9,3,4,5,6,7,8,3,4,5,6]
+        },
+        {
+            "Block 4" : "Using the BlockFunction & TrialFunction",
+            "Notes" : "checks whether SuccessesCriterion was met after the last trial is complete, if met experiment continues to next block, if not, block is repeated",
+            "DisplayText": "Block + Trial Criterion",
+            "BlockFunction": "SuccessesCriterion",
+            "TrialFunction": "SuccessesCriterion",
+            "TrialGoal": "3",
+            "BlockGoal": "3",
+            "ShowBlockTotal" : true,
+            "ShowTrialTotal": true,
+            "ShowNumSuccesses": true,
+            "TrialOrder": [9,3,4,5,6,7,8,3,4,5,6]
+        },
+        {
+            "Block 5" : "End experiment Screen",
+            "Notes" : "This Block can be added to the end of the block order to display the end of experiment screen",
+            "TrialOrder": [10]
+        }     
+    ],
+
+    
+    "Trials": [
+        {
+            "Trial 1" : "Instruction Screen Trial - Welcome! Presents the image Template-Welcome.png",
+            "Instructional": 1,
+            "FileLocation": "ConfigTemplate/Welcome.png",
+            "TrialTime": -1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 2" : "Insruction Screen Trial - Displays Movement Controls",
+            "Instructional": 1,
+            "FileLocation": "ConfigTemplate/Controls.png",
+            "TrialTime": -1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 3" : "Cue Screen - Cues participant to find sphere",
+            "Instructional": 1,
+            "FileLocation": "ConfigTemplate/FindSphere.png",
+            "TrialTime": 1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 4" : "Find Sphere",
+            "TrialTime" : 60,
+            "Scene": 4,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Rotate": 0,
+            "ActiveGoals" : [1],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [2,3],
+            "Quota": 1,
+            "LandMarks" :[1],
+            "TrialEndKey": "x",
+            "DisplayText": "Find",
+            "DisplayImage": "ConfigTemplate/Sphere.png",
+            "ShowBlockTotal" : true,
+            "ShowTrialTotal": true,
+            "ShowNumSuccesses": true
+        },
+        {
+            "Trial 5" : "Cue Screen - Cues participant to find Apple",
+            "Instructional": 1,
+            "FileLocation": "ConfigTemplate/FindApple.png",
+            "TrialTime": 1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 6" : "Task Trial - Find Apple",
+            "TrialTime" : 60,
+            "Scene": 5,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Rotate": 0,
+            "ActiveGoals" : [2],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [1,3],
+            "Quota": 1,
+            "LandMarks" :[1],
+            "TrialEndKey": "x",
+            "DisplayText": "Find",
+            "DisplayImage": "ConfigTemplate/Apple.png",
+            "ShowBlockTotal" : true,
+            "ShowTrialTotal": true,
+            "ShowNumSuccesses": true
+        },
+        {
+            "Trial 7" : "Cue Screen - Find Money",
+            "Instructional": 1,
+            "FileLocation": "ConfigTemplate/FindMoney.png",
+            "TrialTime": 1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 8" : "Task Trial - Find Money",
+            "TrialTime" : 60,
+            "Scene": 4,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Rotate": 0,
+            "ActiveGoals" : [3],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [1,2],
+            "Quota": 1,
+            "LandMarks" :[1],
+            "TrialEndKey": "x",
+            "DisplayText": "Find",
+            "DisplayImage": "ConfigTemplate/Money.png",
+            "ShowBlockTotal" : true,
+            "ShowTrialTotal": true,
+            "ShowNumSuccesses": true
+        },
+        {
+            "Trial 9" : "Cue Screen - Cues participant to find sphere",
+            "Instructional": 1,
+            "FileLocation": "ConfigTemplate/Criterion.png",
+            "TrialTime": 1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 10" : "Instruction/Cue Screen with Exit button",
+            "Instructional": 1,
+            "FileLocation": "ConfigTemplate/End.png",
+            "TrialTime": -1,
+            "ExitButton": true
+        }
+    ],
+
+    "Goals": [
+        {
+            "Goal 1" : "3D Object - Red Sphere",
+            "Type": "3D",
+            "Object": "Sphere",
+            "Sound": "coin",
+            "Color": "ff0000",
+            "Position": [5, 1, 5],
+            "Rotation": [0,0,0],
+            "Scale": [1, 1, 1]
+        },
+        {
+            "Goal 2" : "2D Image - Apple",
+            "Type": "2D",
+            "Object": "ConfigTemplate/Apple.png",
+            "Sound": "eat",
+            "Color": "ffffff",
+            "Position": [-5, 1, 5],
+            "Scale": [1, 1, 1]
+        },
+        {
+            "Goal 3" : "2D Image - Money",
+            "Type": "2D",
+            "Object": "ConfigTemplate/Money.png",
+            "Sound": "coin",
+            "Color": "ffffff",
+            "Position": [-5, 1, -5],
+            "Scale": [1, 1, 1]
+        }
+    ],
+
+    "Landmarks": [
+        {
+            "Landmark 1" : "Blue Cube",
+            "Type": "3D",
+            "Object": "Cube",
+            "Color": "0000ff",
+            "Position": [100, 20, 100],
+            "Rotation": [0,0,0],
+            "Scale": [20, 20, 20]
+        }
+
+    ], 
+
+"Enclosure DATA" : "Enclosure DATA--------------------*********------------------Enclosure DATA",
+
+    "Enclosures": [
+        {
+            "Enclosure 1": "Use this field as lable",
+            "Sides": 40,
+            "Radius": 15,
+            "WallHeight" : 7,
+            "WallColor": "ffffff",
+            "GroundTileSides": 4,
+            "GroundTileSize": 1.0,
+            "GroundColor": "1B5E20",
+            "Position": [0, 0]
+        },
+        {
+            "Enclosure 2": "Use this field as lable",
+            "Sides": 4,
+            "Radius": 30,
+            "WallHeight" : 15,
+            "WallColor": "000000",
+            "GroundTileSides": 4,
+            "GroundTileSize": 1.0,
+            "GroundColor": "1B5E20",
+            "Position": [0, 0]
+        }  
+    ]
+}

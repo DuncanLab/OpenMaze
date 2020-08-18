@@ -27,7 +27,7 @@ namespace twoDSystem
 
             var goalText = GameObject.Find("Goal").GetComponent<Text>();
             goalText.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 40);
-            goalText.text = E.Get().CurrTrial.trialData.Header ?? "Test";
+            goalText.text = E.Get().CurrTrial.trialData.DisplayText ?? "Test";
             goalText.color = Color.black;
 
             Generate2dWalls();

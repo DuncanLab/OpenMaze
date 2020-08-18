@@ -4,6 +4,7 @@ using System.Threading;
 using trial;
 using UnityEngine;
 using UnityEngine.UI;
+using data;
 using DS = data.DataSingleton;
 using E = main.Loader;
 using Random = UnityEngine.Random;
@@ -41,12 +42,21 @@ namespace wallSystem
         {
             try
             {
-                var goalText = GameObject.Find("Goal").GetComponent<Text>();
-                goalText.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 40);
-
+                var trialText = GameObject.Find("TrialText").GetComponent<Text>();
+                var blockText = GameObject.Find("BlockText").GetComponent<Text>();
+                var currBlockId = E.Get().CurrTrial.BlockId.Value;
                 // This section sets the text
-                goalText.text = E.Get().CurrTrial.trialData.Header;
-                goalText.color = Color.white;
+                trialText.text = E.Get().CurrTrial.trialData.DisplayText;
+                blockText.text = DS.GetData().Blocks[currBlockId].DisplayText;
+
+                if (!string.IsNullOrEmpty(E.Get().CurrTrial.trialData.DisplayImage))
+                {
+                    var filePath = DS.GetData().SpritesPath + E.Get().CurrTrial.trialData.DisplayImage;
+                    var displayImage = GameObject.Find("DisplayImage").GetComponent<RawImage>();
+                    displayImage.enabled = true;
+                    displayImage.texture = Img2Sprite.LoadTexture(filePath);
+                }
+
             }
             catch (NullReferenceException e)
             {
@@ -178,7 +188,10 @@ namespace wallSystem
         private void ComputeMovement()
         {
             // Dont move if the quota has been reached
-            if (localQuota <= 0) return;
+            if (localQuota <= 0 & E.Get().CurrTrial.trialData.Quota !=0)
+            {
+                return;
+            }
 
             // This calculates the current amount of rotation frame rate independent
             var rotation = Input.GetAxis("Horizontal") * DS.GetData().CharacterData.RotationSpeed * Time.deltaTime;
@@ -197,6 +210,28 @@ namespace wallSystem
 
             transform.Rotate(0, rotation, 0);
         }
+        
+        private void doInitialRotation(){
+            var multiplier = 1.0f;
+            
+            // Smooth out the rotation as we approach the values
+            
+            var threshold1 = Math.Abs(_currDelay/_waitTime - 0.25f);
+            var threshold2 = Math.Abs(_currDelay/_waitTime - 0.75f);
+
+            if (threshold1 < 0.03 || threshold2 < 0.03){
+                return;
+            }
+
+            if (_currDelay/_waitTime > 0.25 && _currDelay/_waitTime < 0.75){
+                multiplier *= -1;
+            }
+
+            var anglePerSecond = 240/_waitTime;
+            var angle = Time.deltaTime*anglePerSecond;
+
+            transform.Rotate(new Vector3(0, multiplier * angle, 0));
+        }
 
         private void Update()
         {
@@ -214,8 +249,7 @@ namespace wallSystem
             // This first block is for the initial rotation of the character
             if (_currDelay < _waitTime)
             {
-                var angle = 360f * _currDelay / _waitTime + _iniRotation - transform.rotation.eulerAngles.y;
-                transform.Rotate(new Vector3(0, angle, 0));
+                doInitialRotation();
             }
             else
             {

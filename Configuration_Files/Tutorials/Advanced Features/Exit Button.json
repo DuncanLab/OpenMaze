@@ -1,0 +1,58 @@
+{
+    "OutputTimesPerSecond": 30,
+    "IgnoreUserInputDelay": 0.5,
+    "TimingVerification": false,
+    "CHARACTER DATA": "CHARACTER DATA----------*********-------------------CHARACTER DATA",
+    "CharacterData": {
+        "Height": 2,
+        "MovementSpeed": 5.0,
+        "RotationSpeed": 75.0,
+        "DistancePickup": 2,
+        "GoalRotationSpeed": 0
+    },
+
+"BLOCK DATA" : "BLOCK DATA---------------------*********--------------------BLOCK DATA",   
+   
+    "BlockOrder" : [1],
+    
+    "Blocks" : [
+        {
+            "Block 1" : "Serial Trial Order",
+              "Notes" : "Trials will be presented in order from TrialOrder list",
+              "TrialOrder": [1]
+        }
+    ],
+
+"TRIAL DATA" : "TRIAL DATA--------------------*********------------------TRIAL DATA",
+    
+    "Trials": [
+        {
+            "Trial 1" : "Test URL",
+            "Instructional": 1,
+            "FileLocation": "Test/URL.png",
+            "TrialTime": -1,
+            "TrialEndKey": "Space",
+            "ExitButton": true
+        }
+    ],
+
+
+"GOAL DATA" : "GOAL DATA--------------------*********------------------GOAL DATA",
+
+    "Goals": [
+
+    ],
+
+"LANDMARK DATA" : "LANDMARK DATA----------*********------------------LANDMARK DATA",
+
+    "Landmarks": [
+
+
+    ], 
+
+"Enclosure DATA" : "Enclosure DATA--------------------*********------------------Enclosure DATA",
+
+    "Enclosures": [
+
+    ]
+}

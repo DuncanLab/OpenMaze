@@ -117,7 +117,16 @@ namespace trial
                 t.NumCollectedPerBlock = new int[NumBlocks];
             }
 
-            Debug.Log("Current Trial Increment: " + DS.GetData().TrialInitialValue);
+            if (head == this && first == false)
+            {
+                Debug.Log(string.Format("Entered Block: {0} at time: {1}", BlockId, DateTime.Now));
+                t.SpecialReset();
+                t.successes = new List<int>();
+                int NumBlocks = DS.GetData().Blocks.Count;
+                t.NumCollectedPerBlock = new int[NumBlocks];
+            }
+
+            Debug.Log("Current Trial Increment: " + data.DataSingleton.GetData().TrialInitialValue);
 
             if (t.TrialNumber < 2) {
                 t.TimeSinceExperimentStart = 0.0f;
@@ -128,6 +137,8 @@ namespace trial
 
             _runningTime = 0;
             TrialProgress = t;
+            TrialProgress.GetCurrTrial().NumCollected = 0;
+
         }
 
         public bool IsLoading()

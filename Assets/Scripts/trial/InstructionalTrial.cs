@@ -28,8 +28,13 @@ namespace trial
             var trialEndKeyCode = "space";
             var ignoreUserInputDelay = DataSingleton.GetData().IgnoreUserInputDelay;
 
-            if (!string.IsNullOrEmpty(trialData.TrialEndKey.ToLower()))
+            if (!string.IsNullOrEmpty(trialData.TrialEndKey.ToLower())){
                 trialEndKeyCode = trialData.TrialEndKey.ToLower();
+            }
+            else
+            {
+                trialEndKeyCode = "space";
+            }
 
             if (Input.GetKey(trialEndKeyCode) && _runningTime > ignoreUserInputDelay) Progress();
 
