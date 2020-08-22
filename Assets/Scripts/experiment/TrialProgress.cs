@@ -2,6 +2,7 @@
 using main;
 using UnityEngine;
 using value;
+using wallSystem;
 
 namespace trial
 {
@@ -19,10 +20,11 @@ namespace trial
         public float LastY;
         public int MegaBonus; // Number of mega bous points 
         public float Num3D;
-        public int[] NumCollectedPerBlock; // Number of goals during each block.
+        public int NumCollectedInBlock; // Number of goals during each block.
         public float NumSuccess;
         public int PickupType;
 
+        public List<PickupData> PickupsPerBlock;
         public Transform playerTransform;
         public AbstractTrial PreviousTrial;
         public string SessionID;
@@ -53,15 +55,16 @@ namespace trial
 
         public void ResetOngoing()
         {
-            NumSuccess = 0;
-            Num3D = 0;
+            RepeatBlockReset();
             TrialNumber = -1;
         }
 
-        public void SpecialReset()
+        public void RepeatBlockReset()
         {
             NumSuccess = 0;
             Num3D = 0;
+            NumCollectedInBlock = 0;
+            PickupsPerBlock = new List<PickupData>();
         }
     }
 }

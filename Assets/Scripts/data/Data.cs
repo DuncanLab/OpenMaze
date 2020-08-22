@@ -196,6 +196,8 @@ namespace data
 
             public Vector3 ScaleVector => 
                 Scale == null ||Scale.Count == 0 ? Vector3.zero : new Vector3(Scale[0], Scale[1], Scale[2]);
+
+            public int Value { get; set; }
         }
 
         [Serializable]

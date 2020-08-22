@@ -9,6 +9,7 @@ using main;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using value;
+using wallSystem;
 using static data.Data;
 using DS = data.DataSingleton;
 
@@ -56,6 +57,7 @@ namespace trial
 
         public Trial trialData;
 
+        public List<PickupData> PickupsInTrial = new List<PickupData>(); 
         public TrialProgress TrialProgress;
         public long TrialStartTime;
         
@@ -113,17 +115,13 @@ namespace trial
                 Debug.Log($"Entered Block: {BlockId.Value} at time: {DateTime.Now}");
                 t.ResetOngoing();
                 t.successes = new List<int>();
-                var NumBlocks = DS.GetData().Blocks.Count;
-                t.NumCollectedPerBlock = new int[NumBlocks];
             }
 
             if (head == this && first == false)
             {
                 Debug.Log(string.Format("Entered Block: {0} at time: {1}", BlockId, DateTime.Now));
-                t.SpecialReset();
+                t.RepeatBlockReset();
                 t.successes = new List<int>();
-                int NumBlocks = DS.GetData().Blocks.Count;
-                t.NumCollectedPerBlock = new int[NumBlocks];
             }
 
             Debug.Log("Current Trial Increment: " + data.DataSingleton.GetData().TrialInitialValue);
@@ -137,7 +135,8 @@ namespace trial
 
             _runningTime = 0;
             TrialProgress = t;
-            TrialProgress.GetCurrTrial().NumCollected = 0;
+            NumCollected = 0;
+            PickupsInTrial = new List<PickupData>();
 
         }
 

@@ -159,7 +159,7 @@ namespace wallSystem
         {
             if (!other.gameObject.CompareTag("Pickup")) return;
 
-            GetComponent<AudioSource>().PlayOneShot(other.gameObject.GetComponent<PickupSound>().Sound, 10);
+            GetComponent<AudioSource>().PlayOneShot(other.gameObject.GetComponent<PickupData>().Sound, 10);
             Destroy(other.gameObject);
 
             // Tally the number collected per current block
@@ -167,9 +167,13 @@ namespace wallSystem
 
             if (localQuota > 0)
             {
-                TrialProgress.GetCurrTrial().TrialProgress.NumCollectedPerBlock[blockId]++;
+                PickupData pickupData = other.gameObject.GetComponent<PickupData>();
+                TrialProgress.GetCurrTrial().TrialProgress.NumCollectedInBlock ++;
+                TrialProgress.GetCurrTrial().TrialProgress.PickupsPerBlock.Add(pickupData);
 
                 TrialProgress.GetCurrTrial().NumCollected++;
+                TrialProgress.GetCurrTrial().PickupsInTrial.Add(pickupData);
+
                 E.LogData(
                     TrialProgress.GetCurrTrial().TrialProgress,
                     TrialProgress.GetCurrTrial().TrialStartTime,
@@ -211,7 +215,7 @@ namespace wallSystem
             transform.Rotate(0, rotation, 0);
         }
         
-        private void doInitialRotation(){
+        private void _doInitialRotation(){
             var multiplier = 1.0f;
             
             // Smooth out the rotation as we approach the values
@@ -249,7 +253,7 @@ namespace wallSystem
             // This first block is for the initial rotation of the character
             if (_currDelay < _waitTime)
             {
-                doInitialRotation();
+                _doInitialRotation();
             }
             else
             {

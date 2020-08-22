@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using data;
 using UnityEngine;
+using value;
 using Debug = UnityEngine.Debug;
 using DS = data.DataSingleton;
 using E = main.Loader;
@@ -76,66 +77,70 @@ namespace wallSystem
             merged.AddRange(invisibleGoals);
 
             var p = new Data.Point {X = 0, Y = 0, Z = 0};
-            foreach (var val in merged)
+            foreach (var pickupIdIndex in merged)
             {
-                var goalItem = DS.GetData().Goals[Mathf.Abs(val) - 1];
+                var pickupId = new PickupId(pickupIdIndex);
+                var goalFromConfig = DS.GetData().Goals[pickupId.Value];
 
                 // Position is not set in the config file
-                if (goalItem.Position.Count == 0)
-                    p = ReadFromExternal(goalItem.PythonFile);
+                if (goalFromConfig.Position.Count == 0)
+                    p = ReadFromExternal(goalFromConfig.PythonFile);
                 else
                     try
                     {
                         p = new Data.Point
                         {
-                            X = goalItem.PositionVector.x, Y = goalItem.PositionVector.y, Z = goalItem.PositionVector.z
+                            X = goalFromConfig.PositionVector.x, Y = goalFromConfig.PositionVector.y, Z = goalFromConfig.PositionVector.z
                         };
                     }
                     catch (Exception _)
                     {
-                        p = new Data.Point {X = goalItem.PositionVector.x, Y = 0.5f, Z = goalItem.PositionVector.z};
+                        p = new Data.Point {X = goalFromConfig.PositionVector.x, Y = 0.5f, Z = goalFromConfig.PositionVector.z};
                     }
 
                 GameObject prefab;
                 GameObject obj;
                 var spriteName = "";
 
-                if (goalItem.Type.ToLower().Equals("3d"))
+                if (goalFromConfig.Type.ToLower().Equals("3d"))
                 {
-                    prefab = (GameObject) Resources.Load("3D_Objects/" + goalItem.Object, typeof(GameObject));
+                    prefab = (GameObject) Resources.Load("3D_Objects/" + goalFromConfig.Object, typeof(GameObject));
                     obj = Instantiate(prefab);
                     obj.AddComponent<RotateBlock>();
                 }
                 else
                 {
                     // Load the "2D" prefab here, so we have the required components
-                    prefab = (GameObject) Resources.Load("3D_Objects/" + goalItem.Type.ToUpper(), typeof(GameObject));
+                    prefab = (GameObject) Resources.Load("3D_Objects/" + goalFromConfig.Type.ToUpper(), typeof(GameObject));
                     obj = Instantiate(prefab);
-                    spriteName = goalItem.Object;
+                    spriteName = goalFromConfig.Object;
                 }
 
-                obj.transform.Rotate(goalItem.RotationVector);
-                obj.transform.localScale = goalItem.ScaleVector;
+                obj.transform.Rotate(goalFromConfig.RotationVector);
+                obj.transform.localScale = goalFromConfig.ScaleVector;
                 obj.transform.position = new Vector3(p.X, p.Y, p.Z);
 
-                obj.AddComponent<PickupSound>();
-                obj.GetComponent<PickupSound>().Sound = Resources.Load<AudioClip>("Sounds/" + goalItem.Sound);
-
+                var pickupData = obj.AddComponent<PickupData>();
+                pickupData.Sound = Resources.Load<AudioClip>("Sounds/" + goalFromConfig.Sound);
+                pickupData.Tag = goalFromConfig.Tag;
+                pickupData.Value = goalFromConfig.Value;
+                pickupData.PickupId = pickupId;
+                
                 if (!string.IsNullOrEmpty(spriteName))
                 {
                     var pic = Img2Sprite.LoadNewSprite(DataSingleton.GetData().SpritesPath + spriteName);
                     obj.GetComponent<SpriteRenderer>().sprite = pic;
                 }
 
-                var color = Data.GetColour(goalItem.Color);
+                var color = Data.GetColour(goalFromConfig.Color);
 
                 try
                 {
                     obj.GetComponent<Renderer>().material.color = color;
-                    obj.GetComponent<Renderer>().enabled = !invisibleSet.Contains(val);
-                    obj.GetComponent<Collider>().enabled = !inactiveSet.Contains(val);
+                    obj.GetComponent<Renderer>().enabled = !invisibleSet.Contains(pickupId.Value);
+                    obj.GetComponent<Collider>().enabled = !inactiveSet.Contains(pickupId.Value);
 
-                    if (activeSet.Contains(val) || invisibleSet.Contains(val))
+                    if (activeSet.Contains(pickupId.Value) || invisibleSet.Contains(pickupId.Value))
                     {
                         obj.tag = "Pickup";
                         obj.GetComponent<Collider>().isTrigger = true;
