@@ -13,14 +13,7 @@ namespace contingency.reflection
 
         public static string Success(TrialProgress tp, string functionInput)
         {
-            if (TrialProgress.GetCurrTrial().isSuccessful == true)
-            {
-                return "A";
-            }
-            else
-            {
-                return "B";
-            }
+            return TrialProgress.GetCurrTrial().isSuccessful ? "A" : "B";
         }
         
         // ReSharper disable once UnusedMember.Global

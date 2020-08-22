@@ -26,10 +26,15 @@ namespace trial
             // If we are progressing without a success, record the failure
             // as a zero, otherwise record a 1.
             if (isSuccessful)
+            {
                 TrialProgress.successes.Add(1);
+            }
             else
+            {
                 TrialProgress.successes.Add(0);
-            isSuccessful = false;
+                isSuccessful = false;
+            }
+
             base.Progress();
         }
 

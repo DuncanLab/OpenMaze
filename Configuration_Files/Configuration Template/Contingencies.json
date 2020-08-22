@@ -27,8 +27,8 @@
 		        	{
 				        "ContingencyFunction": "Success",
 				        "functionInput": "",
-				        "ForTrials": [4,5,6],
-				        "BehaviourByResult": {"A": {"NextTrials": [11]}, "B": {"NextTrials": [12]}}
+				        "ForTrials": [4,6,8],
+				        "BehaviourByResult": {"A": {"NextTrials": [12]}, "B": {"NextTrials": [11]}}
 	                }
 	            ]
         }
@@ -86,7 +86,7 @@
         {
             "Trial 6" : "Task Trial - Find Apple",
             "TrialTime" : 10,
-            "Scene": 5,
+            "Scene": 4,
             "StartPosition" : [0,0],
             "StartFacing" : 0,
             "Rotate": 0,

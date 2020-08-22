@@ -40,7 +40,8 @@ namespace Tests.trial
                 ],
                 ""Trials"": [
                     {
-                      ""FileLocation"": ""file""
+                      ""FileLocation"": ""file"",
+                      ""Instructional"": 1,
                     },
                     {
                       ""TwoDimensional"": 1 
