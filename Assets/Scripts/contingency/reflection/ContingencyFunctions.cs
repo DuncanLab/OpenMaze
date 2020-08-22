@@ -1,4 +1,5 @@
-﻿using trial;
+﻿using System.Windows.Forms;
+using trial;
 using UnityEngine;
 
 namespace contingency.reflection
@@ -8,6 +9,18 @@ namespace contingency.reflection
         public static string ContingencyFunc(TrialProgress tp, string functionInput)
         {
             return "A";
+        }
+
+        public static string Success(TrialProgress tp, string functionInput)
+        {
+            if (TrialProgress.GetCurrTrial().isSuccessful == true)
+            {
+                return "A";
+            }
+            else
+            {
+                return "B";
+            }
         }
         
         // ReSharper disable once UnusedMember.Global
