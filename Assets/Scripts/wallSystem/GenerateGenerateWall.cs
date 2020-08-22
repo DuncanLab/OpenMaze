@@ -60,7 +60,7 @@ namespace wallSystem
             if (DS.GetData().Trials[currTrialId].ShowBlockTotal | DS.GetData().Blocks[currBlockId].ShowBlockTotal)
             {
                 var blocktotalText = GameObject.Find("BlockTotal").GetComponent<Text>();
-                blocktotalText.text = "Goals Found In Block: " + E.Get().CurrTrial.TrialProgress.NumCollectedPerBlock[currBlockId];
+                blocktotalText.text = "Goals Found In Block: " + E.Get().CurrTrial.TrialProgress.PickupsPerBlock[currBlockId-1];
             }
 
         }

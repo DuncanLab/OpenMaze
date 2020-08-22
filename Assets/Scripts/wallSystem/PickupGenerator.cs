@@ -137,10 +137,10 @@ namespace wallSystem
                 try
                 {
                     obj.GetComponent<Renderer>().material.color = color;
-                    obj.GetComponent<Renderer>().enabled = !invisibleSet.Contains(pickupId.Value);
-                    obj.GetComponent<Collider>().enabled = !inactiveSet.Contains(pickupId.Value);
+                    obj.GetComponent<Renderer>().enabled = !invisibleSet.Contains(pickupIdIndex);
+                    obj.GetComponent<Collider>().enabled = !inactiveSet.Contains(pickupIdIndex);
 
-                    if (activeSet.Contains(pickupId.Value) || invisibleSet.Contains(pickupId.Value))
+                    if (activeSet.Contains(pickupIdIndex) || invisibleSet.Contains(pickupIdIndex))
                     {
                         obj.tag = "Pickup";
                         obj.GetComponent<Collider>().isTrigger = true;
