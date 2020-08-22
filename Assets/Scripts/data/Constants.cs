@@ -6,6 +6,10 @@
         public const string OutputDirectory = "Assets/Outputfiles~";
 
         //Scene numbers.
-        public const int LoadingScreen = 1;
+        public const int LoadingScreen = -5000;
+
+        public const string StopGapLoad = "StopGapLoad";
+        
+        public const string LoadingScreenName = "LoadingScreen";
     }
 }

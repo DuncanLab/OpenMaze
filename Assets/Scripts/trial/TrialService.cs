@@ -102,7 +102,7 @@ namespace trial
             if (trialDataFromIndex.Instructional == 1)
             {
                 Debug.Log("Creating new Instructional Trial");
-                trialDataFromIndex.Scene = 1; // Modify the instructional trial to have scene 1
+                trialDataFromIndex.Scene = Constants.LoadingScreen; // Modify the instructional trial to have scene 1
                 currTrial = new InstructionalTrial(_data, blockId, trialId);
             }
             else if (trialDataFromIndex.TwoDimensional == 1)

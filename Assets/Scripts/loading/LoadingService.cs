@@ -46,9 +46,9 @@ namespace loading
             _doneTransitioning = false;
 
             if (sceneNumber != Constants.LoadingScreen){
-                _sceneWrapper.LoadScene("StopGapLoad");
+                _sceneWrapper.LoadScene(Constants.StopGapLoad);
             } else {
-                _sceneWrapper.LoadScene(sceneNumber);
+                _sceneWrapper.LoadScene(Constants.LoadingScreenName);
             }
 
             _sceneWrapper.FreezeTime();
