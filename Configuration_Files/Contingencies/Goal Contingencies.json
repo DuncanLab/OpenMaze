@@ -1,0 +1,321 @@
+{
+    "OutputTimesPerSecond": 100,
+    "IgnoreUserInputDelay": 0.5,
+    "TimingVerification": false,
+    "CHARACTER DATA": "CHARACTER DATA----------*********-------------------CHARACTER DATA",
+    "CharacterData": {
+        "Height": 2,
+        "MovementSpeed": 5.0,
+        "RotationSpeed": 75.0,
+        "DistancePickup": 2,
+        "GoalRotationSpeed": 0
+    },
+
+    "IMPORTANT" : "THIS CONFIG REQUIRES A SCENE 4 AND A SCENE 5 TO RUN - ADD BOTH TUTORIAL ENVIRONMENTS TO BUILD FROM OPENMAZE BASE",
+
+    "BlockOrder" : [2],
+    
+    "Blocks" : [
+        {
+            "Block 1" : "Serial Trial Order - Instructions",
+            "Notes" : "Trials will be presented in order from TrialOrder list",
+            "TrialOrder": [1,2,3,4,5,6,13]
+        },
+        {
+	        "TrialOrder": [1,2,3,4],
+	        "Contingencies": [
+		        	{
+				        "ContingencyFunction": "GoalDecisions",
+				        "ForTrials": [4,6,8],
+				        "BehaviourByResult": {"Red": {"NextTrials": [3,5]}, "Blue": {"NextTrials": [5,6]}, "End": {"NextTrials": [13]}}
+	                }
+	            ]
+        }
+    ],
+
+    
+    "Trials": [
+        {
+            "Trial 1" : "Instruction Screen Trial - Welcome! Presents the image Template-Welcome.png",
+            "Instructional": 1,
+            "FileLocation": "Contingencies/Welcome.png",
+            "TrialTime": -1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 2" : "Insruction Screen Trial - Displays Movement Controls",
+            "Instructional": 1,
+            "FileLocation": "Contingencies/Controls.png",
+            "TrialTime": -1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 3" : "Red Cue",
+            "Instructional": 1,
+            "FileLocation": "Contingencies/Red.png",
+            "TrialTime": 1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 4" : "Red Enclosure",
+            "TrialTime" : 15,
+            "Scene": 4,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Enclosure": 1,
+            "Rotate": 0,
+            "ActiveGoals" : [1,2,6],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 1,
+            "LandMarks" :[],
+            "TrialEndKey": "x",
+            "DisplayText": "Choose a Sphere"
+        },
+        {
+            "Trial 5" : "Blue Cue",
+            "Instructional": 1,
+            "FileLocation": "Contingencies/Blue.png",
+            "TrialTime": 1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 6" : "Blue Enclosure",
+            "TrialTime" : 15,
+            "Scene": 4,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Enclosure": 2,
+            "Rotate": 0,
+            "ActiveGoals" : [1,2,6],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 1,
+            "LandMarks" :[],
+            "TrialEndKey": "x",
+            "DisplayText": "Choose a Sphere"
+        },
+
+        {
+            "Trial 7" : "Purple Cue",
+            "Instructional": 1,
+            "FileLocation": "Contingencies/Purple.png",
+            "TrialTime": 1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 8" : "Purple Enclosure",
+            "TrialTime" : 15,
+            "Scene": 4,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Enclosure": 3,
+            "Rotate": 0,
+            "ActiveGoals" : [1,2,6],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 1,
+            "LandMarks" :[],
+            "TrialEndKey": "x",
+            "DisplayText": "Choose a Sphere"
+        },
+
+        {
+            "Trial 9" : "Yellow Cue",
+            "Instructional": 1,
+            "FileLocation": "Contingencies/Yellow.png",
+            "TrialTime": 1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 10" : "Yellow Enclosure",
+            "TrialTime" : 15,
+            "Scene": 4,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Enclosure": 4,
+            "Rotate": 0,
+            "ActiveGoals" : [1,2,6],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 1,
+            "LandMarks" :[],
+            "TrialEndKey": "x",
+            "DisplayText": "Choose a Sphere"
+        },
+
+        {
+            "Trial 11" : "Cyan Cue",
+            "Instructional": 1,
+            "FileLocation": "Contingencies/Cyan.png",
+            "TrialTime": 1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 12" : "Cyan Enclosure",
+            "TrialTime" : 15,
+            "Scene": 4,
+            "StartPosition" : [0,0],
+            "StartFacing" : 0,
+            "Enclosure": 5,
+            "Rotate": 0,
+            "ActiveGoals" : [1,2,6],
+            "InvisibleGoals" : [],
+            "InactiveGoals" : [],
+            "Quota": 1,
+            "LandMarks" :[],
+            "TrialEndKey": "x",
+            "DisplayText": "Choose a Sphere"
+        },
+        {
+            "Trial 13" : "End Screen",
+            "Instructional": 1,
+            "FileLocation": "Contingencies/End.png",
+            "TrialTime": -1,
+            "TrialEndKey": "Space"
+        }
+
+    ],
+
+    "Goals": [
+        {
+            "Goal 1" : "3D Object - Red Sphere",
+            "Tag": "Red",
+            "Type": "3D",
+            "Object": "Sphere",
+            "Sound": "coin",
+            "Color": "E37174",
+            "Position": [5, 1, 5],
+            "Rotation": [0,0,0],
+            "Scale": [1, 1, 1]
+        },
+        {
+            "Goal 2" : "3D Object - Blue Sphere",
+            "Tag": "Blue",
+            "Type": "3D",
+            "Object": "Sphere",
+            "Sound": "coin",
+            "Color": "5BADDC",
+            "Position": [-5, 1, 5],
+            "Rotation": [0,0,0],
+            "Scale": [1, 1, 1]
+        },
+        {
+            "Goal 3" : "3D Object - Purple Sphere",
+            "Tag": "Purple",
+            "Type": "3D",
+            "Object": "Sphere",
+            "Sound": "coin",
+            "Color": "6C5564",
+            "Position": [5, 1, 5],
+            "Rotation": [0,0,0],
+            "Scale": [1, 1, 1]
+        },
+        {
+            "Goal 4" : "3D Object - Yellow Sphere",
+            "Tag": "Yellow",
+            "Type": "3D",
+            "Object": "Sphere",
+            "Sound": "coin",
+            "Color": "F1CB68",
+            "Position": [5, 1, 5],
+            "Rotation": [0,0,0],
+            "Scale": [1, 1, 1]
+        },
+        {
+            "Goal 5" : "3D Object - Cyan Sphere",
+            "Tag": "Cyan",
+            "Type": "3D",
+            "Object": "Sphere",
+            "Sound": "coin",
+            "Color": "75BDC5",
+            "Position": [5, 1, 5],
+            "Rotation": [0,0,0],
+            "Scale": [1, 1, 1]
+        },
+        {
+            "Goal 6" : "3D Object - Black Sphere",
+            "Tag": "End",
+            "Type": "3D",
+            "Object": "Sphere",
+            "Sound": "coin",
+            "Color": "000000",
+            "Position": [0, 1, 5],
+            "Rotation": [0,0,0],
+            "Scale": [1, 1, 1]
+        }
+    ],
+
+    "Landmarks": [
+        {
+            "Landmark 1" : "Blue Cube",
+            "Type": "3D",
+            "Object": "Cube",
+            "Color": "0000ff",
+            "Position": [100, 20, 100],
+            "Rotation": [0,0,0],
+            "Scale": [20, 20, 20]
+        }
+
+    ], 
+
+"Enclosure DATA" : "Enclosure DATA--------------------*********------------------Enclosure DATA",
+
+    "Enclosures": [
+        {
+            "Enclosure 1": "Red Enclosure",
+            "Sides": 4,
+            "Radius": 15,
+            "WallHeight" : 7,
+            "WallColor": "E37174",
+            "GroundTileSides": 4,
+            "GroundTileSize": 1.0,
+            "GroundColor": "ffffff00",
+            "Position": [0, 0]
+        },
+        {
+            "Enclosure 1": "Blue Enclosure",
+            "Sides": 4,
+            "Radius": 15,
+            "WallHeight" : 7,
+            "WallColor": "5BADDC",
+            "GroundTileSides": 4,
+            "GroundTileSize": 1.0,
+            "GroundColor": "ffffff00",
+            "Position": [0, 0]
+        },
+        {
+            "Enclosure 1": "Purple Enclosure",
+            "Sides": 4,
+            "Radius": 15,
+            "WallHeight" : 7,
+            "WallColor": "6C5564",
+            "GroundTileSides": 4,
+            "GroundTileSize": 1.0,
+            "GroundColor": "ffffff00",
+            "Position": [0, 0]
+        },
+        {
+            "Enclosure 1": "Yellow Enclosure",
+            "Sides": 4,
+            "Radius": 15,
+            "WallHeight" : 7,
+            "WallColor": "F1CB68",
+            "GroundTileSides": 4,
+            "GroundTileSize": 1.0,
+            "GroundColor": "ffffff00",
+            "Position": [0, 0]
+        },
+        {
+            "Enclosure 1": "Cyan Enclosure",
+            "Sides": 4,
+            "Radius": 15,
+            "WallHeight" : 7,
+            "WallColor": "75BDC5",
+            "GroundTileSides": 4,
+            "GroundTileSize": 1.0,
+            "GroundColor": "ffffff00",
+            "Position": [0, 0]
+        }
+    ]
+}

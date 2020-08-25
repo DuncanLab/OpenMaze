@@ -21,7 +21,7 @@ namespace contingency
     public class ContingencyService : IContingencyService
     {
         private readonly AbstractTrial _abstractTrial;
-        private readonly Data.Contingency _contingency;
+        private readonly Data.Contingency _contingency; 
 
         private readonly IContingencyBehaviourValidator _contingencyBehaviourValidator;
         private readonly IContingencyFunctionCaller _contingencyFunctionCaller;

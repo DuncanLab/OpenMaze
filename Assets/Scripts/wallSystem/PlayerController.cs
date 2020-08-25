@@ -170,6 +170,9 @@ namespace wallSystem
                 PickupData pickupData = other.gameObject.GetComponent<PickupData>();
                 TrialProgress.GetCurrTrial().TrialProgress.NumCollectedInBlock ++;
                 TrialProgress.GetCurrTrial().TrialProgress.PickupsPerBlock.Add(pickupData);
+                var goalTag = other.gameObject.GetComponent<PickupData>().Tag;
+                TrialProgress.GetCurrTrial().GoalTags.Add(goalTag);
+                TrialProgress.GetCurrTrial().LastGoalTag = goalTag;
 
                 TrialProgress.GetCurrTrial().NumCollected++;
                 TrialProgress.GetCurrTrial().PickupsInTrial.Add(pickupData);

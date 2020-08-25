@@ -60,6 +60,10 @@ namespace trial
         public List<PickupData> PickupsInTrial = new List<PickupData>(); 
         public TrialProgress TrialProgress;
         public long TrialStartTime;
+        public List<string> GoalTags = new List<string>();
+        public string LastGoalTag;
+
+        
         
 
         protected AbstractTrial(Data data, BlockId blockId, TrialId trialId)

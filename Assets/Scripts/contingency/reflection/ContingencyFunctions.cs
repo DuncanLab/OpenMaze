@@ -18,6 +18,11 @@ namespace contingency.reflection
             return TrialProgress.GetCurrTrial().isSuccessful ? "A" : "B";
         }
 
+        public static string GoalDecisions(TrialProgress tp, string functionInput)
+        {
+            return TrialProgress.GetCurrTrial().LastGoalTag;
+        }
+
         // ReSharper disable once UnusedMember.Global
         // Called with reflection
         public static bool SuccessesCriterion(TrialProgress tp)
