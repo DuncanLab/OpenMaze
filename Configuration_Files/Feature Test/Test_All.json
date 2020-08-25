@@ -87,16 +87,18 @@
         },
         {
             "Section 6" : "-----------------------------------------------------------------------------------------------Blocks - Random Presentation Orders (Blocks 11-12)",
-            "SectionStatus": "FULLY FUNCTIONAL",
+            "SectionStatus": "NOT WORKING",
             "Block 11" : "Random With Replacement selects from Randomly Select 5x",
-            "TestStatus": "WORKING",
+            "TestStatus": "NOT WORKING",
+            "TestNotes": "When this block is run a file browswer is launched asking the user to choose a configuration file.",
             "TrialOrder": [81,0,0,0,0,0],
             "Replacement" : 1,
             "RandomlySelect" : [{"Order": [82]}, {"Order": [83,84]}, {"Order": [85,86,87]}]
         },
         {
             "Block 12" : "Random Without Replacement selects from Randomly Select 3x",
-            "TestStatus": "WORKING",
+            "TestStatus": "NOT WORKING",
+            "TestNotes": "When this block is run a file browswer is launched asking the user to choose a configuration file.",
             "TrialOrder": [88,0,0,0],
             "Replacement" : 0,
             "RandomlySelect" : [{"Order": [89]}, {"Order": [90,91]}, {"Order": [92,93,94]}]
@@ -105,7 +107,8 @@
             "Section 7" : "-----------------------------------------------------------------------------------------------Blocks - Trial Criterion (Blocks 13-18)",
             "SectionStatus": "FULLY FUNCTIONAL",
             "Block 13" : "Trial Criterion (3/4) FAIL TEST",
-            "TestStatus": "WORKING",
+            "TestStatus": "NOT WORKING",
+            "TestNotes": "I'm fairly certain that TrialFunction/GoalFunction aren't working because of new contingency stuff. but would really like to keep this functionality working exactly as it does here since it's in the Manuscripts and on the website",
             "DisplayText": "Trial Criterion (3/4) FAIL TEST",
             "ShowBlockTotal" : true,
             "ShowTrialTotal": true,
@@ -117,8 +120,8 @@
         },
         {
             "Block 14" : "Trial Criterion (3/4) PASS TEST",
-            "TestStatus": "WORKING",
-            "DisplayText": "Trial Criterion (3/4) PASS TEST",
+            "TestStatus": "NOT WORKING",
+            "TestNotes": "I'm fairly certain that TrialFunction/GoalFunction aren't working because of new contingency stuff. but would really like to keep this functionality working exactly as it does here since it's in the Manuscripts and on the website",
             "ShowBlockTotal" : true,
             "ShowTrialTotal": true,
             "ShowNumSuccesses": true,

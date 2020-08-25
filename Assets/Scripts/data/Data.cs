@@ -82,13 +82,8 @@ namespace data
             public List<RandomData> RandomlySelect; //Array that contains all the possible random values
             public int Replacement; //Integer value representing replacement
 
-            public bool
-                ShowCollectedPerTrial; // Whether or not to display the amount of goals/pickups collected (resets each trial)
-
-            public bool ShowNumSuccessfulTrials; // Whether or not to display the number of successful trials
             public List<int> TrialOrder; //Trial order (-1 means random)
         
-
             public bool ShowNumSuccesses; // Whether or not to display the number of successful trials
             public bool ShowBlockTotal; // Whether or not to display the amount of goals/pickups collected (resets each block)
             public bool ShowTrialTotal; // Whether or not to display the amount of goals/pickups collected (resets each trial)
