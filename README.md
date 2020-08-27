@@ -1,7 +1,7 @@
 <h1 align="center">OpenMaze</h1>
 <h1 align="center">visit our website: https://openmaze.duncanlab.org </h1>
 <p align="center"><img src="https://openmaze.duncanlab.org/_next/static/images/LP_1-5fb92a98514cd3dcbabf6f0b37eb5b25.png"></p>
-<p align="center">A simulation of the <a href="https://en.wikipedia.org/wiki/Morris_water_navigation_task">Morris Maze experiment</a> created using the OpenMaze Toolbox. 
+<p align="center">Follow along with the <a href="https://openmaze.duncanlab.org/tutorials">Learn OpenMaze Video Tutorial Series</a> to learn everything you need to know to create your first experiment!</p>  
 
 <p align="center">
 <a href="LICENSE"><img src="https://img.shields.io/github/license/DuncanLab/OpenMaze.svg"></a>
