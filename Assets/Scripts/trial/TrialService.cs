@@ -32,11 +32,6 @@ namespace trial
                     _contingencyServiceFactory.Create(trialContingenciesForBlock[trialId], trial);
                 trial.SetContingency(contingencyService);
             }
-            else
-            {
-                var contingencyService = _contingencyServiceFactory.CreateEmpty(trial);
-                trial.SetContingency(contingencyService);
-            }
         }
 
         public void GenerateAllStartingTrials(AbstractTrial currentTrial)
@@ -101,19 +96,19 @@ namespace trial
             AbstractTrial currTrial;
             if (trialDataFromIndex.Instructional == 1)
             {
-                Debug.Log("Creating new Instructional Trial");
                 trialDataFromIndex.Scene = Constants.LoadingScreen; // Modify the instructional trial to have scene 1
                 currTrial = new InstructionalTrial(_data, blockId, trialId);
+                Debug.Log($"Creating new Instructional Trial {currTrial}");
             }
             else if (trialDataFromIndex.TwoDimensional == 1)
             {
-                Debug.Log("Creating new 2D Screen Trial");
                 currTrial = new TwoDTrial(_data, blockId, trialId);
+                Debug.Log($"Creating new 2D Screen Trial {currTrial}");
             }
             else
             {
-                Debug.Log("Creating new 3D Screen Trial");
                 currTrial = new ThreeDTrial(_data, blockId, trialId);
+                Debug.Log($"Creating new 3D Screen Trial {currTrial}");
             }
 
             return currTrial;

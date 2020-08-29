@@ -69,6 +69,8 @@ namespace trial
         protected AbstractTrial(Data data, BlockId blockId, TrialId trialId)
         {
             LoadingService = loading.LoadingService.Create();
+            
+            _contingencyService = ContingencyService.ContingencyServiceFactory.Create().CreateEmpty(this);
             _data = data;
             BlockId = blockId;
             TrialId = trialId;
@@ -174,12 +176,14 @@ namespace trial
         // Load the next trial
         public virtual void Progress()
         {
-            Debug.Log("Progressing...");
             // Exiting current trial
             TrialProgress.PreviousTrial = this;
+            Debug.Log($"Progressing from {this}");
 
             var nextTrial = _contingencyService.ExecuteContingency(TrialProgress);
-
+            Debug.Log($"Target trial is {nextTrial}");
+            
+            
             Loader.Get().CurrTrial = nextTrial;
             nextTrial.PreEntry(TrialProgress);
             progressionComplete = true;

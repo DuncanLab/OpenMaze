@@ -247,11 +247,13 @@ namespace wallSystem
 
             // Wait for the sound to finish playing before ending the trial
             if (_playingSound)
+            {
                 if (!GetComponent<AudioSource>().isPlaying)
                 {
                     TrialProgress.GetCurrTrial().Progress();
                     _playingSound = false;
                 }
+            }
 
             // This first block is for the initial rotation of the character
             if (_currDelay < _waitTime)
