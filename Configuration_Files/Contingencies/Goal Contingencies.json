@@ -26,9 +26,29 @@
 	        "Contingencies": [
 		        	{
 				        "ContingencyFunction": "GoalDecisions",
-				        "ForTrials": [4,6,8],
-				        "BehaviourByResult": {"Red": {"NextTrials": [3,4]}, "Blue": {"NextTrials": [5,6]}, "End": {"NextTrials": [13]}}
-	                }
+				        "ForTrials": [4],
+				        "BehaviourByResult": {"Red": {"NextTrials": [3,4]}, "Blue": {"NextTrials": [5,6]}}
+	                },
+                    {
+                        "ContingencyFunction": "GoalDecisions",
+                        "ForTrials": [6],
+                        "BehaviourByResult": {"Purple": {"NextTrials": [7,8]}, "Red": {"NextTrials": [3,4]}}
+                    },
+                    {
+                        "ContingencyFunction": "GoalDecisions",
+                        "ForTrials": [8],
+                        "BehaviourByResult": {"Yellow": {"NextTrials": [9,10]}, "Purple": {"NextTrials": [7,8]}, "Blue": {"NextTrials": [5,6]}, "Red": {"NextTrials": [3,4]}}
+                    },
+                    {
+                        "ContingencyFunction": "GoalDecisions",
+                        "ForTrials": [10],
+                        "BehaviourByResult": {"Yellow": {"NextTrials": [9,10]}, "Purple": {"NextTrials": [7,8]}, "Blue": {"NextTrials": [5,6]}, "Red": {"NextTrials": [3,4]}, "Cyan": {"NextTrials": [11,12]}}
+                    },
+                    {
+                        "ContingencyFunction": "GoalDecisions",
+                        "ForTrials": [12],
+                        "BehaviourByResult": {"Yellow": {"NextTrials": [9,10]}, "Purple": {"NextTrials": [7,8]}, "Blue": {"NextTrials": [5,6]}, "Red": {"NextTrials": [3,4]}, "Cyan": {"NextTrials": [11,12]}, "Black": {"NextTrials": [13]}}
+                    }
 	            ]
         }
     ],
@@ -58,13 +78,13 @@
         },
         {
             "Trial 4" : "Red Enclosure",
-            "TrialTime" : 15,
+            "TrialTime" : 150,
             "Scene": 4,
             "StartPosition" : [0,0],
             "StartFacing" : 0,
             "Enclosure": 1,
             "Rotate": 0,
-            "ActiveGoals" : [1,2,6],
+            "ActiveGoals" : [1,2],
             "InvisibleGoals" : [],
             "InactiveGoals" : [],
             "Quota": 1,
@@ -81,13 +101,13 @@
         },
         {
             "Trial 6" : "Blue Enclosure",
-            "TrialTime" : 15,
+            "TrialTime" : 150,
             "Scene": 4,
             "StartPosition" : [0,0],
             "StartFacing" : 0,
             "Enclosure": 2,
             "Rotate": 0,
-            "ActiveGoals" : [1,2,6],
+            "ActiveGoals" : [1,3],
             "InvisibleGoals" : [],
             "InactiveGoals" : [],
             "Quota": 1,
@@ -105,13 +125,13 @@
         },
         {
             "Trial 8" : "Purple Enclosure",
-            "TrialTime" : 15,
+            "TrialTime" : 150,
             "Scene": 4,
             "StartPosition" : [0,0],
             "StartFacing" : 0,
             "Enclosure": 3,
             "Rotate": 0,
-            "ActiveGoals" : [1,2,6],
+            "ActiveGoals" : [1,2,3,4],
             "InvisibleGoals" : [],
             "InactiveGoals" : [],
             "Quota": 1,
@@ -129,13 +149,13 @@
         },
         {
             "Trial 10" : "Yellow Enclosure",
-            "TrialTime" : 15,
+            "TrialTime" : 150,
             "Scene": 4,
             "StartPosition" : [0,0],
             "StartFacing" : 0,
             "Enclosure": 4,
             "Rotate": 0,
-            "ActiveGoals" : [1,2,6],
+            "ActiveGoals" : [1,2,3,4,5],
             "InvisibleGoals" : [],
             "InactiveGoals" : [],
             "Quota": 1,
@@ -153,13 +173,13 @@
         },
         {
             "Trial 12" : "Cyan Enclosure",
-            "TrialTime" : 15,
+            "TrialTime" : 150,
             "Scene": 4,
             "StartPosition" : [0,0],
             "StartFacing" : 0,
             "Enclosure": 5,
             "Rotate": 0,
-            "ActiveGoals" : [1,2,6],
+            "ActiveGoals" : [1,2,3,4,5,6],
             "InvisibleGoals" : [],
             "InactiveGoals" : [],
             "Quota": 1,
@@ -196,7 +216,7 @@
             "Object": "Sphere",
             "Sound": "coin",
             "Color": "5BADDC",
-            "Position": [-5, 1, 5],
+            "Position": [5, 1, -5],
             "Rotation": [0,0,0],
             "Scale": [1, 1, 1]
         },
@@ -207,7 +227,7 @@
             "Object": "Sphere",
             "Sound": "coin",
             "Color": "6C5564",
-            "Position": [5, 1, 5],
+            "Position": [5, 1, 0],
             "Rotation": [0,0,0],
             "Scale": [1, 1, 1]
         },
@@ -218,7 +238,7 @@
             "Object": "Sphere",
             "Sound": "coin",
             "Color": "F1CB68",
-            "Position": [5, 1, 5],
+            "Position": [-5, 1, 5],
             "Rotation": [0,0,0],
             "Scale": [1, 1, 1]
         },
@@ -229,18 +249,18 @@
             "Object": "Sphere",
             "Sound": "coin",
             "Color": "75BDC5",
-            "Position": [5, 1, 5],
+            "Position": [-5, 1, -5],
             "Rotation": [0,0,0],
             "Scale": [1, 1, 1]
         },
         {
             "Goal 6" : "3D Object - Black Sphere",
-            "Tag": "End",
+            "Tag": "Black",
             "Type": "3D",
             "Object": "Sphere",
             "Sound": "coin",
             "Color": "000000",
-            "Position": [0, 1, 5],
+            "Position": [-5, 1, 0],
             "Rotation": [0,0,0],
             "Scale": [1, 1, 1]
         }
