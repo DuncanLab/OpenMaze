@@ -22,32 +22,37 @@
             "TrialOrder": [1,2,3,4,5,6,13]
         },
         {
-	        "TrialOrder": [1,2,3,4],
+	        "TrialOrder": [3,4],
 	        "Contingencies": [
-		        	{
+                    {
 				        "ContingencyFunction": "GoalDecisions",
 				        "ForTrials": [4],
-				        "BehaviourByResult": {"Red": {"NextTrials": [3,4]}, "Blue": {"NextTrials": [5,6]}}
+				        "BehaviourByResult": {"Red": {"NextTrials": [14]}, "Blue": {"NextTrials": [5,6]}}
 	                },
                     {
                         "ContingencyFunction": "GoalDecisions",
                         "ForTrials": [6],
-                        "BehaviourByResult": {"Purple": {"NextTrials": [7,8]}, "Red": {"NextTrials": [3,4]}}
+                        "BehaviourByResult": {"Purple": {"NextTrials": [7,8]}, "Red": {"NextTrials": [14]}}
                     },
                     {
                         "ContingencyFunction": "GoalDecisions",
                         "ForTrials": [8],
-                        "BehaviourByResult": {"Yellow": {"NextTrials": [9,10]}, "Purple": {"NextTrials": [7,8]}, "Blue": {"NextTrials": [5,6]}, "Red": {"NextTrials": [3,4]}}
+                        "BehaviourByResult": {"Yellow": {"NextTrials": [9,10]}, "Purple": {"NextTrials": [7,8]}, "Blue": {"NextTrials": [5,6]}, "Red": {"NextTrials": [14]}}
                     },
                     {
                         "ContingencyFunction": "GoalDecisions",
                         "ForTrials": [10],
-                        "BehaviourByResult": {"Yellow": {"NextTrials": [9,10]}, "Purple": {"NextTrials": [7,8]}, "Blue": {"NextTrials": [5,6]}, "Red": {"NextTrials": [3,4]}, "Cyan": {"NextTrials": [11,12]}}
+                        "BehaviourByResult": {"Yellow": {"NextTrials": [9,10]}, "Purple": {"NextTrials": [7,8]}, "Blue": {"NextTrials": [5,6]}, "Red": {"NextTrials": [14]}, "Cyan": {"NextTrials": [11,12]}}
                     },
                     {
                         "ContingencyFunction": "GoalDecisions",
                         "ForTrials": [12],
-                        "BehaviourByResult": {"Yellow": {"NextTrials": [9,10]}, "Purple": {"NextTrials": [7,8]}, "Blue": {"NextTrials": [5,6]}, "Red": {"NextTrials": [3,4]}, "Cyan": {"NextTrials": [11,12]}, "Black": {"NextTrials": [13]}}
+                        "BehaviourByResult": {"Yellow": {"NextTrials": [9,10]}, "Purple": {"NextTrials": [7,8]}, "Blue": {"NextTrials": [5,6]}, "Red": {"NextTrials": [14]}, "Cyan": {"NextTrials": [11,12]}, "Black": {"NextTrials": [13]}}
+                    },
+                    {
+                        "ContingencyFunction": "ContingencyFunc",
+                        "ForTrials": [14],
+                        "BehaviourByResult": {"A" : {"RestartBlock": true}}
                     }
 	            ]
         }
@@ -192,6 +197,13 @@
             "Instructional": 1,
             "FileLocation": "Contingencies/End.png",
             "TrialTime": -1,
+            "TrialEndKey": "Space"
+        },
+        {
+            "Trial 13" : "End Screen",
+            "Instructional": 1,
+            "FileLocation": "Contingencies/BackToStart.png",
+            "TrialTime": 1,
             "TrialEndKey": "Space"
         }
 
