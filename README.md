@@ -69,23 +69,25 @@ https://duncanlab.github.io/OpenMazeSite
 ## Release History / Change log
 -1.1.0
   >**new features added** 
-Start button:
+
+1. Start button:
 A "Start Experiment" button has been added to the +Launch Experiment Scene.
 
-Exit Experiment Button:
+2. Exit Experiment Button:
 An Exit button can be added instruction trials by adding the attribute value pair: "ExitButton": true. When this
 is added a button will appear at the bottom of the instruction trial and when pressed the application will close.
 Note: Data will be automatically saved. A URL may also be added to the ExitButton within the Unity Editor. See https://openmaze.duncanlab.org/documentation#onlineS for more information.
 
-Auto Run Configuration File:
+3. Auto Run Configuration File:
 The folder "AutoRun_Config" has been added to the "Configuration_Files" folder. This folder contains the configuration file "AutoRun_Test.json". When the "AutoRun_Config" folder is moved to the "StreamingAssets" folder, the "AutoRun_Test.json" configuration will be automatically executed upon launching the experiment (i.e. you will not be prompted to select a configuration file). After verifying that the AutoRun_Test Configuration File is working, it can be replaced with a Configuration File of your choosing which will execute automatically upon relaunching the experiment. There should only be one Configuration File contained within the "AutoRun_Config" folder at any given time.  To return to manually selecting a configuration file simply remove the Configuration File contained in the "AutoRun_Config" Folder contained in the "StreamingAssets" folder. 
 
-HUD Features:
+4. HUD Features:
 The Trial Attribute "Header" has been changed to "DisplayText" - functionality remains the same. "DisplayText" can also be added to Blocks
 "DisplayImage" can be added to any Trial to display an image in the HUD. "ShowTrialTotal", "ShowBlockTotal" and "ShowNumSuccesses" can be added to Blocks or Trials. See https://openmaze.duncanlab.org/documentation#configT for more information. 
 
 
 >**Tutorial Videos Discrepencies**
+
 Note: Descrepencies listed below are in addition to the discrepencies detailed in previous release notes.  
 
 All Tutorials:
