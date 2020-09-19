@@ -68,6 +68,15 @@ https://duncanlab.github.io/OpenMazeSite
 
 ## Release History / Change log
 -1.1.0
+
+>**IMPORTANT NOTES FOR UBUNTU USERS***:
+1. Image File references in Configuration Files
+Image Files referenced in Configuration Files must end uppercase .PNG. This change must be done for all tutorial Configuration Files currently ending in lowercase .png.
+2. Cannot use "space" as end key
+Space is currently assigned to the "TrialEndKey" in many of the tutorial configuration files. Unfortunately, space cannot be used as an end key on Ubuntu. Change Space to any other keyboard key to resolve this issue (e.g. "TrialEndKey" : "x")
+
+*We hope to fix these issues in future releases, thanks for your patience!
+
   >**new features added** 
 
 1. Start button:
