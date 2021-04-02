@@ -1,7 +1,7 @@
 <h1 align="center">OpenMaze</h1>
 <h1 align="center">visit the OpenMaze website: https://openmaze.duncanlab.org </h1>
-<h1 align="center">*** For the most up-to-date version of OpenMaze Documentation Visit: https://openmaze.ca ***</h1>
-<h1 align="center">*** For the most up-to-date version of OpenMaze Software Visit: https://github.com/OpenMaze-Experiment-Design ***</h1>
+<h2 align="center">For the most up-to-date version of OpenMaze Documentation Visit: https://openmaze.ca </h2>
+<h2 align="center">For the most up-to-date version of OpenMaze Software Visit: https://github.com/OpenMaze-Experiment-Design</h2>
 <p align="center"><a href="https://openmaze.duncanlab.org/tutorials"><img src="https://openmaze.duncanlab.org/_next/static/images/LP_1-5fb92a98514cd3dcbabf6f0b37eb5b25.png"></a></p>
 <p align="center">Follow along with the <a href="https://openmaze.duncanlab.org/tutorials">Learn OpenMaze Video Tutorial Series</a> to learn everything you need to know to create your first experiment!</p>  
 
